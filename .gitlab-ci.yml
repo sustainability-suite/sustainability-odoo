@@ -1,0 +1,11 @@
+syntax_check:
+  script:
+    flake8
+
+xml_syntax_check:
+  script:
+    ~/check_xml_syntax.sh
+
+xml_validation:
+  script:
+    ~/validate_odoo_xml.sh

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="ons_view_account_financial_report" model="ir.ui.view">
+            <field name="name">account.financial.html.report.form</field>
+            <field name="model">account.financial.html.report</field>
+            <field name="inherit_id" ref="account_reports.view_account_financial_report_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[last()]" position="before">
+                    <group string="Co2 Report">
+                        <group>
+                            <field name="ons_is_co2_report" />
+                            <field name="ons_carbon_monetary_currency" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
