@@ -3,12 +3,12 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2 Account",
+    "name": "CO2 Account",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "Extra Tools",
     "website": "https://www.open-net.ch",
-    "summary": "Module to track your CO2 debts",
+    "summary": "CO2 Accounting",
     "description": """
 Description
 **********************
@@ -28,6 +28,9 @@ Description
         "views/account_analytic_line.xml",
         "reports/report_invoice_document.xml",
         "views/res_config_settings.xml",
+    ],
+    "images": [
+        "static/description/co2_account_green.png",
     ],
     "installable": True,
     "auto_install": False,

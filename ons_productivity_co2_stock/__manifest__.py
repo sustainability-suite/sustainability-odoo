@@ -3,12 +3,12 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2 Stock",
+    "name": "CO2 Stock",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "Extra Tools",
     "website": "https://www.open-net.ch",
-    "summary": "Module to track your CO2 debts",
+    "summary": "Base module to support CO2 on stock moves",
     "description": """
 Description
 **********************
@@ -22,6 +22,9 @@ Description
     ],
     "data": [
         # Views
+    ],
+    "images": [
+        "static/description/co2_stock_green.png",
     ],
     "installable": True,
     "auto_install": False,

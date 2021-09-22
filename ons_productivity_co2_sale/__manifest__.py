@@ -3,12 +3,12 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2 Sale",
+    "name": "CO2 Sale",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "Extra Tools",
     "website": "https://www.open-net.ch",
-    "summary": "Module to track your CO2 debts",
+    "summary": "Track your saled CO2",
     "description": """
 Description
 **********************
@@ -23,6 +23,9 @@ Description
     "data": [
         # Views
         "views/sale_order.xml",
+    ],
+    "images": [
+        "static/description/co2_sale_green.png",
     ],
     "installable": True,
     "auto_install": False,
