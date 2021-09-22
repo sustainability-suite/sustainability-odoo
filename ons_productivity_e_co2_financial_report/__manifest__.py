@@ -3,7 +3,7 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2 Financial Report",
+    "name": "CO2 Financial Report",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "Extra Tools",
@@ -28,6 +28,9 @@ FIX    * Create a currency, warning no update with AFC.
     "data": [
         # Views
         "views/view_account_financial_report_form.xml",
+    ],
+    "images": [
+        "static/description/co2_financial_report_green.png",
     ],
     "installable": True,
     "auto_install": False,

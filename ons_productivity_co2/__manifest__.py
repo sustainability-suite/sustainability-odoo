@@ -3,12 +3,12 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2",
+    "name": "CO2 Tracking Base",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "hidden",
     "website": "https://www.open-net.ch",
-    "summary": "Module to track your CO2 debts",
+    "summary": "Base module to track your CO2 debts",
     "description": """
 Description
 **********************

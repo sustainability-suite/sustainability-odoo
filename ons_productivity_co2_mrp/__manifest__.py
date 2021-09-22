@@ -3,12 +3,12 @@
 # License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
-    "name": "Open Net Productivity: CO2 MRP",
+    "name": "CO2 MRP",
     "version": "1.0",
     "author": "Open Net Sàrl",
     "category": "Extra Tools",
     "website": "https://www.open-net.ch",
-    "summary": "Module to track your CO2 debts",
+    "summary": "CO2 manufacturing tracking",
     "description": """
 Description
 **********************
@@ -23,6 +23,9 @@ Description
     "data": [
         # Views
         "views/mrp_production.xml",
+    ],
+    "images": [
+        "static/description/co2_mrp_green.png",
     ],
     "installable": True,
     "auto_install": False,
