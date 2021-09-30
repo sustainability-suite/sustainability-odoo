@@ -70,3 +70,15 @@ class MisAccountCO2Line(models.Model):
                     account_move_line aml
             )"""
         )
+
+class InstPeriodCO2(models.Model):
+    _inherit = "mis.report.instance.period"
+    
+    def _get_additional_move_line_filter(self):
+        domain = super(InstPeriodCO2, self)._get_additional_move_line_filter()
+        if (
+            self._get_aml_model_name() == "mis.co2.account.move.line"
+            and self.report_instance_id.target_move == "posted"
+        ):
+            domain.extend([("move_id.state", "=", "posted")])
+        return domain
