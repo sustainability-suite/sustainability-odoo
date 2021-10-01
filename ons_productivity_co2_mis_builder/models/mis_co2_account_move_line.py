@@ -9,21 +9,22 @@ class MisAccountCO2Line(models.Model):
     _description = "MIS CO2 Account Line"
 
     date = fields.Date()
+    name = fields.Char(
+        string="Label",
+    )
     move_line_id = fields.Many2one(
         string="Journal Items",
         comodel_name="account.move.line",
-        help="The journal item of this CO2 entry line."
+        help="The journal item of this CO2 entry line.",
     )
     move_id = fields.Many2one(
         comodel_name='account.move',
         string='Journal Entry',
-        related="move_line_id.move_id",
-        readonly=True,
-        help="The journal entry of this CO2 entry line."
+        help="The journal entry of this CO2 entry line.",
     )
     ons_co2_currency_id = fields.Many2one(
         comodel_name="res.currency",
-        related="move_id.ons_co2_currency_id",
+        # related="move_id.ons_co2_currency_id",
         readonly=True,
     )
     account_id = fields.Many2one(
@@ -33,6 +34,10 @@ class MisAccountCO2Line(models.Model):
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
+    )
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner",
     )
     balance = fields.Monetary(
         string="CO2 Balance (Kg)",
@@ -59,15 +64,21 @@ class MisAccountCO2Line(models.Model):
                 SELECT
                     aml.id AS id,
                     aml.id AS move_line_id,
-                    aml.date as date,
-                    aml.account_id as account_id,
-                    aml.company_id as company_id,
-                    'posted'::VARCHAR as state,
-                    aml.ons_carbon_debit as debit,
-                    aml.ons_carbon_credit as credit,
-                    aml.ons_carbon_balance as balance
+                    aml.date AS date,
+                    aml.name AS name,
+                    aml.move_id AS move_id,
+                    aml.account_id AS account_id,
+                    aml.company_id AS company_id,
+                    aml.partner_id AS partner_id,
+                    am.ons_co2_currency_id AS ons_co2_currency_id,
+                    'posted'::VARCHAR AS state,
+                    aml.ons_carbon_debit AS debit,
+                    aml.ons_carbon_credit AS credit,
+                    aml.ons_carbon_balance AS balance
                 FROM
-                    account_move_line aml
+                    account_move_line AS aml
+                INNER JOIN account_move AS am ON
+                    am.id = aml.move_id
             )"""
         )
 
@@ -76,6 +87,8 @@ class InstPeriodCO2(models.Model):
     
     def _get_additional_move_line_filter(self):
         domain = super(InstPeriodCO2, self)._get_additional_move_line_filter()
+        if self._get_aml_model_name() == "mis.co2.account.move.line":
+            domain.extend([("move_id.state", "!=", "cancel")])
         if (
             self._get_aml_model_name() == "mis.co2.account.move.line"
             and self.report_instance_id.target_move == "posted"
