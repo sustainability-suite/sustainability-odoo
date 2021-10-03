@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 # © 2021 Open Net Sarl
+# License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 {
     "name": "Open Net Productivity: CO2 MIS Builder",
@@ -13,4 +15,5 @@
         "security/ir.model.access.csv",
     ],
     "installable": True,
+    "license": "OPL-1",
 }
