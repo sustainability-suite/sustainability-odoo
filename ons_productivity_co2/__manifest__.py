@@ -29,6 +29,9 @@ Description
         "views/res_country.xml",
         "views/res_company.xml",
     ],
+    "images": [
+        "static/description/co2_base_green.png",
+    ],
     "installable": True,
     "auto_install": False,
     "license": "OPL-1",
