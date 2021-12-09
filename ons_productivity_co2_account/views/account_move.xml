@@ -12,7 +12,7 @@
                     <field name="ons_carbon_credit" invisible="1"/>
                     <field name="ons_carbon_balance" invisible="1"/>
                 </xpath>
-                <xpath expr="//field[@name='amount_total'][2]" position="after">
+                <xpath expr="//field[@name='amount_residual']" position="after">
                     <field name="ons_carbon_debt"/>
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//tree//field[@name='credit']" position="after">
