@@ -12,7 +12,7 @@
                 <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position="after">
                     <field name="ons_carbon_debt"/>
                 </xpath>
-                <xpath expr="//field[@name='amount_total']" position="after">
+                <xpath expr="//field[@name='tax_totals_json']" position="after">
                     <field name="ons_carbon_debt"/>
                 </xpath>
             </field>
