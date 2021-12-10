@@ -109,7 +109,7 @@ class AccountingCo2FinancialReportLine(models.Model):
 
         results = {}
 
-        parent_financial_report._cr_execute(options_list[0], ' UNION ALL '.join(queries), params)
+        parent_financial_report._cr.execute(' UNION ALL '.join(queries), params)
 
         for res in self._cr.dictfetchall():
             # Build the key.
@@ -271,8 +271,7 @@ class AccountingCo2FinancialReportLine(models.Model):
             'sum_if_neg_groupby': {},
             'count_rows': {},
         }
-
-        parent_financial_report._cr_execute(options_list[0], ' UNION ALL '.join(queries), params)
+        parent_financial_report._cr.execute(' UNION ALL '.join(queries), params=params)
 
         for res in self._cr.dictfetchall():
             # Build the key.
