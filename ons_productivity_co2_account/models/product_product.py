@@ -35,6 +35,7 @@ class ProductProduct(models.Model):
         self.ensure_one()
         if vals is None:
             vals = {}
+        account = self.ons_get_co2_account_account()
         vals.update({
             'display_type': False,
             'name': self.name,
@@ -42,7 +43,7 @@ class ProductProduct(models.Model):
             'product_uom_id': self.uom_id.id,
             'quantity': qty,
             'price_unit': 0,
-            'account_id': self.ons_get_co2_account_account(),
+            'account_id': account.id,
         })
 
         if is_debit:

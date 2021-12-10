@@ -22,7 +22,9 @@ Description
     ],
     "data": [
         # Views
+        "views/mrp_bom.xml",
         "views/mrp_production.xml",
+        "views/product_template.xml",
     ],
     "images": [
         "static/description/co2_mrp_green.png",

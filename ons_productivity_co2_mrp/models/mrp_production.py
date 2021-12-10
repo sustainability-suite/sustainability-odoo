@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # © 2021 Open Net Sarl
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
 
 
-from odoo import models, fields
+from odoo import models, fields, api
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -23,13 +23,21 @@ class MrpProduction(models.Model):
     )
 
     ons_carbon_account_move = fields.Many2one(
-        'account.move'
+        'account.move',
+        string="CO2 Account Move",
+        readonly=True,
     )
+
+    @api.onchange("bom_id", "product_qty")
+    def _set_co2_offset(self):
+        for prod in self:
+            prod.ons_carbon_offset = (
+                prod.bom_id.ons_carbon_offset * prod.product_qty
+            )
 
     def button_mark_done(self):
         res = super(MrpProduction, self).button_mark_done()
-        if self.env.company.ons_get_co2_account_account:
-            self.ons_generate_co2_account_move()
+        # self.ons_generate_co2_account_move()
         return res
 
     def ons_get_co2_account_account(self):
@@ -79,4 +87,3 @@ class MrpProduction(models.Model):
         finished_move["ons_carbon_credit"] = consummed + self.ons_carbon_offset
         
         return [finished_move] + lines
-
