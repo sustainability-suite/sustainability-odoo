@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
 
     def _get_ons_carbon_debt(self):
         for line in self:
-            computed_cost = (
+            computed_cost = abs(
                 line.price_subtotal
                 or line.credit
                 or line.debit
