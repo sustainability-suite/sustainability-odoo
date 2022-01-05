@@ -20,12 +20,12 @@ class PurchaseOrderLine(models.Model):
     @api.onchange("product_id", "product_qty")
     def _set_ons_carbon_debt(self):
         for line in self.filtered("product_id"):
-            debt = self.ons_get_carbon_credit()
+            debt = self.ons_get_carbon_amount()
             line.ons_carbon_debt = debt
 
-    def ons_get_carbon_credit(self):
+    def ons_get_carbon_amount(self):
         self.ensure_one()
-        return self.product_id.ons_get_carbon_credit(
+        return self.product_id.ons_get_carbon_debit(
             self.product_qty,
             cost=self.price_subtotal,
             partner_id=self.order_id.partner_id,

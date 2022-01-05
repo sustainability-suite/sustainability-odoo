@@ -30,7 +30,7 @@ class ProductProduct(models.Model):
         help="Used to compute the CO2 debt relatively to the product unit",
     )
 
-    def ons_get_carbon_debit(self, qty, cost=None, partner_id=None, country_id=None):
+    def ons_get_carbon_credit(self, qty, cost=None, partner_id=None, country_id=None):
         if not self:
             return cost * self.env.user.company_id.ons_carbon_ratio
 
@@ -47,7 +47,7 @@ class ProductProduct(models.Model):
         return 0
 
 
-    def ons_get_carbon_credit(self, qty, cost=None, partner_id=None, country_id=None):
+    def ons_get_carbon_debit(self, qty, cost=None, partner_id=None, country_id=None):
         """
             For consistency, the cost passed must always be in the same currency (normally, the company currency).
             No conversion will be done in this function.
@@ -59,15 +59,15 @@ class ProductProduct(models.Model):
             return 0
             
         # Take partner from context if None?
-        debt = self._ons_get_carbon_credit_by_qty(qty, partner_id)
+        debt = self._ons_get_carbon_debit_by_qty(qty, partner_id)
         if debt:
             return debt
         if not cost:
             return 0
         # Take country_id from partner_id if None?
-        return self._ons_get_carbon_credit_by_cost(cost, partner_id, country_id)
+        return self._ons_get_carbon_debit_by_cost(cost, partner_id, country_id)
 
-    def _ons_get_carbon_credit_by_qty(self, qty, partner_id=None):
+    def _ons_get_carbon_debit_by_qty(self, qty, partner_id=None):
         self.ensure_one()
         if qty <= 0:
             return 0
@@ -95,7 +95,7 @@ class ProductProduct(models.Model):
         # Check from product.category?
         return 0
             
-    def _ons_get_carbon_credit_by_cost(self, cost, partner_id=None, country_id=None):
+    def _ons_get_carbon_debit_by_cost(self, cost, partner_id=None, country_id=None):
         # Nb: Needs the undiscounted cost
         self.ensure_one()
         if cost <= 0:
