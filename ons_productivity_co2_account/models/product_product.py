@@ -17,18 +17,16 @@ class ProductProduct(models.Model):
             return
         res = self.env["account.move.line"].read_group(
             [("product_id", "in", self.ids)],
-            ["ons_carbon_credit:sum", "ons_carbon_debit:sum"],
+            ["ons_carbon_balance:sum", "ons_carbon_debit:sum"],
             ["product_id"]
         )
         groups = {
-            r.get("product_id"): r
+            r.get("product_id", (None, None))[0]: r
             for r in res
         }
         for product in self:
-            data = groups.get((product.id, product.name), {})
-            ons_carbon_credit = data.get("ons_carbon_credit", 0)
-            ons_carbon_debit = data.get("ons_carbon_debit", 0)
-            product.ons_carbon_debt = ons_carbon_debit - ons_carbon_credit
+            data = groups.get(product.id, {})
+            product.ons_carbon_debt = data.get("ons_carbon_balance", 0)
 
     def _ons_prepare_co2_account_move_line(self, qty, vals=None, is_debit=True, **kw):
         """ Based on sale.order.line _prepare_invoice_line and purchase.order.line _prepare_account_move_line """

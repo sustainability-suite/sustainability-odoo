@@ -75,14 +75,14 @@ class MrpProduction(models.Model):
         self.ensure_one()
 
         lines = [
-            move._ons_prepare_co2_account_move_line(is_debit=True)
+            move._ons_prepare_co2_account_move_line(is_debit=False)
             for move in self.move_raw_ids
         ]
 
         consummed = sum(l.get("ons_carbon_debit", 0) for l in lines)
         finished_move = self.product_id._ons_prepare_co2_account_move_line(
             self.product_qty,
-            is_debit=False,
+            is_debit=True,
         )
         finished_move["ons_carbon_credit"] = consummed + self.ons_carbon_offset
         

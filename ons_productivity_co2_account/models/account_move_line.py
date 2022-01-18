@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
 
     def _get_ons_carbon_debt(self):
         for line in self:
-            computed_cost = (
+            computed_cost = abs(
                 line.price_subtotal
                 or line.credit
                 or line.debit
@@ -34,12 +34,12 @@ class AccountMoveLine(models.Model):
                 return computed_cost * line.account_id.ons_carbon_ratio
                 
             if line.credit:
-                return line.product_id.ons_get_carbon_debit(
+                return line.product_id.ons_get_carbon_credit(
                     line.quantity,
                     cost=computed_cost,
                 )
             elif line.debit:
-                return line.product_id.ons_get_carbon_credit(
+                return line.product_id.ons_get_carbon_debit(
                     line.quantity,
                     cost=computed_cost,
                 )
@@ -181,15 +181,15 @@ class AccountMoveLine(models.Model):
             return data
         # Only ons_carbon_debt provided
         if self.debit:
-            sign = -1
-        elif self.credit:
             sign = 1
+        elif self.credit:
+            sign = -1
         else:
             move_type = move_type or self.move_id.move_type
             if move_type in self.move_id.get_inbound_types():
-                sign = 1
-            else:
                 sign = -1
+            else:
+                sign = 1
 
         balance = ons_carbon_debt * sign
         

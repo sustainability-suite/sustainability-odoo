@@ -17,7 +17,7 @@ class SaleOrderLine(models.Model):
     @api.onchange("product_id", "product_uom_qty", "price_subtotal")
     def _set_ons_carbon_debt(self):
         for line in self.filtered("product_id"):
-            debt = line.product_id.ons_get_carbon_debit(line.product_uom_qty, cost=line.price_subtotal)
+            debt = line.product_id.ons_get_carbon_credit(line.product_uom_qty, cost=line.price_subtotal)
             line.ons_carbon_debt = debt
 
     
