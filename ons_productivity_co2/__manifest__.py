@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # © 2021 Open Net Sarl
-# License OPL-1 or later (https://www.odoo.com/documentation/14.0/legal/licenses.html#odoo-apps).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     "name": "CO2 Tracking Base",
@@ -34,8 +34,6 @@ Description
     ],
     "installable": True,
     "auto_install": False,
-    "license": "OPL-1",
-    "price": 450,
-    "currency": "EUR",
+    "license": "AGPL-3",
     "sequence": 1,
 }
