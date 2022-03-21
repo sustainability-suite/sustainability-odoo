@@ -34,7 +34,7 @@ class AccountAsset(models.Model):
                 line.ons_carbon_debt = value
                 line._ons_co2_onchange_ons_carbon_debt()
             
-            if iteration == self.method_number - 1:
+            if iteration == len(todo) - 1:
                 amount = co2_total - co2_temp
 
             else:
