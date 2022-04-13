@@ -9,7 +9,7 @@ class AccountingCo2FinancialReportLine(models.Model):
     _inherit = "account.financial.html.report.line"
 
     # BLG: This method overrides the one declared in "enterprise/account_reports/models/account_financial_report.py"
-    def _compute_amls_results(self, options_list, calling_financial_report=None, sign=1):
+    def _compute_amls_results(self, options_list, calling_financial_report=None, sign=1, operator=None):
 
         """Compute the results for the unfolded lines by taking care about the line order and the group by filter.
 
