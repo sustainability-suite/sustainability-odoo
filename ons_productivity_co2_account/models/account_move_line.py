@@ -54,7 +54,7 @@ class AccountMoveLine(models.Model):
     # Related field used to display account_user_type in account.move.line's view
     ons_account_user_type = fields.Selection(
         string="Type",
-        related="account_id.user_type_id.type",
+        related="account_id.account_type",
         store=True,
     )
 

@@ -9,8 +9,8 @@
                 <xpath expr="//field[@name='order_line']//field[@name='price_subtotal']" position="after">
                     <field name="ons_carbon_debt" optional="show"/>
                 </xpath>
-                <xpath expr="//field[@name='tax_totals_json']" position="after">
-                    <field name="ons_carbon_debt"/>
+                <xpath expr="//field[@name='tax_totals']" position="after">
+                    <field name="ons_carbon_debt" />
                 </xpath>
             </field>
         </record>

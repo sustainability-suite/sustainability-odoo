@@ -13,7 +13,7 @@ class AccountAnalyticLine(models.Model):
 
     ons_co2_currency_id = fields.Many2one(
         'res.currency',
-        related='move_id.ons_co2_currency_id',
+        related='move_line_id.ons_co2_currency_id',
         readonly=True,
     )
 

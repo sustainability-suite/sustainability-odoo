@@ -5,7 +5,7 @@
         <field name="model">account.asset</field>
         <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='depreciation_board']//field[@name='depreciation_move_ids']//tree//field[@name='amount_total']" position="after">
+            <xpath expr="//page[@name='depreciation_board']//field[@name='depreciation_move_ids']//tree//field[@name='depreciation_value']" position="after">
                 <field
                     name="ons_carbon_debt_deferred"
                     widget="monetary"
