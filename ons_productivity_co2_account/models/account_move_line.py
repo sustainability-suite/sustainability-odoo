@@ -89,12 +89,12 @@ class AccountMoveLine(models.Model):
             data["ons_carbon_debt"] = move_line_id.ons_carbon_balance
         return res
 
-    def _prepare_analytic_distribution_line(self, distribution):
+    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan):
         res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(
-            distribution
+            distribution, account_id, distribution_on_each_plan
         )
         res["ons_carbon_debt"] = (
-            -self.ons_carbon_balance * distribution.percentage / 100.0
+            -self.ons_carbon_balance * distribution / 100.0
         )
         return res
 
