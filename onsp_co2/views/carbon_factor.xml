@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="carbon_factor_tree" model="ir.ui.view">
+            <field name="name">carbon.factor.tree</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="display_name" string="Name"/>
+                    <field name="carbon_value" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="carbon_factor_form" model="ir.ui.view">
+            <field name="name">carbon.factor.form</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1><field name="name" /></h1>
+                        <group>
+                            <field name="parent_id" />
+                        </group>
+                        <group string="CO2 values">
+                            <field name="carbon_value" />
+                        </group>
+
+                        <notebook>
+                            <page string="Child factors" name="page_child_factors">
+                                <field name="child_ids" colspan="2" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" />
+                                        <field name="carbon_value" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="carbon_factor_action" model="ir.actions.act_window">
+            <field name="name">CO2 Emission Factors</field>
+            <field name="res_model">carbon.factor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

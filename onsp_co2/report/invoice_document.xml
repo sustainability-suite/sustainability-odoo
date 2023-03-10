@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document" >
+            <xpath expr="//span[@t-field='o.narration']/../.." position="after">
+                <t t-if="o.carbon_debt">
+                    <div style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;">
+                        <strong>Equivalence CO<sub>2</sub> : </strong> <span t-out="o.carbon_debt"/> <span t-out="o.carbon_currency_id.name" />
+                        <div t-out="o.company_id.invoice_report_footer" />
+                    </div>
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

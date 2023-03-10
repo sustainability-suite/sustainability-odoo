@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_form" model="ir.ui.view">
+            <field name="name">view_account_form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <group string="CO2 Settings" name="group_carbon_settings">
+
+                        <field name="use_carbon_value" />
+
+                        <label for="carbon_value" attrs="{'invisible': [('use_carbon_value', '=', False)]}" />
+                        <div class="o_row" attrs="{'invisible': [('use_carbon_value', '=', False)]}" >
+                            <field name="carbon_value" class="oe_inline" attrs="{'readonly': [('carbon_factor_id', '!=', False)]}" force_save="1" />
+                            <button type="object"
+                                    name="action_see_origin"
+                                    icon="fa-question-circle"
+                                    context="{'carbon_value_name': 'carbon_value'}"
+                                    title="See CO2e value origin"
+                                    attrs="{'invisible': [('carbon_factor_id', '!=', False)]}" />
+                            <button type="object"
+                                    name="action_recompute"
+                                    icon="fa-refresh"
+                                    context="{'carbon_value_name': 'carbon_value'}"
+                                    title="Re-compute CO2e value"
+                                    attrs="{'invisible': [('carbon_factor_id', '!=', False)]}"
+                                    confirm="Do you really want to auto-compute the value? This could also update some related records." />
+                            <span class="oe_inline" style="font-weight: bold">Emission Factor: </span>
+                            <field name="carbon_factor_id" class="oe_inline" />
+                        </div>
+                        <field name="carbon_value_origin" force_save="1" invisible="1" />
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

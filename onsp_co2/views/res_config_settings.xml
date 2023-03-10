@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.co2</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="CO2" string="CO2" data-key="onsp_co2">
+                    <h2>General</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-6 o_setting_box" title="Setup CO2 integration">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default CO<sub>2</sub>e value</span>
+                                <div class="text-muted">
+                                    <p>Used as a fallback value</p>
+                                </div>
+                                <div>
+                                    <field name="carbon_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default CO<sub>2</sub>e sale value</span>
+                                <div class="text-muted">
+                                    <p>Used as a fallback value for sales</p>
+                                </div>
+                                <div>
+                                    <field name="carbon_sale_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_sale_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h2>Reports</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-12 o_setting_box" title="Setup CO2 integration">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Invoice report footer</span>
+<!--                                <div class="text-muted">-->
+<!--                                    <p>Use %s to display the CO<sub>2</sub> value</p>-->
+<!--                                </div>-->
+                                <div>
+                                    <field name="invoice_report_footer" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
