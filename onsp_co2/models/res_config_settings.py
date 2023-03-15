@@ -1,7 +1,4 @@
-from odoo import api, fields, models, _
-
-import logging
-_logger = logging.getLogger(__name__)
+from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
@@ -15,9 +12,9 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.carbon_sale_value',
         readonly=False,
     )
-
     invoice_report_footer = fields.Html(
         related='company_id.invoice_report_footer',
-        readonly=False
+        readonly=False,
+        translate=True,
     )
 

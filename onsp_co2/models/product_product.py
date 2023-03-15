@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 
@@ -24,32 +24,17 @@ class ProductProduct(models.Model):
     """
     def _get_carbon_value_fallback_records(self) -> list:
         res = super(ProductProduct, self)._get_carbon_value_fallback_records()
-        supplierinfo_fallbacks = []
-        for seller in self.seller_ids:
-            supplierinfo_fallbacks.extend([seller] + seller._get_carbon_value_fallback_records())
-
-        return res + supplierinfo_fallbacks + [self.product_tmpl_id, self.categ_id]
+        return res + [self.product_tmpl_id]
 
     def _get_carbon_sale_value_fallback_records(self) -> list:
         res = super(ProductProduct, self)._get_carbon_sale_value_fallback_records()
-        return res + [self.product_tmpl_id, self.categ_id]
-
-
-    @api.depends('product_tmpl_id.carbon_value', 'categ_id.carbon_value', 'company_id.carbon_value')
-    def _compute_carbon_value(self):
-        # Todo: check how often this should be recomputed. Idea: add an `update_mode` field + onchange to make fine grained autocompute
-        super()._compute_carbon_value()
-
-    @api.depends('product_tmpl_id.carbon_sale_value', 'categ_id.carbon_sale_value', 'company_id.carbon_sale_value')
-    def _compute_carbon_sale_value(self):
-        # Todo: check how often this should be recomputed. Idea: add an `update_mode` field + onchange to make fine grained autocompute
-        super()._compute_carbon_sale_value()
+        return res + [self.product_tmpl_id]
 
 
 
     def get_carbon_value(self, value_type: str, quantity: float = None, price: float = None) -> float:
         """
-        Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (sale/purchase)
+        Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
         Used in account.move.line to compute carbon debt if a product is set.
         """
         self.ensure_one()

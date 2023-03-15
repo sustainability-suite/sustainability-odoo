@@ -8,10 +8,10 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
                 <div class="app_settings_block" data-string="CO2" string="CO2" data-key="onsp_co2">
-                    <h2>General</h2>
+                    <h2>Accounting</h2>
                     <div class="row mt16 o_settings_container">
 
-                        <div class="col-12 col-lg-6 o_setting_box" title="Setup CO2 integration">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Default CO<sub>2</sub>e value</span>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-lg-6 o_setting_box" >
+                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value for sales">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Default CO<sub>2</sub>e sale value</span>
@@ -41,13 +41,13 @@
 
                     </div>
 
-                    <h2>Reports</h2>
+                    <h2>Documents</h2>
                     <div class="row mt16 o_settings_container">
 
                         <div class="col-12 col-lg-12 o_setting_box" title="Setup CO2 integration">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
-                                <span class="o_form_label">Invoice report footer</span>
+                                <span class="o_form_label">Invoice document footer</span>
 <!--                                <div class="text-muted">-->
 <!--                                    <p>Use %s to display the CO<sub>2</sub> value</p>-->
 <!--                                </div>-->

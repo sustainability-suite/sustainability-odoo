@@ -14,7 +14,7 @@ Description
 **********************
 """,
     "depends": [
-        "account_accountant",       # Todo: double check that this is the right thing to do. Should be okay with new prices plan
+        "account",
     ],
     "data": [
         # Security
@@ -24,15 +24,15 @@ Description
         "views/account_account.xml",
         "views/account_analytic_line.xml",
         "views/account_move.xml",
+        "views/account_move_line.xml",
 
-        # "views/product_product.xml",
         "views/product_template.xml",
 
         "views/carbon_factor.xml",
         "views/product_category.xml",
         # "views/res_partner.xml",
         # "views/product_supplierinfo.xml",
-        # "views/res_country.xml",
+        "views/res_country.xml",
         "views/res_config_settings.xml",
 
         # Reports

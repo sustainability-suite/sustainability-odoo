@@ -1,36 +1,35 @@
 from odoo import api, fields, models, _
 
+
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     carbon_currency_id = fields.Many2one(related="move_id.carbon_currency_id")
-
     carbon_debt = fields.Monetary(
-        string="CO2 Debt (Kg)",
+        string="CO2 Debt",
         currency_field="carbon_currency_id",
         help="A positive value means that your system's debt grows, a negative value means it shrinks",
         compute="_compute_carbon_debt",
         readonly=False,
         store=True,
     )
-
     # Todo: fix origin + general logic flow
     carbon_value_origin = fields.Char(compute="_compute_carbon_debt", string="CO2e value origin", store=True)
 
     carbon_balance = fields.Monetary(
-        string="CO2 Balance (Kg)",
+        string="CO2 Balance",
         currency_field="carbon_currency_id",
         compute="_compute_carbon_balance",
         store=True,
     )
     carbon_debit = fields.Monetary(
-        string="CO2 Debit (Kg)",
+        string="CO2 Debit",
         currency_field="carbon_currency_id",
         compute="_compute_carbon_debit_credit",
         store=True,
     )
     carbon_credit = fields.Monetary(
-        string="CO2 Credit (Kg)",
+        string="CO2 Credit",
         currency_field="carbon_currency_id",
         compute="_compute_carbon_debit_credit",
         store=True,
@@ -41,7 +40,6 @@ class AccountMoveLine(models.Model):
     #                   COMPUTE
     # --------------------------------------------
 
-    # Note: we don't use the carbon value from line for now
 
     @api.depends("carbon_debit", "carbon_credit")
     def _compute_carbon_balance(self):
@@ -68,15 +66,11 @@ class AccountMoveLine(models.Model):
         'price_subtotal',
         'move_type',
     )
-    def _compute_carbon_debt(self):
-        for line in self.filtered(lambda l: l.move_id.state == 'draft'):
+    def _compute_carbon_debt(self, force_compute: bool = False):
+        lines = self if force_compute else self.filtered(lambda l: l.move_id.state == 'draft')
+        for line in lines:
             debt = 0
             origin = ""
-            """
-            This part could probably be improved, as we duplicate the "fallback mechanics"
-            The best would be to have a carbon_(sale_)value for the line that would be computed from account/product
-            but for now I keep it as is because it was computed that way in legacy module
-            """
             if line.use_account_carbon_value():
                 debt = line.price_subtotal * line.account_id.carbon_value
                 origin = line.account_id.carbon_value_origin
@@ -99,7 +93,7 @@ class AccountMoveLine(models.Model):
     # --------------------------------------------
 
 
-    def action_see_origin(self):
+    def action_see_carbon_origin(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.client',
@@ -112,7 +106,7 @@ class AccountMoveLine(models.Model):
                 'next': {'type': 'ir.actions.act_window_close'},
             },
         }
-        # return super(AccountMoveLine, self).action_see_origin()
+        # return super(AccountMoveLine, self).action_see_carbon_origin()
 
 
 
@@ -122,7 +116,11 @@ class AccountMoveLine(models.Model):
     # --------------------------------------------
 
 
-    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan):
+    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan) -> dict:
+        """
+        To be tested functionally
+        I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job
+        """
         res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(distribution, account_id, distribution_on_each_plan)
         res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
         return res

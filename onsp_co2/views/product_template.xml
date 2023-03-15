@@ -16,18 +16,18 @@
                         <div class="o_row">
                             <field name="carbon_value" class="oe_inline" attrs="{'readonly': [('carbon_factor_id', '!=', False)]}" force_save="1" />
                             <button type="object"
-                                    name="action_see_origin"
+                                    name="action_see_carbon_origin"
                                     icon="fa-question-circle"
                                     context="{'carbon_value_name': 'carbon_value'}"
                                     title="See CO2e value origin"
                                     attrs="{'invisible': [('carbon_factor_id', '!=', False)]}" />
                             <button type="object"
-                                    name="action_recompute"
+                                    name="action_recompute_carbon"
                                     icon="fa-refresh"
                                     context="{'carbon_value_name': 'carbon_value'}"
                                     title="Re-compute CO2e value"
                                     attrs="{'invisible': [('carbon_factor_id', '!=', False)]}"
-                                    confirm="Do you really want to auto-compute the value? This could also update some related records." />
+                                    confirm="Do you really want to re-compute the value?" />
                             <span class="oe_inline" style="font-weight: bold">Emission Factor: </span>
                             <field name="carbon_factor_id" class="oe_inline" />
                         </div>
@@ -38,18 +38,18 @@
                         <div class="o_row">
                             <field name="carbon_sale_value" class="oe_inline" attrs="{'readonly': [('carbon_sale_factor_id', '!=', False)]}" force_save="1" />
                             <button type="object"
-                                    name="action_see_origin"
+                                    name="action_see_carbon_origin"
                                     icon="fa-question-circle"
                                     context="{'carbon_value_name': 'carbon_sale_value'}"
                                     title="See CO2e value origin"
                                     attrs="{'invisible': [('carbon_sale_factor_id', '!=', False)]}" />
                             <button type="object"
-                                    name="action_recompute"
+                                    name="action_recompute_carbon"
                                     icon="fa-refresh"
                                     context="{'carbon_value_name': 'carbon_sale_value'}"
                                     title="Re-compute CO2e value"
                                     attrs="{'invisible': [('carbon_sale_factor_id', '!=', False)]}"
-                                    confirm="Do you really want to auto-compute the value? This could also update some related records." />
+                                    confirm="Do you really want to re-compute the value?" />
                             <span class="oe_inline" style="font-weight: bold">Emission Factor: </span>
                             <field name="carbon_sale_factor_id" class="oe_inline" />
                         </div>
