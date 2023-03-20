@@ -72,11 +72,11 @@ class MisAccountCO2Line(models.Model):
                     aml.account_id AS account_id,
                     aml.company_id AS company_id,
                     aml.partner_id AS partner_id,
-                    am.ons_co2_currency_id AS ons_co2_currency_id,
+                    am.carbon_currency_id AS ons_co2_currency_id,
                     'posted'::VARCHAR AS state,
-                    aml.ons_carbon_debit AS debit,
-                    aml.ons_carbon_credit AS credit,
-                    aml.ons_carbon_balance AS balance
+                    aml.carbon_debit AS debit,
+                    aml.carbon_credit AS credit,
+                    aml.carbon_balance AS balance
                 FROM
                     account_move_line AS aml
                 INNER JOIN account_move AS am ON

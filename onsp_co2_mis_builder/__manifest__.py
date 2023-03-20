@@ -9,11 +9,12 @@
     "author": "Open-Net Sàrl",
     "category": "Extra Tools",
     "website": "www.open-net.ch",
-    "depends": ["mis_builder", "ons_productivity_co2_account"],
+    "depends": ["mis_builder", "onsp_co2"],
     "data": [
         "views/mis_co2_account_move_line_views.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,
+    "auto_install": True,
     "license": "AGPL-3",
 }
