@@ -7,8 +7,12 @@
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="carbon_currency_id" invisible="1" />
+                    <field name="carbon_compute_method" invisible="1" />
                     <field name="display_name" string="Name"/>
-                    <field name="carbon_value" />
+                    <field name="carbon_value" widget="monetary" options="{'currency_field': 'carbon_currency_id'}" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
+                    <field name="unit_label" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
+
                 </tree>
             </field>
         </record>
@@ -18,21 +22,41 @@
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
                 <form>
+                    <field name="carbon_currency_id" invisible="1" />
                     <sheet>
                         <h1><field name="name" /></h1>
+
                         <group>
                             <field name="parent_id" />
                         </group>
-                        <group string="CO2 values">
-                            <field name="carbon_value" />
+
+                        <group>
+                            <group>
+                                <field name="carbon_compute_method" />
+                            </group>
+                            <group attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
+                                <label for="carbon_value" />
+                                <div class="o_row">
+                                    <field name="carbon_value" nolabel="1" class="oe_inline" />
+                                    <field name="carbon_currency_label" class="font-italic" style="color: grey;" />
+                                    <span class="oe_inline">/</span>
+                                    <field name="carbon_uom_id" attrs="{'invisible': [('carbon_compute_method', '!=', 'physical')], 'required': [('carbon_compute_method', '=', 'physical')]}" nolabel="1" class="oe_inline" />
+                                    <field name="carbon_monetary_currency_id" attrs="{'invisible': [('carbon_compute_method', '!=', 'monetary')], 'required': [('carbon_compute_method', '=', 'monetary')]}" nolabel="1" class="oe_inline" />
+                                </div>
+                            </group>
                         </group>
+
+
 
                         <notebook>
                             <page string="Child factors" name="page_child_factors">
                                 <field name="child_ids" colspan="2" nolabel="1">
                                     <tree editable="bottom">
+                                        <field name="carbon_currency_id" invisible="1" />
+                                        <field name="carbon_compute_method" invisible="1" />
                                         <field name="name" />
-                                        <field name="carbon_value" />
+                                        <field name="carbon_value" widget="monetary" options="{'currency_field': 'carbon_currency_id'}" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
+                                        <field name="unit_label" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
                                     </tree>
                                 </field>
                             </page>

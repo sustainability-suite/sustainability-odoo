@@ -13,7 +13,6 @@ class AccountMoveLine(models.Model):
         readonly=False,
         store=True,
     )
-    # Todo: fix origin + general logic flow
     carbon_value_origin = fields.Char(compute="_compute_carbon_debt", string="CO2e value origin", store=True)
 
     carbon_balance = fields.Monetary(
@@ -61,8 +60,20 @@ class AccountMoveLine(models.Model):
     @api.depends(
         'account_id.use_carbon_value',
         'account_id.carbon_value',
+        'account_id.carbon_compute_method',
+        'account_id.carbon_uom_id',
+        'account_id.carbon_monetary_currency_id',
+
         'product_id.carbon_value',
+        'product_id.carbon_compute_method',
+        'product_id.carbon_uom_id',
+        'product_id.carbon_monetary_currency_id',
+
         'product_id.carbon_sale_value',
+        'product_id.carbon_compute_method',
+        'product_id.carbon_uom_id',
+        'product_id.carbon_monetary_currency_id',
+
         'price_subtotal',
         'move_type',
     )
@@ -71,16 +82,28 @@ class AccountMoveLine(models.Model):
         for line in lines:
             debt = 0
             origin = ""
-            if line.use_account_carbon_value():
+
+            if line.move_id.is_inbound(include_receipts=True):
+                line_type = "credit"
+            elif line.move_id.is_outbound(include_receipts=True):
+                line_type = "debit"
+            else:
+                line.carbon_debt = debt
+                line.carbon_value_origin = origin
+                continue
+
+            if line.use_product_carbon_value():
+                debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=line.price_subtotal)
+                origin = line.product_id.carbon_sale_value_origin if line_type == 'credit' else line.product_id.carbon_value_origin
+                origin += "|" + str(infos[0])
+            elif line.use_account_carbon_value():
                 debt = line.price_subtotal * line.account_id.carbon_value
-                origin = line.account_id.carbon_value_origin
-            elif line.use_product_carbon_value():
-                if line.move_id.is_inbound(include_receipts=True):
-                    debt = line.product_id.get_carbon_value('credit', quantity=line.quantity, price=line.price_subtotal)
-                    origin = line.product_id.carbon_sale_value_origin
-                elif line.move_id.is_outbound(include_receipts=True):
-                    debt = line.product_id.get_carbon_value('debit', quantity=line.quantity, price=line.price_subtotal)
-                    origin = line.product_id.carbon_value_origin
+                origin = line.account_id.carbon_value_origin + "|" + str(round(line.account_id.carbon_value, 4))
+            else:
+                company = line.move_id.company_id or self.env.company
+                carbon_value = company.carbon_sale_value if line_type == 'credit' else company.carbon_value
+                debt = line.price_subtotal * carbon_value
+                origin = company.name + "|" + str(carbon_value)
 
             line.carbon_debt = debt
             line.carbon_value_origin = origin
@@ -95,20 +118,18 @@ class AccountMoveLine(models.Model):
 
     def action_see_carbon_origin(self):
         self.ensure_one()
+        origin, value = self.carbon_value_origin.split("|")
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': f"CO2e Value: {self.carbon_value_origin or 'None'}",
-                'message': self.carbon_value_origin or _("No CO2e origin for this record"),
+                'title': f"CO2e Value: {value or 'None'}",
+                'message': origin or _("No CO2e origin for this record"),
                 'type': 'info',
-                'sticky': True,
+                'sticky': False,
                 'next': {'type': 'ir.actions.act_window_close'},
             },
         }
-        # return super(AccountMoveLine, self).action_see_carbon_origin()
-
-
 
 
     # --------------------------------------------
@@ -127,8 +148,11 @@ class AccountMoveLine(models.Model):
 
     def use_account_carbon_value(self) -> bool:
         self.ensure_one()
-        return not self.product_id and self.account_id.use_carbon_value
+        return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_value()
 
     def use_product_carbon_value(self) -> bool:
         self.ensure_one()
-        return bool(self.product_id)
+        return self.product_id and (
+            (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_value()) or
+            (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_sale_value())
+        )

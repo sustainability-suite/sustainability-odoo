@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="carbon_kilo" model="res.currency">
-        <field name="name">Kg CO2</field>
-        <field name="symbol">Kg</field>
-        <field name="rounding">0.01</field>
+        <field name="name">KGC</field>
+        <field name="symbol">KgCO2e</field>
+        <field name="full_name">CO2 Kilogram</field>
+        <field name="rounding">0.0001</field>
         <field name="active" eval="True"/>
-        <field name="currency_unit_label">Kg</field>
-        <field name="currency_subunit_label">Kg</field>
+        <field name="currency_unit_label">KgCO2e</field>
     </record>
 </odoo>
