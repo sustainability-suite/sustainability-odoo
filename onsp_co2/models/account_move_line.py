@@ -56,7 +56,6 @@ class AccountMoveLine(models.Model):
                 line.carbon_debit = line.carbon_debt
 
 
-
     @api.depends(
         'account_id.use_carbon_value',
         'account_id.carbon_value',
@@ -97,14 +96,14 @@ class AccountMoveLine(models.Model):
                 origin = line.product_id.carbon_sale_value_origin if line_type == 'credit' else line.product_id.carbon_value_origin
                 origin += "|" + str(infos[0])
             elif line.use_account_carbon_value():
-                debt = line.price_subtotal * line.account_id.carbon_value
+                value = getattr(line, line_type, 0.0)
+                debt = value * line.account_id.carbon_value
                 origin = line.account_id.carbon_value_origin + "|" + str(round(line.account_id.carbon_value, 4))
             else:
                 company = line.move_id.company_id or self.env.company
                 carbon_value = company.carbon_sale_value if line_type == 'credit' else company.carbon_value
                 debt = line.price_subtotal * carbon_value
                 origin = company.name + "|" + str(carbon_value)
-
             line.carbon_debt = debt
             line.carbon_value_origin = origin
 
@@ -130,6 +129,11 @@ class AccountMoveLine(models.Model):
                 'next': {'type': 'ir.actions.act_window_close'},
             },
         }
+
+    def action_recompute_carbon(self):
+        """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
+        for line in self:
+            line._compute_carbon_debt(force_compute=True)
 
 
     # --------------------------------------------

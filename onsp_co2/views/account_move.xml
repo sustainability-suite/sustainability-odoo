@@ -52,7 +52,7 @@
         </record>
 
 
-        <record id="action_recompute_carbon" model="ir.actions.server">
+        <record id="action_recompute_carbon_account_move" model="ir.actions.server">
             <field name="name">Re-compute CO2</field>
             <field name="model_id" ref="account.model_account_move"/>
             <field name="binding_model_id" ref="account.model_account_move"/>
