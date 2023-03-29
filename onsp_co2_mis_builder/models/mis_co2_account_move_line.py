@@ -19,6 +19,7 @@ class MisAccountCO2Line(models.Model):
         comodel_name="account.move.line",
         help="The journal item of this CO2 entry line.",
     )
+    journal_id = fields.Many2one(related="move_line_id.journal_id")
     move_id = fields.Many2one(
         comodel_name='account.move',
         string='Journal Entry',
@@ -70,6 +71,7 @@ class MisAccountCO2Line(models.Model):
                     aml.name AS name,
                     aml.move_id AS move_id,
                     aml.account_id AS account_id,
+                    aml.journal_id AS journal_id,
                     aml.company_id AS company_id,
                     aml.partner_id AS partner_id,
                     am.carbon_currency_id AS ons_co2_currency_id,
