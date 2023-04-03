@@ -7,7 +7,10 @@
         <field name="inherit_id" ref="account.view_move_line_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='credit']" position="after">
-                <field name="carbon_balance" optional="show" widget='monetary' />
+                <field name="carbon_balance" sum="Total CO2 Balance" optional="show" readonly="1" />
+                <field name="carbon_debit" sum="Total CO2 Debit" optional="hide" readonly="1" />
+                <field name="carbon_credit" sum="Total CO2 Credit" optional="hide" readonly="1" />
+                <field name="carbon_debt" sum="Total CO2 Debt" optional="hide" readonly="1" />
                 <field name="carbon_currency_id" invisible="1"/>
             </xpath>
         </field>

@@ -137,12 +137,12 @@ class CarbonMixin(models.AbstractModel):
     @api.depends('carbon_compute_method', 'carbon_monetary_currency_id', 'carbon_uom_id')
     def _compute_carbon_unit_label(self):
         for rec in self:
-            rec.unit_label = "/ " + (rec.carbon_uom_id.name if rec.carbon_compute_method == 'physical' else rec.carbon_monetary_currency_id.currency_unit_label)
+            rec.carbon_unit_label = "/ " + str(rec.carbon_uom_id.name if rec.carbon_compute_method == 'physical' else rec.carbon_monetary_currency_id.currency_unit_label)
 
     @api.depends('carbon_sale_compute_method', 'carbon_sale_monetary_currency_id', 'carbon_sale_uom_id')
     def _compute_carbon_sale_unit_label(self):
         for rec in self:
-            rec.unit_label = "/ " + (rec.carbon_sale_uom_id.name if rec.carbon_sale_compute_method == 'physical' else rec.carbon_sale_monetary_currency_id.currency_unit_label)
+            rec.carbon_sale_unit_label = "/ " + str(rec.carbon_sale_uom_id.name if rec.carbon_sale_compute_method == 'physical' else rec.carbon_sale_monetary_currency_id.currency_unit_label)
 
 
     """

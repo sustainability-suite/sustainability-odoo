@@ -48,12 +48,20 @@ class AccountMoveLine(models.Model):
     @api.depends('carbon_debt', 'credit', 'debit')
     def _compute_carbon_debit_credit(self):
         for line in self:
+            credit = 0.0
+            debit = 0.0
+            # Weird if/elif statement, but we need that order of priority
             if line.move_id.is_inbound(include_receipts=True):
-                line.carbon_credit = line.carbon_debt
-                line.carbon_debit = 0
+                credit = line.carbon_debt
             elif line.move_id.is_outbound(include_receipts=True):
-                line.carbon_credit = 0
-                line.carbon_debit = line.carbon_debt
+                debit = line.carbon_debt
+            elif line.credit != 0:
+                credit = line.carbon_debt
+            elif line.debit != 0:
+                debit = line.carbon_debt
+
+            line.carbon_credit = credit
+            line.carbon_debit = debit
 
 
     @api.depends(
@@ -79,31 +87,37 @@ class AccountMoveLine(models.Model):
     def _compute_carbon_debt(self, force_compute: bool = False):
         lines = self if force_compute else self.filtered(lambda l: l.move_id.state == 'draft')
         for line in lines:
-            debt = 0
-            origin = ""
 
+            # Weird if/elif statement, but we need that order of priority
             if line.move_id.is_inbound(include_receipts=True):
                 line_type = "credit"
             elif line.move_id.is_outbound(include_receipts=True):
                 line_type = "debit"
+            elif line.credit != 0:
+                line_type = "credit"
+            elif line.debit != 0:
+                line_type = "debit"
             else:
-                line.carbon_debt = debt
-                line.carbon_value_origin = origin
+                line.carbon_debt = 0.0
+                line.carbon_value_origin = ""
                 continue
 
+            value = getattr(line, line_type, 0.0)
+
             if line.use_product_carbon_value():
-                debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=line.price_subtotal)
+                debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
                 origin = line.product_id.carbon_sale_value_origin if line_type == 'credit' else line.product_id.carbon_value_origin
                 origin += "|" + str(infos[0])
             elif line.use_account_carbon_value():
-                value = getattr(line, line_type, 0.0)
                 debt = value * line.account_id.carbon_value
                 origin = line.account_id.carbon_value_origin + "|" + str(round(line.account_id.carbon_value, 4))
             else:
                 company = line.move_id.company_id or self.env.company
                 carbon_value = company.carbon_sale_value if line_type == 'credit' else company.carbon_value
-                debt = line.price_subtotal * carbon_value
+                debt = value * carbon_value
                 origin = company.name + "|" + str(carbon_value)
+
+
             line.carbon_debt = debt
             line.carbon_value_origin = origin
 
