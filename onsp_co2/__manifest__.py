@@ -30,8 +30,6 @@ Description
 
         "views/carbon_factor.xml",
         "views/product_category.xml",
-        # "views/res_partner.xml",
-        # "views/product_supplierinfo.xml",
         "views/res_country.xml",
         "views/res_config_settings.xml",
 

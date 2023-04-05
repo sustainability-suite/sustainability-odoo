@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from typing import Union
 
 
 class AccountMoveLine(models.Model):
@@ -14,6 +15,7 @@ class AccountMoveLine(models.Model):
         store=True,
     )
     carbon_value_origin = fields.Char(compute="_compute_carbon_debt", string="CO2e value origin", store=True)
+    carbon_is_locked = fields.Boolean(default=False)
 
     carbon_balance = fields.Monetary(
         string="CO2 Balance",
@@ -84,18 +86,33 @@ class AccountMoveLine(models.Model):
         'price_subtotal',
         'move_type',
     )
-    def _compute_carbon_debt(self, force_compute: bool = False):
-        lines = self if force_compute else self.filtered(lambda l: l.move_id.state == 'draft')
-        for line in lines:
+    def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
+        if force_compute is None:
+            force_compute = []
+        elif isinstance(force_compute, bool):
+            force_compute = ['posted', 'locked'] if force_compute else []
+        elif isinstance(force_compute, str):
+            force_compute = [force_compute]
 
+        if 'posted' not in force_compute:
+            self = self.filtered(lambda l: l.move_id.state == 'draft')
+        if 'locked' not in force_compute:
+            self = self.filtered(lambda l: not l.carbon_is_locked)
+
+        # Another way to filter lines that might be interesting performance wise, didn't test it though
+        # filter_locked = 'locked' not in force_compute
+        # filter_posted = 'posted' not in force_compute
+        # self = self.filtered(lambda l: not (filter_locked and l.carbon_is_locked) and not (filter_posted and l.move_id.state == 'draft'))
+
+        for line in self:
             # Weird if/elif statement, but we need that order of priority
             if line.move_id.is_inbound(include_receipts=True):
                 line_type = "credit"
             elif line.move_id.is_outbound(include_receipts=True):
                 line_type = "debit"
-            elif line.credit != 0:
+            elif line.credit:
                 line_type = "credit"
-            elif line.debit != 0:
+            elif line.debit:
                 line_type = "debit"
             else:
                 line.carbon_debt = 0.0
@@ -104,11 +121,11 @@ class AccountMoveLine(models.Model):
 
             value = getattr(line, line_type, 0.0)
 
-            if line.use_product_carbon_value():
+            if line.can_use_product_carbon_value():
                 debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
                 origin = line.product_id.carbon_sale_value_origin if line_type == 'credit' else line.product_id.carbon_value_origin
                 origin += "|" + str(infos[0])
-            elif line.use_account_carbon_value():
+            elif line.can_use_account_carbon_value():
                 debt = value * line.account_id.carbon_value
                 origin = line.account_id.carbon_value_origin + "|" + str(round(line.account_id.carbon_value, 4))
             else:
@@ -120,8 +137,6 @@ class AccountMoveLine(models.Model):
 
             line.carbon_debt = debt
             line.carbon_value_origin = origin
-
-
 
 
     # --------------------------------------------
@@ -147,8 +162,11 @@ class AccountMoveLine(models.Model):
     def action_recompute_carbon(self):
         """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
         for line in self:
-            line._compute_carbon_debt(force_compute=True)
+            line._compute_carbon_debt(force_compute='posted')
 
+    def action_switch_locked(self):
+        for line in self:
+            line.carbon_is_locked = not line.carbon_is_locked
 
     # --------------------------------------------
     #                   MISC
@@ -164,11 +182,13 @@ class AccountMoveLine(models.Model):
         res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
         return res
 
-    def use_account_carbon_value(self) -> bool:
+
+    """ These methods are helper to know if line can use account or product to compute co2 values """
+    def can_use_account_carbon_value(self) -> bool:
         self.ensure_one()
         return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_value()
 
-    def use_product_carbon_value(self) -> bool:
+    def can_use_product_carbon_value(self) -> bool:
         self.ensure_one()
         return self.product_id and (
             (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_value()) or

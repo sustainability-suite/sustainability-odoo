@@ -8,9 +8,12 @@
             <field name="inherit_id" ref="account.view_move_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']" position="after">
-                    <field name="carbon_debt" widget="monetary" />
+                    <field name="carbon_debt" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
                     <field name="carbon_currency_id" invisible="1" />
                     <field name="carbon_value_origin" invisible="1" force_save="1" />
+                    <button title="Unlock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', True)]}" icon="fa-unlock" class="opacity-25" />
+                    <button title="Lock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', False)]}" icon="fa-lock" />
+                    <field name="carbon_is_locked" invisible="1"/>
                     <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
                     <field name="carbon_debit" invisible="1"/>
                     <field name="carbon_credit" invisible="1"/>
