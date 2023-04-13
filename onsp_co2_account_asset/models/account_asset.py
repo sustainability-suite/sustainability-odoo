@@ -4,6 +4,10 @@ class AccountAsset(models.Model):
     _inherit = "account.asset"
 
     carbon_debt = fields.Float(compute="_compute_carbon_debt", string="CO2 Debt", store=True)
+    carbon_currency_id = fields.Many2one(
+        'res.currency',
+        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False),
+    )
 
 
     @api.depends('original_move_line_ids.carbon_debt')

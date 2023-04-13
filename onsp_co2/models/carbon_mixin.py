@@ -51,7 +51,7 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
     carbon_currency_id = fields.Many2one(
         'res.currency',
-        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", False),
+        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False),
     )
     carbon_currency_label = fields.Char(related="carbon_currency_id.currency_unit_label")
 

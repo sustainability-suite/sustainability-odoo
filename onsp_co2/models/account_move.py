@@ -7,7 +7,7 @@ class AccountMove(models.Model):
 
     carbon_currency_id = fields.Many2one(
         'res.currency',
-        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", False),
+        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False),
     )
     carbon_balance = fields.Monetary(
         string="CO2 Equivalent",
@@ -22,7 +22,8 @@ class AccountMove(models.Model):
         for move in self:
             move.carbon_balance = abs(sum(move.invoice_line_ids.mapped("carbon_balance")))
 
-    def action_recompute_carbon(self):
+    def action_recompute_carbon(self) -> dict:
         """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
         for move in self:
-            move.line_ids._compute_carbon_debt(force_compute='posted')
+            move.line_ids.action_recompute_carbon()
+        return {}

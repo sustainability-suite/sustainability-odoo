@@ -159,10 +159,11 @@ class AccountMoveLine(models.Model):
             },
         }
 
-    def action_recompute_carbon(self):
+    def action_recompute_carbon(self) -> dict:
         """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
         for line in self:
             line._compute_carbon_debt(force_compute='posted')
+        return {}
 
     def action_switch_locked(self):
         for line in self:
