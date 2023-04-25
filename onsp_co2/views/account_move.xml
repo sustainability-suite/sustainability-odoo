@@ -18,6 +18,9 @@
                     <field name="carbon_debit" invisible="1"/>
                     <field name="carbon_credit" invisible="1"/>
                     <field name="carbon_balance" invisible="1"/>
+                    <field name="debit" invisible="1"/>
+                    <field name="credit" invisible="1"/>
+                    <field name="balance" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='amount_residual']" position="after">
                     <field name="carbon_balance" widget="monetary" />

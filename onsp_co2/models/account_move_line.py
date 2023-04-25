@@ -83,7 +83,8 @@ class AccountMoveLine(models.Model):
         'product_id.carbon_uom_id',
         'product_id.carbon_monetary_currency_id',
 
-        'price_subtotal',
+        'credit',
+        'debit',
         'move_type',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
@@ -120,6 +121,10 @@ class AccountMoveLine(models.Model):
                 continue
 
             value = getattr(line, line_type, 0.0)
+
+            # We don't take discounts into account, so we need to reverse it
+            if line.discount:
+                value = value / (1 - line.discount / 100)
 
             if line.can_use_product_carbon_value():
                 debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
