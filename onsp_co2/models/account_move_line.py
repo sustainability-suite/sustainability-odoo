@@ -123,8 +123,9 @@ class AccountMoveLine(models.Model):
             value = getattr(line, line_type, 0.0)
 
             # We don't take discounts into account, so we need to reverse it
+            # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
             if line.discount:
-                value = value / (1 - line.discount / 100)
+                value = value / (1 - line.discount / 100) if line.discount != 100 else line.price_unit*line.quantity
 
             if line.can_use_product_carbon_value():
                 debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
