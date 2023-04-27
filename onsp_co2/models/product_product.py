@@ -57,8 +57,8 @@ class ProductProduct(models.Model):
         Used in account.move.line to compute carbon debt if a product is set.
         """
         self.ensure_one()
-        if not (quantity or price):
-            raise UserError(_("You must pass either a quantity or a price to compute carbon cost"))
+        if quantity is None and price is None:
+            raise UserError(_("You must pass either a quantity or a price to compute carbon cost (product: %s, quantity: %s, price: %s)", self.display_name, quantity, price))
 
         if value_type == 'debit':
             carbon_value = self.carbon_value
