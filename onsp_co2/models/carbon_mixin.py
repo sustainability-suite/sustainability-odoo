@@ -3,17 +3,17 @@ from typing import Any
 
 
 # DO NOT DELETE
-def auto_depends(cls):
-    all_fb_rec = getattr(cls, '_fallback_records', list()) + getattr(CarbonMixin, '_fallback_records', list())
-    all_fb_rec_fields = getattr(cls, '_fallback_records_fields', list()) + getattr(CarbonMixin, '_fallback_records_fields', list())
-
-    for prefix in ['carbon', 'carbon_sale']:
-        fb_rec_fields = [f"{prefix}_{f}" for f in all_fb_rec_fields]
-        res = [f"{fr}.{f}" for fr in all_fb_rec for f in fb_rec_fields]
-        setattr(cls, f'_compute_{prefix}_value', api.depends(*res)(getattr(cls, f'_compute_{prefix}_value', getattr(CarbonMixin, f'_compute_{prefix}_value'))))
-
-    # cls._compute_carbon_sale_value = api.depends(*res)(getattr(cls, '_compute_carbon_sale_value', getattr(CarbonMixin, '_compute_carbon_sale_value')))
-    return cls
+# def auto_depends(cls):
+#     all_fb_rec = getattr(cls, '_fallback_records', list()) + getattr(CarbonMixin, '_fallback_records', list())
+#     all_fb_rec_fields = getattr(cls, '_fallback_records_fields', list()) + getattr(CarbonMixin, '_fallback_records_fields', list())
+#
+#     for prefix in ['carbon', 'carbon_sale']:
+#         fb_rec_fields = [f"{prefix}_{f}" for f in all_fb_rec_fields]
+#         res = [f"{fr}.{f}" for fr in all_fb_rec for f in fb_rec_fields]
+#         setattr(cls, f'_compute_{prefix}_value', api.depends(*res)(getattr(cls, f'_compute_{prefix}_value', getattr(CarbonMixin, f'_compute_{prefix}_value'))))
+#
+#     # cls._compute_carbon_sale_value = api.depends(*res)(getattr(cls, '_compute_carbon_sale_value', getattr(CarbonMixin, '_compute_carbon_sale_value')))
+#     return cls
 
 
 # DO NOT DELETE
@@ -51,7 +51,7 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
     carbon_currency_id = fields.Many2one(
         'res.currency',
-        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False),
+        compute="_compute_carbon_currency_id",
     )
     carbon_currency_label = fields.Char(related="carbon_currency_id.currency_unit_label")
 
@@ -133,6 +133,9 @@ class CarbonMixin(models.AbstractModel):
 
 
 
+    def _compute_carbon_currency_id(self):
+        for rec in self:
+            rec.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
 
     @api.depends('carbon_compute_method', 'carbon_monetary_currency_id', 'carbon_uom_id')
     def _compute_carbon_unit_label(self):

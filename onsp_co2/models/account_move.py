@@ -7,7 +7,7 @@ class AccountMove(models.Model):
 
     carbon_currency_id = fields.Many2one(
         'res.currency',
-        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False),
+        compute="_compute_carbon_currency_id",
     )
     carbon_balance = fields.Monetary(
         string="CO2 Equivalent",
@@ -16,6 +16,10 @@ class AccountMove(models.Model):
         currency_field='carbon_currency_id',
         tracking=True,
     )
+
+    def _compute_carbon_currency_id(self):
+        for move in self:
+            move.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
 
     @api.depends("invoice_line_ids.carbon_balance")
     def _compute_carbon_balance(self):

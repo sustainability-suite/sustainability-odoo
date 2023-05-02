@@ -26,7 +26,7 @@ class CarbonFactor(models.Model):
     )
     carbon_currency_id = fields.Many2one(
         'res.currency',
-        default=lambda self: self.env.ref("onsp_co2.carbon_kilo", False),
+        compute="_compute_carbon_currency_id",
     )
     carbon_currency_label = fields.Char(related="carbon_currency_id.currency_unit_label")
 
@@ -55,11 +55,15 @@ class CarbonFactor(models.Model):
         self.ensure_one()
         return f"{self._description}: {self.name}"
 
+
+    def _compute_carbon_currency_id(self):
+        for factor in self:
+            factor.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
+
     @api.depends('parent_id.display_name', 'name')
     def _compute_display_name(self):
         for factor in self:
             factor.display_name = f"{factor.parent_id.display_name}/{factor.name}" if factor.parent_id else factor.name
-
 
     @api.depends('carbon_compute_method', 'carbon_monetary_currency_id', 'carbon_uom_id')
     def _compute_unit_label(self):
