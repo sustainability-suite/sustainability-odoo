@@ -3,16 +3,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "CO2 Tracking Base",
+    "name": "CO2e Accounting",
     "version": "16.0.1.0.0",
     "author": "Open Net Sàrl",
-    "category": "hidden",
+    "category": "Accounting",
     "website": "https://www.open-net.ch",
     "summary": "Base module to track CO2 equivalent in accounting",
-    "description": """
-Description
-**********************
-""",
+    "description": """ """,
     "depends": [
         "account",
     ],
@@ -41,6 +38,11 @@ Description
         "data/menu_items.xml",
         "data/res_currency.xml",
     ],
+    'assets': {
+        'web.assets_backend': [
+            'onsp_co2/static/src/css/*.scss',
+        ],
+    },
     "images": [
         "static/description/co2_base_green.png",
     ],

@@ -11,6 +11,6 @@
     "website": "www.open-net.ch",
     "depends": ["account_asset_management", "onsp_co2"],
     "installable": True,
-    "auto_install": True,
+    "auto_install": False,
     "license": "AGPL-3",
 }
