@@ -19,8 +19,8 @@
                                     <p>Used as a fallback value</p>
                                 </div>
                                 <div>
-                                    <field name="carbon_value" /> kg
-                                    <p style="color:red;" attrs="{'invisible':[('carbon_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                    <field name="carbon_in_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_in_value', '&gt;=', '0')]}">Value can't be negative !</p>
                                 </div>
                             </div>
                         </div>
@@ -33,8 +33,8 @@
                                     <p>Used as a fallback value for sales</p>
                                 </div>
                                 <div>
-                                    <field name="carbon_sale_value" /> kg
-                                    <p style="color:red;" attrs="{'invisible':[('carbon_sale_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                    <field name="carbon_out_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_out_value', '&gt;=', '0')]}">Value can't be negative !</p>
                                 </div>
                             </div>
                         </div>

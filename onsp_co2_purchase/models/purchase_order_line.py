@@ -14,14 +14,14 @@ class PurchaseOrderLine(models.Model):
         store=True,
     )
 
-    @api.depends('product_id.carbon_value', 'product_qty')
+    @api.depends('product_id.carbon_in_value', 'product_qty')
     def _compute_carbon_debt(self):
         for line in self:
-            line.carbon_debt = line.product_qty * line.product_id.carbon_value
+            line.carbon_debt = line.product_qty * line.product_id.carbon_in_value
 
     def _prepare_account_move_line(self, move=False):
         """ Somehow this works and does not seem to re-compute co2 values after line creation """
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
-        res["carbon_debt"] = self.qty_to_invoice * self.product_id.carbon_value
+        res["carbon_debt"] = self.qty_to_invoice * self.product_id.carbon_in_value
         res["carbon_value_origin"] = _("Purchase Order %s", self.order_id.name)
         return res

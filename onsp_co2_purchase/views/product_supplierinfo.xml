@@ -8,20 +8,20 @@
             <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="inside">
-                    <field name="carbon_value" attrs="{'readonly': [('carbon_factor_id', '!=', False)]}" force_save="1" />
+                    <field name="carbon_in_value" attrs="{'readonly': [('carbon_in_factor_id', '!=', False)]}" force_save="1" />
                     <button type="object"
                             name="action_see_carbon_origin"
                             icon="fa-question-circle"
-                            context="{'carbon_value_name': 'carbon_value'}"
+                            context="{'carbon_type': 'carbon_value'}"
                             title="See CO2e value origin"
-                            attrs="{'invisible': [('carbon_factor_id', '!=', False)]}" />
+                            attrs="{'invisible': [('carbon_in_factor_id', '!=', False)]}" />
                     <button type="object"
                             name="action_recompute_carbon"
                             icon="fa-refresh"
-                            context="{'carbon_value_name': 'carbon_value'}"
+                            context="{'carbon_type': 'carbon_value'}"
                             title="Re-compute CO2e value"
-                            attrs="{'invisible': [('carbon_factor_id', '!=', False)]}" />
-                    <field name="carbon_factor_id" />
+                            attrs="{'invisible': [('carbon_in_factor_id', '!=', False)]}" />
+                    <field name="carbon_in_factor_id" />
                 </xpath>
             </field>
         </record>

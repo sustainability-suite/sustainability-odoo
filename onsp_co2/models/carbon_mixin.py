@@ -7,12 +7,12 @@ from typing import Any
 #     all_fb_rec = getattr(cls, '_fallback_records', list()) + getattr(CarbonMixin, '_fallback_records', list())
 #     all_fb_rec_fields = getattr(cls, '_fallback_records_fields', list()) + getattr(CarbonMixin, '_fallback_records_fields', list())
 #
-#     for prefix in ['carbon', 'carbon_sale']:
+#     for prefix in ['carbon_in', 'carbon_out']:
 #         fb_rec_fields = [f"{prefix}_{f}" for f in all_fb_rec_fields]
 #         res = [f"{fr}.{f}" for fr in all_fb_rec for f in fb_rec_fields]
 #         setattr(cls, f'_compute_{prefix}_value', api.depends(*res)(getattr(cls, f'_compute_{prefix}_value', getattr(CarbonMixin, f'_compute_{prefix}_value'))))
 #
-#     # cls._compute_carbon_sale_value = api.depends(*res)(getattr(cls, '_compute_carbon_sale_value', getattr(CarbonMixin, '_compute_carbon_sale_value')))
+#     # cls._compute_carbon_out_value = api.depends(*res)(getattr(cls, '_compute_carbon_out_value', getattr(CarbonMixin, '_compute_carbon_out_value')))
 #     return cls
 
 
@@ -25,8 +25,8 @@ from typing import Any
 #             super(cls, self).__init__(env, ids, prefetch_ids)
 #             if hasattr(cls, '_fallback_records'):
 #                 # Need to copy the method to add
-#                 cls._compute_carbon_mode = _auto_depends(carbon_mixin_class, cls, 'carbon')
-#                 cls._compute_carbon_sale_mode = _auto_depends(carbon_mixin_class, cls, 'carbon_sale')
+#                 cls._compute_carbon_in_mode = _auto_depends(carbon_mixin_class, cls, 'carbon_in')
+#                 cls._compute_carbon_out_mode = _auto_depends(carbon_mixin_class, cls, 'carbon_out')
 #
 #         cls.__init__ = __init__
 #     except:
@@ -41,19 +41,22 @@ class CarbonMixin(models.AbstractModel):
     _fallback_records_fields = ['value', 'compute_method', 'uom_id', 'monetary_currency_id']
 
     _sql_constraints = [
-        ('not_negative_carbon_value', 'CHECK(carbon_value >= 0)', 'CO2e value can not be negative !'),
-        ('not_negative_carbon_sale_value', 'CHECK(carbon_sale_value >= 0)', 'CO2e value can not be negative !'),
+        ('not_negative_carbon_in_value', 'CHECK(carbon_in_value >= 0)', 'CO2e value can not be negative !'),
+        ('not_negative_carbon_out_value', 'CHECK(carbon_out_value >= 0)', 'CO2e value can not be negative !'),
     ]
 
+    @api.model
+    def _get_available_carbon_compute_methods(self):
+        return [
+            ('physical', 'Physical'),
+            ('monetary', 'Monetary'),
+        ]
 
     # --------------------------------------------
     #               SHARED INFOS
     # --------------------------------------------
-    carbon_currency_id = fields.Many2one(
-        'res.currency',
-        compute="_compute_carbon_currency_id",
-    )
-    carbon_currency_label = fields.Char(related="carbon_currency_id.currency_unit_label")
+    carbon_currency_id = fields.Many2one('res.currency', compute="_compute_carbon_currency_id")
+    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id")
 
 
     # --------------------------------------------
@@ -61,91 +64,86 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
 
 
-    carbon_is_manual = fields.Boolean(default=False)
-    carbon_mode = fields.Selection(
+    carbon_in_is_manual = fields.Boolean(default=False)
+    carbon_in_mode = fields.Selection(
         selection=[
             ('auto', 'Automatic'),
             ('manual', 'Manual'),
         ],
         default='auto',
-        compute="_compute_carbon_mode",
+        compute="_compute_carbon_in_mode",
         store=True,
     )
-    carbon_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null')
-    carbon_value = fields.Float(
+    carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null')
+    carbon_in_value = fields.Float(
         string="CO2e value",
         digits="Carbon value",
         help="Used to compute CO2 cost",
-        compute="_compute_carbon_value",
+        compute="_compute_carbon_in_value",
         store=True,
-        readonly=False,     # Should be readonly in views if carbon_factor_id != False
+        readonly=False,     # Should be readonly in views if carbon_in_factor_id != False
         recursive=True,     # Only here to prevent
     )
-    carbon_compute_method = fields.Selection(
-        selection=[
-            ('physical', 'Physical'),
-            ('monetary', 'Monetary'),
-        ],
+    carbon_in_compute_method = fields.Selection(
+        selection=_get_available_carbon_compute_methods,
         string="Compute method",
         default=False,
     )
-    carbon_value_origin = fields.Char(compute="_compute_carbon_value", store=True, recursive=True, string="Value origin")
-    carbon_uom_id = fields.Many2one("uom.uom")
-    carbon_monetary_currency_id = fields.Many2one("res.currency")
-    carbon_unit_label = fields.Char(compute="_compute_carbon_unit_label", string=" ")
+    carbon_in_value_origin = fields.Char(compute="_compute_carbon_in_value", store=True, recursive=True, string="Value origin")
+    carbon_in_uom_id = fields.Many2one("uom.uom")
+    carbon_in_monetary_currency_id = fields.Many2one("res.currency")
+    carbon_in_unit_label = fields.Char(compute="_compute_carbon_in_unit_label", string=" ")
 
 
     # --------------------------------------------
     #                   Sales value
     # --------------------------------------------
-    carbon_sale_is_manual = fields.Boolean(default=False)
-    carbon_sale_mode = fields.Selection(
+    carbon_out_is_manual = fields.Boolean(default=False)
+    carbon_out_mode = fields.Selection(
         selection=[
             ('auto', 'Automatic'),
             ('manual', 'Manual'),
         ],
         default='auto',
-        compute="_compute_carbon_sale_mode",
+        compute="_compute_carbon_out_mode",
         store=True,
     )
-    carbon_sale_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null')
-    carbon_sale_value = fields.Float(
+    carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null')
+    carbon_out_value = fields.Float(
         string="CO2e value for sales",
         digits="Carbon value",
         help="Used to compute CO2 cost for sales",
-        compute="_compute_carbon_sale_value",
+        compute="_compute_carbon_out_value",
         store=True,
-        readonly=False,  # Should be readonly in views if carbon_factor_id != False
+        readonly=False,  # Should be readonly in views if carbon_in_factor_id != False
         recursive=True,
     )
-    carbon_sale_compute_method = fields.Selection(
-        selection=[
-            ('physical', 'Physical'),
-            ('monetary', 'Monetary'),
-        ],
+    carbon_out_compute_method = fields.Selection(
+        selection=_get_available_carbon_compute_methods,
         string="Compute method ",
         default=False,
     )
-    carbon_sale_value_origin = fields.Char(compute="_compute_carbon_sale_value", store=True, recursive=True, string="Value origin ")
-    carbon_sale_uom_id = fields.Many2one("uom.uom")
-    carbon_sale_monetary_currency_id = fields.Many2one("res.currency")
-    carbon_sale_unit_label = fields.Char(compute="_compute_carbon_sale_unit_label", string="  ")
+    carbon_out_value_origin = fields.Char(compute="_compute_carbon_out_value", store=True, recursive=True, string="Value origin ")
+    carbon_out_uom_id = fields.Many2one("uom.uom")
+    carbon_out_monetary_currency_id = fields.Many2one("res.currency")
+    carbon_out_unit_label = fields.Char(compute="_compute_carbon_out_unit_label", string="  ")
 
 
 
     def _compute_carbon_currency_id(self):
         for rec in self:
             rec.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
+            rec.carbon_currency_label = rec.carbon_currency_id.currency_unit_label
 
-    @api.depends('carbon_compute_method', 'carbon_monetary_currency_id', 'carbon_uom_id')
-    def _compute_carbon_unit_label(self):
+    @api.depends('carbon_in_compute_method', 'carbon_in_monetary_currency_id', 'carbon_in_uom_id')
+    def _compute_carbon_in_unit_label(self):
         for rec in self:
-            rec.carbon_unit_label = "/ " + str(rec.carbon_uom_id.name if rec.carbon_compute_method == 'physical' else rec.carbon_monetary_currency_id.currency_unit_label)
+            rec.carbon_in_unit_label = "/ " + str(rec.carbon_in_uom_id.name if rec.carbon_in_compute_method == 'physical' else rec.carbon_in_monetary_currency_id.currency_unit_label)
 
-    @api.depends('carbon_sale_compute_method', 'carbon_sale_monetary_currency_id', 'carbon_sale_uom_id')
-    def _compute_carbon_sale_unit_label(self):
+    @api.depends('carbon_out_compute_method', 'carbon_out_monetary_currency_id', 'carbon_out_uom_id')
+    def _compute_carbon_out_unit_label(self):
         for rec in self:
-            rec.carbon_sale_unit_label = "/ " + str(rec.carbon_sale_uom_id.name if rec.carbon_sale_compute_method == 'physical' else rec.carbon_sale_monetary_currency_id.currency_unit_label)
+            rec.carbon_out_unit_label = "/ " + str(rec.carbon_out_uom_id.name if rec.carbon_out_compute_method == 'physical' else rec.carbon_out_monetary_currency_id.currency_unit_label)
 
 
     """
@@ -157,33 +155,33 @@ class CarbonMixin(models.AbstractModel):
         
     AUTO MODE:
         - Odoo will search for a fallback records thanks to these 2 methods:
-            1) _get_carbon_value_fallback_records() -> for purchase values or models that only need 1 value (e.g. account.account)
-            2) _get_carbon_sale_value_fallback_records() -> for sale values
+            1) _get_carbon_in_value_fallback_records() -> for purchase values or models that only need 1 value (e.g. account.account)
+            2) _get_carbon_out_value_fallback_records() -> for sale values
         - Values from fallback will be copied on records
-        - On any update on the fallback record, changes will be copied but you need to add depends on _compute_carbon_mode / _compute_carbon_sale_mode
+        - On any update on the fallback record, changes will be copied but you need to add depends on _compute_carbon_in_mode / _compute_carbon_out_mode
     """
 
     @api.depends(
-        'carbon_factor_id.carbon_value',
-        'carbon_factor_id.carbon_compute_method',
-        'carbon_factor_id.carbon_uom_id',
-        'carbon_factor_id.carbon_monetary_currency_id',
+        'carbon_in_factor_id.carbon_value',
+        'carbon_in_factor_id.carbon_compute_method',
+        'carbon_in_factor_id.carbon_uom_id',
+        'carbon_in_factor_id.carbon_monetary_currency_id',
     )
-    def _compute_carbon_value(self):
-        self._compute_carbon_value_abstract('carbon')
+    def _compute_carbon_in_value(self):
+        self._compute_carbon_value_abstract('carbon_in')
 
     @api.depends(
-        'carbon_sale_factor_id.carbon_value',
-        'carbon_sale_factor_id.carbon_compute_method',
-        'carbon_sale_factor_id.carbon_uom_id',
-        'carbon_sale_factor_id.carbon_monetary_currency_id',
+        'carbon_out_factor_id.carbon_value',
+        'carbon_out_factor_id.carbon_compute_method',
+        'carbon_out_factor_id.carbon_uom_id',
+        'carbon_out_factor_id.carbon_monetary_currency_id',
     )
-    def _compute_carbon_sale_value(self):
-        self._compute_carbon_value_abstract('carbon_sale')
+    def _compute_carbon_out_value(self):
+        self._compute_carbon_value_abstract('carbon_out')
 
     def _compute_carbon_value_abstract(self, prefix: str) -> None:
         """
-        Abstract method that computes carbon_ and carbon_sale_ prefixed fields
+        Abstract method that computes carbon_in_ and carbon_out_ prefixed fields
         Will update record only if mode is manual and factor is set
         """
         for rec in self.filtered(f"{prefix}_is_manual"):
@@ -205,17 +203,17 @@ class CarbonMixin(models.AbstractModel):
         - The override should call super() or at least the abstract method correctly
         - You can add depends to trigger changes for records in 'auto' mode
         - Don't use general depends, use carbon fields even if you have to add a lot. E.g
-            GOOD > @api.depends('product_tmpl_id.carbon_value', 'product_tmpl_id.carbon_compute_method', etc...)
+            GOOD > @api.depends('product_tmpl_id.carbon_value', 'product_tmpl_id.carbon_in_compute_method', etc...)
             BAD  > @api.depends('product_tmpl_id')
             common related fields are: 'value', 'compute_method', 'uom_id', 'monetary_currency_id' 
     """
-    @api.depends('carbon_is_manual')
-    def _compute_carbon_mode(self):
-        self._compute_carbon_mode_abstract('carbon')
+    @api.depends('carbon_in_is_manual')
+    def _compute_carbon_in_mode(self):
+        self._compute_carbon_mode_abstract('carbon_in')
 
-    @api.depends('carbon_sale_is_manual')
-    def _compute_carbon_sale_mode(self):
-        self._compute_carbon_mode_abstract('carbon_sale')
+    @api.depends('carbon_out_is_manual')
+    def _compute_carbon_out_mode(self):
+        self._compute_carbon_mode_abstract('carbon_out')
 
     def _compute_carbon_mode_abstract(self, prefix: str):
         for rec in self:
@@ -263,16 +261,16 @@ class CarbonMixin(models.AbstractModel):
         - if value is > 0
         - if an emission factor is defined (which means that the value can be 0)
     """
-    def has_valid_carbon_value(self):
+    def has_valid_carbon_in_value(self):
         return len(self) == 1 and (
-            (self.carbon_compute_method == 'physical' and self.carbon_uom_id) or
-            (self.carbon_compute_method == 'monetary' and self.carbon_monetary_currency_id)
+            (self.carbon_in_compute_method == 'physical' and self.carbon_in_uom_id) or
+            (self.carbon_in_compute_method == 'monetary' and self.carbon_in_monetary_currency_id)
         )
 
-    def has_valid_carbon_sale_value(self):
+    def has_valid_carbon_out_value(self):
         return len(self) == 1 and (
-                (self.carbon_sale_compute_method == 'physical' and self.carbon_sale_uom_id) or
-                (self.carbon_sale_compute_method == 'monetary' and self.carbon_sale_monetary_currency_id)
+                (self.carbon_out_compute_method == 'physical' and self.carbon_out_uom_id) or
+                (self.carbon_out_compute_method == 'monetary' and self.carbon_out_monetary_currency_id)
         )
 
     @api.model
@@ -293,11 +291,11 @@ class CarbonMixin(models.AbstractModel):
     > e.g. on product.product, get factor from template or category if record value is not valid
     Order matters, you can insert a record where it fits the most
     """
-    def _get_carbon_value_fallback_records(self) -> list[Any]:
+    def _get_carbon_in_value_fallback_records(self) -> list[Any]:
         self.ensure_one()
         return []
 
-    def _get_carbon_sale_value_fallback_records(self) -> list[Any]:
+    def _get_carbon_out_value_fallback_records(self) -> list[Any]:
         self.ensure_one()
         return []
 
@@ -345,7 +343,7 @@ class CarbonMixin(models.AbstractModel):
 
 
     def action_recompute_carbon(self):
-        carbon_type = self.env.context.get('carbon_type', 'carbon')
+        carbon_type = self.env.context.get('carbon_type', 'carbon_in')
         if not hasattr(self, f"{carbon_type}_value"):
             return {}
 
@@ -354,13 +352,13 @@ class CarbonMixin(models.AbstractModel):
 
     def action_see_carbon_origin(self):
         """
-            Pass `carbon_value_name` in context to ask for a value origin (e.g. 'carbon_value' will show 'carbon_value_origin' to user)
+            Pass `carbon_type` in context to ask for a value origin (e.g. 'carbon_value' will show 'carbon_value_origin' to user)
             Nice to have: save model and res_id in _compute_carbon_value to add a link to value origin
         """
         self.ensure_one()
 
         # I think we are traceback proof here..............
-        searched_value = self.env.context.get('carbon_value_name', 'carbon_value')
+        searched_value = self.env.context.get('carbon_type', 'carbon_value')
         if not hasattr(self, searched_value):
             searched_value = 'carbon_value'
         origin = getattr(self, f"{searched_value}_origin")

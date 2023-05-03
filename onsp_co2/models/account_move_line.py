@@ -68,20 +68,15 @@ class AccountMoveLine(models.Model):
 
     @api.depends(
         'account_id.use_carbon_value',
-        'account_id.carbon_value',
-        'account_id.carbon_compute_method',
-        'account_id.carbon_uom_id',
-        'account_id.carbon_monetary_currency_id',
+        'account_id.carbon_in_value',
+        'account_id.carbon_in_compute_method',
+        'account_id.carbon_in_uom_id',
+        'account_id.carbon_in_monetary_currency_id',
 
-        'product_id.carbon_value',
-        'product_id.carbon_compute_method',
-        'product_id.carbon_uom_id',
-        'product_id.carbon_monetary_currency_id',
-
-        'product_id.carbon_sale_value',
-        'product_id.carbon_compute_method',
-        'product_id.carbon_uom_id',
-        'product_id.carbon_monetary_currency_id',
+        'product_id.carbon_in_value',
+        'product_id.carbon_in_compute_method',
+        'product_id.carbon_in_uom_id',
+        'product_id.carbon_in_monetary_currency_id',
 
         'credit',
         'debit',
@@ -129,14 +124,14 @@ class AccountMoveLine(models.Model):
 
             if line.can_use_product_carbon_value():
                 debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
-                origin = line.product_id.carbon_sale_value_origin if line_type == 'credit' else line.product_id.carbon_value_origin
+                origin = line.product_id.carbon_out_value_origin if line_type == 'credit' else line.product_id.carbon_in_value_origin
                 origin += "|" + str(infos[0])
             elif line.can_use_account_carbon_value():
-                debt = value * line.account_id.carbon_value
-                origin = line.account_id.carbon_value_origin + "|" + str(round(line.account_id.carbon_value, 4))
+                debt = value * line.account_id.carbon_in_value
+                origin = line.account_id.carbon_in_value_origin + "|" + str(round(line.account_id.carbon_in_value, 4))
             else:
                 company = line.move_id.company_id or self.env.company
-                carbon_value = company.carbon_sale_value if line_type == 'credit' else company.carbon_value
+                carbon_value = company.carbon_out_value if line_type == 'credit' else company.carbon_in_value
                 debt = value * carbon_value
                 origin = company.name + "|" + str(carbon_value)
 
@@ -152,13 +147,20 @@ class AccountMoveLine(models.Model):
 
     def action_see_carbon_origin(self):
         self.ensure_one()
-        origin, value = self.carbon_value_origin.split("|")
+        origin = {
+            'name': _("No CO2e origin for this record"),
+            'value': 0,
+        }
+        for key, data in zip(['name', 'value'], self.carbon_value_origin.split("|")):
+            if data:
+                origin[key] = data
+
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': f"CO2e Value: {value or 'None'}",
-                'message': origin or _("No CO2e origin for this record"),
+                'title': f"CO2e Value: {origin.get('value')}",
+                'message': origin.get('name'),
                 'type': 'info',
                 'sticky': False,
                 'next': {'type': 'ir.actions.act_window_close'},
@@ -181,10 +183,7 @@ class AccountMoveLine(models.Model):
 
 
     def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan) -> dict:
-        """
-        To be tested functionally
-        I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job
-        """
+        """ I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job """
         res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(distribution, account_id, distribution_on_each_plan)
         res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
         return res
@@ -193,11 +192,11 @@ class AccountMoveLine(models.Model):
     """ These methods are helper to know if line can use account or product to compute co2 values """
     def can_use_account_carbon_value(self) -> bool:
         self.ensure_one()
-        return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_value()
+        return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_in_value()
 
     def can_use_product_carbon_value(self) -> bool:
         self.ensure_one()
         return self.product_id and (
-            (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_value()) or
-            (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_sale_value())
+            (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_in_value()) or
+            (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_out_value())
         )

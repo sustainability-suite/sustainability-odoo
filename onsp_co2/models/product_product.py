@@ -15,40 +15,40 @@ class ProductProduct(models.Model):
         - Product category
         
     """
-    def _get_carbon_value_fallback_records(self) -> list:
-        res = super(ProductProduct, self)._get_carbon_value_fallback_records()
+    def _get_carbon_in_value_fallback_records(self) -> list:
+        res = super(ProductProduct, self)._get_carbon_in_value_fallback_records()
         return res + [self.product_tmpl_id, self.categ_id]
 
-    def _get_carbon_sale_value_fallback_records(self) -> list:
-        res = super(ProductProduct, self)._get_carbon_sale_value_fallback_records()
+    def _get_carbon_out_value_fallback_records(self) -> list:
+        res = super(ProductProduct, self)._get_carbon_out_value_fallback_records()
         return res + [self.product_tmpl_id, self.categ_id]
 
 
     @api.depends(
-        'product_tmpl_id.carbon_value',
-        'product_tmpl_id.carbon_compute_method',
-        'product_tmpl_id.carbon_uom_id',
-        'product_tmpl_id.carbon_monetary_currency_id',
-        'categ_id.carbon_value',
-        'categ_id.carbon_compute_method',
-        'categ_id.carbon_uom_id',
-        'categ_id.carbon_monetary_currency_id',
+        'product_tmpl_id.carbon_in_value',
+        'product_tmpl_id.carbon_in_compute_method',
+        'product_tmpl_id.carbon_in_uom_id',
+        'product_tmpl_id.carbon_in_monetary_currency_id',
+        'categ_id.carbon_in_value',
+        'categ_id.carbon_in_compute_method',
+        'categ_id.carbon_in_uom_id',
+        'categ_id.carbon_in_monetary_currency_id',
     )
-    def _compute_carbon_mode(self):
-        super(ProductProduct, self)._compute_carbon_mode()
+    def _compute_carbon_in_mode(self):
+        super(ProductProduct, self)._compute_carbon_in_mode()
 
     @api.depends(
-        'product_tmpl_id.carbon_sale_value',
-        'product_tmpl_id.carbon_sale_compute_method',
-        'product_tmpl_id.carbon_sale_uom_id',
-        'product_tmpl_id.carbon_sale_monetary_currency_id',
-        'categ_id.carbon_sale_value',
-        'categ_id.carbon_sale_compute_method',
-        'categ_id.carbon_sale_uom_id',
-        'categ_id.carbon_sale_monetary_currency_id',
+        'product_tmpl_id.carbon_out_value',
+        'product_tmpl_id.carbon_out_compute_method',
+        'product_tmpl_id.carbon_out_uom_id',
+        'product_tmpl_id.carbon_out_monetary_currency_id',
+        'categ_id.carbon_out_value',
+        'categ_id.carbon_out_compute_method',
+        'categ_id.carbon_out_uom_id',
+        'categ_id.carbon_out_monetary_currency_id',
     )
-    def _compute_carbon_sale_mode(self):
-        super(ProductProduct, self)._compute_carbon_sale_mode()
+    def _compute_carbon_out_mode(self):
+        super(ProductProduct, self)._compute_carbon_out_mode()
 
 
     def get_carbon_value(self, value_type: str, quantity: float = None, price: float = None) -> tuple[float, tuple]:
@@ -61,11 +61,11 @@ class ProductProduct(models.Model):
             raise UserError(_("You must pass either a quantity or a price to compute carbon cost (product: %s, quantity: %s, price: %s)", self.display_name, quantity, price))
 
         if value_type == 'debit':
-            carbon_value = self.carbon_value
-            compute_method = self.carbon_compute_method
+            carbon_value = self.carbon_in_value
+            compute_method = self.carbon_in_compute_method
         elif value_type == 'credit':
-            carbon_value = self.carbon_sale_value
-            compute_method = self.carbon_sale_compute_method
+            carbon_value = self.carbon_out_value
+            compute_method = self.carbon_out_compute_method
         else:
             raise UserError(_("value_type parameter must be either `debit` or `credit`"))
 

@@ -28,9 +28,9 @@ class CarbonFactor(models.Model):
         'res.currency',
         compute="_compute_carbon_currency_id",
     )
-    carbon_currency_label = fields.Char(related="carbon_currency_id.currency_unit_label")
+    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id")
 
-    # Depending on factor type, there is either an carbon_uom_id or a carbon_monetary_currency_id
+    # Depending on factor type, there is either a carbon_uom_id or a carbon_monetary_currency_id
     carbon_compute_method = fields.Selection(
         selection=[
             ('physical', 'Physical'),
@@ -59,6 +59,7 @@ class CarbonFactor(models.Model):
     def _compute_carbon_currency_id(self):
         for factor in self:
             factor.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
+            factor.carbon_currency_label = factor.carbon_currency_id.currency_unit_label
 
     @api.depends('parent_id.display_name', 'name')
     def _compute_display_name(self):

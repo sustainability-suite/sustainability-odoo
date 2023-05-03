@@ -9,7 +9,7 @@ class AccountAnalyticLine(models.Model):
         related='move_line_id.carbon_currency_id',
     )
     carbon_debt = fields.Monetary(
-        string="CO2 Debt (Kg)",
+        string="CO2 Debt",
         currency_field='carbon_currency_id',
     )
 

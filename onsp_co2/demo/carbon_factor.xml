@@ -139,7 +139,7 @@
             <field name="parent_id" ref="carbon_factor_transport_people_motor"/>
         </record>
         <record id="carbon_factor_transport_people_motor_scooter" model="carbon.factor">
-            <field name="name">scooter</field>
+            <field name="name">Scooter</field>
             <field name="carbon_compute_method">physical</field>
             <field name="carbon_value">0.12</field>
             <field name="carbon_uom_id" ref="uom.product_uom_km" />

@@ -4,12 +4,12 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    carbon_value = fields.Float(
-        related='company_id.carbon_value',
+    carbon_in_value = fields.Float(
+        related='company_id.carbon_in_value',
         readonly=False,
     )
-    carbon_sale_value = fields.Float(
-        related='company_id.carbon_sale_value',
+    carbon_out_value = fields.Float(
+        related='company_id.carbon_out_value',
         readonly=False,
     )
     invoice_report_footer = fields.Html(
