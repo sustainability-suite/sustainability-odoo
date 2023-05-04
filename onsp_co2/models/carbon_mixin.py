@@ -356,18 +356,20 @@ class CarbonMixin(models.AbstractModel):
             Nice to have: save model and res_id in _compute_carbon_value to add a link to value origin
         """
         self.ensure_one()
+        default_carbon_type = 'carbon_in'
 
         # I think we are traceback proof here..............
-        searched_value = self.env.context.get('carbon_type', 'carbon_value')
-        if not hasattr(self, searched_value):
-            searched_value = 'carbon_value'
-        origin = getattr(self, f"{searched_value}_origin")
+        carbon_type = self.env.context.get('carbon_type', default_carbon_type)
+        if not hasattr(self, carbon_type):
+            carbon_type = default_carbon_type
+        origin = getattr(self, f"{carbon_type}_origin")
+        carbon_value = round(getattr(self, f"{carbon_type}_value"), 4)  # Quick fix for weird rounding (hoping it will stay the same)
 
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': f"CO2e Value: {round(getattr(self, searched_value), 4)}",      # Quick fix for weird rounding (hoping it will stay the same)
+                'title': _("CO2e Value: %s Kg", carbon_value),
                 'message': origin or _("No CO2e origin for this record"),
                 'type': 'info',
                 'sticky': False,

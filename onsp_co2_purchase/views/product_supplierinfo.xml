@@ -12,13 +12,13 @@
                     <button type="object"
                             name="action_see_carbon_origin"
                             icon="fa-question-circle"
-                            context="{'carbon_type': 'carbon_value'}"
+                            context="{'carbon_type': 'carbon_in'}"
                             title="See CO2e value origin"
                             attrs="{'invisible': [('carbon_in_factor_id', '!=', False)]}" />
                     <button type="object"
                             name="action_recompute_carbon"
                             icon="fa-refresh"
-                            context="{'carbon_type': 'carbon_value'}"
+                            context="{'carbon_type': 'carbon_in'}"
                             title="Re-compute CO2e value"
                             attrs="{'invisible': [('carbon_in_factor_id', '!=', False)]}" />
                     <field name="carbon_in_factor_id" />
