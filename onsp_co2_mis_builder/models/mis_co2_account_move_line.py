@@ -25,10 +25,9 @@ class MisAccountCO2Line(models.Model):
         string='Journal Entry',
         help="The journal entry of this CO2 entry line.",
     )
-    ons_co2_currency_id = fields.Many2one(
-        comodel_name="res.currency",
-        # related="move_id.ons_co2_currency_id",
-        readonly=True,
+    carbon_currency_id = fields.Many2one(
+        'res.currency',
+        compute="_compute_carbon_currency_id",
     )
     account_id = fields.Many2one(
         string="Account",
@@ -44,20 +43,24 @@ class MisAccountCO2Line(models.Model):
     )
     balance = fields.Monetary(
         string="CO2 Balance (Kg)",
-        currency_field="ons_co2_currency_id",
+        currency_field="carbon_currency_id",
     )
     debit = fields.Monetary(
         string="CO2 Debit (Kg)",
-        currency_field="ons_co2_currency_id",
+        currency_field="carbon_currency_id",
     )
     credit = fields.Monetary(
         string="CO2 Credit (Kg)",
-        currency_field="ons_co2_currency_id",
+        currency_field="carbon_currency_id",
     )
     state = fields.Selection(
         [("draft", "Unposted"), ("posted", "Posted")],
         string="Status",
     )
+
+    def _compute_carbon_currency_id(self):
+        for line in self:
+            line.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
 
     def init(self):
         tools.drop_view_if_exists(self._cr, "mis_co2_account_move_line")
@@ -74,7 +77,6 @@ class MisAccountCO2Line(models.Model):
                     aml.journal_id AS journal_id,
                     aml.company_id AS company_id,
                     aml.partner_id AS partner_id,
-                    am.carbon_currency_id AS ons_co2_currency_id,
                     'posted'::VARCHAR AS state,
                     aml.carbon_debit AS debit,
                     aml.carbon_credit AS credit,
