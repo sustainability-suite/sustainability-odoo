@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.co2</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="CO2" string="CO2" data-key="onsp_co2">
+                    <h2>Accounting</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default CO<sub>2</sub>e value</span>
+                                <div class="text-muted">
+                                    <p>Used as a fallback value</p>
+                                </div>
+                                <div>
+                                    <field name="carbon_in_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_in_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value for sales">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default CO<sub>2</sub>e sale value</span>
+                                <div class="text-muted">
+                                    <p>Used as a fallback value for sales</p>
+                                </div>
+                                <div>
+                                    <field name="carbon_out_value" /> kg
+                                    <p style="color:red;" attrs="{'invisible':[('carbon_out_value', '&gt;=', '0')]}">Value can't be negative !</p>
+                                </div>
+                                <div invisible="1">
+                                    <div>Available: <field name="available_module_names" /></div>
+                                    <div>Extra: <field name="extra_module_names" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h2>Documents</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div class="col-12 col-lg-12 o_setting_box" title="Setup CO2 integration">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Invoice document footer</span>
+<!--                                <div class="text-muted">-->
+<!--                                    <p>Use %s to display the CO<sub>2</sub> value</p>-->
+<!--                                </div>-->
+                                <div>
+                                    <field name="invoice_report_footer" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <h2>Extra features</h2>
+                    <div class="row mt16 o_settings_container">
+
+                        <div attrs="{'invisible':['!', ('available_module_names', 'ilike', 'purchase')]}" class="col-12 col-lg-6 o_setting_box" title="Use CO2e in Purchase app">
+                            <div class="o_setting_left_pane">
+                                <field name="module_onsp_co2_purchase" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Show CO<sub>2</sub> in Purchase</span>
+                                <div class="text-muted">
+                                    <p>Compute and display CO<sub>2</sub> values directly in purchase orders</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset')]}" class="col-12 col-lg-6 o_setting_box" title="Compute CO2 for your assets">
+                            <div class="o_setting_left_pane">
+                                <field name="module_onsp_co2_account_asset" widget="upgrade_boolean" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Show assets CO<sub>2</sub> equivalents</span> <i class="fa fa-building-o small ml-2" title="Enterprise" />
+                                <div class="text-muted">
+                                    <p>Compute and display CO<sub>2</sub> for your assets</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- OCA -->
+                        <div attrs="{'invisible':['!', ('available_module_names', 'ilike', 'mis_builder')]}" class="col-12 col-lg-6 o_setting_box" title="Display CO2e in MIS reports">
+                            <div class="o_setting_left_pane">
+                                <field name="module_onsp_co2_mis_builder" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Use in MIS reports (OCA)</span>
+                                <div class="text-muted">
+                                    <p>Allow users to display CO<sub>2</sub> in MIS reports</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset_management')]}" class="col-12 col-lg-6 o_setting_box" title="Display CO2e in MIS reports">
+                            <div class="o_setting_left_pane">
+                                <field name="module_onsp_co2_account_asset_management" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Show assets CO<sub>2</sub> equivalents (OCA)</span>
+                                <div class="text-muted">
+                                    <p>Compute and display CO<sub>2</sub> for your assets</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div attrs="{'invisible':[('extra_module_names', '=', False)]}" class="col-6 p-4 center-content center co2_extra_modules" style="margin-left: 3rem">
+                        <h4>
+                            Use <a href="https://open-net.ch" target="_blank">Open-Net</a> CO<sub>2</sub> module with more applications !
+                        </h4>
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <th>Module</th>
+                                <th>Author</th>
+                                <th />
+                            </thead>
+                            <tbody>
+                                <!-- Odoo -->
+                                <tr attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset')]}">
+                                    <td>Assets Management <i class="fa fa-building-o small ml-2" title="Enterprise" /></td>
+                                    <td><a href="https://odoo.com/" target="_blank">Odoo S.A</a></td>
+                                    <td>
+                                        <a href="https://www.odoo.com/fr_FR/pricing-plan" target="_blank"><i class="oi oi-odoo" title="Odoo"/></a>
+                                    </td>
+                                </tr>
+                                <!-- OCA -->
+                                <tr attrs="{'invisible':[('available_module_names', 'ilike', 'mis_builder')]}">
+                                    <td>MIS Builder</td>
+                                    <td><a href="https://odoo-community.org/" target="_blank">Odoo Community Association</a></td>
+                                    <td>
+                                        <a href="https://apps.odoo.com/apps/modules/16.0/mis_builder" target="_blank"><i class="oi oi-odoo" title="Odoo"/></a>
+                                        <a href="https://github.com/OCA/mis-builder" target="_blank"><i class="fa fa-github" title="Github"/></a>
+                                    </td>
+                                </tr>
+                                <tr attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset_management')]}">
+                                    <td>Assets Management</td>
+                                    <td><a href="https://odoo-community.org/" target="_blank">Odoo Community Association</a></td>
+                                    <td>
+                                        <a href="https://odoo-community.org/shop/assets-management-82" target="_blank"><i class="oi oi-odoo" title="Odoo"/></a>
+                                        <a href="https://github.com/OCA/account-financial-tools" target="_blank"><i class="fa fa-github" title="Github"/></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
