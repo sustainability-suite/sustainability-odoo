@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="carbon_settings_menu" name="CO2 Settings" parent="account.menu_finance_configuration" sequence="5" groups="base.group_user">
+            <menuitem id="carbon_factor_menu" name="Emission factors" sequence="10" groups="base.group_user" action="onsp_co2.carbon_factor_action" />
+        </menuitem>
+
+    </data>
+</odoo>
