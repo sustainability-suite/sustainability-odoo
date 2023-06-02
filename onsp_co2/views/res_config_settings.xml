@@ -19,7 +19,10 @@
                                     <p>Used as a fallback value</p>
                                 </div>
                                 <div>
-                                    <field name="carbon_in_value" /> kg
+                                    <field name="carbon_in_value" class="oe_inline" />
+                                    <field name="carbon_currency_label" class="oe_inline" style="color: grey;" /> /
+                                    <field name="carbon_in_monetary_currency_id" class="oe_inline" force_save="1" required="1" />
+
                                     <p style="color:red;" attrs="{'invisible':[('carbon_in_value', '&gt;=', '0')]}">Value can't be negative !</p>
                                 </div>
                             </div>
@@ -33,7 +36,10 @@
                                     <p>Used as a fallback value for sales</p>
                                 </div>
                                 <div>
-                                    <field name="carbon_out_value" /> kg
+                                    <field name="carbon_out_value" class="oe_inline" />
+                                    <field name="carbon_currency_label" class="oe_inline" style="color: grey;" /> /
+                                    <field name="carbon_out_monetary_currency_id" class="oe_inline" force_save="1" required="1" />
+
                                     <p style="color:red;" attrs="{'invisible':[('carbon_out_value', '&gt;=', '0')]}">Value can't be negative !</p>
                                 </div>
                                 <div invisible="1">
