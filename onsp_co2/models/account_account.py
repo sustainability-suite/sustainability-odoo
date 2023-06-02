@@ -15,6 +15,6 @@ class AccountAccount(models.Model):
     carbon_in_factor_id = fields.Many2one(tracking=True, domain="[('carbon_compute_method', '=', 'monetary')]")
     carbon_in_value = fields.Float(tracking=True)
 
-    carbon_in_compute_method = fields.Selection(default='monetary')
+    carbon_in_compute_method = fields.Selection(default='monetary', selection=_get_available_carbon_compute_methods)
 
 

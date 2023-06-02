@@ -101,43 +101,45 @@ class AccountMoveLine(models.Model):
         # self = self.filtered(lambda l: not (filter_locked and l.carbon_is_locked) and not (filter_posted and l.move_id.state == 'draft'))
 
         for line in self:
-            # Weird if/elif statement, but we need that order of priority
-            if line.move_id.is_inbound(include_receipts=True):
-                line_type = "credit"
-            elif line.move_id.is_outbound(include_receipts=True):
-                line_type = "debit"
-            elif line.credit:
-                line_type = "credit"
-            elif line.debit:
-                line_type = "debit"
-            else:
+            if not line.credit and not line.debit:
                 line.carbon_debt = 0.0
                 line.carbon_value_origin = ""
                 continue
 
-            value = getattr(line, line_type, 0.0)
+            amount = getattr(line, "debit" if line.is_debit() else "credit", 0.0)
 
-            # We don't take discounts into account, so we need to reverse it
+            # We don't take discounts into account for carbon values, so we need to reverse it
             # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
             if line.discount:
-                value = value / (1 - line.discount / 100) if line.discount != 100 else line.price_unit*line.quantity
+                amount = amount / (1 - line.discount / 100) if line.discount != 100 else line.price_unit*line.quantity
+
+
+            # These are the common arguments for the carbon value computation
+            # Others values are added below depending on the record type
+            kw_arguments = {
+                'amount': amount,
+                'from_currency_id': line.currency_id,
+                'date': line.move_id.invoice_date,
+            }
 
             if line.can_use_product_carbon_value():
-                debt, infos = line.product_id.get_carbon_value(line_type, quantity=line.quantity, price=value)
-                origin = line.product_id.carbon_out_value_origin if line_type == 'credit' else line.product_id.carbon_in_value_origin
-                origin += "|" + str(infos[0])
+                record = line.product_id
+                kw_arguments.update({
+                    'carbon_type': 'in' if line.is_debit() else 'out',
+                    'quantity': line.quantity,
+                    'from_uom_id': line.product_uom_id,
+                })
             elif line.can_use_account_carbon_value():
-                debt = value * line.account_id.carbon_in_value
-                origin = line.account_id.carbon_in_value_origin + "|" + str(round(line.account_id.carbon_in_value, 4))
+                record = line.account_id
+                kw_arguments.update({'carbon_type': 'in'})
             else:
-                company = line.move_id.company_id or self.env.company
-                carbon_value = company.carbon_out_value if line_type == 'credit' else company.carbon_in_value
-                debt = value * carbon_value
-                origin = company.name + "|" + str(carbon_value)
+                record = line.move_id.company_id or self.env.company
+                kw_arguments.update({'carbon_type': 'in' if line.is_debit() else 'out'})
 
+            debt, infos = record.get_carbon_value(**kw_arguments)
 
             line.carbon_debt = debt
-            line.carbon_value_origin = origin
+            line.carbon_value_origin = f"{infos['carbon_value_origin']}|{infos['carbon_value']}"
 
 
     # --------------------------------------------
@@ -196,7 +198,17 @@ class AccountMoveLine(models.Model):
 
     def can_use_product_carbon_value(self) -> bool:
         self.ensure_one()
-        return self.product_id and (
+        return bool(self.product_id) and (
             (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_in_value()) or
             (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_out_value())
         )
+
+
+    """ These methods might seem useless but the logic could change in the future so it's better to have them """
+    def is_debit(self) -> bool:
+        self.ensure_one()
+        return bool(self.debit)
+
+    def is_credit(self) -> bool:
+        self.ensure_one()
+        return bool(self.credit)

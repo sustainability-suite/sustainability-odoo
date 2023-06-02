@@ -1,5 +1,4 @@
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from odoo import api, models
 # from odoo.addons.onsp_co2.models.carbon_mixin import auto_depends
 
 
@@ -49,31 +48,6 @@ class ProductProduct(models.Model):
     )
     def _compute_carbon_out_mode(self):
         super(ProductProduct, self)._compute_carbon_out_mode()
-
-
-    def get_carbon_value(self, value_type: str, quantity: float = None, price: float = None) -> tuple[float, tuple]:
-        """
-        Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
-        Used in account.move.line to compute carbon debt if a product is set.
-        """
-        self.ensure_one()
-        if quantity is None and price is None:
-            raise UserError(_("You must pass either a quantity or a price to compute carbon cost (product: %s, quantity: %s, price: %s)", self.display_name, quantity, price))
-
-        if value_type == 'debit':
-            carbon_value = self.carbon_in_value
-            compute_method = self.carbon_in_compute_method
-        elif value_type == 'credit':
-            carbon_value = self.carbon_out_value
-            compute_method = self.carbon_out_compute_method
-        else:
-            raise UserError(_("value_type parameter must be either `debit` or `credit`"))
-
-        value = quantity if compute_method == "physical" else price
-        if value is None:
-            raise UserError(_("%s carbon value is computed with a %s value but this latter was not passed as a parameter", self.display_name, compute_method))
-
-        return value * carbon_value, (carbon_value, compute_method)
 
 
 
