@@ -1,5 +1,5 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from typing import Any
 
 
@@ -366,16 +366,28 @@ class CarbonMixin(models.AbstractModel):
         }
 
         if infos['compute_method'] == "physical" and quantity and from_uom_id:
-            value = quantity * infos['carbon_value']
+            infos.update({'carbon_uom_id': getattr(self, f"{prefix}_uom_id")})
+            if from_uom_id.category_id != infos['carbon_uom_id'].category_id:
+                raise ValidationError(_(
+                    "The unit of measure chosen for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the '%s' settings.",
+                    self,
+                    from_uom_id.name,
+                    from_uom_id.category_id.name,
+                    infos['carbon_uom_id'].name,
+                    infos['carbon_uom_id'].category_id.name,
+                    prefix,
+                ))
+
+            value = infos['carbon_value'] * from_uom_id._compute_quantity(quantity, infos['carbon_uom_id'])
 
         elif infos['compute_method'] == "monetary" and amount and from_currency_id:
-            # We convert the amount to the currency used in carbon settings
+            # We convert the amount to the currency used in carbon settings of the record
             infos.update({'carbon_monetary_currency_id': getattr(self, f"{prefix}_monetary_currency_id")})
             date = date or fields.Date.today()
             value = infos['carbon_value'] * from_currency_id._convert(amount, infos['carbon_monetary_currency_id'], self.env.company, date)
 
         else:
-            raise UserError(_("To compute a carbon cost, you must pass:"
+            raise ValidationError(_("To compute a carbon cost, you must pass:"
                               "\n- either a quantity and a unit of measure"
                               "\n- or a price and a currency (+ an optional date)"
                               "\n\nPassed value: "
