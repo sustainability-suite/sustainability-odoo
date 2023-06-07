@@ -116,9 +116,10 @@ class AccountMoveLine(models.Model):
 
             # These are the common arguments for the carbon value computation
             # Others values are added below depending on the record type
+            # About from_currency_id: We take the company currency because credit/debit are expressed in that currency
             kw_arguments = {
                 'amount': amount,
-                'from_currency_id': line.currency_id,
+                'from_currency_id': (line.move_id.company_id or self.env.company).currency_id,
                 'date': line.move_id.invoice_date,
             }
 
