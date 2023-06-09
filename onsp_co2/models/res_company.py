@@ -5,11 +5,6 @@ class ResCompany(models.Model):
     _name = "res.company"
     _inherit = ["res.company", "carbon.mixin"]
 
-    @api.model
-    def _get_available_carbon_compute_methods(self):
-        return [
-            ('monetary', 'Monetary'),
-        ]
 
     # For companies, carbon value is not linked to a factor and must be a plain value
     # -> We negate a lot of computation
@@ -19,8 +14,8 @@ class ResCompany(models.Model):
     carbon_out_value_origin = fields.Char(compute=False, store=True, related="name")
     carbon_in_monetary_currency_id = fields.Many2one(compute="_compute_carbon_currencies")
     carbon_out_monetary_currency_id = fields.Many2one(compute="_compute_carbon_currencies")
-    carbon_in_compute_method = fields.Selection(default='monetary', required=True)
-    carbon_out_compute_method = fields.Selection(default='monetary', required=True)
+    carbon_in_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
+    carbon_out_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
 
     invoice_report_footer = fields.Html(translate=True)
 
@@ -30,3 +25,10 @@ class ResCompany(models.Model):
         for company in self:
             company.carbon_in_monetary_currency_id = company.currency_id
             company.carbon_out_monetary_currency_id = company.currency_id
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['carbon_in_is_manual'] = True
+            vals['carbon_out_is_manual'] = True
+        return super(ResCompany, self).create(vals_list)
