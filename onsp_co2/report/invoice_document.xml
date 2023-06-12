@@ -6,7 +6,7 @@
             <xpath expr="//span[@t-field='o.narration']/../.." position="after">
                 <t t-if="o.carbon_balance">
                     <div style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;">
-                        <strong>CO<sub>2</sub> Equivalent: </strong> <span t-out="o.carbon_balance"/> <span t-out="o.carbon_currency_id.name" />
+                        <strong>CO<sub>2</sub> Equivalent: </strong> <span t-out="round(o.carbon_balance)"/> <span t-out="o.carbon_currency_id.currency_unit_label" />
                         <div t-out="o.company_id.invoice_report_footer" />
                     </div>
                 </t>
