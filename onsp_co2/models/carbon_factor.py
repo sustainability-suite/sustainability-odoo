@@ -28,7 +28,7 @@ class CarbonFactor(models.Model):
         'res.currency',
         compute="_compute_carbon_currency_id",
     )
-    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id")
+    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id", default="KgCo2e")
 
     # Depending on factor type, there is either a carbon_uom_id or a carbon_monetary_currency_id
     carbon_compute_method = fields.Selection(
