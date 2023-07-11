@@ -4,14 +4,11 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    carbon_in_value = fields.Float(
-        related='company_id.carbon_in_value',
-        readonly=False,
-    )
-    carbon_out_value = fields.Float(
-        related='company_id.carbon_out_value',
-        readonly=False,
-    )
+    carbon_currency_label = fields.Char(related='company_id.carbon_currency_label')
+    carbon_in_value = fields.Float(related='company_id.carbon_in_value', readonly=False)
+    carbon_in_monetary_currency_id = fields.Many2one(related='company_id.carbon_in_monetary_currency_id')
+    carbon_out_value = fields.Float(related='company_id.carbon_out_value', readonly=False)
+    carbon_out_monetary_currency_id = fields.Many2one(related='company_id.carbon_out_monetary_currency_id')
     invoice_report_footer = fields.Html(
         related='company_id.invoice_report_footer',
         readonly=False,

@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError, ValidationError
 from typing import Any
 
 
@@ -87,7 +88,6 @@ class CarbonMixin(models.AbstractModel):
     carbon_in_compute_method = fields.Selection(
         selection=_get_available_carbon_compute_methods,
         string="Compute method",
-        default=False,
     )
     carbon_in_value_origin = fields.Char(compute="_compute_carbon_in_value", store=True, recursive=True, string="Value origin")
     carbon_in_uom_id = fields.Many2one("uom.uom")
@@ -121,13 +121,17 @@ class CarbonMixin(models.AbstractModel):
     carbon_out_compute_method = fields.Selection(
         selection=_get_available_carbon_compute_methods,
         string="Compute method ",
-        default=False,
     )
     carbon_out_value_origin = fields.Char(compute="_compute_carbon_out_value", store=True, recursive=True, string="Value origin ")
     carbon_out_uom_id = fields.Many2one("uom.uom")
     carbon_out_monetary_currency_id = fields.Many2one("res.currency")
     carbon_out_unit_label = fields.Char(compute="_compute_carbon_out_unit_label", string="  ")
 
+
+
+    # --------------------------------------------
+    #            COMPUTE (+related methods)
+    # --------------------------------------------
 
 
     def _compute_carbon_currency_id(self):
@@ -233,8 +237,6 @@ class CarbonMixin(models.AbstractModel):
                 rec._update_carbon_fields(prefix, record=fallback_record, origin=origin)
 
 
-
-
     def _update_carbon_fields(self, prefix: str, vals: dict = None, record: Any = None, origin: str = None):
         """
         Update some fields related to carbon computation, depending on the `prefix` parameter.
@@ -253,38 +255,6 @@ class CarbonMixin(models.AbstractModel):
             origin = record._get_record_description() if record else ""
         setattr(self, f"{prefix}_value_origin", origin)
 
-
-
-
-    """
-    These methods return True in 2 cases:
-        - if value is > 0
-        - if an emission factor is defined (which means that the value can be 0)
-    """
-    def has_valid_carbon_in_value(self):
-        return len(self) == 1 and (
-            (self.carbon_in_compute_method == 'physical' and self.carbon_in_uom_id) or
-            (self.carbon_in_compute_method == 'monetary' and self.carbon_in_monetary_currency_id)
-        )
-
-    def has_valid_carbon_out_value(self):
-        return len(self) == 1 and (
-                (self.carbon_out_compute_method == 'physical' and self.carbon_out_uom_id) or
-                (self.carbon_out_compute_method == 'monetary' and self.carbon_out_monetary_currency_id)
-        )
-
-    @api.model
-    def generate_origin_string(self, path: list[Any], prefix: str) -> str:
-        str_path = " > ".join([rec._get_record_description() for rec in path])
-        factor = getattr(path[-1], f"{prefix}_factor_id", None)
-        origin = getattr(path[-1], f"{prefix}_value_origin", None)
-        if factor or origin:
-            str_path += " > " + (factor._get_record_description() if factor else origin)
-        return str_path
-
-    def _get_record_description(self) -> str:
-        self.ensure_one()
-        return self._description + (f": {self.name}" if hasattr(self, 'name') else "")
 
     """
     Override these methods to add fallback records to search for carbon values
@@ -335,6 +305,98 @@ class CarbonMixin(models.AbstractModel):
             # We can't use set as order is important. Might be possible to find another way to do that
             fallback_with_recursive.extend([e for e in rec._build_fallback_records_list(field) if e not in fallback_with_recursive])
         return fallback_with_recursive
+
+
+    # --------------------------------------------
+    #               GENERAL METHODS
+    # --------------------------------------------
+
+    """
+    These methods return True in 2 cases:
+        - if value is > 0
+        - if an emission factor is defined (which means that the value can be 0)
+    """
+    def has_valid_carbon_in_value(self):
+        return bool(
+            len(self) == 1 and (
+                (self.carbon_in_compute_method == 'physical' and self.carbon_in_uom_id) or
+                (self.carbon_in_compute_method == 'monetary' and self.carbon_in_monetary_currency_id)
+            )
+        )
+
+    def has_valid_carbon_out_value(self):
+        return bool(
+            len(self) == 1 and (
+                (self.carbon_out_compute_method == 'physical' and self.carbon_out_uom_id) or
+                (self.carbon_out_compute_method == 'monetary' and self.carbon_out_monetary_currency_id)
+            )
+        )
+
+    @api.model
+    def generate_origin_string(self, path: list[Any], prefix: str) -> str:
+        str_path = " > ".join([rec._get_record_description() for rec in path])
+        factor = getattr(path[-1], f"{prefix}_factor_id", None)
+        origin = getattr(path[-1], f"{prefix}_value_origin", None)
+        if factor or origin:
+            str_path += " > " + (factor._get_record_description() if factor else origin)
+        return str_path
+
+    def _get_record_description(self) -> str:
+        self.ensure_one()
+        return self._description + (f": {self.name}" if hasattr(self, 'name') else "")
+
+
+
+
+    def get_carbon_value(self, carbon_type: str = None, quantity: float = None, from_uom_id=None, amount: float = None, from_currency_id=None, date=None) -> tuple[float, dict]:
+        """
+        Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
+        Used in account.move.line to compute carbon debt if a product is set.
+        """
+        self.ensure_one()
+        if carbon_type not in ['in', 'out']:
+            raise UserError(_("Carbon value type must be either 'in' or 'out'"))
+
+
+        prefix = 'carbon_' + carbon_type
+        infos = {
+            'compute_method': getattr(self, f"{prefix}_compute_method"),
+            'carbon_value': getattr(self, f"{prefix}_value"),
+            'carbon_value_origin': getattr(self, f"{prefix}_value_origin"),
+        }
+
+        if infos['compute_method'] == "physical" and quantity and from_uom_id:
+            infos.update({'carbon_uom_id': getattr(self, f"{prefix}_uom_id")})
+            if from_uom_id.category_id != infos['carbon_uom_id'].category_id:
+                raise ValidationError(_(
+                    "The unit of measure chosen for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the '%s' settings.",
+                    self,
+                    from_uom_id.name,
+                    from_uom_id.category_id.name,
+                    infos['carbon_uom_id'].name,
+                    infos['carbon_uom_id'].category_id.name,
+                    prefix,
+                ))
+
+            value = infos['carbon_value'] * from_uom_id._compute_quantity(quantity, infos['carbon_uom_id'])
+
+        elif infos['compute_method'] == "monetary" and amount and from_currency_id:
+            # We convert the amount to the currency used in carbon settings of the record
+            infos.update({'carbon_monetary_currency_id': getattr(self, f"{prefix}_monetary_currency_id")})
+            date = date or fields.Date.today()
+            value = infos['carbon_value'] * from_currency_id._convert(amount, infos['carbon_monetary_currency_id'], self.env.company, date)
+
+        else:
+            raise ValidationError(_("To compute a carbon cost, you must pass:"
+                              "\n- either a quantity and a unit of measure"
+                              "\n- or a price and a currency (+ an optional date)"
+                              "\n\nPassed value: "
+                              "\n- Record: %s (compute method: %s)"
+                              "\n- Quantity: %s, UOM: %s"
+                              "\n- Amount: %s, Currency: %s", self, infos['compute_method'], quantity, from_uom_id, amount, from_currency_id))
+
+
+        return value, infos
 
 
     # --------------------------------------------
