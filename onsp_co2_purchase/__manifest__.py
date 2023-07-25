@@ -12,7 +12,7 @@
     ],
     "data": [
         # Views
-        "views/product_supplierinfo.xml",
+        # "views/product_supplierinfo.xml",
         "views/purchase_order.xml",
         "views/res_partner.xml",
     ],

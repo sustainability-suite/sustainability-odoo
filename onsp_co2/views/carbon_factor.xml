@@ -9,10 +9,14 @@
                 <tree>
                     <field name="carbon_currency_id" invisible="1" />
                     <field name="carbon_compute_method" invisible="1" />
-                    <field name="display_name" string="Name"/>
-                    <field name="carbon_value" widget="monetary" options="{'currency_field': 'carbon_currency_id'}" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
-                    <field name="unit_label" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
+                    <field name="recent_value_id" invisible="1" />
 
+                    <field name="display_name" string="Name"/>
+                    <field name="carbon_value" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
+                    <field name="carbon_currency_label" string=" " attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
+                    <field name="unit_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
+                    <field name="carbon_date" />
+                    <field name="carbon_source" />
                 </tree>
             </field>
         </record>
@@ -23,40 +27,62 @@
             <field name="arch" type="xml">
                 <form>
                     <field name="carbon_currency_id" invisible="1" />
+                    <field name="recent_value_id" invisible="1"/>
+                    <field name="has_invalid_value" invisible="1"/>
+
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_see_child_ids" class="oe_stat_button" icon="fa-sitemap">
+                                <field name="child_qty" widget="statinfo" string="Child Factors" />
+                            </button>
+                        </div>
                         <h1><field name="name" /></h1>
 
                         <group>
                             <field name="parent_id" />
+                            <field name="carbon_compute_method" />
                         </group>
 
-                        <group>
+                        <group string="Most recent values" attrs="{'invisible': ['|', ('carbon_compute_method', '=', False), ('recent_value_id', '=', False)]}">
                             <group>
-                                <field name="carbon_compute_method" />
-                            </group>
-                            <group attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
+                                <label for="carbon_date" />
+                                <div class="o_row">
+                                    <field name="carbon_date" nolabel="1" class="oe_inline" />
+                                    <span class="oe_inline" attrs="{'invisible': [('carbon_source', '=', False)]}">(<field name="carbon_source" class="oe_inline" />)</span>
+                                </div>
+
                                 <label for="carbon_value" />
                                 <div class="o_row">
                                     <field name="carbon_value" nolabel="1" class="oe_inline" />
                                     <field name="carbon_currency_label" class="font-italic" style="color: grey;" />
-                                    <span class="oe_inline">/</span>
-                                    <field name="carbon_uom_id" attrs="{'invisible': [('carbon_compute_method', '!=', 'physical')], 'required': [('carbon_compute_method', '=', 'physical')]}" nolabel="1" class="oe_inline" />
-                                    <field name="carbon_monetary_currency_id" attrs="{'invisible': [('carbon_compute_method', '!=', 'monetary')], 'required': [('carbon_compute_method', '=', 'monetary')]}" nolabel="1" class="oe_inline" />
+                                    <field name="unit_label" />
                                 </div>
                             </group>
                         </group>
 
 
 
-                        <notebook>
-                            <page string="Child factors" name="page_child_factors">
-                                <field name="child_ids" colspan="2" nolabel="1">
+                        <notebook attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
+                            <page string="Values" name="page_values">
+                                <div class="alert alert-danger col-6" role="alert" attrs="{'invisible': [('has_invalid_value', '=', False)]}" colspan="2">
+                                    Some values miss a currency or a unit of measure <br />
+                                    Please fix them before using this factor.
+                                </div>
+                                <field name="value_ids" colspan="2" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="carbon_currency_id" invisible="1" />
-                                        <field name="carbon_compute_method" invisible="1" />
-                                        <field name="name" />
-                                        <field name="carbon_value" widget="monetary" options="{'currency_field': 'carbon_currency_id'}" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
-                                        <field name="unit_label" attrs="{'invisible': [('carbon_compute_method', '=', False)]}" />
+                                        <field name="date" />
+                                        <field name="carbon_value" />
+                                        <field name="carbon_currency_label" string=" " />
+
+                                        <field name="carbon_uom_id" attrs="{
+                                            'column_invisible': [('parent.carbon_compute_method', '!=', 'physical')],
+                                            'required': [('parent.carbon_compute_method', '=', 'physical')],
+                                        }" />
+                                        <field name="carbon_monetary_currency_id" attrs="{
+                                            'column_invisible': [('parent.carbon_compute_method', '!=', 'monetary')],
+                                            'required': [('parent.carbon_compute_method', '=', 'monetary')],
+                                        }" />
+                                        <field name="source" />
                                     </tree>
                                 </field>
                             </page>
