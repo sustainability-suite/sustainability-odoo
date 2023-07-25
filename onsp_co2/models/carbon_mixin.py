@@ -34,6 +34,17 @@ from typing import Any
 #         pass
 #     return cls
 
+APPLICABLE_MODELS = [
+    "carbon.factor",
+    "product.category",
+    "product.product",
+    "product.template",
+    "res.partner",
+    "res.company",
+    "res.country",
+]
+
+
 
 class CarbonMixin(models.AbstractModel):
     _name = "carbon.mixin"
@@ -51,6 +62,16 @@ class CarbonMixin(models.AbstractModel):
         return [
             ('physical', 'Physical'),
             ('monetary', 'Monetary'),
+        ]
+
+    @api.model
+    def _get_valid_factor_domain(self):
+        return "[('carbon_compute_method', '!=', False), ('recent_value_id', '!=', [])]"
+
+    @api.model
+    def _selection_fallback_model(self):
+        return [
+            (x, _(self.env[x]._description)) for x in APPLICABLE_MODELS if x in self.env
         ]
 
     # --------------------------------------------
@@ -75,7 +96,7 @@ class CarbonMixin(models.AbstractModel):
         compute="_compute_carbon_in_mode",
         store=True,
     )
-    carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null')
+    carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null', domain=_get_valid_factor_domain)
     carbon_in_value = fields.Float(
         string="CO2e value",
         digits="Carbon value",
@@ -89,6 +110,7 @@ class CarbonMixin(models.AbstractModel):
         selection=_get_available_carbon_compute_methods,
         string="Compute method",
     )
+    carbon_in_fallback_reference = fields.Reference(selection="_selection_fallback_model")
     carbon_in_value_origin = fields.Char(compute="_compute_carbon_in_value", store=True, recursive=True, string="Value origin")
     carbon_in_uom_id = fields.Many2one("uom.uom")
     carbon_in_monetary_currency_id = fields.Many2one("res.currency")
@@ -108,7 +130,7 @@ class CarbonMixin(models.AbstractModel):
         compute="_compute_carbon_out_mode",
         store=True,
     )
-    carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null')
+    carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null', domain=_get_valid_factor_domain)
     carbon_out_value = fields.Float(
         string="CO2e value for sales",
         digits="Carbon value",
@@ -122,6 +144,7 @@ class CarbonMixin(models.AbstractModel):
         selection=_get_available_carbon_compute_methods,
         string="Compute method ",
     )
+    carbon_out_fallback_reference = fields.Reference(selection="_selection_fallback_model")
     carbon_out_value_origin = fields.Char(compute="_compute_carbon_out_value", store=True, recursive=True, string="Value origin ")
     carbon_out_uom_id = fields.Many2one("uom.uom")
     carbon_out_monetary_currency_id = fields.Many2one("res.currency")
@@ -191,6 +214,7 @@ class CarbonMixin(models.AbstractModel):
         for rec in self.filtered(f"{prefix}_is_manual"):
             factor = getattr(rec, f"{prefix}_factor_id", None)
             if factor:
+                # Todo: Call a method on carbon factor to get the most recent value and use the value from this latter
                 rec._update_carbon_fields(
                     prefix,
                     vals={
@@ -241,13 +265,18 @@ class CarbonMixin(models.AbstractModel):
         """
         Update some fields related to carbon computation, depending on the `prefix` parameter.
         1) if `vals` is not None, record will be ignored (> priority order)
-        2) if `vals` is None and `record` is None, fields will be updated with falsy values. Useful if you need to reset them.
+        2) if `record` is not None, this latter will be saved as a reference
+        3) if `vals` is None and `record` is None, fields will be updated with falsy values. Useful if you need to reset them.
         """
         self.ensure_one()
         if vals is None:
             vals = dict()
+            record_prefix = 'carbon' if record and record._name == 'carbon.factor' else prefix
             for field in ['value', 'compute_method', 'uom_id', 'monetary_currency_id']:
-                vals[f"{prefix}_{field}"] = getattr(record, f"{prefix}_{field}", False)
+                vals[f"{prefix}_{field}"] = getattr(record, f"{record_prefix}_{field}", False)
+
+            vals[f"{prefix}_fallback_reference"] = record
+
         for field, value in vals.items():
             setattr(self, field, value)
         # We set origin separately to be allowed to put anything in any situation
@@ -272,6 +301,7 @@ class CarbonMixin(models.AbstractModel):
     def _search_fallback_record(self, prefix: str) -> list[Any]:
         """
         Build the list of possible fallback records, then search the first valid value
+        Valid record = manual mode + has_valid_value() == True
         :return: a list with the path to the first valid record
         """
         self.ensure_one()
@@ -281,7 +311,9 @@ class CarbonMixin(models.AbstractModel):
         for rec in fallback_records:
             fallback_path.append(rec)
             if getattr(rec, f"{prefix}_mode") == 'manual' and getattr(rec, f"has_valid_{field}")():
-                return fallback_path
+                if getattr(rec, f"{prefix}_factor_id"):
+                    fallback_path.append(getattr(rec, f"{prefix}_factor_id"))
+                break
         return fallback_path
 
     def _build_fallback_records_list(self, field: str) -> list:
@@ -312,9 +344,10 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
 
     """
-    These methods return True in 2 cases:
+    These 2 following methods return True in 2 cases:
         - if value is > 0
         - if an emission factor is defined (which means that the value can be 0)
+    Note: could be refactor into a single method with a `prefix` parameter
     """
     def has_valid_carbon_in_value(self):
         return bool(
@@ -331,6 +364,21 @@ class CarbonMixin(models.AbstractModel):
                 (self.carbon_out_compute_method == 'monetary' and self.carbon_out_monetary_currency_id)
             )
         )
+
+    def get_related_carbon_factor(self, prefix: str):
+        """
+        If the record is linked to a carbon factor, return this latter. There are 2 scenarios:
+            - Either carbon mode is manual and factor_id is set
+            - Or carbon mode is auto and the fallback record is a carbon factor
+        """
+        if getattr(self, f"{prefix}_mode") == 'manual':
+            return getattr(self, f"{prefix}_factor_id")
+        elif getattr(self, f"{prefix}_mode") == 'auto':
+            fallback_record = getattr(self, f"{prefix}_fallback_reference")
+            if fallback_record and fallback_record._name == 'carbon.factor':
+                return fallback_record
+        return None
+
 
     @api.model
     def generate_origin_string(self, path: list[Any], prefix: str) -> str:
@@ -357,16 +405,25 @@ class CarbonMixin(models.AbstractModel):
         if carbon_type not in ['in', 'out']:
             raise UserError(_("Carbon value type must be either 'in' or 'out'"))
 
-
         prefix = 'carbon_' + carbon_type
-        infos = {
-            'compute_method': getattr(self, f"{prefix}_compute_method"),
-            'carbon_value': getattr(self, f"{prefix}_value"),
-            'carbon_value_origin': getattr(self, f"{prefix}_value_origin"),
-        }
+        factor = self.get_related_carbon_factor(prefix)
 
-        if infos['compute_method'] == "physical" and quantity and from_uom_id:
-            infos.update({'carbon_uom_id': getattr(self, f"{prefix}_uom_id")})
+
+        if factor:
+            # Either mode is manual and factor_id is set or mode is auto and the fallback record is a carbon factor
+            infos = factor.get_value_infos_at_date(date)
+        else:
+            # Either mode is manual and factor_id is False or mode is auto and the fallback record is not a carbon factor
+            infos = {
+                'compute_method': getattr(self, f"{prefix}_compute_method"),
+                'carbon_value': getattr(self, f"{prefix}_value"),
+                'carbon_value_origin': getattr(self, f"{prefix}_value_origin"),
+                'carbon_uom_id': getattr(self, f"{prefix}_uom_id"),
+                'carbon_monetary_currency_id': getattr(self, f"{prefix}_monetary_currency_id"),
+            }
+
+
+        if infos['compute_method'] == "physical" and quantity is not None and from_uom_id:
             if from_uom_id.category_id != infos['carbon_uom_id'].category_id:
                 raise ValidationError(_(
                     "The unit of measure chosen for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the '%s' settings.",
@@ -380,9 +437,8 @@ class CarbonMixin(models.AbstractModel):
 
             value = infos['carbon_value'] * from_uom_id._compute_quantity(quantity, infos['carbon_uom_id'])
 
-        elif infos['compute_method'] == "monetary" and amount and from_currency_id:
+        elif infos['compute_method'] == "monetary" and amount is not None and from_currency_id:
             # We convert the amount to the currency used in carbon settings of the record
-            infos.update({'carbon_monetary_currency_id': getattr(self, f"{prefix}_monetary_currency_id")})
             date = date or fields.Date.today()
             value = infos['carbon_value'] * from_currency_id._convert(amount, infos['carbon_monetary_currency_id'], self.env.company, date)
 
@@ -424,7 +480,7 @@ class CarbonMixin(models.AbstractModel):
         carbon_type = self.env.context.get('carbon_type', default_carbon_type)
         if not hasattr(self, carbon_type):
             carbon_type = default_carbon_type
-        origin = getattr(self, f"{carbon_type}_origin")
+        origin = getattr(self, f"{carbon_type}_value_origin")
         carbon_value = round(getattr(self, f"{carbon_type}_value"), 4)  # Quick fix for weird rounding (hoping it will stay the same)
 
         return {

@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, api
 
 
 class ProductTemplate(models.Model):
@@ -10,12 +10,15 @@ class ProductTemplate(models.Model):
         If needed, we can split between template and variant (with here seller_ids.filtered(lambda s: not s.product_id))
         """
         res = super(ProductTemplate, self)._get_carbon_in_value_fallback_records()
-        supplierinfo_fallbacks = []
-        for seller in self.seller_ids:
-            supplierinfo_fallbacks.extend([seller] + seller._get_carbon_in_value_fallback_records())
-        # Insert suppliers before other values
-        return supplierinfo_fallbacks + res
+        supplierinfo_partners = [s.partner_id for s in self.seller_ids]
+        return supplierinfo_partners + res
 
-    def _get_carbon_out_value_fallback_records(self):
-        res = super(ProductTemplate, self)._get_carbon_out_value_fallback_records()
-        return res + [self.categ_id]
+    @api.depends(
+        'seller_ids.partner_id.carbon_in_value',
+        'seller_ids.partner_id.carbon_in_compute_method',
+        'seller_ids.partner_id.carbon_in_uom_id',
+        'seller_ids.partner_id.carbon_in_monetary_currency_id',
+    )
+    def _compute_carbon_in_mode(self):
+        super(ProductTemplate, self)._compute_carbon_in_mode()
+

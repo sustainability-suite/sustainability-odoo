@@ -2,6 +2,9 @@ from odoo import api, fields, models, _
 from typing import Union
 
 
+STATES_TO_AUTO_RECOMPUTE = ['draft']
+
+
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
@@ -78,9 +81,16 @@ class AccountMoveLine(models.Model):
         'product_id.carbon_in_uom_id',
         'product_id.carbon_in_monetary_currency_id',
 
+        'product_id.carbon_out_value',
+        'product_id.carbon_out_compute_method',
+        'product_id.carbon_out_uom_id',
+        'product_id.carbon_out_monetary_currency_id',
+
+        'quantity',
         'credit',
         'debit',
         'move_type',
+        'move_id.invoice_date',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
         if force_compute is None:
@@ -91,7 +101,7 @@ class AccountMoveLine(models.Model):
             force_compute = [force_compute]
 
         if 'posted' not in force_compute:
-            self = self.filtered(lambda l: l.move_id.state == 'draft')
+            self = self.filtered(lambda l: l.move_id.state in STATES_TO_AUTO_RECOMPUTE)
         if 'locked' not in force_compute:
             self = self.filtered(lambda l: not l.carbon_is_locked)
 
@@ -101,44 +111,33 @@ class AccountMoveLine(models.Model):
         # self = self.filtered(lambda l: not (filter_locked and l.carbon_is_locked) and not (filter_posted and l.move_id.state == 'draft'))
 
         for line in self:
-            if not line.credit and not line.debit:
-                line.carbon_debt = 0.0
-                line.carbon_value_origin = ""
-                continue
-
             amount = getattr(line, "debit" if line.is_debit() else "credit", 0.0)
-
             # We don't take discounts into account for carbon values, so we need to reverse it
             # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
             if line.discount:
-                amount = amount / (1 - line.discount / 100) if line.discount != 100 else line.price_unit*line.quantity
-
+                amount = amount / (1 - line.discount / 100) if line.discount != 100 else line.price_unit * line.quantity
 
             # These are the common arguments for the carbon value computation
             # Others values are added below depending on the record type
-            # About from_currency_id: We take the company currency because credit/debit are expressed in that currency
             kw_arguments = {
-                'amount': amount,
-                'from_currency_id': (line.move_id.company_id or self.env.company).currency_id,
+                'carbon_type': 'out' if line.move_id.is_sale_document() else 'in',
                 'date': line.move_id.invoice_date,
+                'amount': amount,
+                # We take the company currency because credit/debit are expressed in that currency
+                'from_currency_id': (line.move_id.company_id or self.env.company).currency_id,
             }
 
-            if line.can_use_product_carbon_value():
-                record = line.product_id
-                kw_arguments.update({
-                    'carbon_type': 'in' if line.is_debit() else 'out',
-                    'quantity': line.quantity,
-                    'from_uom_id': line.product_uom_id,
-                })
-            elif line.can_use_account_carbon_value():
-                record = line.account_id
-                kw_arguments.update({'carbon_type': 'in'})
+
+            for field in line.get_possible_fields_to_compute_carbon():
+                if getattr(line, f"can_use_{field}_carbon_value", lambda: False)():
+                    record = getattr(line, field)
+                    kw_arguments.update(getattr(line, f"get_{field}_carbon_compute_values", lambda: {})())
+                    break
             else:
                 record = line.move_id.company_id or self.env.company
-                kw_arguments.update({'carbon_type': 'in' if line.is_debit() else 'out'})
+
 
             debt, infos = record.get_carbon_value(**kw_arguments)
-
             line.carbon_debt = debt
             line.carbon_value_origin = f"{infos['carbon_value_origin']}|{infos['carbon_value']}"
 
@@ -192,17 +191,38 @@ class AccountMoveLine(models.Model):
         return res
 
 
-    """ These methods are helper to know if line can use account or product to compute co2 values """
-    def can_use_account_carbon_value(self) -> bool:
+
+    # --------------------------------------------
+    #              Modular methods
+    # --------------------------------------------
+
+
+    @api.model
+    def get_possible_fields_to_compute_carbon(self):
+        return ['product_id', 'account_id']
+
+
+    """ These methods are helper to know if a line has valid co2 values to compute line debt """
+    # --- ACCOUNT ---
+    def can_use_account_id_carbon_value(self) -> bool:
         self.ensure_one()
         return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_in_value()
 
-    def can_use_product_carbon_value(self) -> bool:
+    def get_account_id_carbon_compute_values(self) -> dict:
+        self.ensure_one()
+        return {'carbon_type': 'in'}
+
+    # --- PRODUCT ---
+    def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
         return bool(self.product_id) and (
             (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_in_value()) or
             (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_out_value())
         )
+
+    def get_product_id_carbon_compute_values(self) -> dict:
+        self.ensure_one()
+        return {'quantity': self.quantity, 'from_uom_id': self.product_uom_id}
 
 
     """ These methods might seem useless but the logic could change in the future so it's better to have them """
