@@ -24,3 +24,11 @@ class PurchaseOrder(models.Model):
         for po in self:
             po.carbon_debt = sum(po.order_line.mapped("carbon_debt"))
 
+
+    # Todo: put in a new mixin
+    def action_recompute_carbon(self) -> dict:
+        """ Force re-computation of carbon values for PO lines. """
+        for order in self:
+            order.order_line.action_recompute_carbon()
+        return {}
+
