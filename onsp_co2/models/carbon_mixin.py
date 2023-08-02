@@ -94,6 +94,7 @@ class CarbonMixin(models.AbstractModel):
         ],
         default='auto',
         compute="_compute_carbon_in_mode",
+        recursive=True,
         store=True,
     )
     carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null', domain=_get_valid_factor_domain)
@@ -128,6 +129,7 @@ class CarbonMixin(models.AbstractModel):
         ],
         default='auto',
         compute="_compute_carbon_out_mode",
+        recursive=True,
         store=True,
     )
     carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null', domain=_get_valid_factor_domain)
