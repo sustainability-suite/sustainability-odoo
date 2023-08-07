@@ -96,9 +96,8 @@ class CarbonFactor(models.Model):
 
 
     def write(self, vals):
-        if vals.get('carbon_compute_method') and \
-           (vals['carbon_compute_method'] == 'physical' and not all([v.carbon_uom_id for v in self.value_ids])) or \
-           (vals['carbon_compute_method'] == 'monetary' and not all([v.carbon_monetary_currency_id for v in self.value_ids])):
+        if (vals.get('carbon_compute_method') == 'physical' and not all([v.carbon_uom_id for v in self.value_ids])) or \
+           (vals.get('carbon_compute_method') == 'monetary' and not all([v.carbon_monetary_currency_id for v in self.value_ids])):
             raise ValidationError(_("You can not change the compute method if some values miss currency/unit of measure"))
         return super(CarbonFactor, self).write(vals)
 
