@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cron_initial_carbon_compute_res_partner" model="ir.cron">
+            <field name="name">Initial carbon compute for res.partner</field>
+            <field name="model_id" ref="base.model_res_partner" />
+            <field name="user_id">1</field>
+            <field name="state">code</field>
+            <field name="code">model._cron_initial_carbon_compute_res_partner()</field>
+            <field name="interval_type">minutes</field>
+            <field name="interval_number">5</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+        </record>
+    </data>
+</odoo>
