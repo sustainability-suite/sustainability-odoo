@@ -34,6 +34,8 @@ from typing import Any
 #         pass
 #     return cls
 
+
+# Todo: make this extendable from sub modules
 APPLICABLE_MODELS = [
     "carbon.factor",
     "product.category",
@@ -57,6 +59,31 @@ class CarbonMixin(models.AbstractModel):
         ('not_negative_carbon_out_value', 'CHECK(carbon_out_value >= 0)', 'CO2e value can not be negative !'),
     ]
 
+    @api.constrains(
+        'carbon_in_compute_method', 'carbon_out_compute_method',
+        'carbon_in_monetary_currency_id', 'carbon_out_monetary_currency_id',
+        'carbon_in_uom_id', 'carbon_out_uom_id',
+    )
+    def _check_mandatory_fields(self):
+        for record in self:
+            errors = []
+            # IN
+            if record.carbon_in_is_manual:
+                if record.carbon_in_compute_method == 'monetary' and not record.carbon_in_monetary_currency_id:
+                    errors.append(_("You must set a monetary currency for carbon 'in' value"))
+                if record.carbon_in_compute_method == 'physical' and not record.carbon_in_uom_id:
+                    errors.append(_("You must set a unit of measure for carbon 'in' value"))
+
+            # OUT
+            if record.carbon_out_is_manual:
+                if record.carbon_out_compute_method == 'monetary' and not record.carbon_out_monetary_currency_id:
+                    errors.append(_("You must set a monetary currency for carbon 'out' value"))
+                if record.carbon_out_compute_method == 'physical' and not record.carbon_out_uom_id:
+                    errors.append(_("You must set a unit of measure for carbon 'out' value"))
+
+            if errors:
+                raise ValidationError(_("The following record has missing carbon infos: %s\n\n%s", getattr(record, 'display_name', str(record)), '\n'.join(errors)))
+
     @api.model
     def _get_available_carbon_compute_methods(self):
         return [
@@ -66,6 +93,8 @@ class CarbonMixin(models.AbstractModel):
 
     @api.model
     def _get_valid_factor_domain(self):
+        # Todo: make it dynamic with the _get_available_carbon_compute_methods method
+        # For now, users can select a carbon factor with a non authorized compute method
         return "[('carbon_compute_method', '!=', False), ('recent_value_id', '!=', [])]"
 
     @api.model
@@ -219,9 +248,9 @@ class CarbonMixin(models.AbstractModel):
                     prefix,
                     vals={
                         f"{prefix}_value": factor.carbon_value,
-                        f"{prefix}_compute_method": factor.carbon_compute_method,
                         f"{prefix}_uom_id": factor.carbon_uom_id,
                         f"{prefix}_monetary_currency_id": factor.carbon_monetary_currency_id,
+                        f"{prefix}_compute_method": factor.carbon_compute_method,
                     },
                     origin=factor._get_record_description()
                 )
@@ -272,7 +301,7 @@ class CarbonMixin(models.AbstractModel):
         if vals is None:
             vals = dict()
             record_prefix = 'carbon' if record and record._name == 'carbon.factor' else prefix
-            for field in ['value', 'compute_method', 'uom_id', 'monetary_currency_id']:
+            for field in ['value', 'uom_id', 'monetary_currency_id', 'compute_method']:
                 vals[f"{prefix}_{field}"] = getattr(record, f"{record_prefix}_{field}", False)
 
             vals[f"{prefix}_fallback_reference"] = record
@@ -283,6 +312,8 @@ class CarbonMixin(models.AbstractModel):
         if origin is None:
             origin = record._get_record_description() if record else ""
         setattr(self, f"{prefix}_value_origin", origin)
+
+
 
 
     """
@@ -427,7 +458,7 @@ class CarbonMixin(models.AbstractModel):
             if from_uom_id.category_id != infos['carbon_uom_id'].category_id:
                 raise ValidationError(_(
                     "The unit of measure chosen for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the '%s' settings.",
-                    self,
+                    self.display_name,
                     from_uom_id.name,
                     from_uom_id.category_id.name,
                     infos['carbon_uom_id'].name,
@@ -455,18 +486,31 @@ class CarbonMixin(models.AbstractModel):
         return value, infos
 
 
+
+
+
+    def carbon_widget_update_field(self, field_name: str, value: Any):
+        field = getattr(self, field_name)
+        if isinstance(field, models.BaseModel) and isinstance(value, list):
+            value = value[0]
+        self.write({field_name: value})
+
+
+
     # --------------------------------------------
     #                   ACTIONS
     # --------------------------------------------
 
 
-    def action_recompute_carbon(self):
-        carbon_type = self.env.context.get('carbon_type', 'carbon_in')
+
+
+    def action_recompute_carbon(self, carbon_type: str = None):
+        carbon_type = carbon_type or self.env.context.get('carbon_type', 'carbon_in')
         if not hasattr(self, f"{carbon_type}_value"):
-            return {}
+            return False
 
         getattr(self, f"_compute_{carbon_type}_mode")()
-        return self.action_see_carbon_origin() if len(self) == 1 else {}
+        return True
 
     def action_see_carbon_origin(self):
         """
