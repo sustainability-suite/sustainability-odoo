@@ -121,7 +121,7 @@ class AccountMoveLine(models.Model):
             # Others values are added below depending on the record type
             kw_arguments = {
                 'carbon_type': 'out' if line.move_id.is_sale_document() else 'in',
-                'date': line.move_id.invoice_date,
+                'date': line.move_id.date or line.move_id.invoice_date,
                 'amount': amount,
                 # We take the company currency because credit/debit are expressed in that currency
                 'from_currency_id': (line.move_id.company_id or self.env.company).currency_id,
