@@ -4,7 +4,7 @@
 
 {
     "name": "CO2e Accounting",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "author": "Open Net Sàrl",
     "category": "Accounting",
     "website": "https://www.open-net.ch",
@@ -41,6 +41,7 @@
     'assets': {
         'web.assets_backend': [
             'onsp_co2/static/src/css/*.scss',
+            'onsp_co2/static/src/owl/**/*',
         ],
     },
     "images": [

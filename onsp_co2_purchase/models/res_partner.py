@@ -53,7 +53,8 @@ class ResPartner(models.Model):
         partners = self.env['res.partner'].search([('has_computed_carbon_mode', '=', False)])
 
         if not partners:
-            _logger.warning("Please deactivate cron 'Initial carbon compute for res.partner' as it is not needed anymore.")
+            cron_id = self.env.ref('onsp_co2_purchase.cron_initial_carbon_compute_res_partner')
+            _logger.warning("Please deactivate cron '%s' as it is not needed anymore." % cron_id.name)
             return
 
 

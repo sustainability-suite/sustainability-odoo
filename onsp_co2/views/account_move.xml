@@ -27,16 +27,16 @@
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//tree//field[@name='credit']" position="after">
-                    <field name="carbon_debt" optional="hide" sum="Total CO2 Debt" widget="monetary" />
-                    <field name="carbon_debit" optional="hide" sum="Total CO2 Debit" widget="monetary" />
-                    <field name="carbon_credit" optional="hide" sum="Total CO2 Credit" widget="monetary" />
-                    <field name="carbon_balance" optional="show" sum="Total CO2 Balance" widget="monetary" />
+                    <field name="carbon_debt" optional="hide" sum="Total CO2 Debt" widget="monetary" options="{'digits': [16, 2]}" />
+                    <field name="carbon_debit" optional="hide" sum="Total CO2 Debit" widget="monetary" options="{'digits': [16, 2]}" />
+                    <field name="carbon_credit" optional="hide" sum="Total CO2 Credit" widget="monetary" options="{'digits': [16, 2]}" />
+                    <field name="carbon_balance" optional="show" sum="Total CO2 Balance" widget="monetary" options="{'digits': [16, 2]}" />
                     <field name="carbon_value_origin" invisible="1" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//form//field[@name='credit']" position="after">
-                    <field name="carbon_debit" sum="Total CO2 Debit" widget="monetary"/>
-                    <field name="carbon_credit" sum="Total CO2 Credit" widget="monetary"/>
+                    <field name="carbon_debit" sum="Total CO2 Debit" widget="monetary" options="{'digits': [16, 2]}" />
+                    <field name="carbon_credit" sum="Total CO2 Credit" widget="monetary" options="{'digits': [16, 2]}" />
                     <field name="carbon_debt" invisible="1"/>
                     <field name="carbon_balance" invisible="1"/>
                     <field name="carbon_value_origin" invisible="1" force_save="1" />
