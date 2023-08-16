@@ -11,7 +11,7 @@
                     <h2>Accounting</h2>
                     <div class="row mt16 o_settings_container">
 
-                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value">
+                        <div class="col-12 col-lg-6 o_setting_box o_carbon_in_value" title="Default CO2e value">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Default CO<sub>2</sub>e value</span>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-lg-6 o_setting_box" title="Default CO2e value for sales">
+                        <div class="col-12 col-lg-6 o_setting_box o_carbon_out_value" title="Default CO2e value for sales">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Default CO<sub>2</sub>e sale value</span>
@@ -48,6 +48,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" title="CO2 lock date">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Lock date</span>
+                                <div class="text-muted">
+                                    <p>Prevent co2 computation for journal entries</p>
+                                </div>
+                                <div>
+                                    <field name="carbon_lock_date" placeholder="Pick a date to lock" options="{'datepicker': {'warn_future': true}}" />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
 

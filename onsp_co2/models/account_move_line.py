@@ -68,6 +68,31 @@ class AccountMoveLine(models.Model):
             line.carbon_credit = credit
             line.carbon_debit = debit
 
+    def _filter_lines_to_compute(self, force_compute: Union[bool, str, list[str]] = None):
+        if force_compute is None:
+            force_compute = []
+        elif isinstance(force_compute, bool):
+            force_compute = ['posted', 'locked'] if force_compute else []
+        elif isinstance(force_compute, str):
+            force_compute = [force_compute]
+
+        # if 'posted' not in force_compute:
+        #     lines = lines.filtered(lambda l: l.move_id.state in STATES_TO_AUTO_RECOMPUTE)
+        # if 'locked' not in force_compute:
+        #     lines = lines.filtered(lambda l: not l.carbon_is_locked)
+
+        # TODO ASAP: Make it a SQL query because this is fucking ugly
+        res = self.env['account.move.line']
+        for line in self:
+            if (
+                    ('posted' not in force_compute and line.move_id.state not in STATES_TO_AUTO_RECOMPUTE)
+                    or ('locked' not in force_compute and line.carbon_is_locked)
+                    or (line.move_id.company_id.carbon_lock_date and line.move_id.date < line.move_id.company_id.carbon_lock_date)
+            ):
+                continue
+            res |= line
+
+        return res
 
     @api.depends(
         'account_id.use_carbon_value',
@@ -91,26 +116,12 @@ class AccountMoveLine(models.Model):
         'debit',
         'move_type',
         'move_id.invoice_date',
+        'move_id.company_id.carbon_lock_date',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
-        if force_compute is None:
-            force_compute = []
-        elif isinstance(force_compute, bool):
-            force_compute = ['posted', 'locked'] if force_compute else []
-        elif isinstance(force_compute, str):
-            force_compute = [force_compute]
+        lines_to_compute = self._filter_lines_to_compute(force_compute=force_compute)
 
-        if 'posted' not in force_compute:
-            self = self.filtered(lambda l: l.move_id.state in STATES_TO_AUTO_RECOMPUTE)
-        if 'locked' not in force_compute:
-            self = self.filtered(lambda l: not l.carbon_is_locked)
-
-        # Another way to filter lines that might be interesting performance wise, didn't test it though
-        # filter_locked = 'locked' not in force_compute
-        # filter_posted = 'posted' not in force_compute
-        # self = self.filtered(lambda l: not (filter_locked and l.carbon_is_locked) and not (filter_posted and l.move_id.state == 'draft'))
-
-        for line in self:
+        for line in lines_to_compute:
             amount = getattr(line, "debit" if line.is_debit() else "credit", 0.0)
             # We don't take discounts into account for carbon values, so we need to reverse it
             # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
