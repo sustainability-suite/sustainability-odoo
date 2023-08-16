@@ -18,6 +18,11 @@ class ResCompany(models.Model):
     carbon_out_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
 
     invoice_report_footer = fields.Html(translate=True)
+    carbon_lock_date = fields.Date(
+        string="CO2e Computation Lock Date",
+        tracking=True,
+        help="",
+    )
 
 
     @api.depends('currency_id')
