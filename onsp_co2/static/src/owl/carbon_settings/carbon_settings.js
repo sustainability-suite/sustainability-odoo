@@ -59,6 +59,21 @@ export class CarbonSettings extends Component {
 
     // This method is 'standard' as it's a `Field` method passed as props
     async updateField(newValue) {
+        await this.record.update({
+            [this.name]: newValue,
+        });
+        await this.record.model.notify();
+    }
+
+    async updateFactor(newValue) {
+        if (newValue !== false) {
+            let name = this.name.includes("_in") ? "carbon_in_compute_method" : "carbon_out_compute_method";
+            await this.record.update({
+                [name]: false,
+            });
+
+        }
+        await this.record.save();
         await this.record.model.orm.call(
             this.record.resModel,
             'carbon_widget_update_field',
