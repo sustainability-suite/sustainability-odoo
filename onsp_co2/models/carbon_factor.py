@@ -29,6 +29,7 @@ class CarbonFactor(models.Model):
     )
     carbon_currency_id = fields.Many2one('res.currency', compute="_compute_carbon_currency_id")
     carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id", default="KgCo2e")
+    uncertainty_value = fields.Float()
 
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
 

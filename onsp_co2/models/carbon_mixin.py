@@ -483,6 +483,9 @@ class CarbonMixin(models.AbstractModel):
                               "\n- Amount: %s, Currency: %s", self, infos['compute_method'], quantity, from_uom_id, amount, from_currency_id))
 
 
+        if factor:
+            infos['uncertainty_value'] = ((factor.uncertainty_value**2)**0.5) * value
+
         return value, infos
 
 

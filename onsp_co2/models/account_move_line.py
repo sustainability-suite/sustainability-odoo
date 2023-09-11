@@ -20,6 +20,14 @@ class AccountMoveLine(models.Model):
     carbon_value_origin = fields.Char(compute="_compute_carbon_debt", string="CO2e value origin", store=True)
     carbon_is_locked = fields.Boolean(default=False)
 
+    carbon_uncertainty_value = fields.Monetary(
+        compute="_compute_carbon_debt",
+        currency_field="carbon_currency_id",
+        string="CO2 Uncertainty",
+        readonly=False,
+        store=True,
+    )
+
     carbon_balance = fields.Monetary(
         string="CO2 Balance",
         currency_field="carbon_currency_id",
@@ -151,6 +159,7 @@ class AccountMoveLine(models.Model):
             debt, infos = record.get_carbon_value(**kw_arguments)
             line.carbon_debt = debt
             line.carbon_value_origin = f"{infos['carbon_value_origin']}|{infos['carbon_value']}"
+            line.carbon_uncertainty_value = infos.get('uncertainty_value', 0.0)
 
 
     # --------------------------------------------
@@ -164,7 +173,7 @@ class AccountMoveLine(models.Model):
             'name': _("No CO2e origin for this record"),
             'value': 0,
         }
-        for key, data in zip(['name', 'value'], self.carbon_value_origin.split("|")):
+        for key, data in zip(['name', 'value'], (self.carbon_value_origin or "").split("|")):
             if data:
                 origin[key] = data
 
