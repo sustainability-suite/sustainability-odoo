@@ -7,5 +7,10 @@
             <field name="digits">4</field>
         </record>
 
+        <record forcecreate="True" id="decimal_factor_carbon_value" model="decimal.precision">
+            <field name="name">Carbon Factor value</field>
+            <field name="digits">6</field>
+        </record>
+
     </data>
 </odoo>

@@ -70,15 +70,31 @@
 
                         <notebook attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
                             <page string="Values" name="page_values">
+                                <group>
+                                    <field name="ghg_view_mode" widget="boolean_toggle"/>
+                                </group>
                                 <div class="alert alert-danger col-6" role="alert" attrs="{'invisible': [('has_invalid_value', '=', False)]}" colspan="2">
                                     Some values miss a currency or a unit of measure <br />
                                     Please fix them before using this factor.
                                 </div>
                                 <field name="value_ids" colspan="2" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="date" />
-                                        <field name="carbon_value" />
-                                        <field name="carbon_currency_label" string=" " />
+                                        <field name="date"/>
+
+                                        <field name="is_carbon_value_computed" invisible="1"/>
+                                        <field name="carbon_value" force_save="1" decoration-muted="is_carbon_value_computed" decoration-it="is_carbon_value_computed" attrs="{'readonly': [('is_carbon_value_computed', '=', True)]}"/>
+                                        <field name="carbon_currency_label" string=" " attrs="{'column_invisible': [('parent.ghg_view_mode', '=', True)]}"/>
+
+                                        <field name="is_ghg_detailed_value" invisible="1"/>
+                                        <field name="co2_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>
+                                        <field name="ch4_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>
+                                        <field name="n2o_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
+                                        <field name="sf6_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
+                                        <field name="hfc_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
+                                        <field name="pfc_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
+                                        <field name="other_ghg_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>
+
+                                        
 
                                         <field name="carbon_uom_id" attrs="{
                                             'column_invisible': [('parent.carbon_compute_method', '!=', 'physical')],
@@ -89,6 +105,14 @@
                                             'required': [('parent.carbon_compute_method', '=', 'monetary')],
                                         }" />
                                         <field name="source" />
+
+                                        <button type="object"
+                                            name="action_reset_precision_value"
+                                            icon="fa-solid fa-eraser"
+                                            title="Erase the precision value"
+                                            confirm="Do you really want to erase the precision value?" 
+                                            attrs="{'invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            />
                                     </tree>
                                 </field>
                             </page>
