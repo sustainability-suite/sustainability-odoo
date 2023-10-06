@@ -143,11 +143,16 @@ class CarbonFactor(models.Model):
 
     def _get_value_at_date(self, date=None):
         self.ensure_one()
+        if not self.value_ids:
+            raise ValidationError(_("_get_value_at_date: No value found for the following factor (%s)" % self.name))
         if not date:
             date = fields.Date.today()
-        return self.value_ids and max(
-            self.value_ids.filtered(lambda v: v.date <= date), key=lambda v: v.date
-        )
+
+        values_before_date = self.value_ids.filtered(lambda v: v.date <= date)
+        if values_before_date:
+            return values_before_date and max(values_before_date, key=lambda v: v.date)
+        else:
+            return self.value_ids and min(self.value_ids, key=lambda v: v.date)
 
     def get_value_infos_at_date(self, date=None) -> dict:
         self.ensure_one()
