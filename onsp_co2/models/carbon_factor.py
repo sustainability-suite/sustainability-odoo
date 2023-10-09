@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["carbon.general.mixin", "mail.thread", "mail.activity.mixin"]
     _description = "Carbon Emission Factor"
     _order = "display_name"
     _parent_store = True
@@ -55,12 +55,6 @@ class CarbonFactor(models.Model):
 
     def name_get(self) -> list[tuple[int, str]]:
         return [(factor.id, factor.display_name) for factor in self]
-
-    # Useful in carbon.mixin, but this model does not inherit it, so I add it manually.
-    # Might be useful to create a more general mixin if this happens again
-    def _get_record_description(self) -> str:
-        self.ensure_one()
-        return f"{self._description}: {self.name}"
 
     @api.depends("value_ids.date")
     def _compute_recent_value(self):
