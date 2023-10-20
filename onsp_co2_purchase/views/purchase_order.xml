@@ -8,14 +8,31 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']//field[@name='price_subtotal']" position="after">
-                    <field name="carbon_debt" optional="show" widget="monetary" />
-                    <field name="carbon_currency_id" invisible="1"/>
+                    <field name="carbon_currency_id" invisible="1" />
+                    <field name="carbon_is_locked" invisible="1"/>
+                    <field name="carbon_origin_value" invisible="1" force_save="1" />
+                    <field name="carbon_origin_name" invisible="1" force_save="1" />
+
+                    <field name="carbon_debt" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
+                    <button title="Unlock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', True)]}" icon="fa-unlock" class="opacity-25" />
+                    <button title="Lock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', False)]}" icon="fa-lock" />
+                    <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
+                    <field name="carbon_uncertainty_value" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
                 </xpath>
                 <xpath expr="//field[@name='tax_totals']" position="after">
                     <field name="carbon_debt" widget="monetary" />
                     <field name="carbon_currency_id" invisible="1"/>
                 </xpath>
             </field>
+        </record>
+
+
+        <record id="action_recompute_carbon_purchase_order" model="ir.actions.server">
+            <field name="name">Re-compute CO2</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">action = records.action_recompute_carbon()</field>
         </record>
 
     </data>

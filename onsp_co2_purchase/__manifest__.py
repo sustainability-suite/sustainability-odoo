@@ -1,11 +1,11 @@
 {
     "name": "CO2 Purchase",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "author": "Open Net Sàrl",
     "category": "hidden",
     "website": "https://www.open-net.ch",
     "summary": "Glue module for co2 & purchase modules",
-    "description": """ AAA """,
+    "description": """ This module can be activated from CO2 settings to add CO2e tracking on purchase orders. """,
     "depends": [
         "onsp_co2",
         "purchase",

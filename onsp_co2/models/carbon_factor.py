@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 
 class CarbonFactor(models.Model):
@@ -141,6 +142,8 @@ class CarbonFactor(models.Model):
             raise ValidationError(_("_get_value_at_date: No value found for the following factor (%s)" % self.name))
         if not date:
             date = fields.Date.today()
+        if isinstance(date, datetime):
+            date = date.date()
 
         values_before_date = self.value_ids.filtered(lambda v: v.date <= date)
         if values_before_date:

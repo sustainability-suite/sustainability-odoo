@@ -5,5 +5,5 @@ class AccountAssetLine(models.Model):
 
     def create_move(self):
         res = super(AccountAssetLine, self).create_move()
-        self.env['account.move'].browse(res).line_ids._compute_carbon_debt(force_compute='posted')
+        self.env['account.move'].browse(res).line_ids._compute_carbon_debt(force_compute='all_states')
         return res

@@ -25,7 +25,7 @@ class PurchaseOrder(models.Model):
             po.carbon_debt = sum(po.order_line.mapped("carbon_debt"))
 
 
-    # Todo: put in a new mixin
+    # Todo: put in a new mixin maybe? for model with a line_ids field that inherit from carbon.line.mixin (overkill imo)
     def action_recompute_carbon(self) -> dict:
         """ Force re-computation of carbon values for PO lines. """
         for order in self:
