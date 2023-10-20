@@ -5,7 +5,7 @@ from odoo import api, fields, models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    move_partner_id = fields.Many2one(related="move_id.partner_id", store=True)
+    move_partner_id = fields.Many2one(related="move_id.partner_id", store=True, string="Invoice Partner")
 
     @api.model
     def get_possible_fields_to_compute_carbon(self):
