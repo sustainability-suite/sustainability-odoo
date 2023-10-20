@@ -1,32 +1,12 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from typing import Union
 
 
-STATES_TO_AUTO_RECOMPUTE = ['draft']
-
 
 class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
+    _name = "account.move.line"
+    _inherit = ["account.move.line", "carbon.line.mixin"]
 
-    carbon_currency_id = fields.Many2one(related="move_id.carbon_currency_id")
-    carbon_debt = fields.Monetary(
-        string="CO2 Debt",
-        currency_field="carbon_currency_id",
-        help="A positive value means that your system's debt grows, a negative value means it shrinks",
-        compute="_compute_carbon_debt",
-        readonly=False,
-        store=True,
-    )
-    carbon_value_origin = fields.Char(compute="_compute_carbon_debt", string="CO2e value origin", store=True)
-    carbon_is_locked = fields.Boolean(default=False)
-
-    carbon_uncertainty_value = fields.Monetary(
-        compute="_compute_carbon_debt",
-        currency_field="carbon_currency_id",
-        string="CO2 Uncertainty",
-        readonly=False,
-        store=True,
-    )
 
     carbon_balance = fields.Monetary(
         string="CO2 Balance",
@@ -47,6 +27,25 @@ class AccountMoveLine(models.Model):
         store=True,
     )
 
+    carbon_is_date_locked = fields.Boolean(compute="_compute_carbon_is_date_locked", store=True)
+
+
+
+    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan) -> dict:
+        """ I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job """
+        res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(distribution, account_id, distribution_on_each_plan)
+        res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
+        return res
+
+
+    """ These methods might seem useless but the logic could change in the future so it's better to have them """
+    def is_debit(self) -> bool:
+        self.ensure_one()
+        return bool(self.debit)
+
+    def is_credit(self) -> bool:
+        self.ensure_one()
+        return bool(self.credit)
 
     # --------------------------------------------
     #                   COMPUTE
@@ -76,31 +75,16 @@ class AccountMoveLine(models.Model):
             line.carbon_credit = credit
             line.carbon_debit = debit
 
-    def _filter_lines_to_compute(self, force_compute: Union[bool, str, list[str]] = None):
-        if force_compute is None:
-            force_compute = []
-        elif isinstance(force_compute, bool):
-            force_compute = ['posted', 'locked'] if force_compute else []
-        elif isinstance(force_compute, str):
-            force_compute = [force_compute]
 
-        # if 'posted' not in force_compute:
-        #     lines = lines.filtered(lambda l: l.move_id.state in STATES_TO_AUTO_RECOMPUTE)
-        # if 'locked' not in force_compute:
-        #     lines = lines.filtered(lambda l: not l.carbon_is_locked)
-
-        # TODO ASAP: Make it a SQL query because this is fucking ugly
-        res = self.env['account.move.line']
+    @api.depends('company_id.carbon_lock_date', 'move_id.date')
+    def _compute_carbon_is_date_locked(self):
         for line in self:
-            if (
-                    ('posted' not in force_compute and line.move_id.state not in STATES_TO_AUTO_RECOMPUTE)
-                    or ('locked' not in force_compute and line.carbon_is_locked)
-                    or (line.move_id.company_id.carbon_lock_date and line.move_id.date < line.move_id.company_id.carbon_lock_date)
-            ):
-                continue
-            res |= line
+            line.carbon_is_date_locked = line.company_id.carbon_lock_date and (line.move_id.date < line.company_id.carbon_lock_date)
 
-        return res
+    # --------------------------------------------
+    #                   MIXIN
+    # --------------------------------------------
+
 
     @api.depends(
         'account_id.use_carbon_value',
@@ -127,103 +111,61 @@ class AccountMoveLine(models.Model):
         'move_id.company_id.carbon_lock_date',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
-        lines_to_compute = self._filter_lines_to_compute(force_compute=force_compute)
-
-        for line in lines_to_compute:
-            amount = getattr(line, "debit" if line.is_debit() else "credit", 0.0)
-            # We don't take discounts into account for carbon values, so we need to reverse it
-            # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
-            if line.discount:
-                amount = amount / (1 - line.discount / 100) if line.discount != 100 else line.price_unit * line.quantity
-
-            # These are the common arguments for the carbon value computation
-            # Others values are added below depending on the record type
-            kw_arguments = {
-                'carbon_type': 'out' if line.move_id.is_sale_document() else 'in',
-                'date': line.move_id.date or line.move_id.invoice_date,
-                'amount': amount,
-                # We take the company currency because credit/debit are expressed in that currency
-                'from_currency_id': (line.move_id.company_id or self.env.company).currency_id,
-            }
+        super(AccountMoveLine, self)._compute_carbon_debt(force_compute)
 
 
-            for field in line.get_possible_fields_to_compute_carbon():
-                if getattr(line, f"can_use_{field}_carbon_value", lambda: False)():
-                    record = getattr(line, field)
-                    kw_arguments.update(getattr(line, f"get_{field}_carbon_compute_values", lambda: {})())
-                    break
-            else:
-                record = line.move_id.company_id or self.env.company
+    def _get_lines_to_compute_domain(self, force_compute: list[str]):
+        domain = super(AccountMoveLine, self)._get_lines_to_compute_domain(force_compute)
+        domain.append(('carbon_is_date_locked', '=', False))
+        return domain
 
 
-            debt, infos = record.get_carbon_value(**kw_arguments)
-            line.carbon_debt = debt
-            line.carbon_value_origin = f"{infos['carbon_value_origin']}|{infos['carbon_value']}"
-            line.carbon_uncertainty_value = infos.get('uncertainty_value', 0.0)
-
-
-    # --------------------------------------------
-    #                ACTION / UI
-    # --------------------------------------------
-
-
-    def action_see_carbon_origin(self):
-        self.ensure_one()
-        origin = {
-            'name': _("No CO2e origin for this record"),
-            'value': 0,
-        }
-        for key, data in zip(['name', 'value'], (self.carbon_value_origin or "").split("|")):
-            if data:
-                origin[key] = data
-
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': f"CO2e Value: {origin.get('value')}",
-                'message': origin.get('name'),
-                'type': 'info',
-                'sticky': False,
-                'next': {'type': 'ir.actions.act_window_close'},
-            },
-        }
-
-    def action_recompute_carbon(self) -> dict:
-        """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
-        for line in self:
-            line._compute_carbon_debt(force_compute='posted')
-        return {}
-
-    def action_switch_locked(self):
-        for line in self:
-            line.carbon_is_locked = not line.carbon_is_locked
-
-    # --------------------------------------------
-    #                   MISC
-    # --------------------------------------------
-
-
-    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan) -> dict:
-        """ I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job """
-        res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(distribution, account_id, distribution_on_each_plan)
-        res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
-        return res
-
-
-
-    # --------------------------------------------
-    #              Modular methods
-    # --------------------------------------------
+    # --- Methods to override ---
 
 
     @api.model
-    def get_possible_fields_to_compute_carbon(self):
+    def _get_states_to_auto_recompute(self) -> list[str]:
+        return ['draft']
+
+    @api.model
+    def _get_state_field_name(self) -> str:
+        return 'parent_state'
+
+    @api.model
+    def _get_carbon_compute_possible_fields(self) -> list[str]:
         return ['product_id', 'account_id']
 
+    def _get_carbon_compute_kwargs(self) -> dict:
+        res = super(AccountMoveLine, self)._get_carbon_compute_kwargs()
+        res.update({
+            'carbon_type': 'out' if self.move_id.is_sale_document() else 'in',
+            'date': self.move_id.date or self.move_id.invoice_date,
+            # We take the company currency because credit/debit are expressed in that currency
+            'from_currency_id': (self.move_id.company_id or self.env.company).currency_id,
+        })
+        return res
 
-    """ These methods are helper to know if a line has valid co2 values to compute line debt """
+    def _get_line_amount(self) -> float:
+        self.ensure_one()
+        amount = (self.debit if self.is_debit() else self.credit) or 0.0
+        # We don't take discounts into account for carbon values, so we need to reverse it
+        # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
+        if self.discount:
+            amount = amount / (1 - self.discount / 100) if self.discount != 100 else self.price_unit * self.quantity
+        return amount
+
+    def _get_carbon_compute_default_record(self):
+        self.ensure_one()
+        return self.move_id.company_id
+
+
+
+
+
+    # --- Modular methods ---
     # --- ACCOUNT ---
+
+
     def can_use_account_id_carbon_value(self) -> bool:
         self.ensure_one()
         return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_in_value()
@@ -245,11 +187,4 @@ class AccountMoveLine(models.Model):
         return {'quantity': self.quantity, 'from_uom_id': self.product_uom_id}
 
 
-    """ These methods might seem useless but the logic could change in the future so it's better to have them """
-    def is_debit(self) -> bool:
-        self.ensure_one()
-        return bool(self.debit)
 
-    def is_credit(self) -> bool:
-        self.ensure_one()
-        return bool(self.credit)

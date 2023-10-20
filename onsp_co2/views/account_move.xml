@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']" position="after">
                     <field name="carbon_currency_id" invisible="1" />
-                    <field name="carbon_value_origin" invisible="1" force_save="1" />
+                    <field name="carbon_origin_value" invisible="1" force_save="1" />
+                    <field name="carbon_origin_name" invisible="1" force_save="1" />
                     <field name="carbon_is_locked" invisible="1"/>
                     <field name="carbon_debit" invisible="1"/>
                     <field name="carbon_credit" invisible="1"/>
@@ -21,8 +22,8 @@
                     <field name="carbon_debt" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
                     <button title="Unlock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', True)]}" icon="fa-unlock" class="opacity-25" />
                     <button title="Lock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', False)]}" icon="fa-lock" />
-                    <field name="carbon_uncertainty_value" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
                     <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
+                    <field name="carbon_uncertainty_value" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
                 </xpath>
                 <xpath expr="//field[@name='amount_residual']" position="after">
                     <field name="carbon_balance" widget="monetary" />
@@ -34,7 +35,8 @@
                     <field name="carbon_debit" optional="hide" sum="Total CO2 Debit" widget="monetary" digits="[16,2]" />
                     <field name="carbon_credit" optional="hide" sum="Total CO2 Credit" widget="monetary" digits="[16,2]" />
                     <field name="carbon_balance" optional="show" sum="Total CO2 Balance" widget="monetary" digits="[16,2]" />
-                    <field name="carbon_value_origin" invisible="1" force_save="1" />
+                    <field name="carbon_origin_name" invisible="1" force_save="1" />
+                    <field name="carbon_origin_value" invisible="1" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//form//field[@name='credit']" position="after">
@@ -42,7 +44,8 @@
                     <field name="carbon_credit" sum="Total CO2 Credit" widget="monetary" digits="[16,2]" />
                     <field name="carbon_debt" invisible="1"/>
                     <field name="carbon_balance" invisible="1"/>
-                    <field name="carbon_value_origin" invisible="1" force_save="1" />
+                    <field name="carbon_origin_value" invisible="1" force_save="1" />
+                    <field name="carbon_origin_name" invisible="1" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
             </field>
