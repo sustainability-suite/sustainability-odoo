@@ -12,8 +12,8 @@ class ResCompany(models.Model):
     carbon_out_value = fields.Float(compute=False, store=True, readonly=False, tracking=True)
     carbon_in_value_origin = fields.Char(compute=False, store=True, related="name")
     carbon_out_value_origin = fields.Char(compute=False, store=True, related="name")
-    carbon_in_monetary_currency_id = fields.Many2one(related="currency_id", store=True)
-    carbon_out_monetary_currency_id = fields.Many2one(related="currency_id", store=True)
+    carbon_in_monetary_currency_id = fields.Many2one(related="currency_id", store=True, string="CO2e Currency for 'in' moves")
+    carbon_out_monetary_currency_id = fields.Many2one(related="currency_id", store=True, string="CO2e Currency for 'out' moves")
     carbon_in_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
     carbon_out_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
 

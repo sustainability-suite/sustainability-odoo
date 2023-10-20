@@ -118,6 +118,7 @@ class CarbonFactorValue(models.Model):
     is_carbon_value_computed = fields.Boolean(
         default=False,
         compute="_compute_carbon_value",
+        compute_sudo=True,
     )
 
     carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure")
