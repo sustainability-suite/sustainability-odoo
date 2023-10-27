@@ -62,6 +62,16 @@
                             </div>
                         </div>
 
+                        <div class="col-12 col-lg-6 o_setting_box" title="CO2 lock date">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default data uncertainty value</span>
+                                <div>
+                                    <field name="carbon_default_data_uncertainty_value" widget="percentage" />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
 

@@ -22,8 +22,9 @@
                     <field name="carbon_debt" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
                     <button title="Unlock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', True)]}" icon="fa-unlock" class="opacity-25" />
                     <button title="Lock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', False)]}" icon="fa-lock" />
-                    <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
+                    <field name="carbon_data_uncertainty_value" widget="percentage" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
                     <field name="carbon_uncertainty_value" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
+                    <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
                 </xpath>
                 <xpath expr="//field[@name='amount_residual']" position="after">
                     <field name="carbon_balance" widget="monetary" />

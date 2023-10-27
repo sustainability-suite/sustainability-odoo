@@ -17,6 +17,8 @@ class ResCompany(models.Model):
     carbon_in_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
     carbon_out_compute_method = fields.Selection(selection=[('monetary', 'Monetary')], default='monetary', required=True)
 
+    carbon_default_data_uncertainty_value = fields.Float(default=0.0)
+
     invoice_report_footer = fields.Html(translate=True)
     carbon_lock_date = fields.Date(
         string="CO2e Computation Lock Date",
