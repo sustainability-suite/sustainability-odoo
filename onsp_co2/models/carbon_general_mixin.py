@@ -27,7 +27,7 @@ class CarbonGeneralMixin(models.AbstractModel):
                 return fallback_record
         return None
 
-    def get_carbon_value(self, carbon_type: str = None, quantity: float = None, from_uom_id=None, amount: float = None, from_currency_id=None, date=None) -> tuple[float, dict]:
+    def get_carbon_value(self, carbon_type: str = None, quantity: float = None, from_uom_id=None, amount: float = None, from_currency_id=None, date=None, data_uncertainty_value: float = 0.0) -> tuple[float, dict]:
         """
         Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
         Used in account.move.line to compute carbon debt if a product is set.
@@ -95,7 +95,7 @@ class CarbonGeneralMixin(models.AbstractModel):
 
 
         if factor:
-            infos['uncertainty_value'] = ((factor.uncertainty_value**2)**0.5) * value
+            infos['uncertainty_value'] = ((factor.uncertainty_value**2 + data_uncertainty_value**2) ** 0.5) * value
 
         return value, infos
 

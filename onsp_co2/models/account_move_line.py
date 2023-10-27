@@ -109,6 +109,7 @@ class AccountMoveLine(models.Model):
         'move_type',
         'move_id.invoice_date',
         'move_id.company_id.carbon_lock_date',
+        'carbon_data_uncertainty_value',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
         super(AccountMoveLine, self)._compute_carbon_debt(force_compute)

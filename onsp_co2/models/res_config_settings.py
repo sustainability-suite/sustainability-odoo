@@ -15,6 +15,7 @@ class ResConfigSettings(models.TransientModel):
         translate=True,
     )
     carbon_lock_date = fields.Date(related='company_id.carbon_lock_date', readonly=False)
+    carbon_default_data_uncertainty_value = fields.Float(related='company_id.carbon_default_data_uncertainty_value', readonly=False)
 
     available_module_names = fields.Char(compute="_compute_available_modules")
     extra_module_names = fields.Char(compute="_compute_available_modules")

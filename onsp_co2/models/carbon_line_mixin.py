@@ -29,6 +29,7 @@ class CarbonLineMixin(models.AbstractModel):
         readonly=False,
         store=True,
     )
+    carbon_data_uncertainty_value = fields.Float(string="Data CO2 uncertainty", default=lambda self: self.env.company.carbon_default_data_uncertainty_value)
     carbon_is_locked = fields.Boolean(default=False)
 
     # Both fields are Char because they are only informative and we won't do any computation on them
@@ -82,8 +83,9 @@ class CarbonLineMixin(models.AbstractModel):
         return {
             # Amount is mandatory because the fallback value is monetary computed (on company level)
             'amount': self._get_line_amount(),
-            # You should override it with a more precise value (e.g. currency of the invoice for account.move.line)
+            # You should override the currency with a more precise value (e.g. currency of the invoice for account.move.line)
             'from_currency_id': self.env.company.currency_id,
+            'data_uncertainty_value': self.carbon_data_uncertainty_value,
         }
 
     def _get_line_amount(self) -> float:
