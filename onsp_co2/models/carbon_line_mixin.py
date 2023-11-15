@@ -108,6 +108,8 @@ class CarbonLineMixin(models.AbstractModel):
         self.update({
             'carbon_origin_name': _("Manual"),
             'carbon_origin_value': '-',
+            'carbon_uncertainty_value': 0.0,
+            'carbon_data_uncertainty_value': 0.0,
         })
 
     def _compute_carbon_currency_id(self):
