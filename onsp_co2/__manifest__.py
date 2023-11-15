@@ -26,6 +26,7 @@
         "views/product_template.xml",
 
         "views/carbon_factor.xml",
+        "views/carbon_factor_source.xml",
         "views/product_category.xml",
         "views/res_country.xml",
         "views/res_config_settings.xml",

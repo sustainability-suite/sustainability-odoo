@@ -105,7 +105,7 @@ class CarbonFactorValue(models.Model):
 
     # Todo: check if we use a m2o (i.e. res.partner)
     date = fields.Date(required=True)
-    source = fields.Char()
+    comment = fields.Char()
     carbon_value = fields.Float(
         string="Total not broken down (kgCO2)",
         digits="Carbon Factor value",
@@ -140,11 +140,11 @@ class CarbonFactorValue(models.Model):
             else:
                 value.unit_label = ""
 
-    @api.depends("factor_id.name", "date", "source")
+    @api.depends("factor_id.name", "date", "comment")
     def _compute_display_name(self):
         for value in self:
             value.display_name = f"{value.factor_id.name} - {value.date}" + (
-                f" ({value.source})" if value.source else ""
+                f" ({value.comment})" if value.comment else ""
             )
 
     def get_infos_dict(self):
