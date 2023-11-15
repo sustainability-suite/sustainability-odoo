@@ -45,6 +45,8 @@
                                 <field name="parent_id" />
                                 <field name="carbon_compute_method" />
                                 <field name="uncertainty_value" widget="percentage" />
+                                <field name="carbon_source_id"/>
+
                             </group>
                             
                         </group>
@@ -104,7 +106,7 @@
                                             'column_invisible': [('parent.carbon_compute_method', '!=', 'monetary')],
                                             'required': [('parent.carbon_compute_method', '=', 'monetary')],
                                         }" />
-                                        <field name="source" />
+                                        <field name="comment" />
 
                                         <button type="object"
                                             name="action_reset_precision_value"

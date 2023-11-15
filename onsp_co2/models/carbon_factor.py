@@ -44,7 +44,9 @@ class CarbonFactor(models.Model):
         "carbon.factor.value", compute="_compute_recent_value", store=True
     )
     carbon_date = fields.Date(related="recent_value_id.date")
-    carbon_source = fields.Char(related="recent_value_id.source")
+    carbon_source_id = fields.Many2one('carbon.factor.source')
+    carbon_source = fields.Char(related="carbon_source_id.name")
+
     carbon_value = fields.Float(related="recent_value_id.carbon_value")
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id")
     carbon_monetary_currency_id = fields.Many2one(
