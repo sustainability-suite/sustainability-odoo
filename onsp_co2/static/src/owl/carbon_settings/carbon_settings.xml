@@ -52,7 +52,7 @@
                 <div class="col-3"><strong class="o_form_label">Value</strong></div>
                 <div class="col-7">
                     <div class="row">
-                        <div class="col-3"><FloatField readonly="!getCarbonField('is_manual') or getCarbonField('compute_method') == false or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('value')" name="getCarbonFieldFullName('value')" digits="[16, 4]" update="updateField" /></div>
+                        <div class="col-3"><FloatField readonly="!getCarbonField('is_manual') or getCarbonField('compute_method') == false or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('value')" name="getCarbonFieldFullName('value')" digits="[11, 4]" update="updateField" /></div>
                         <div class="col-3 p-0"><span t-out="props.record.data.carbon_currency_label" style="color: #A0A0A0;"/> /</div>
 
                         <div t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break col-6">

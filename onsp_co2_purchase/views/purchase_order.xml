@@ -13,14 +13,14 @@
                     <field name="carbon_origin_value" invisible="1" force_save="1" />
                     <field name="carbon_origin_name" invisible="1" force_save="1" />
 
-                    <field name="carbon_debt" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
+                    <field name="carbon_debt" digits="[13,2]" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" />
                     <button title="Unlock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', True)]}" icon="fa-unlock" class="opacity-25" />
                     <button title="Lock co2" type="object" name="action_switch_locked" attrs="{'invisible': [('carbon_is_locked', '=', False)]}" icon="fa-lock" />
                     <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
-                    <field name="carbon_uncertainty_value" widget="monetary" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
+                    <field name="carbon_uncertainty_value" digits="[13,2]" attrs="{'readonly': [('carbon_is_locked', '=', True)]}" optional="show"/>
                 </xpath>
                 <xpath expr="//field[@name='tax_totals']" position="after">
-                    <field name="carbon_debt" widget="monetary" />
+                    <field name="carbon_debt" digits="[13,2]"/>
                     <field name="carbon_currency_id" invisible="1"/>
                 </xpath>
             </field>
