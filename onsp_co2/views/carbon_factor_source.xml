@@ -9,6 +9,8 @@
                 <tree>
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="author"/>
+                    <field name="url"/>
                 </tree>
             </field>
         </record>
