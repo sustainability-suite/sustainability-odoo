@@ -24,6 +24,7 @@ class CarbonFactor(models.Model):
     parent_path = fields.Char(index=True, unaccent=False)
     child_ids = fields.One2many("carbon.factor", "parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
+    descendant_ids = fields.Many2many('carbon.factor', compute='_compute_descendant_ids', recursive=True)
     value_ids = fields.One2many("carbon.factor.value", "factor_id")
 
     carbon_compute_method = fields.Selection(
@@ -72,6 +73,11 @@ class CarbonFactor(models.Model):
         for factor in self:
             factor.child_qty = len(factor.child_ids)
 
+    @api.depends('child_ids.descendant_ids')
+    def _compute_descendant_ids(self):
+        for factor in self:
+            factor.descendant_ids = factor.child_ids | factor.child_ids.descendant_ids 
+    
     def _compute_carbon_currency_id(self):
         for factor in self:
             factor.carbon_currency_id = (
