@@ -24,6 +24,7 @@ class ResConfigSettings(models.TransientModel):
     module_onsp_co2_account_asset = fields.Boolean()
     module_onsp_co2_mis_builder = fields.Boolean()
     module_onsp_co2_account_asset_management = fields.Boolean()
+    module_onsp_co2_employee_commuting = fields.Boolean()
 
 
     @api.depends('company_id')
@@ -39,6 +40,7 @@ class ResConfigSettings(models.TransientModel):
         modules_names = {
             # Community
             'purchase',
+            'hr',
             # Enterprise
             'account_asset',
             # OCA
