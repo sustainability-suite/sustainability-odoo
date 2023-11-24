@@ -52,7 +52,14 @@ class CarbonFactorValue(models.Model):
             "CHECK(other_ghg_value >= 0)",
             "Other GHG value can not be negative !",
         ),
+        (
+            "not_unique_date_type_id",
+            "UNIQUE(date, type_id)",
+            "Date and Carbon Factor Type should be a unique pair",
+        ),
     ]
+
+    type_id = fields.Many2one('carbon.factor.type')
 
     co2_value = fields.Float(
         tracking=True,

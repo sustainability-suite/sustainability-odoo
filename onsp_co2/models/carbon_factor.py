@@ -3,10 +3,6 @@ from odoo.exceptions import ValidationError
 from datetime import datetime
 from collections import defaultdict
 
-import logging
-
-_logger = logging.getLogger(__name__)
-
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
     _inherit = ["carbon.general.mixin", "mail.thread", "mail.activity.mixin"]
@@ -64,6 +60,8 @@ class CarbonFactor(models.Model):
         related="recent_value_id.carbon_monetary_currency_id"
     )
     unit_label = fields.Char(related="recent_value_id.unit_label")
+    
+    required_type_ids = fields.Many2many("carbon.factor.type", string="Required Type")
 
     # --------------------------------------------
 
@@ -147,7 +145,27 @@ class CarbonFactor(models.Model):
                 **self.env.context,
             },
         }
-               
+        
+    def _check_required_types(self):
+        """
+        Validates the type ID of the carbon factor.
+
+        This method ensures that all required types are present for each date in the value_ids field.
+        If a required type is missing, it raises a ValidationError.
+
+        Raises:
+            ValidationError: If a required type is missing for a specific date.
+        """
+        self.ensure_one()
+        
+        date_to_values = defaultdict(lambda: self.env['carbon.factor.value'])
+        for value in self.value_ids:
+            date_to_values[str(value.date)] |= value
+            
+        for date, value_list in date_to_values.items():
+            if self.required_type_ids - value_list.type_id:
+                raise ValidationError(_('Please enter all the required type for the following date (%s)', date))
+            
     def _compute_chart_of_account_qty(self):
         count_data = self._get_count_by_model(model="account.account")
         for factor in self:
@@ -224,6 +242,14 @@ class CarbonFactor(models.Model):
                 )
             )
         return super(CarbonFactor, self).write(vals)
+    
+    def write(self, vals):
+        res = super().write(vals)
+        
+        for factor in self:
+            factor._check_required_types()
+            
+        return res
 
     # --------------------------------------------
     #                 Main methods
