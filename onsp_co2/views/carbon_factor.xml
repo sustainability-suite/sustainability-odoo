@@ -94,6 +94,7 @@
                                 <field name="carbon_compute_method" />
                                 <field name="uncertainty_value" widget="percentage" />
                                 <field name="carbon_source_id"/>
+                                <field name="required_type_ids" widget="many2many_tags"/>
 
                             </group>
                             
@@ -131,9 +132,12 @@
                                     <tree editable="bottom">
                                         <field name="date"/>
 
+                                        <field name="type_id" />
+
                                         <field name="is_carbon_value_computed" invisible="1"/>
                                         <field name="carbon_value" force_save="1" decoration-muted="is_carbon_value_computed" decoration-it="is_carbon_value_computed" attrs="{'readonly': [('is_carbon_value_computed', '=', True)]}"/>
                                         <field name="carbon_currency_label" string=" " attrs="{'column_invisible': [('parent.ghg_view_mode', '=', True)]}"/>
+
 
                                         <field name="is_ghg_detailed_value" invisible="1"/>
                                         <field name="co2_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>

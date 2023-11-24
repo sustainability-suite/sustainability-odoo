@@ -17,3 +17,4 @@ from . import product_product
 from . import product_template
 from . import res_country
 from . import carbon_factor_source
+from . import carbon_factor_type
