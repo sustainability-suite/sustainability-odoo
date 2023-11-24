@@ -18,6 +18,7 @@
         # "views/product_supplierinfo.xml",
         "views/purchase_order.xml",
         "views/res_partner.xml",
+        "views/carbon_factor.xml",
     ],
     "images": [
         "static/description/co2_base_green.png",

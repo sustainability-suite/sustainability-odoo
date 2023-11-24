@@ -35,7 +35,55 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button type="object" name="action_see_child_ids" class="oe_stat_button" icon="fa-sitemap">
-                                <field name="child_qty" widget="statinfo" string="Child Factors" />
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" attrs="{'invisible': [('child_qty', '&lt;=', 1)]}">
+                                        <field name="child_qty" widget="statinfo" nolabel="1"/>
+                                        Children Factors
+                                    </span>
+                                    <span class="o_stat_value" attrs="{'invisible': [('child_qty', '&gt;', 1)]}">
+                                        <field name="child_qty" widget="statinfo" nolabel="1"/>
+                                        Child Factor
+                                    </span>
+                                </div>
+                            </button>
+
+                            <button type="object" name="action_see_chart_of_account_ids" class="oe_stat_button" icon="fa-book">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" attrs="{'invisible': [('chart_of_account_qty', '&lt;=', 1)]}">
+                                        <field name="chart_of_account_qty" widget="statinfo" nolabel="1"/>
+                                        Accounts
+                                    </span>
+                                    <span class="o_stat_value" attrs="{'invisible': [('chart_of_account_qty', '&gt;', 1)]}">
+                                        <field name="chart_of_account_qty" widget="statinfo" nolabel="1"/>
+                                        Account
+                                    </span>
+                                </div>
+                            </button>
+
+                            <button type="object" name="action_see_product_ids" class="oe_stat_button" icon="fa-th-list">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" attrs="{'invisible': [('product_qty', '&lt;=', 1)]}">
+                                        <field name="product_qty" widget="statinfo" nolabel="1"/>
+                                        Products
+                                    </span>
+                                    <span class="o_stat_value" attrs="{'invisible': [('product_qty', '&gt;', 1)]}">
+                                        <field name="product_qty" widget="statinfo" nolabel="1"/>
+                                        Product
+                                    </span>
+                                </div>
+                            </button>
+
+                            <button type="object" name="action_see_product_categ_ids" class="oe_stat_button" icon="fa-sort">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" attrs="{'invisible': [('product_categ_qty', '&lt;=', 1)]}">
+                                        <field name="product_categ_qty" widget="statinfo" nolabel="1"/>
+                                        Products Categories
+                                    </span>
+                                    <span class="o_stat_value" attrs="{'invisible': [('product_categ_qty', '&gt;', 1)]}">
+                                        <field name="product_categ_qty" widget="statinfo" nolabel="1"/>
+                                        Product Category
+                                    </span>
+                                </div>
                             </button>
                         </div>
                         <h1><field name="name" /></h1>

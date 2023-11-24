@@ -1,7 +1,11 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from datetime import datetime
+from collections import defaultdict
 
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
@@ -26,6 +30,12 @@ class CarbonFactor(models.Model):
     child_qty = fields.Integer(compute="_compute_child_qty")
     descendant_ids = fields.Many2many('carbon.factor', compute='_compute_descendant_ids', recursive=True)
     value_ids = fields.One2many("carbon.factor.value", "factor_id")
+    
+    chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
+    
+    product_qty = fields.Integer(compute="_compute_product_qty")
+    
+    product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
 
     carbon_compute_method = fields.Selection(
         selection=[
@@ -78,6 +88,81 @@ class CarbonFactor(models.Model):
         for factor in self:
             factor.descendant_ids = factor.child_ids | factor.child_ids.descendant_ids 
     
+
+    def _get_count_by_model(self, model: str) -> dict:
+        """
+        Calculate the total count of carbon factors for a given model.
+
+        This function reads the data from the specified model, filters it based on the carbon_in_factor_id and carbon_out_factor_id,
+        and then calculates the total count of carbon factors for each item in the data.
+
+        Args:
+            model (str, optional): The name of the model to calculate the carbon factors for.
+
+        Returns:
+            dict: A dictionary where the keys are the carbon_in_factor_id and the values are the total count of carbon factors for that id.
+        """
+        data = self.env[model].read_group(
+            self._get_carbon_domain(), ["carbon_in_factor_id", "carbon_out_factor_id"], ["carbon_in_factor_id", "carbon_out_factor_id"], lazy=False
+        )
+        total_count = defaultdict(int)
+        for item in data:
+            total_count[item["carbon_in_factor_id"][0]] += item['__count']
+        
+        return total_count
+    
+    def _get_carbon_domain(self) -> list:
+        """
+        Generate the domain for carbon factor queries.
+
+        This function creates a domain that can be used in queries to filter data based on the carbon_in_factor_id and carbon_out_factor_id.
+
+        Returns:
+            list: A list representing the domain for carbon factor queries. The list includes a logical OR operator and two tuples, each specifying a field name and a condition.
+        """
+        return ['|', ("carbon_in_factor_id", "in", self.ids), ("carbon_out_factor_id", "in", self.ids)]
+    
+    def _generate_action(self, model: str, title: str) -> dict:
+        """
+        Generate an action dictionary for the specified model and title.
+
+        This function creates an action dictionary that can be used to open a new window in the Odoo UI. The new window will display the specified model's data, filtered by the carbon domain.
+
+        Args:
+            model (str): The name of the model to display in the new window.
+            title (str): The title to display in the new window.
+
+        Returns:
+            dict: An action dictionary that can be used to open a new window in the Odoo UI.
+        """
+        self.ensure_one()
+        return {
+            "name": ("%s %s", title, self.display_name),
+            "type": "ir.actions.act_window",
+            "res_model": model,
+            "views": [(False, "tree"), (False, "form")],
+            "domain": self._get_carbon_domain(),
+            "target": "current",
+            "context": {
+                **self.env.context,
+            },
+        }
+               
+    def _compute_chart_of_account_qty(self):
+        count_data = self._get_count_by_model(model="account.account")
+        for factor in self:
+            factor.chart_of_account_qty = count_data.get(factor.id, 0)
+                
+    def _compute_product_qty(self):
+        count_data = self._get_count_by_model(model="product.template")
+        for factor in self:
+            factor.product_qty = count_data.get(factor.id, 0)
+                  
+    def _compute_product_categ_qty(self):
+        count_data = self._get_count_by_model(model="product.category")
+        for factor in self:
+            factor.product_categ_qty = count_data.get(factor.id, 0)
+
     def _compute_carbon_currency_id(self):
         for factor in self:
             factor.carbon_currency_id = (
@@ -169,15 +254,13 @@ class CarbonFactor(models.Model):
     # --------------------------------------------
 
     def action_see_child_ids(self):
-        self.ensure_one()
-        return {
-            "name": _("Child factors for %s", self.display_name),
-            "type": "ir.actions.act_window",
-            "res_model": "carbon.factor",
-            "views": [(False, "tree"), (False, "form")],
-            "domain": [("parent_id", "=", self.id)],
-            "target": "current",
-            "context": {
-                **self.env.context,
-            },
-        }
+        return self._generate_action(title=_("Child factors for"), model="carbon.factor")
+        
+    def action_see_chart_of_account_ids(self):
+        return self._generate_action(title=_("Chart of Account for"), model="account.account")
+
+    def action_see_product_ids(self):
+        return self._generate_action(title=_("Product for"), model="product.template")
+        
+    def action_see_product_categ_ids(self):
+        return self._generate_action(title=_("Product Category for"), model="product.category")
