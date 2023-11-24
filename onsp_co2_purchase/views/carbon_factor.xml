@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="carbon_factor_form_inherit" model="ir.ui.view">
+            <field name="name">carbon_factor_form_inherit</field>
+            <field name="model">carbon.factor</field>
+            <field name="inherit_id" ref="onsp_co2.carbon_factor_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" name="action_see_contact_ids" class="oe_stat_button" icon="fa-address-card">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" attrs="{'invisible': [('contact_qty', '&lt;=', 1)]}">
+                                <field name="contact_qty" widget="statinfo" nolabel="1"/>
+                                Contacts
+                            </span>
+                            <span class="o_stat_value" attrs="{'invisible': [('contact_qty', '&gt;', 1)]}">
+                                <field name="contact_qty" widget="statinfo" nolabel="1"/>
+                                Contact
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
