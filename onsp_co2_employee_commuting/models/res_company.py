@@ -60,9 +60,9 @@ class ResCompany(models.Model):
             account_moves.unlink()
             
             for employee in employees_with_commuting:
-                aml_vals = employee._get_carbon_commuting_line_vals()
+                aml_vals = employee._get_carbon_commuting_line_vals(account_move_date)
                 company_commuting_carbon_value += aml_vals.get('carbon_debt')
-                company_commuting_km += sum(employee.carbon_commuting_ids.mapped('distance_km'))
+                company_commuting_km += sum(employee.carbon_commuting_ids.mapped('distance_km') * WEEKS_PER_MONTH)
                 aml_vals_list.append((0, 0, aml_vals))
 
             average_carbon_per_km = company_commuting_carbon_value / company_commuting_km if company_commuting_km else 0
@@ -76,7 +76,7 @@ class ResCompany(models.Model):
                     commuting_carbon = company_commuting_carbon_value / len(employees_with_commuting) if len(employees_with_commuting) else 0
                     commuting_details = f"\n| {round(company_commuting_carbon_value / len(employees_with_commuting) if len(employees_with_commuting) else 0, decimal_precision)} -> Company average emission for commuting"
 
-                aml_vals = employee._get_carbon_commuting_line_vals()
+                aml_vals = employee._get_carbon_commuting_line_vals(account_move_date)
                 aml_vals.update({
                     'carbon_debt': commuting_carbon,
                     'name': f'{employee.name}{commuting_details}',
@@ -90,6 +90,7 @@ class ResCompany(models.Model):
                 'partner_id': company.partner_id.id,
                 'company_id': company.id,
                 'invoice_line_ids': aml_vals_list,
+                'move_type': 'in_invoice',
                 'is_employee_commuting_carbon': True,
                 'employee_commuting_carbon_date': account_move_date.strftime("%Y-%m-%d"),
             })
