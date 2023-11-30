@@ -11,7 +11,7 @@
     "description": """Module allowing the calculation of CO2 emissions from employee commuting""",
     "depends": [
         "onsp_co2",
-        "hr",
+        "hr_contract",
     ],
     "data": [
         # Data
