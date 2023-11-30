@@ -1,5 +1,6 @@
 
 from odoo import models, fields, api
+from odoo.addons.onsp_co2_employee_commuting.models.hr_employee import WEEKS_PER_MONTH
 
 
 
@@ -11,10 +12,10 @@ class CarbonCommuting(models.Model):
     allowed_carbon_factor_ids = fields.Many2many('carbon.factor', related="employee_id.company_id.employee_commuting_carbon_factor_id.descendant_ids", domain=lambda self: [('carbon_uom_id', '=', self.env.ref('uom.product_uom_km').id)])
     distance_km = fields.Integer(string="Average weekly distance in kilometers")
     employee_id = fields.Many2one('hr.employee', string="Employee")
-    carbon_value = fields.Float(compute="_compute_carbon_value", digits="Carbon value")
-
     
-    @api.depends('carbon_factor_id.carbon_value', 'distance_km')
-    def _compute_carbon_value(self):
-        for commuting in self:
-            commuting.carbon_value = commuting.carbon_factor_id.carbon_value * commuting.distance_km
+    def get_commuting_carbon_value_at_date(self, date):
+        self.ensure_one()
+        commuting_value, infos = self.carbon_factor_id.get_carbon_value(date=date, carbon_type='in', quantity=self.distance_km * WEEKS_PER_MONTH, from_uom_id=self.env.ref('uom.product_uom_km'))
+        print(commuting_value, infos)
+        return commuting_value, infos.get('uncertainty_value')
+    
