@@ -1,4 +1,5 @@
-from odoo import fields, models, _
+from odoo import fields, models
+
 
 class CarbonFactorType(models.Model):
     _name = "carbon.factor.type"

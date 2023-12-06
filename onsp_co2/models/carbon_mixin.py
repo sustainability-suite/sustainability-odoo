@@ -1,7 +1,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-from typing import Any
-
+from odoo.addons.onsp_co2.models.carbon_factor import CarbonFactor
+from typing import Any, Union
 
 # DO NOT DELETE
 # def auto_depends(cls):
@@ -36,7 +36,7 @@ from typing import Any
 
 
 # Todo: make this extendable from sub modules
-APPLICABLE_MODELS = [
+CARBON_MODELS = [
     "carbon.factor",
     "product.category",
     "product.product",
@@ -50,72 +50,51 @@ APPLICABLE_MODELS = [
 
 class CarbonMixin(models.AbstractModel):
     _name = "carbon.mixin"
-    _inherit = ['carbon.general.mixin']
     _description = "A mixin used to add carbon values on any model"
+    _carbon_types = ['in', 'out']
     _fallback_records = []
-    _fallback_records_fields = ['value', 'compute_method', 'uom_id', 'monetary_currency_id']
 
-    _sql_constraints = [
-        ('not_negative_carbon_in_value', 'CHECK(carbon_in_value >= 0)', 'CO2e value can not be negative !'),
-        ('not_negative_carbon_out_value', 'CHECK(carbon_out_value >= 0)', 'CO2e value can not be negative !'),
-    ]
 
-    @api.constrains(
-        'carbon_in_compute_method', 'carbon_out_compute_method',
-        'carbon_in_monetary_currency_id', 'carbon_out_monetary_currency_id',
-        'carbon_in_uom_id', 'carbon_out_uom_id',
-    )
-    def _check_mandatory_fields(self):
-        for record in self:
-            errors = []
-            # IN
-            if record.carbon_in_is_manual:
-                if record.carbon_in_compute_method == 'monetary' and not record.carbon_in_monetary_currency_id:
-                    errors.append(_("You must set a monetary currency for carbon 'in' value"))
-                if record.carbon_in_compute_method == 'physical' and not record.carbon_in_uom_id:
-                    errors.append(_("You must set a unit of measure for carbon 'in' value"))
-
-            # OUT
-            if record.carbon_out_is_manual:
-                if record.carbon_out_compute_method == 'monetary' and not record.carbon_out_monetary_currency_id:
-                    errors.append(_("You must set a monetary currency for carbon 'out' value"))
-                if record.carbon_out_compute_method == 'physical' and not record.carbon_out_uom_id:
-                    errors.append(_("You must set a unit of measure for carbon 'out' value"))
-
-            if errors:
-                raise ValidationError(_("The following record has missing carbon infos: %s\n\n%s", getattr(record, 'display_name', str(record)), '\n'.join(errors)))
+    @api.constrains('carbon_in_use_distribution', 'carbon_in_distribution_line_ids')
+    def _check_carbon_in_distribution(self):
+        for record in self.filtered('carbon_in_use_distribution'):
+            if not record.has_valid_carbon_distribution('in'):
+                raise ValidationError(_("The total percentage of distribution lines must be equal to 100% (for carbon `in`)"))
 
     @api.model
-    def _get_available_carbon_compute_methods(self):
+    def _get_available_carbon_compute_methods(self) -> list[tuple[str, str]]:
         return [
             ('physical', 'Physical'),
             ('monetary', 'Monetary'),
         ]
 
     @api.model
-    def _get_valid_factor_domain(self):
-        # Todo: make it dynamic with the _get_available_carbon_compute_methods method
-        # For now, users can select a carbon factor with a non authorized compute method
-        return "[('carbon_compute_method', '!=', False), ('recent_value_id', '!=', [])]"
-
-    @api.model
     def _selection_fallback_model(self):
         return [
-            (x, _(self.env[x]._description)) for x in APPLICABLE_MODELS if x in self.env
+            (x, _(self.env[x]._description)) for x in CARBON_MODELS if x in self.env
         ]
+
+    def get_allowed_factors(self):
+        return self.env['carbon.factor'].search(self._get_allowed_factors_domain())
+
+    def _get_allowed_factors_domain(self):
+        """ Used for distribution lines mainly, to override on specific models """
+        return [
+            ('carbon_compute_method', 'in', [method[0] for method in self._get_available_carbon_compute_methods()]),
+            ('recent_value_id', '!=', False),
+        ]
+
 
     # --------------------------------------------
     #               SHARED INFOS
     # --------------------------------------------
-    carbon_currency_id = fields.Many2one('res.currency', compute="_compute_carbon_currency_id")
-    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id")
+    carbon_allowed_factor_ids = fields.Many2many('carbon.factor', compute="_compute_carbon_allowed_factor_ids")
+    model_name = fields.Char(compute="_compute_model_name")  # Used in view, passed in context for distribution lines
 
 
     # --------------------------------------------
     #           General/Purchase value
     # --------------------------------------------
-
-
     carbon_in_is_manual = fields.Boolean(default=False)
     carbon_in_mode = fields.Selection(
         selection=[
@@ -126,25 +105,19 @@ class CarbonMixin(models.AbstractModel):
         compute="_compute_carbon_in_mode",
         store=True,
     )
-    carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null', domain=_get_valid_factor_domain)
-    carbon_in_value = fields.Float(
-        string="CO2e value",
-        digits="Carbon value",
-        help="Used to compute CO2 cost",
-        compute="_compute_carbon_in_value",
-        store=True,
-        readonly=False,     # Should be readonly in views if carbon_in_factor_id != False
-        recursive=True,     # Only here to prevent
+    carbon_in_factor_id = fields.Many2one("carbon.factor", string="Emission Factor", ondelete='set null', domain="[('id', 'in', carbon_allowed_factor_ids)]")
+    carbon_in_fallback_reference = fields.Reference(selection="_selection_fallback_model", readonly=True, string="Fallback record")
+    carbon_in_value_origin = fields.Char(string="Value origin", readonly=True)
+
+    carbon_in_use_distribution = fields.Boolean(default=False, string="Use Distribution", help="Todo: add help")
+    carbon_in_distribution_line_ids = fields.One2many(
+        'carbon.distribution.line',
+        'res_id',
+        'Distribution lines IN',
+        auto_join=True,
+        domain="[('carbon_type', '=', 'in')]",
     )
-    carbon_in_compute_method = fields.Selection(
-        selection=_get_available_carbon_compute_methods,
-        string="Compute method",
-    )
-    carbon_in_fallback_reference = fields.Reference(selection="_selection_fallback_model")
-    carbon_in_value_origin = fields.Char(compute="_compute_carbon_in_value", store=True, recursive=True, string="Value origin")
-    carbon_in_uom_id = fields.Many2one("uom.uom")
-    carbon_in_monetary_currency_id = fields.Many2one("res.currency")
-    carbon_in_unit_label = fields.Char(compute="_compute_carbon_in_unit_label", string=" ")
+    carbon_in_has_valid_distribution = fields.Boolean(compute="_compute_carbon_in_has_valid_distribution")
 
 
     # --------------------------------------------
@@ -160,25 +133,19 @@ class CarbonMixin(models.AbstractModel):
         compute="_compute_carbon_out_mode",
         store=True,
     )
-    carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null', domain=_get_valid_factor_domain)
-    carbon_out_value = fields.Float(
-        string="CO2e value for sales",
-        digits="Carbon value",
-        help="Used to compute CO2 cost for sales",
-        compute="_compute_carbon_out_value",
-        store=True,
-        readonly=False,  # Should be readonly in views if carbon_in_factor_id != False
-        recursive=True,
+    carbon_out_factor_id = fields.Many2one("carbon.factor", string="Emission Factor ", ondelete='set null', domain="[('id', 'in', carbon_allowed_factor_ids)]")
+    carbon_out_fallback_reference = fields.Reference(selection="_selection_fallback_model", readonly=True, string="Fallback record ")
+    carbon_out_value_origin = fields.Char(string="Value origin ", readonly=True)
+
+    carbon_out_use_distribution = fields.Boolean(default=False, string="Use Distribution ")
+    carbon_out_distribution_line_ids = fields.One2many(
+        'carbon.distribution.line',
+        'res_id',
+        'Distribution lines OUT',
+        auto_join=True,
+        domain="[('carbon_type', '=', 'out')]",
     )
-    carbon_out_compute_method = fields.Selection(
-        selection=_get_available_carbon_compute_methods,
-        string="Compute method ",
-    )
-    carbon_out_fallback_reference = fields.Reference(selection="_selection_fallback_model")
-    carbon_out_value_origin = fields.Char(compute="_compute_carbon_out_value", store=True, recursive=True, string="Value origin ")
-    carbon_out_uom_id = fields.Many2one("uom.uom")
-    carbon_out_monetary_currency_id = fields.Many2one("res.currency")
-    carbon_out_unit_label = fields.Char(compute="_compute_carbon_out_unit_label", string="  ")
+    carbon_out_has_valid_distribution = fields.Boolean(compute="_compute_carbon_out_has_valid_distribution")
 
 
 
@@ -187,74 +154,23 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
 
 
-    def _compute_carbon_currency_id(self):
-        for rec in self:
-            rec.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
-            rec.carbon_currency_label = rec.carbon_currency_id.currency_unit_label
+    def _compute_carbon_allowed_factor_ids(self):
+        """ We use a non stored compute field on purpose so it is dynamically computed on each model thanks to _get_available_carbon_compute_methods() """
+        self.carbon_allowed_factor_ids = self.get_allowed_factors()
 
-    @api.depends('carbon_in_compute_method', 'carbon_in_monetary_currency_id', 'carbon_in_uom_id')
-    def _compute_carbon_in_unit_label(self):
-        for rec in self:
-            rec.carbon_in_unit_label = "/ " + str(rec.carbon_in_uom_id.name if rec.carbon_in_compute_method == 'physical' else rec.carbon_in_monetary_currency_id.currency_unit_label)
+    def _compute_model_name(self):
+        for record in self:
+            record.model_name = record._name
 
-    @api.depends('carbon_out_compute_method', 'carbon_out_monetary_currency_id', 'carbon_out_uom_id')
-    def _compute_carbon_out_unit_label(self):
-        for rec in self:
-            rec.carbon_out_unit_label = "/ " + str(rec.carbon_out_uom_id.name if rec.carbon_out_compute_method == 'physical' else rec.carbon_out_monetary_currency_id.currency_unit_label)
+    @api.depends('carbon_in_distribution_line_ids.percentage')
+    def _compute_carbon_in_has_valid_distribution(self):
+        for record in self:
+            record.carbon_in_has_valid_distribution = record.has_valid_carbon_distribution('in')
 
-
-    """
-    Expected behaviour of co2 settings in standard module:
-    
-    MANUAL MODE - You have 2 choices:
-        1) You can setup everything by yourself: value, method (physical or monetary) and UOM / currency depending on method
-        2) You can select a carbon factor to bind parameters to this latter. All updates on carbon factor will impact parameters on record.
-        
-    AUTO MODE:
-        - Odoo will search for a fallback records thanks to these 2 methods:
-            1) _get_carbon_in_value_fallback_records() -> for purchase values or models that only need 1 value (e.g. account.account)
-            2) _get_carbon_out_value_fallback_records() -> for sale values
-        - Values from fallback will be copied on records
-        - On any update on the fallback record, changes will be copied but you need to add depends on _compute_carbon_in_mode / _compute_carbon_out_mode
-    """
-
-    @api.depends(
-        'carbon_in_factor_id.carbon_value',
-        'carbon_in_factor_id.carbon_compute_method',
-        'carbon_in_factor_id.carbon_uom_id',
-        'carbon_in_factor_id.carbon_monetary_currency_id',
-    )
-    def _compute_carbon_in_value(self):
-        self._compute_carbon_value_abstract('carbon_in')
-
-    @api.depends(
-        'carbon_out_factor_id.carbon_value',
-        'carbon_out_factor_id.carbon_compute_method',
-        'carbon_out_factor_id.carbon_uom_id',
-        'carbon_out_factor_id.carbon_monetary_currency_id',
-    )
-    def _compute_carbon_out_value(self):
-        self._compute_carbon_value_abstract('carbon_out')
-
-    def _compute_carbon_value_abstract(self, prefix: str) -> None:
-        """
-        Abstract method that computes carbon_in_ and carbon_out_ prefixed fields
-        Will update record only if mode is manual and factor is set
-        """
-        for rec in self.filtered(f"{prefix}_is_manual"):
-            factor = getattr(rec, f"{prefix}_factor_id", None)
-            if factor:
-                # Todo: Call a method on carbon factor to get the most recent value and use the value from this latter
-                rec._update_carbon_fields(
-                    prefix,
-                    vals={
-                        f"{prefix}_value": factor.carbon_value,
-                        f"{prefix}_uom_id": factor.carbon_uom_id,
-                        f"{prefix}_monetary_currency_id": factor.carbon_monetary_currency_id,
-                        f"{prefix}_compute_method": factor.carbon_compute_method,
-                    },
-                    origin=factor._get_record_description()
-                )
+    @api.depends('carbon_out_distribution_line_ids.percentage')
+    def _compute_carbon_out_has_valid_distribution(self):
+        for record in self:
+            record.carbon_out_has_valid_distribution = record.has_valid_carbon_distribution('out')
 
     """
     It is possible to override the 2 following methods with some rules
@@ -267,88 +183,64 @@ class CarbonMixin(models.AbstractModel):
     """
     @api.depends('carbon_in_is_manual')
     def _compute_carbon_in_mode(self):
-        self._compute_carbon_mode_abstract('carbon_in')
+        self._compute_carbon_mode('in')
 
     @api.depends('carbon_out_is_manual')
     def _compute_carbon_out_mode(self):
-        self._compute_carbon_mode_abstract('carbon_out')
+        self._compute_carbon_mode('out')
 
-    def _compute_carbon_mode_abstract(self, prefix: str):
+    def _compute_carbon_mode(self, carbon_type: str):
         for rec in self:
-            if getattr(rec, f"{prefix}_is_manual", False):
-                setattr(rec, f"{prefix}_mode", 'manual')
-                setattr(rec, f"{prefix}_value_origin", _("Manual"))
+            if rec[f"carbon_{carbon_type}_is_manual"]:
+                mode = 'manual'
+                fallback_record = False
+                origin = _("Manual")
             else:
-                setattr(rec, f"{prefix}_mode", 'auto')
-                fallback_path = rec._search_fallback_record(prefix)
+                mode = 'auto'
+                fallback_path = rec._search_fallback_record(carbon_type)
                 if fallback_path:
                     fallback_record = fallback_path[-1]
-                    origin = rec.generate_origin_string(fallback_path, prefix)
+                    origin = rec.generate_origin_string(fallback_path, carbon_type)
                 else:
-                    fallback_record = None
+                    fallback_record = False
                     origin = _("No fallback found for this record (company value will be used instead)")
 
-                rec._update_carbon_fields(prefix, record=fallback_record, origin=origin)
-
-
-    def _update_carbon_fields(self, prefix: str, vals: dict = None, record: Any = None, origin: str = None):
-        """
-        Update some fields related to carbon computation, depending on the `prefix` parameter.
-        1) if `vals` is not None, record will be ignored (> priority order)
-        2) if `record` is not None, this latter will be saved as a reference
-        3) if `vals` is None and `record` is None, fields will be updated with falsy values. Useful if you need to reset them.
-        """
-        self.ensure_one()
-        if vals is None:
-            vals = dict()
-            record_prefix = 'carbon' if record and record._name == 'carbon.factor' else prefix
-            for field in ['value', 'uom_id', 'monetary_currency_id', 'compute_method']:
-                vals[f"{prefix}_{field}"] = getattr(record, f"{record_prefix}_{field}", False)
-
-            vals[f"{prefix}_fallback_reference"] = record
-
-        for field, value in vals.items():
-            setattr(self, field, value)
-        # We set origin separately to be allowed to put anything in any situation
-        if origin is None:
-            origin = record._get_record_description() if record else ""
-        setattr(self, f"{prefix}_value_origin", origin)
+            rec.update({
+                f"carbon_{carbon_type}_mode": mode,
+                f"carbon_{carbon_type}_fallback_reference": fallback_record,
+                f"carbon_{carbon_type}_value_origin": origin,
+            })
 
 
 
 
     """
     Override these methods to add fallback records to search for carbon values
-    > e.g. on product.product, get factor from template or category if record value is not valid
+        > e.g. on product.product, get factor from template or category if record value is not valid
     Order matters, you can insert a record where it fits the most
     """
-    def _get_carbon_in_value_fallback_records(self) -> list[Any]:
+    def _get_carbon_in_fallback_records(self) -> list[Any]:
         self.ensure_one()
         return []
 
-    def _get_carbon_out_value_fallback_records(self) -> list[Any]:
+    def _get_carbon_out_fallback_records(self) -> list[Any]:
         self.ensure_one()
         return []
 
-    def _search_fallback_record(self, prefix: str) -> list[Any]:
+    def _search_fallback_record(self, carbon_type: str) -> Union[list[Any], None]:
         """
-        Build the list of possible fallback records, then search the first valid value
-        Valid record = manual mode + has_valid_value() == True
+        Build the list of possible fallback records, then search the first valid one
         :return: a list with the path to the first valid record
         """
         self.ensure_one()
-        field = f"{prefix}_value"
-        fallback_records = self._build_fallback_records_list(field)
         fallback_path = []
-        for rec in fallback_records:
+        for rec in self._build_fallback_records_list(carbon_type):
             fallback_path.append(rec)
-            if getattr(rec, f"{prefix}_mode") == 'manual' and getattr(rec, f"has_valid_{field}")():
-                if getattr(rec, f"{prefix}_factor_id"):
-                    fallback_path.append(getattr(rec, f"{prefix}_factor_id"))
-                break
-        return fallback_path
+            if rec.has_valid_carbon_value(carbon_type):
+                return fallback_path
+        return None
 
-    def _build_fallback_records_list(self, field: str) -> list:
+    def _build_fallback_records_list(self, carbon_type: str) -> list:
         """
         Recursively build a list with all possible fallback records.
         Ex:
@@ -362,54 +254,106 @@ class CarbonMixin(models.AbstractModel):
         :return: a list with correctly sorted records.
         """
         # Get fallback records and filter to remove falsy records (e.g. don't add parent if parent_id is False)
-        valid_fallback_records = list(filter(None, getattr(self, f"_get_{field}_fallback_records", lambda: list())()))
+        valid_fallback_records = list(filter(None, getattr(self, f"_get_carbon_{carbon_type}_fallback_records", lambda: list())()))
         # Build the final list with recursive fallback
         fallback_with_recursive = valid_fallback_records.copy()
         for rec in valid_fallback_records:
             # We can't use set as order is important. Might be possible to find another way to do that
-            fallback_with_recursive.extend([e for e in rec._build_fallback_records_list(field) if e not in fallback_with_recursive])
+            fallback_with_recursive.extend([e for e in rec._build_fallback_records_list(carbon_type) if e not in fallback_with_recursive])
         return fallback_with_recursive
 
+    @api.model
+    def generate_origin_string(self, path: list[Any], carbon_type: str) -> str:
+        str_path = " > ".join([rec._get_record_description() for rec in path])
+        str_path += " > " + path[-1][f"carbon_{carbon_type}_factor_id"].name
+        return str_path
 
     # --------------------------------------------
     #               GENERAL METHODS
     # --------------------------------------------
 
-    """
-    These 2 following methods return True in 2 cases:
-        - if value is > 0
-        - if an emission factor is defined (which means that the value can be 0)
-    Note: could be refactor into a single method with a `prefix` parameter
-    """
-    def has_valid_carbon_in_value(self):
-        return bool(
-            len(self) == 1 and (
-                (self.carbon_in_compute_method == 'physical' and self.carbon_in_uom_id) or
-                (self.carbon_in_compute_method == 'monetary' and self.carbon_in_monetary_currency_id)
-            )
-        )
+    def _get_record_description(self) -> str:
+        self.ensure_one()
+        return self._description + (f": {self.name}" if hasattr(self, 'name') else "")
 
-    def has_valid_carbon_out_value(self):
-        return bool(
-            len(self) == 1 and (
-                (self.carbon_out_compute_method == 'physical' and self.carbon_out_uom_id) or
-                (self.carbon_out_compute_method == 'monetary' and self.carbon_out_monetary_currency_id)
-            )
-        )
-
-
-
-    @api.model
-    def generate_origin_string(self, path: list[Any], prefix: str) -> str:
-        str_path = " > ".join([rec._get_record_description() for rec in path])
-        factor = getattr(path[-1], f"{prefix}_factor_id", None)
-        origin = getattr(path[-1], f"{prefix}_value_origin", None)
-        if factor or origin:
-            str_path += " > " + (factor._get_record_description() if factor else origin)
-        return str_path
+    def auto_carbon_distribution(self, carbon_types: list[str] = None):
+        # Avoid recursion
+        if self.env.context.get('auto_carbon_distribution'):
+            return
+        carbon_types = carbon_types if carbon_types is not None else self._carbon_types
+        for record in self:
+            for carbon_type in carbon_types:
+                if record[f"carbon_{carbon_type}_is_manual"] and not record[f"carbon_{carbon_type}_use_distribution"]:
+                    if factor := record[f"carbon_{carbon_type}_factor_id"]:
+                        record.with_context(auto_carbon_distribution=True).write({
+                            f"carbon_{carbon_type}_distribution_line_ids": [
+                                fields.Command.clear(),
+                                fields.Command.create(
+                                    {
+                                        'factor_id': factor.id,
+                                        'carbon_type': carbon_type,
+                                        'percentage': 1,
+                                        'res_model': record._name,
+                                        'res_id': record.id,
+                                    }
+                                )
+                            ],
+                        })
+                    else:
+                        raise UserError(_("Missing carbon factor for %s (carbon type: %s)", record._get_record_description(), carbon_type))
 
 
 
+
+
+    # --------------------------------------------
+    #                   CRUD
+    # --------------------------------------------
+
+
+    def write(self, vals):
+        res = super(CarbonMixin, self).write(vals)
+        # We only recompute values for carbon types that have been modified
+        carbon_types = [carbon_type for carbon_type in self._carbon_types if f"carbon_{carbon_type}_factor_id" in vals]
+        self.auto_carbon_distribution(carbon_types=carbon_types)
+        return res
+
+
+    def create(self, vals):
+        res = super(CarbonMixin, self).create(vals)
+        self.auto_carbon_distribution()
+        return res
+
+
+
+    # --------------------------------------------
+    #                   HELPERS
+    # --------------------------------------------
+
+
+    def has_valid_carbon_value(self, carbon_type: str):
+        self.ensure_one()
+        return self[f"carbon_{carbon_type}_is_manual"] and self.has_valid_carbon_distribution(carbon_type)
+
+    def has_valid_carbon_distribution(self, carbon_type: str):
+        self.ensure_one()
+        total_percentage = sum([line.percentage for line in self[f"carbon_{carbon_type}_distribution_line_ids"]])
+        return total_percentage == 1
+
+    def has_valid_carbon_fallback(self, carbon_type: str):
+        self.ensure_one()
+        return self[f"carbon_{carbon_type}_fallback_reference"] and self[f"carbon_{carbon_type}_fallback_reference"].has_valid_carbon_value(carbon_type)
+
+    def can_compute_carbon_value(self, carbon_type: str) -> bool:
+        self.ensure_one()
+        return self.has_valid_carbon_value(carbon_type) or self.has_valid_carbon_fallback(carbon_type)
+
+
+    def get_carbon_distribution(self, carbon_type: str) -> tuple[CarbonFactor, dict[CarbonFactor, float]]:
+        """ Return factors and their distributions for a given carbon type """
+        self.ensure_one()
+        lines = self[f"carbon_{carbon_type}_distribution_line_ids"]
+        return lines.factor_id, {line.factor_id: line.percentage for line in lines}
 
 
 

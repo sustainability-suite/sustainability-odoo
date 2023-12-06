@@ -4,7 +4,7 @@
     <t t-name="onsp_co2.CarbonSettingsPanel" owl="1">
 
         <div t-foreach="carbon_types" t-as="type" t-key="type" class="o_widget o_widget_carbon_settings">
-            <CarbonSettings type="type" record="props.record" title="getCarbonTitle(type)" />
+            <CarbonSettings type="type" record="props.record" title="getCarbonTitle(type)" showDistribution="getShowDistribution(type)" />
         </div>
 
     </t>

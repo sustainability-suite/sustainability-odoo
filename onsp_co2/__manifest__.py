@@ -4,7 +4,7 @@
 
 {
     "name": "CO2e Accounting",
-    "version": "16.0.1.2.0",
+    "version": "16.0.1.3.0",
     "author": "Open Net Sàrl",
     "category": "Accounting",
     "website": "https://www.open-net.ch",
@@ -22,6 +22,7 @@
         "views/account_analytic_line.xml",
         "views/account_move.xml",
         "views/account_move_line.xml",
+        "views/carbon_line_origin.xml",
 
         "views/product_template.xml",
 

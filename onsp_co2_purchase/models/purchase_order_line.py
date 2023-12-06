@@ -26,11 +26,7 @@ class PurchaseOrderLine(models.Model):
 
 
     @api.depends(
-        'product_id.carbon_in_value',
-        'product_id.carbon_in_compute_method',
-        'product_id.carbon_in_uom_id',
-        'product_id.carbon_in_monetary_currency_id',
-
+        'product_id.carbon_in_factor_id',
         'product_qty',
         'product_uom',
         'price_subtotal',
@@ -79,7 +75,7 @@ class PurchaseOrderLine(models.Model):
 
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
-        return bool(self.product_id) and self.product_id.has_valid_carbon_in_value()
+        return bool(self.product_id) and self.product_id.can_compute_carbon_value('in')
 
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()

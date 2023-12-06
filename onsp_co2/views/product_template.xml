@@ -8,7 +8,45 @@
             <field name="inherit_id" ref="product.product_template_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='general_information']//group[1]" position="after">
-                    <widget name="carbon_settings_panel" types="in,out" options="{'in': {'title': 'Purchases'}, 'out': {'title': 'Sales'}} "/>
+<!--                    <widget name="carbon_settings_panel" types="in,out" options="{'in': {'title': 'Purchases'}, 'out': {'title': 'Sales'}} "/>-->
+
+                    <group string="CO2 Settings" name="group_carbon_settings">
+                        <field name="carbon_allowed_factor_ids" invisible="1" />
+
+                        <group string="Purchases">
+                            <label for="carbon_in_is_manual" string="Mode" />
+                            <div style="font-size: 1.15rem;" class="gap-1 d-inline-flex ml-3">
+                                <div class="opacity-50 mr-2" attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}">Auto</div>
+                                <div style="font-weight: bold;" attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}">Auto</div>
+
+                                <field name="carbon_in_is_manual" nolabel="1" widget="boolean_toggle" class="" style="margin-left: 8px;"/>
+                                <field name="carbon_in_mode" invisible="1" />
+
+                                <div class="opacity-50" attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}">Manual</div>
+                                <div style="font-weight: bold;" attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}">Manual</div>
+                            </div>
+                            <field name="carbon_in_fallback_reference" widget="reference" attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}" />
+                            <field name="carbon_in_factor_id" attrs="{'invisible': [('carbon_in_is_manual', '=', False)], 'required': [('carbon_in_is_manual', '=', True)]}" />
+                        </group>
+
+                        <group string="Sales">
+                            <label for="carbon_out_is_manual" string="Mode" />
+                            <div style="font-size: 1.15rem;" class="gap-1 d-inline-flex ">
+                                <div class="opacity-50 mr-2" attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}">Auto</div>
+                                <div style="font-weight: bold;" attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}">Auto</div>
+
+                                <field name="carbon_out_is_manual" nolabel="1" widget="boolean_toggle" class="" style="margin-left: 8px;"/>
+                                <field name="carbon_out_mode" invisible="1" />
+
+                                <div class="opacity-50" attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}">Manual</div>
+                                <div style="font-weight: bold;" attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}">Manual</div>
+                            </div>
+                            <field name="carbon_out_fallback_reference" widget="reference" attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}" />
+                            <field name="carbon_out_factor_id" attrs="{'invisible': [('carbon_out_is_manual', '=', False)], 'required': [('carbon_out_is_manual', '=', True)]}" />
+                        </group>
+
+                    </group>
+
                 </xpath>
             </field>
         </record>

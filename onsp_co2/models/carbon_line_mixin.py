@@ -1,6 +1,5 @@
 from odoo import api, fields, models, _
 from typing import Union, Any
-from odoo.exceptions import UserError, ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -22,6 +21,7 @@ class CarbonLineMixin(models.AbstractModel):
         readonly=False,
         store=True,
     )
+    carbon_data_uncertainty_percentage = fields.Float(string="Data CO2 uncertainty", default=lambda self: self.env.company.carbon_default_data_uncertainty_percentage)
     carbon_uncertainty_value = fields.Monetary(
         compute="_compute_carbon_debt",
         currency_field="carbon_currency_id",
@@ -29,13 +29,18 @@ class CarbonLineMixin(models.AbstractModel):
         readonly=False,
         store=True,
     )
-    carbon_data_uncertainty_value = fields.Float(string="Data CO2 uncertainty", default=lambda self: self.env.company.carbon_default_data_uncertainty_value)
     carbon_is_locked = fields.Boolean(default=False)
 
-    # Both fields are Char because they are only informative and we won't do any computation on them
-    carbon_origin_name = fields.Char(compute="_compute_carbon_debt", string="CO2e origin", store=True)
-    carbon_origin_value = fields.Char(compute="_compute_carbon_debt", string="CO2e origin value", store=True)
-
+    carbon_origin_json = fields.Json(
+        compute="_compute_carbon_debt",
+        store=True,
+    )
+    carbon_origin_ids = fields.One2many(
+        'carbon.line.origin',
+        'res_id',
+        'Carbon value origin details',
+        auto_join=True,
+    )
 
 
     # --------------------------------------------
@@ -85,7 +90,7 @@ class CarbonLineMixin(models.AbstractModel):
             'amount': self._get_line_amount(),
             # You should override the currency with a more precise value (e.g. currency of the invoice for account.move.line)
             'from_currency_id': self.env.company.currency_id,
-            'data_uncertainty_value': self.carbon_data_uncertainty_value,
+            'data_uncertainty_percentage': self.carbon_data_uncertainty_percentage,
         }
 
     def _get_line_amount(self) -> float:
@@ -105,12 +110,9 @@ class CarbonLineMixin(models.AbstractModel):
 
     @api.onchange('carbon_debt')
     def _onchange_carbon_debt(self):
-        self.update({
-            'carbon_origin_name': _("Manual"),
-            'carbon_origin_value': '-',
-            'carbon_uncertainty_value': 0.0,
-            'carbon_data_uncertainty_value': 0.0,
-        })
+        self.carbon_uncertainty_value = 0.0
+        self.carbon_data_uncertainty_percentage = 0.0
+        self.carbon_origin_json = {'mode': 'manual', 'details': {'uid': self.env.uid, 'username': self.env.user.name}}
 
     def _compute_carbon_currency_id(self):
         for move in self:
@@ -123,7 +125,8 @@ class CarbonLineMixin(models.AbstractModel):
 
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
         """ Build a domain to filter lines that need to be recomputed """
-        domain = []
+        # Todo: check if tmp or fine
+        domain = [('carbon_origin_json', '=', False)]
         if 'all_states' not in force_compute:
             domain.append((self._get_state_field_name(), 'in', self._get_states_to_auto_recompute()))
         if 'locked' not in force_compute:
@@ -148,6 +151,9 @@ class CarbonLineMixin(models.AbstractModel):
     """ depends need to be overriden to trigger the compute method at the right time """
     @api.depends()
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
+        """
+        Choose the right factor(s) to compute carbon value, store it with the details of the computation
+        """
         lines_to_compute = self._filter_lines_to_compute(force_compute=force_compute)
 
         for line in lines_to_compute:
@@ -155,22 +161,98 @@ class CarbonLineMixin(models.AbstractModel):
 
             for field in line._get_carbon_compute_possible_fields():
                 if getattr(line, f"can_use_{field}_carbon_value", lambda: False)():
-                    record = getattr(line, field)
-                    # Extra check to make sure the record has the method that we need
-                    if hasattr(record, 'get_carbon_value'):
-                        kw_arguments.update(getattr(line, f"get_{field}_carbon_compute_values", lambda: {})())
-                        break
+                    kw_arguments.update(getattr(line, f"get_{field}_carbon_compute_values", lambda: {})())
+                    record = line[field]
+                    break
             else:
                 record = line._get_carbon_compute_default_record()
 
-            debt, infos = record.get_carbon_value(**kw_arguments)
+            # Check if we can use the chosen record or its fallback instead
+            carbon_type = kw_arguments['carbon_type']
+            if not record.has_valid_carbon_value(carbon_type):
+                if record.has_valid_carbon_fallback(carbon_type):
+                    record = record[f"carbon_{carbon_type}_fallback_reference"]
+                else:
+                    # This shouldn't happen if can_use_X_carbon_value is well implemented
+                    _logger.error(f"Carbon value not found for {line._name} {line.id} (record: {record._name} {record.id}) - Pass this line")
+                    continue
+
+            factors, distribution = record.get_carbon_distribution(carbon_type)
+            debt, uncertainty_value, details = factors.get_carbon_value(distribution, **kw_arguments)
+
             line.carbon_debt = debt
-            line.carbon_uncertainty_value = infos.get('uncertainty_value', 0.0)
-            line.carbon_origin_name = infos['carbon_value_origin']
-            line.carbon_origin_value = infos['carbon_value']
+            line.carbon_uncertainty_value = uncertainty_value
+            line.carbon_origin_json = {'mode': 'auto', 'details': details}
 
 
+    def _get_line_origin_vals_list(self) -> list[dict]:
+        """ Return the vals used to create a carbon.line.origin record """
+        self.ensure_one()
+        today = fields.Date.today()
+        res_model_id = self.env['ir.model']._get_id(self._name)
+        res_id = self.id or self.id.origin
+        vals_list = list()
 
+
+        mode = self.carbon_origin_json.get('mode')
+        details = self.carbon_origin_json.get('details', {})
+
+        if mode == 'manual':
+            vals_list.append({
+                'res_model_id': res_model_id,
+                'res_id': res_id,
+                # Todo: don't set the string here but in the onchange
+                'comment': _("Manually set on %s by %s", today, details.get('username', _("Unknown User"))),
+                'value': self.carbon_debt,
+            })
+
+        elif mode == 'auto':
+            for factor, value_to_infos in details.items():
+                for factor_value, infos in value_to_infos.items():
+                    vals_list.append(
+                        {
+                            'res_model_id': res_model_id,
+                            'res_id': res_id,
+                            # Needed because json keys are strings
+                            'factor_value_id': int(factor_value),
+                            'comment': _("Computation made on %s", today),
+                            **infos,
+                            'uom_id': infos.get('uom_id'),
+                            'monetary_currency_id': infos.get('monetary_currency_id'),
+                        }
+                    )
+
+        return vals_list
+
+    def _create_origin_lines(self):
+        origin_vals_list = list()
+        lines_to_flush = self.filtered('carbon_origin_json')
+
+        for line in lines_to_flush:
+            line.carbon_origin_ids.unlink()
+            origin_vals_list.extend(line._get_line_origin_vals_list())
+
+        # To avoid empty create calls
+        if origin_vals_list:
+            self.env['carbon.line.origin'].create(origin_vals_list)
+
+        lines_to_flush.carbon_origin_json = False
+
+
+    def write(self, vals):
+        res = super(CarbonLineMixin, self).write(vals)
+        self._create_origin_lines()
+        return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(CarbonLineMixin, self).create(vals_list)
+        res._create_origin_lines()
+        return res
+
+    def unlink(self):
+        self.carbon_origin_ids.unlink()
+        super(CarbonLineMixin, self).unlink()
 
     # --------------------------------------------
     #                ACTION / UI
@@ -181,19 +263,19 @@ class CarbonLineMixin(models.AbstractModel):
     def action_see_carbon_origin(self):
         self.ensure_one()
         return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': f"CO2e Value: {self.carbon_origin_value}",
-                'message': self.carbon_origin_name,
-                'type': 'info',
-                'sticky': True,
-                'next': {'type': 'ir.actions.act_window_close'},
+            "name": _("CO2 origin details for %s", self.display_name),
+            "type": 'ir.actions.act_window',
+            "res_model": 'carbon.line.origin',
+            "views": [[False, "tree"]],
+            "domain": [('id', 'in', self.carbon_origin_ids.ids)],
+            "target": 'current',
+            "context": {
+                **self.env.context,
             },
         }
 
     def action_recompute_carbon(self) -> dict:
-        """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted' """
+        """ Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted'? """
         for line in self:
             line._compute_carbon_debt(force_compute='all_states')
         return {}

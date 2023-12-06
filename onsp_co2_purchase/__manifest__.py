@@ -1,6 +1,6 @@
 {
     "name": "CO2 Purchase",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.3.0",
     "author": "Open Net Sàrl",
     "category": "hidden",
     "website": "https://www.open-net.ch",
