@@ -17,7 +17,7 @@
                     <field name="unit_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
                     <field name="carbon_date" />
                     <field name="carbon_compute_method" optional="hide" />
-                    <field name="uncertainty_value" widget="percentage" optional="show" />
+                    <field name="uncertainty_percentage" widget="percentage" optional="show" />
                     <field name="carbon_source" optional="show"/>
                 </tree>
             </field>
@@ -86,37 +86,27 @@
                                 </div>
                             </button>
                         </div>
-                        <h1><field name="name" /></h1>
+
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Electric Train"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="parent_id" />
+                        </group>
 
                         <group>
                             <group>
-                                <field name="parent_id" />
                                 <field name="carbon_compute_method" />
-                                <field name="uncertainty_value" widget="percentage" />
+                                <field name="uncertainty_percentage" widget="percentage" />
+                            </group>
+                            <group>
                                 <field name="carbon_source_id"/>
                                 <field name="required_type_ids" widget="many2many_tags"/>
-
-                            </group>
-                            
-                        </group>
-
-                        <group string="Most recent values" attrs="{'invisible': ['|', ('carbon_compute_method', '=', False), ('recent_value_id', '=', False)]}">
-                            <group>
-                                <label for="carbon_date" />
-                                <div class="o_row">
-                                    <field name="carbon_date" nolabel="1" class="oe_inline" />
-                                    <span class="oe_inline" attrs="{'invisible': [('carbon_source', '=', False)]}">(<field name="carbon_source" class="oe_inline" />)</span>
-                                </div>
-
-                                <label for="carbon_value" />
-                                <div class="o_row">
-                                    <field name="carbon_value" nolabel="1" class="oe_inline" />
-                                    <field name="carbon_currency_label" class="font-italic" style="color: grey;" />
-                                    <field name="unit_label" />
-                                </div>
                             </group>
                         </group>
-
 
 
                         <notebook attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
@@ -131,13 +121,10 @@
                                 <field name="value_ids" colspan="2" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="date"/>
-
                                         <field name="type_id" />
-
                                         <field name="is_carbon_value_computed" invisible="1"/>
                                         <field name="carbon_value" force_save="1" decoration-muted="is_carbon_value_computed" decoration-it="is_carbon_value_computed" attrs="{'readonly': [('is_carbon_value_computed', '=', True)]}"/>
                                         <field name="carbon_currency_label" string=" " attrs="{'column_invisible': [('parent.ghg_view_mode', '=', True)]}"/>
-
 
                                         <field name="is_ghg_detailed_value" invisible="1"/>
                                         <field name="co2_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>
@@ -147,8 +134,6 @@
                                         <field name="hfc_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
                                         <field name="pfc_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/> 
                                         <field name="other_ghg_value" force_save="1" attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}" decoration-muted="is_ghg_detailed_value" decoration-it="is_ghg_detailed_value"/>
-
-                                        
 
                                         <field name="carbon_uom_id" attrs="{
                                             'column_invisible': [('parent.carbon_compute_method', '!=', 'physical')],

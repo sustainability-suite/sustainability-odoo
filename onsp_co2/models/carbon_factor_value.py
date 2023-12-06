@@ -1,7 +1,7 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
+from odoo import api, fields, models
+from odoo.addons.uom.models.uom_uom import UoM
+from odoo.addons.base.models.res_currency import Currency
 import logging
-
 _logger = logging.getLogger(__name__)
 
 
@@ -59,7 +59,6 @@ class CarbonFactorValue(models.Model):
         ),
     ]
 
-    type_id = fields.Many2one('carbon.factor.type')
 
     co2_value = fields.Float(
         tracking=True,
@@ -100,6 +99,7 @@ class CarbonFactorValue(models.Model):
     is_ghg_detailed_value = fields.Boolean(compute="_compute_is_ghg_detailed_value")
 
     factor_id = fields.Many2one("carbon.factor", required=True, ondelete="cascade")
+    type_id = fields.Many2one('carbon.factor.type')
     display_name = fields.Char(
         compute="_compute_display_name", store=True, recursive=True
     )
@@ -110,7 +110,6 @@ class CarbonFactorValue(models.Model):
     # Todo: check if we implement an uuid
     # uuid = fields.Char()
 
-    # Todo: check if we use a m2o (i.e. res.partner)
     date = fields.Date(required=True)
     comment = fields.Char()
     carbon_value = fields.Float(
@@ -147,22 +146,23 @@ class CarbonFactorValue(models.Model):
             else:
                 value.unit_label = ""
 
-    @api.depends("factor_id.name", "date", "comment")
+    @api.depends("factor_id.name", "type_id.name", "date", "comment")
     def _compute_display_name(self):
         for value in self:
-            value.display_name = f"{value.factor_id.name} - {value.date}" + (
-                f" ({value.comment})" if value.comment else ""
+            value.display_name = "%s%s (%s)" % (
+                value.factor_id.name,
+                f" - {value.type_id.name}" if value.type_id else "",
+                value.date,
             )
 
-    def get_infos_dict(self):
+    def get_infos(self) -> tuple[str, float, UoM, Currency]:
         self.ensure_one()
-        return {
-            "compute_method": self.carbon_compute_method,
-            "carbon_value": self.carbon_value,
-            "carbon_uom_id": self.carbon_uom_id,
-            "carbon_monetary_currency_id": self.carbon_monetary_currency_id,
-            "carbon_value_origin": self.display_name,
-        }
+        return (
+            self.carbon_compute_method,
+            self.carbon_value,
+            self.carbon_uom_id,
+            self.carbon_monetary_currency_id,
+        )
 
     @api.depends(
         "co2_value",

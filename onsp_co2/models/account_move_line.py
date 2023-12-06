@@ -2,7 +2,6 @@ from odoo import api, fields, models
 from typing import Union
 
 
-
 class AccountMoveLine(models.Model):
     _name = "account.move.line"
     _inherit = ["account.move.line", "carbon.line.mixin"]
@@ -87,21 +86,9 @@ class AccountMoveLine(models.Model):
 
 
     @api.depends(
-        'account_id.use_carbon_value',
-        'account_id.carbon_in_value',
-        'account_id.carbon_in_compute_method',
-        'account_id.carbon_in_uom_id',
-        'account_id.carbon_in_monetary_currency_id',
-
-        'product_id.carbon_in_value',
-        'product_id.carbon_in_compute_method',
-        'product_id.carbon_in_uom_id',
-        'product_id.carbon_in_monetary_currency_id',
-
-        'product_id.carbon_out_value',
-        'product_id.carbon_out_compute_method',
-        'product_id.carbon_out_uom_id',
-        'product_id.carbon_out_monetary_currency_id',
+        'account_id.carbon_in_factor_id',
+        'product_id.carbon_in_factor_id',
+        'product_id.carbon_out_factor_id',
 
         'quantity',
         'credit',
@@ -109,10 +96,10 @@ class AccountMoveLine(models.Model):
         'move_type',
         'move_id.invoice_date',
         'move_id.company_id.carbon_lock_date',
-        'carbon_data_uncertainty_value',
+        'carbon_data_uncertainty_percentage',
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
-        super(AccountMoveLine, self)._compute_carbon_debt(force_compute)
+        return super(AccountMoveLine, self)._compute_carbon_debt(force_compute)
 
 
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
@@ -139,7 +126,7 @@ class AccountMoveLine(models.Model):
     def _get_carbon_compute_kwargs(self) -> dict:
         res = super(AccountMoveLine, self)._get_carbon_compute_kwargs()
         res.update({
-            'carbon_type': 'out' if self.move_id.is_sale_document() else 'in',
+            'carbon_type': 'out' if self.move_id.is_inbound(include_receipts=True) else 'in',
             'date': self.move_id.date or self.move_id.invoice_date,
             # We take the company currency because credit/debit are expressed in that currency
             'from_currency_id': (self.move_id.company_id or self.env.company).currency_id,
@@ -169,7 +156,7 @@ class AccountMoveLine(models.Model):
 
     def can_use_account_id_carbon_value(self) -> bool:
         self.ensure_one()
-        return self.account_id.use_carbon_value and self.account_id.has_valid_carbon_in_value()
+        return self.account_id.can_compute_carbon_value('in')
 
     def get_account_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
@@ -179,8 +166,8 @@ class AccountMoveLine(models.Model):
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
         return bool(self.product_id) and (
-            (self.move_id.is_outbound(include_receipts=True) and self.product_id.has_valid_carbon_in_value()) or
-            (self.move_id.is_inbound(include_receipts=True) and self.product_id.has_valid_carbon_out_value())
+            (self.move_id.is_outbound(include_receipts=True) and self.product_id.can_compute_carbon_value('in')) or
+            (self.move_id.is_inbound(include_receipts=True) and self.product_id.can_compute_carbon_value('out'))
         )
 
     def get_product_id_carbon_compute_values(self) -> dict:

@@ -4,18 +4,18 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    carbon_currency_label = fields.Char(related='company_id.carbon_currency_label')
-    carbon_in_value = fields.Float(related='company_id.carbon_in_value', readonly=False)
-    carbon_in_monetary_currency_id = fields.Many2one(related='company_id.carbon_in_monetary_currency_id', string="CO2e Currency for 'in' moves" )
-    carbon_out_value = fields.Float(related='company_id.carbon_out_value', readonly=False)
-    carbon_out_monetary_currency_id = fields.Many2one(related='company_id.carbon_out_monetary_currency_id', string="CO2e Currency for 'out' moves")
+
+    carbon_in_factor_id = fields.Many2one(related='company_id.carbon_in_factor_id', readonly=False)
+    carbon_out_factor_id = fields.Many2one(related='company_id.carbon_out_factor_id', readonly=False)
+    carbon_allowed_factor_ids = fields.Many2many(related='company_id.carbon_allowed_factor_ids')
+
     invoice_report_footer = fields.Html(
         related='company_id.invoice_report_footer',
         readonly=False,
         translate=True,
     )
     carbon_lock_date = fields.Date(related='company_id.carbon_lock_date', readonly=False)
-    carbon_default_data_uncertainty_value = fields.Float(related='company_id.carbon_default_data_uncertainty_value', readonly=False)
+    carbon_default_data_uncertainty_percentage = fields.Float(related='company_id.carbon_default_data_uncertainty_percentage', readonly=False)
 
     available_module_names = fields.Char(compute="_compute_available_modules")
     extra_module_names = fields.Char(compute="_compute_available_modules")

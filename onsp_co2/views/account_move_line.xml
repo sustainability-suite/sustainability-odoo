@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='credit']" position="after">
                 <field name="carbon_balance" sum="Total CO2 Balance" optional="show" readonly="1" digits="[13,2]" />
-                <field name="carbon_data_uncertainty_value" optional="hide" />
+                <field name="carbon_data_uncertainty_percentage" optional="hide" />
                 <field name="carbon_uncertainty_value" sum="Total CO2 Uncertainty" optional="hide" />
                 <field name="carbon_debit" sum="Total CO2 Debit" optional="hide" readonly="1" digits="[13,2]" />
                 <field name="carbon_credit" sum="Total CO2 Credit" optional="hide" readonly="1" digits="[13,2]" />

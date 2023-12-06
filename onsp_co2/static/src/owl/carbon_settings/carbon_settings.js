@@ -7,6 +7,8 @@ import { _lt } from "@web/core/l10n/translation";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { FloatField } from "@web/views/fields/float/float_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
+import { BooleanToggleField } from "@web/views/fields/boolean_toggle/boolean_toggle_field";
+import { X2ManyField } from "@web/views/fields/x2many/x2many_field";
 import { useService } from "@web/core/utils/hooks";
 import { usePopover } from "@web/core/popover/popover_hook";
 
@@ -25,7 +27,7 @@ export class CarbonSettings extends Component {
         this.popover = usePopover();
         this.closePopover = null;
         this.carbonType = 'carbon_' + this.props.type;
-        this.availableComputeMethods = this.props.record.fields[this.getCarbonFieldFullName('compute_method')].selection.map((e) =>  e[0]);
+        // this.availableComputeMethods = this.props.record.fields[this.getCarbonFieldFullName('compute_method')].selection.map((e) =>  e[0]);
     }
 
     // --- Helpers ---
@@ -45,17 +47,17 @@ export class CarbonSettings extends Component {
             [this.getCarbonFieldFullName('is_manual')]: ev.target.dataset.mode === 'manual',
             [this.getCarbonFieldFullName('factor_id')]: false,
         });
-        await this.props.record.save();
+        // await this.props.record.save();
 
     }
 
-    async updateMethod(ev){
-        await this.props.record.update({
-            [this.getCarbonFieldFullName('compute_method')]: ev.target.closest('button').dataset.method,
-        });
-        // I don't save immediately to avoid ValidationError
-        await this.props.record.model.notify();
-    }
+    // async updateMethod(ev){
+    //     await this.props.record.update({
+    //         [this.getCarbonFieldFullName('compute_method')]: ev.target.closest('button').dataset.method,
+    //     });
+    //     // I don't save immediately to avoid ValidationError
+    //     await this.props.record.model.notify();
+    // }
 
     // This method is 'standard' as it's a `Field` method passed as props
     async updateField(newValue) {
@@ -66,14 +68,13 @@ export class CarbonSettings extends Component {
     }
 
     async updateFactor(newValue) {
-        if (newValue !== false) {
-            let name = this.name.includes("_in") ? "carbon_in_compute_method" : "carbon_out_compute_method";
-            await this.record.update({
-                [name]: false,
-            });
-
-        }
-        await this.record.save();
+        // if (newValue !== false) {
+        //     let name = this.name.includes("_in") ? "carbon_in_compute_method" : "carbon_out_compute_method";
+        //     await this.record.update({
+        //         [name]: false,
+        //     });
+        //
+        // }
         await this.record.model.orm.call(
             this.record.resModel,
             'carbon_widget_update_field',
@@ -83,7 +84,6 @@ export class CarbonSettings extends Component {
                 newValue,
             ],
         );
-        await this.record.load();
         await this.record.model.notify();
     }
 
@@ -118,11 +118,12 @@ export class CarbonSettings extends Component {
 }
 
 CarbonSettings.template = "onsp_co2.CarbonSettings";
-CarbonSettings.components = { FloatField, Many2OneField, CarbonOriginPopover };
+CarbonSettings.components = { FloatField, Many2OneField, BooleanToggleField, X2ManyField, CarbonOriginPopover };
 CarbonSettings.props = {
     ...standardWidgetProps,
     type: { type: String },
     title: { type: String, optional: true},
+    showDistribution: { type: Boolean, optional: true},
 };
 
 registry.category("view_widgets").add("carbon_settings", CarbonSettings);
