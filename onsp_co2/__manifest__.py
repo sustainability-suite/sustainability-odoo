@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2021 Open Net Sarl
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -15,36 +14,31 @@
     ],
     "data": [
         # Security
-        "security/ir.model.access.csv",         # todo: Create more roles & access rights
-
+        "security/ir.model.access.csv",  # todo: Create more roles & access rights
         # Views
         "views/account_account.xml",
         "views/account_analytic_line.xml",
         "views/account_move.xml",
         "views/account_move_line.xml",
         "views/carbon_line_origin.xml",
-
         "views/product_template.xml",
-
         "views/carbon_factor.xml",
         "views/carbon_factor_source.xml",
         "views/carbon_factor_type.xml",
         "views/product_category.xml",
         "views/res_country.xml",
         "views/res_config_settings.xml",
-
         # Reports
         "report/invoice_document.xml",
-
         # Data
         "data/decimal_precision.xml",
         "data/menu_items.xml",
         "data/res_currency.xml",
     ],
-    'assets': {
-        'web.assets_backend': [
-            'onsp_co2/static/src/css/*.scss',
-            'onsp_co2/static/src/owl/**/*',
+    "assets": {
+        "web.assets_backend": [
+            "onsp_co2/static/src/css/*.scss",
+            "onsp_co2/static/src/owl/**/*",
         ],
     },
     "images": [

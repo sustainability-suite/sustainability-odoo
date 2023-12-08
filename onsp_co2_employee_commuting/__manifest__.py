@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2023 Open Net Sarl
 
 {
@@ -15,14 +14,12 @@
     ],
     "data": [
         # Data
-        'data/ir_cron.xml',
-
+        "data/ir_cron.xml",
         # Views
-        'views/res_config_settings.xml',
-        'views/hr_employee_commuting.xml',
-
+        "views/res_config_settings.xml",
+        "views/hr_employee_commuting.xml",
         # Security
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
     ],
     "images": [
         "static/description/co2_base_green.png",

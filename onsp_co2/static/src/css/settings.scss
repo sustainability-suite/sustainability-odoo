@@ -1,29 +1,28 @@
+.co2_extra_modules {
+  & h4 {
+    margin-bottom: 2rem;
+  }
 
-.co2_extra_modules{
-
-    & h4{
-        margin-bottom: 2rem ;
+  & table {
+    text-align: left;
+    & th {
+      padding-left: 0.75rem;
     }
+    & i {
+      font-size: 1.5em;
+      color: black;
+      margin-right: 5px;
 
-    & table {
-        text-align: left;
-        & th {padding-left: 0.75rem;}
-        & i {
-            font-size: 1.5em;
-            color: black;
-            margin-right: 5px;
+      &.small {
+        font-size: 1.25em;
+      }
 
-            &.small {
-                font-size: 1.25em;
-            }
-
-            &.oi-odoo {
-                font-size: 1.25em;
-                color: #714B67;
-                position:relative;
-                top: -1px;
-            }
-        }
+      &.oi-odoo {
+        font-size: 1.25em;
+        color: #714b67;
+        position: relative;
+        top: -1px;
+      }
     }
-
+  }
 }

@@ -2,20 +2,29 @@ from odoo import api, fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-
-    carbon_in_factor_id = fields.Many2one(related='company_id.carbon_in_factor_id', readonly=False)
-    carbon_out_factor_id = fields.Many2one(related='company_id.carbon_out_factor_id', readonly=False)
-    carbon_allowed_factor_ids = fields.Many2many(related='company_id.carbon_allowed_factor_ids')
+    carbon_in_factor_id = fields.Many2one(
+        related="company_id.carbon_in_factor_id", readonly=False
+    )
+    carbon_out_factor_id = fields.Many2one(
+        related="company_id.carbon_out_factor_id", readonly=False
+    )
+    carbon_allowed_factor_ids = fields.Many2many(
+        related="company_id.carbon_allowed_factor_ids"
+    )
 
     invoice_report_footer = fields.Html(
-        related='company_id.invoice_report_footer',
+        related="company_id.invoice_report_footer",
         readonly=False,
         translate=True,
     )
-    carbon_lock_date = fields.Date(related='company_id.carbon_lock_date', readonly=False)
-    carbon_default_data_uncertainty_percentage = fields.Float(related='company_id.carbon_default_data_uncertainty_percentage', readonly=False)
+    carbon_lock_date = fields.Date(
+        related="company_id.carbon_lock_date", readonly=False
+    )
+    carbon_default_data_uncertainty_percentage = fields.Float(
+        related="company_id.carbon_default_data_uncertainty_percentage", readonly=False
+    )
 
     available_module_names = fields.Char(compute="_compute_available_modules")
     extra_module_names = fields.Char(compute="_compute_available_modules")
@@ -27,8 +36,7 @@ class ResConfigSettings(models.TransientModel):
     module_onsp_co2_employee_commuting = fields.Boolean()
     module_onsp_co2_hr_expense_report = fields.Boolean()
 
-
-    @api.depends('company_id')
+    @api.depends("company_id")
     def _compute_available_modules(self):
         """
         These fields are used in attrs['invisible'] to know which options we should display in the settings
@@ -40,16 +48,19 @@ class ResConfigSettings(models.TransientModel):
         """
         modules_names = {
             # Community
-            'purchase',
-            'hr',
+            "purchase",
+            "hr",
             # Enterprise
-            'account_asset',
+            "account_asset",
             # OCA
-            'mis_builder',
-            'account_asset_management',
-            'hr_expense',
+            "mis_builder",
+            "account_asset_management",
+            "hr_expense",
         }
-        available_module_names = self.env['ir.module.module'].search([('name', 'in', list(modules_names))]).mapped('name')
-        self.available_module_names = ','.join(available_module_names)
-        self.extra_module_names = ', '.join(modules_names - set(available_module_names))
-
+        available_module_names = (
+            self.env["ir.module.module"]
+            .search([("name", "in", list(modules_names))])
+            .mapped("name")
+        )
+        self.available_module_names = ",".join(available_module_names)
+        self.extra_module_names = ", ".join(modules_names - set(available_module_names))

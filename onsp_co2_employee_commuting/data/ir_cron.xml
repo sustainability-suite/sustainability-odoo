@@ -2,17 +2,24 @@
 <odoo>
     <data noupdate="1">
         <record id="cron_carbon_employee_commuting_account_move_create" model="ir.cron">
-            <field name="name">Create account_moves of carbon emissions due to employee commuting</field>
+            <field
+        name="name"
+      >Create account_moves of carbon emissions due to employee commuting</field>
             <field name="model_id" ref="model_res_company" />
             <field name="user_id">1</field>
             <field name="state">code</field>
-            <field name="code">model._cron_carbon_commuting_account_move_create()</field>
+            <field
+        name="code"
+      >model._cron_carbon_commuting_account_move_create()</field>
             <field name="interval_type">months</field>
             <field name="interval_number">1</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
             <field name="active" eval="False" />
-            <field name="nextcall" eval="(DateTime.now() + relativedelta(months=1)).strftime('%Y-%m-01 01:00:00')"/>
+            <field
+        name="nextcall"
+        eval="(DateTime.now() + relativedelta(months=1)).strftime('%Y-%m-01 01:00:00')"
+      />
         </record>
     </data>
 </odoo>
