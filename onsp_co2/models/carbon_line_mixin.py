@@ -149,7 +149,7 @@ class CarbonLineMixin(models.AbstractModel):
 
 
     """ depends need to be overriden to trigger the compute method at the right time """
-    @api.depends()
+    @api.depends('carbon_data_uncertainty_percentage')
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
         """
         Choose the right factor(s) to compute carbon value, store it with the details of the computation
