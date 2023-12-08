@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
 
 
@@ -14,23 +14,29 @@
     <t t-name="onsp_co2.CarbonSettings" owl="1">
 
         <div class="carbon_settings_main">
-            <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
+            <div
+        class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+      >
                 <t t-if="props.title" t-out="props.title" />
                 <t t-else="">Carbon '<t t-out="props.type" />' settings</t>
             </div>
 
             <div class="row">
-                <div class="btn-group col-6" role="group" aria-label="Settings mode" >
-                    <button t-on-click="updateMode"
-                            t-attf-class="btn #{getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
-                            type="button"
-                            data-mode="auto">
+                <div class="btn-group col-6" role="group" aria-label="Settings mode">
+                    <button
+            t-on-click="updateMode"
+            t-attf-class="btn #{getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
+            type="button"
+            data-mode="auto"
+          >
                         Auto
                     </button>
-                    <button t-on-click="updateMode"
-                            t-attf-class="btn #{!getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
-                            type="button"
-                            data-mode="manual">
+                    <button
+            t-on-click="updateMode"
+            t-attf-class="btn #{!getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
+            type="button"
+            data-mode="manual"
+          >
                         Manual
                     </button>
                 </div>
@@ -51,19 +57,42 @@
 
                 <!-- ============================================ START UPDATE  ============================================ -->
 
-            <div class="row mt-3" t-if="getCarbonField('is_manual') &amp;&amp; props.showDistribution">
+            <div
+        class="row mt-3"
+        t-if="getCarbonField('is_manual') &amp;&amp; props.showDistribution"
+      >
                 <div class="col-3"><strong>Use Distribution</strong></div>
                 <div class="col-9">
-                    <BooleanToggleField record="props.record" value="getCarbonField('use_distribution')" name="getCarbonFieldFullName('use_distribution')" update="updateField"/>
+                    <BooleanToggleField
+            record="props.record"
+            value="getCarbonField('use_distribution')"
+            name="getCarbonFieldFullName('use_distribution')"
+            update="updateField"
+          />
                 </div>
             </div>
 <!--            TMP FIX: Show this only if the factor is manual and the distribution is not used (all record except account.account) -->
-            <div class="row mt-2" t-if="getCarbonField('is_manual') &amp;&amp; !getCarbonField('use_distribution') &amp;&amp; !props.showDistribution">
+            <div
+        class="row mt-2"
+        t-if="getCarbonField('is_manual') &amp;&amp; !getCarbonField('use_distribution') &amp;&amp; !props.showDistribution"
+      >
                 <div class="col-3"><strong>Emission Factor</strong></div>
                 <div class="col-8">
-                    <div t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break #{getCarbonField('is_manual') ? '' : 'display-none'}" style="width: 100%;">
-                        <div name="carbon_factor_id" class="o_field_widget o_field_many2one col-6">
-                            <Many2OneField readonly="!getCarbonField('is_manual')" record="props.record" value="getCarbonField('factor_id')" name="getCarbonFieldFullName('factor_id')"  update="updateFactor"/>
+                    <div
+            t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break #{getCarbonField('is_manual') ? '' : 'display-none'}"
+            style="width: 100%;"
+          >
+                        <div
+              name="carbon_factor_id"
+              class="o_field_widget o_field_many2one col-6"
+            >
+                            <Many2OneField
+                readonly="!getCarbonField('is_manual')"
+                record="props.record"
+                value="getCarbonField('factor_id')"
+                name="getCarbonFieldFullName('factor_id')"
+                update="updateFactor"
+              />
                         </div>
                     </div>
                 </div>

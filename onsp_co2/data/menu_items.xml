@@ -1,13 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
 
-        <menuitem id="carbon_settings_menu" name="CO2 Settings" parent="account.menu_finance_configuration" sequence="5" groups="base.group_user">
-            <menuitem id="carbon_factor_menu" name="Emission Factors" sequence="10" groups="base.group_user" action="onsp_co2.carbon_factor_action" />
-            <menuitem id="carbon_factor_source_menu" name="Emission Factor Sources" sequence="20" groups="base.group_user" action="onsp_co2.carbon_factor_source_action" />
-            <menuitem id="carbon_factor_type_menu" name="Emission Factor Types" sequence="30" groups="base.group_user" action="onsp_co2.carbon_factor_type_action" />
+        <menuitem
+      id="carbon_settings_menu"
+      name="CO2 Settings"
+      parent="account.menu_finance_configuration"
+      sequence="5"
+      groups="base.group_user"
+    >
+            <menuitem
+        id="carbon_factor_menu"
+        name="Emission Factors"
+        sequence="10"
+        groups="base.group_user"
+        action="onsp_co2.carbon_factor_action"
+      />
+            <menuitem
+        id="carbon_factor_source_menu"
+        name="Emission Factor Sources"
+        sequence="20"
+        groups="base.group_user"
+        action="onsp_co2.carbon_factor_source_action"
+      />
+            <menuitem
+        id="carbon_factor_type_menu"
+        name="Emission Factor Types"
+        sequence="30"
+        groups="base.group_user"
+        action="onsp_co2.carbon_factor_type_action"
+      />
 
-            <menuitem id="carbon_line_origin_menu" name="Carbon Origins" sequence="40" groups="base.group_user" action="onsp_co2.carbon_line_origin_action" />
+            <menuitem
+        id="carbon_line_origin_menu"
+        name="Carbon Origins"
+        sequence="40"
+        groups="base.group_user"
+        action="onsp_co2.carbon_line_origin_action"
+      />
         </menuitem>
 
     </data>

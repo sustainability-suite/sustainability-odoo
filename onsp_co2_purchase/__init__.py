@@ -1,9 +1,6 @@
 from . import models
 
 
-
-
-
 def add_carbon_mode_columns(cr):
     """
     We need this pre_init_hook to avoid performance issues on large databases

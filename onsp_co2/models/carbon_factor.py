@@ -1,8 +1,10 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
-from typing import Union
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
+from typing import Union
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+
 
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
@@ -16,10 +18,14 @@ class CarbonFactor(models.Model):
     )
 
     name = fields.Char(required=True)
-    display_name = fields.Char(compute="_compute_display_name", store=True, recursive=True)
-    parent_id = fields.Many2one("carbon.factor", "Parent", index=True, ondelete="restrict")
+    display_name = fields.Char(
+        compute="_compute_display_name", store=True, recursive=True
+    )
+    parent_id = fields.Many2one(
+        "carbon.factor", "Parent", index=True, ondelete="restrict"
+    )
     parent_path = fields.Char(index=True, unaccent=False)
-    carbon_source_id = fields.Many2one('carbon.factor.source')
+    carbon_source_id = fields.Many2one("carbon.factor.source")
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
     carbon_compute_method = fields.Selection(
         selection=[
@@ -31,39 +37,47 @@ class CarbonFactor(models.Model):
 
     child_ids = fields.One2many("carbon.factor", "parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
-    descendant_ids = fields.Many2many('carbon.factor', compute='_compute_descendant_ids', recursive=True)
+    descendant_ids = fields.Many2many(
+        "carbon.factor", compute="_compute_descendant_ids", recursive=True
+    )
 
-    carbon_currency_id = fields.Many2one('res.currency', compute="_compute_carbon_currency_id")
-    carbon_currency_label = fields.Char(compute="_compute_carbon_currency_id", default="KgCo2e")
+    carbon_currency_id = fields.Many2one(
+        "res.currency", compute="_compute_carbon_currency_id"
+    )
+    carbon_currency_label = fields.Char(
+        compute="_compute_carbon_currency_id", default="KgCo2e"
+    )
     uncertainty_percentage = fields.Float(string="Uncertainty (%)", default=0.0)
 
     value_ids = fields.One2many("carbon.factor.value", "factor_id")
     # related recent values
-    recent_value_id = fields.Many2one("carbon.factor.value", compute="_compute_recent_value", store=True)
+    recent_value_id = fields.Many2one(
+        "carbon.factor.value", compute="_compute_recent_value", store=True
+    )
     carbon_date = fields.Date(related="recent_value_id.date")
     carbon_source = fields.Char(related="carbon_source_id.name", string="Source")
 
     carbon_value = fields.Float(related="recent_value_id.carbon_value")
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id")
-    carbon_monetary_currency_id = fields.Many2one(related="recent_value_id.carbon_monetary_currency_id")
+    carbon_monetary_currency_id = fields.Many2one(
+        related="recent_value_id.carbon_monetary_currency_id"
+    )
     unit_label = fields.Char(related="recent_value_id.unit_label")
-    
+
     required_type_ids = fields.Many2many("carbon.factor.type", string="Required Types")
 
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
 
-
     # --------------------------------------------
-
 
     def name_get(self) -> list[tuple[int, str]]:
         return [(factor.id, factor.display_name) for factor in self]
 
     def _get_record_description(self) -> str:
         self.ensure_one()
-        return self._description + (f": {self.name}" if hasattr(self, 'name') else "")
+        return self._description + (f": {self.name}" if hasattr(self, "name") else "")
 
     # --------------------------------------------
     #                   COMPUTE
@@ -82,21 +96,21 @@ class CarbonFactor(models.Model):
         for factor in self:
             factor.child_qty = len(factor.child_ids)
 
-    @api.depends('child_ids.descendant_ids')
+    @api.depends("child_ids.descendant_ids")
     def _compute_descendant_ids(self):
         for factor in self:
             factor.descendant_ids = factor.child_ids | factor.child_ids.descendant_ids
-            
+
     def _compute_chart_of_account_qty(self):
         count_data = self._get_count_by_model(model="account.account")
         for factor in self:
             factor.chart_of_account_qty = count_data.get(factor.id, 0)
-                
+
     def _compute_product_qty(self):
         count_data = self._get_count_by_model(model="product.template")
         for factor in self:
             factor.product_qty = count_data.get(factor.id, 0)
-                  
+
     def _compute_product_categ_qty(self):
         count_data = self._get_count_by_model(model="product.category")
         for factor in self:
@@ -153,10 +167,11 @@ class CarbonFactor(models.Model):
     #                   CHECKS
     # --------------------------------------------
 
-
-    def check_distribution(self, distribution: dict["CarbonFactor", float]) -> dict["CarbonFactor", float]:
+    def check_distribution(
+        self, distribution: dict["CarbonFactor", float]
+    ) -> dict["CarbonFactor", float]:
         """
-            Check that the distribution is valid and update it if needed
+        Check that the distribution is valid and update it if needed
         """
         # Todo: make automatic distribution for any number of factors
         if not distribution and len(self) == 1:
@@ -164,12 +179,27 @@ class CarbonFactor(models.Model):
 
         total_distribution = sum(distribution.values())
         if total_distribution != 1:
-            raise ValidationError(_("Distribution values must sum up to 1 (current value: %s)", total_distribution))
+            raise ValidationError(
+                _(
+                    "Distribution values must sum up to 1 (current value: %s)",
+                    total_distribution,
+                )
+            )
         if not all([factor in distribution for factor in self]):
-            raise ValidationError(_("Some factors are missing in distribution (ids: %s)", set(self.ids) - set(distribution.keys())))
+            raise ValidationError(
+                _(
+                    "Some factors are missing in distribution (ids: %s)",
+                    set(self.ids) - set(distribution.keys()),
+                )
+            )
         if len(distribution) != len(self):
             raise ValidationError(
-                _("The factor count is different from the distribution keys count (factor count: %s, keys count: %s)", len(self), len(distribution)))
+                _(
+                    "The factor count is different from the distribution keys count (factor count: %s, keys count: %s)",
+                    len(self),
+                    len(distribution),
+                )
+            )
 
         return distribution
 
@@ -185,19 +215,22 @@ class CarbonFactor(models.Model):
         """
         self.ensure_one()
 
-        date_to_values = defaultdict(lambda: self.env['carbon.factor.value'])
+        date_to_values = defaultdict(lambda: self.env["carbon.factor.value"])
         for value in self.value_ids:
             date_to_values[str(value.date)] |= value
 
         for date, value_list in date_to_values.items():
             if self.required_type_ids - value_list.type_id:
-                raise ValidationError(_('Please enter all the required type for the following date (%s)', date))
-
+                raise ValidationError(
+                    _(
+                        "Please enter all the required type for the following date (%s)",
+                        date,
+                    )
+                )
 
     # --------------------------------------------
     #                   CRUD
     # --------------------------------------------
-
 
     def write(self, vals):
         if (
@@ -221,21 +254,28 @@ class CarbonFactor(models.Model):
     #                 MISC METHODS
     # --------------------------------------------
 
-
     def _get_values_at_date(self, date=None):
-        """ Return """
+        """Return"""
         self.ensure_one()
         if not self.value_ids:
-            raise ValidationError(_("_get_values_at_date: No value found for the following factor: %s", self.name))
+            raise ValidationError(
+                _(
+                    "_get_values_at_date: No value found for the following factor: %s",
+                    self.name,
+                )
+            )
         if not date:
             date = fields.Date.today()
         if isinstance(date, datetime):
             date = date.date()
 
         values_before_date = self.value_ids.filtered(lambda v: v.date <= date)
-        closest_date = max(values_before_date.mapped('date')) if values_before_date else min(self.value_ids.mapped('date'))
+        closest_date = (
+            max(values_before_date.mapped("date"))
+            if values_before_date
+            else min(self.value_ids.mapped("date"))
+        )
         return self.value_ids.filtered(lambda v: v.date == closest_date)
-
 
     def _get_count_by_model(self, model: str) -> dict:
         """
@@ -251,12 +291,17 @@ class CarbonFactor(models.Model):
             dict: A dictionary where the keys are the carbon_in_factor_id and the values are the total count of carbon factors for that id.
         """
         data = self.env[model].read_group(
-            self._get_carbon_domain(), ["carbon_in_factor_id", "carbon_out_factor_id"], ["carbon_in_factor_id", "carbon_out_factor_id"], lazy=False
+            self._get_carbon_domain(),
+            ["carbon_in_factor_id", "carbon_out_factor_id"],
+            ["carbon_in_factor_id", "carbon_out_factor_id"],
+            lazy=False,
         )
         total_count = defaultdict(int)
         for item in data:
-            if factor := item.get("carbon_in_factor_id") or item.get("carbon_out_factor_id"):
-                total_count[factor[0]] += item['__count']
+            if factor := item.get("carbon_in_factor_id") or item.get(
+                "carbon_out_factor_id"
+            ):
+                total_count[factor[0]] += item["__count"]
 
         return total_count
 
@@ -269,18 +314,20 @@ class CarbonFactor(models.Model):
         Returns:
             list: A list representing the domain for carbon factor queries. The list includes a logical OR operator and two tuples, each specifying a field name and a condition.
         """
-        return ['|', ("carbon_in_factor_id", "in", self.ids), ("carbon_out_factor_id", "in", self.ids)]
-
+        return [
+            "|",
+            ("carbon_in_factor_id", "in", self.ids),
+            ("carbon_out_factor_id", "in", self.ids),
+        ]
 
     # --------------------------------------------
     #            CARBON COMPUTATION
     # --------------------------------------------
 
-
     def get_carbon_value(
-            self,
-            distribution: dict["CarbonFactor", float] = None,
-            **kwargs,
+        self,
+        distribution: dict["CarbonFactor", float] = None,
+        **kwargs,
     ) -> tuple[float, float, dict[int, dict[int, dict[str, Union[str, float, int]]]]]:
         """
         Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
@@ -314,33 +361,34 @@ class CarbonFactor(models.Model):
         total_uncertainty_value = 0.0
         factor_to_details = {}
         for factor in self:
-            value, uncertainty_value, details = factor._get_carbon_value(distribution.get(factor), **kwargs)
+            value, uncertainty_value, details = factor._get_carbon_value(
+                distribution.get(factor), **kwargs
+            )
             total_value += value
             total_uncertainty_value += uncertainty_value
             factor_to_details[factor.id] = details
 
         return total_value, total_uncertainty_value, factor_to_details
 
-
     def _get_carbon_value(
-            self,
-            distribution: float,
-            **kwargs,
+        self,
+        distribution: float,
+        **kwargs,
     ) -> tuple[float, float, dict[int, dict[str, Union[str, float, int]]]]:
-
         self.ensure_one()
 
-        quantity = kwargs.get('quantity')
-        from_uom_id = kwargs.get('from_uom_id')
-        amount = kwargs.get('amount')
-        from_currency_id = kwargs.get('from_currency_id')
-        data_uncertainty_percentage = kwargs.get('data_uncertainty_percentage')
+        quantity = kwargs.get("quantity")
+        from_uom_id = kwargs.get("from_uom_id")
+        amount = kwargs.get("amount")
+        from_currency_id = kwargs.get("from_currency_id")
+        data_uncertainty_percentage = kwargs.get("data_uncertainty_percentage")
 
-        date = kwargs.get('date', fields.Date.today())
-
+        date = kwargs.get("date", fields.Date.today())
 
         # --- The uncertainty percentage is common to all factor values
-        uncertainty_percentage = (self.uncertainty_percentage ** 2 + data_uncertainty_percentage ** 2) ** 0.5
+        uncertainty_percentage = (
+            self.uncertainty_percentage**2 + data_uncertainty_percentage**2
+        ) ** 0.5
 
         # --- These are the infos that will be returned
         result_value = 0.0
@@ -348,55 +396,73 @@ class CarbonFactor(models.Model):
 
         for factor_value in self._get_values_at_date(date):
             # Infos from factor
-            compute_method, value, uom_id, monetary_currency_id = factor_value.get_infos()
+            (
+                compute_method,
+                value,
+                uom_id,
+                monetary_currency_id,
+            ) = factor_value.get_infos()
 
             if compute_method == "monetary" and amount is not None and from_currency_id:
                 # We convert the amount to the currency used in the factor value
-                partial_value_result = value * from_currency_id._convert(amount, monetary_currency_id, self.env.company, date)
+                partial_value_result = value * from_currency_id._convert(
+                    amount, monetary_currency_id, self.env.company, date
+                )
 
             elif compute_method == "physical" and quantity is not None and from_uom_id:
                 # Units of measure can't be converted if they are not in the same category
                 if from_uom_id.category_id != uom_id.category_id:
-                    raise ValidationError(_(
-                        "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.",
-                        self.display_name,
-                        from_uom_id.name,
-                        from_uom_id.category_id.name,
-                        uom_id.name,
-                        uom_id.category_id.name,
-                    ))
-                partial_value_result = value * from_uom_id._compute_quantity(quantity, uom_id)
+                    raise ValidationError(
+                        _(
+                            "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.",
+                            self.display_name,
+                            from_uom_id.name,
+                            from_uom_id.category_id.name,
+                            uom_id.name,
+                            uom_id.category_id.name,
+                        )
+                    )
+                partial_value_result = value * from_uom_id._compute_quantity(
+                    quantity, uom_id
+                )
 
             else:
-                raise ValidationError(_("To compute a carbon cost, you must pass:"
-                                        "\n- either a quantity and a unit of measure"
-                                        "\n- or a price and a currency (+ an optional date)"
-                                        "\n\nPassed value: "
-                                        "\n- Record: %s (compute method: %s)"
-                                        "\n- Quantity: %s, UOM: %s"
-                                        "\n- Amount: %s, Currency: %s", self, compute_method, quantity, from_uom_id, amount, from_currency_id))
+                raise ValidationError(
+                    _(
+                        "To compute a carbon cost, you must pass:"
+                        "\n- either a quantity and a unit of measure"
+                        "\n- or a price and a currency (+ an optional date)"
+                        "\n\nPassed value: "
+                        "\n- Record: %s (compute method: %s)"
+                        "\n- Quantity: %s, UOM: %s"
+                        "\n- Amount: %s, Currency: %s",
+                        self,
+                        compute_method,
+                        quantity,
+                        from_uom_id,
+                        amount,
+                        from_currency_id,
+                    )
+                )
 
             result_value += partial_value_result * distribution
             result_details[factor_value.id] = {
-                'value': partial_value_result,
-                'distribution': distribution,
-                'uncertainty_percentage': uncertainty_percentage,
-                'uncertainty_value': partial_value_result * uncertainty_percentage,
+                "value": partial_value_result,
+                "distribution": distribution,
+                "uncertainty_percentage": uncertainty_percentage,
+                "uncertainty_value": partial_value_result * uncertainty_percentage,
                 # Values infos are return so that if they are updated later, we still have the value at the time of the computation
-                'compute_method': compute_method,
-                'carbon_value': value,
-                'uom_id': uom_id.id,
-                'monetary_currency_id': monetary_currency_id.id,
-
+                "compute_method": compute_method,
+                "carbon_value": value,
+                "uom_id": uom_id.id,
+                "monetary_currency_id": monetary_currency_id.id,
             }
 
-
-        return result_value, result_value*uncertainty_percentage, result_details
+        return result_value, result_value * uncertainty_percentage, result_details
 
     # --------------------------------------------
     #                   ACTIONS
     # --------------------------------------------
-
 
     def _generate_action(self, model: str, title: str) -> dict:
         """
@@ -425,13 +491,19 @@ class CarbonFactor(models.Model):
         }
 
     def action_see_child_ids(self):
-        return self._generate_action(title=_("Child factors for"), model="carbon.factor")
-        
+        return self._generate_action(
+            title=_("Child factors for"), model="carbon.factor"
+        )
+
     def action_see_chart_of_account_ids(self):
-        return self._generate_action(title=_("Chart of Account for"), model="account.account")
+        return self._generate_action(
+            title=_("Chart of Account for"), model="account.account"
+        )
 
     def action_see_product_ids(self):
         return self._generate_action(title=_("Product for"), model="product.template")
-        
+
     def action_see_product_categ_ids(self):
-        return self._generate_action(title=_("Product Category for"), model="product.category")
+        return self._generate_action(
+            title=_("Product Category for"), model="product.category"
+        )

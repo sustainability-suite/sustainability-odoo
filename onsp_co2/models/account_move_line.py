@@ -1,11 +1,11 @@
-from odoo import api, fields, models
 from typing import Union
+
+from odoo import api, fields, models
 
 
 class AccountMoveLine(models.Model):
     _name = "account.move.line"
     _inherit = ["account.move.line", "carbon.line.mixin"]
-
 
     carbon_balance = fields.Monetary(
         string="CO2 Balance",
@@ -26,18 +26,22 @@ class AccountMoveLine(models.Model):
         store=True,
     )
 
-    carbon_is_date_locked = fields.Boolean(compute="_compute_carbon_is_date_locked", store=True)
+    carbon_is_date_locked = fields.Boolean(
+        compute="_compute_carbon_is_date_locked", store=True
+    )
 
-
-
-    def _prepare_analytic_distribution_line(self, distribution, account_id, distribution_on_each_plan) -> dict:
-        """ I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job """
-        res = super(AccountMoveLine, self)._prepare_analytic_distribution_line(distribution, account_id, distribution_on_each_plan)
+    def _prepare_analytic_distribution_line(
+        self, distribution, account_id, distribution_on_each_plan
+    ) -> dict:
+        """I removed _prepare_analytic_line() (which is renamed in v16) because it calls this actual method to do the job"""
+        res = super()._prepare_analytic_distribution_line(
+            distribution, account_id, distribution_on_each_plan
+        )
         res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
         return res
 
-
     """ These methods might seem useless but the logic could change in the future so it's better to have them """
+
     def is_debit(self) -> bool:
         self.ensure_one()
         return bool(self.debit)
@@ -50,13 +54,12 @@ class AccountMoveLine(models.Model):
     #                   COMPUTE
     # --------------------------------------------
 
-
     @api.depends("carbon_debit", "carbon_credit")
     def _compute_carbon_balance(self):
         for line in self:
             line.carbon_balance = line.carbon_debit - line.carbon_credit
 
-    @api.depends('carbon_debt', 'credit', 'debit')
+    @api.depends("carbon_debt", "credit", "debit")
     def _compute_carbon_debit_credit(self):
         for line in self:
             credit = 0.0
@@ -74,64 +77,66 @@ class AccountMoveLine(models.Model):
             line.carbon_credit = credit
             line.carbon_debit = debit
 
-
-    @api.depends('company_id.carbon_lock_date', 'move_id.date')
+    @api.depends("company_id.carbon_lock_date", "move_id.date")
     def _compute_carbon_is_date_locked(self):
         for line in self:
-            line.carbon_is_date_locked = line.company_id.carbon_lock_date and (line.move_id.date < line.company_id.carbon_lock_date)
+            line.carbon_is_date_locked = line.company_id.carbon_lock_date and (
+                line.move_id.date < line.company_id.carbon_lock_date
+            )
 
     # --------------------------------------------
     #                   MIXIN
     # --------------------------------------------
 
-
     @api.depends(
-        'account_id.carbon_in_factor_id',
-        'product_id.carbon_in_factor_id',
-        'product_id.carbon_out_factor_id',
-
-        'quantity',
-        'credit',
-        'debit',
-        'move_type',
-        'move_id.invoice_date',
-        'move_id.company_id.carbon_lock_date',
-        'carbon_data_uncertainty_percentage',
+        "account_id.carbon_in_factor_id",
+        "product_id.carbon_in_factor_id",
+        "product_id.carbon_out_factor_id",
+        "quantity",
+        "credit",
+        "debit",
+        "move_type",
+        "move_id.invoice_date",
+        "move_id.company_id.carbon_lock_date",
+        "carbon_data_uncertainty_percentage",
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
-        return super(AccountMoveLine, self)._compute_carbon_debt(force_compute)
-
+        return super()._compute_carbon_debt(force_compute)
 
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
-        domain = super(AccountMoveLine, self)._get_lines_to_compute_domain(force_compute)
-        domain.append(('carbon_is_date_locked', '=', False))
-        domain.append(('display_type', 'not in', ['line_section', 'line_note']))
+        domain = super()._get_lines_to_compute_domain(force_compute)
+        domain.append(("carbon_is_date_locked", "=", False))
+        domain.append(("display_type", "not in", ["line_section", "line_note"]))
         return domain
-
 
     # --- Methods to override ---
 
-
     @api.model
     def _get_states_to_auto_recompute(self) -> list[str]:
-        return ['draft']
+        return ["draft"]
 
     @api.model
     def _get_state_field_name(self) -> str:
-        return 'parent_state'
+        return "parent_state"
 
     @api.model
     def _get_carbon_compute_possible_fields(self) -> list[str]:
-        return ['product_id', 'account_id']
+        return ["product_id", "account_id"]
 
     def _get_carbon_compute_kwargs(self) -> dict:
-        res = super(AccountMoveLine, self)._get_carbon_compute_kwargs()
-        res.update({
-            'carbon_type': 'out' if self.move_id.is_inbound(include_receipts=True) else 'in',
-            'date': self.move_id.date or self.move_id.invoice_date,
-            # We take the company currency because credit/debit are expressed in that currency
-            'from_currency_id': (self.move_id.company_id or self.env.company).currency_id,
-        })
+        res = super()._get_carbon_compute_kwargs()
+        res.update(
+            {
+                "carbon_type": "out"
+                if self.move_id.is_inbound(include_receipts=True)
+                else "in",
+                "date": self.move_id.date or self.move_id.invoice_date,
+                # We take the company currency because credit/debit are expressed in that currency
+                "from_currency_id": (
+                    self.move_id.company_id or self.env.company
+                ).currency_id,
+            }
+        )
         return res
 
     def _get_line_amount(self) -> float:
@@ -140,40 +145,42 @@ class AccountMoveLine(models.Model):
         # We don't take discounts into account for carbon values, so we need to reverse it
         # There is a very special case if the discount is exactly 100% (division by 0) so we have to get a value somehow with price_unit*quantity
         if self.discount:
-            amount = amount / (1 - self.discount / 100) if self.discount != 100 else self.price_unit * self.quantity
+            amount = (
+                amount / (1 - self.discount / 100)
+                if self.discount != 100
+                else self.price_unit * self.quantity
+            )
         return amount
 
     def _get_carbon_compute_default_record(self):
         self.ensure_one()
         return self.move_id.company_id
 
-
-
-
-
     # --- Modular methods ---
     # --- ACCOUNT ---
 
-
     def can_use_account_id_carbon_value(self) -> bool:
         self.ensure_one()
-        return self.account_id.can_compute_carbon_value('in')
+        return self.account_id.can_compute_carbon_value("in")
 
     def get_account_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
-        return {'carbon_type': 'in'}
+        return {"carbon_type": "in"}
 
     # --- PRODUCT ---
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
         return bool(self.product_id) and (
-            (self.move_id.is_outbound(include_receipts=True) and self.product_id.can_compute_carbon_value('in')) or
-            (self.move_id.is_inbound(include_receipts=True) and self.product_id.can_compute_carbon_value('out'))
+            (
+                self.move_id.is_outbound(include_receipts=True)
+                and self.product_id.can_compute_carbon_value("in")
+            )
+            or (
+                self.move_id.is_inbound(include_receipts=True)
+                and self.product_id.can_compute_carbon_value("out")
+            )
         )
 
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
-        return {'quantity': self.quantity, 'from_uom_id': self.product_uom_id}
-
-
-
+        return {"quantity": self.quantity, "from_uom_id": self.product_uom_id}

@@ -12,8 +12,7 @@
     ],
     "data": [
         # Data
-        'data/ir_cron.xml',
-
+        "data/ir_cron.xml",
         # Views
         # "views/product_supplierinfo.xml",
         "views/purchase_order.xml",
@@ -28,5 +27,5 @@
     "auto_install": False,
     "license": "AGPL-3",
     "sequence": 1,
-    'pre_init_hook': 'add_carbon_mode_columns',
+    "pre_init_hook": "add_carbon_mode_columns",
 }
