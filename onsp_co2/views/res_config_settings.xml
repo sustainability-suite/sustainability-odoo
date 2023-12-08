@@ -151,6 +151,17 @@
                             </div>
                         </div>
 
+                        <div attrs="{'invisible':['!', ('available_module_names', 'ilike', 'hr_expense')]}" class="col-12 col-lg-6 o_setting_box" title="Display CO2e in expense reports">
+                            <div class="o_setting_left_pane">
+                                <field name="module_onsp_co2_hr_expense_report" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Show expense reports CO<sub>2</sub></span>
+                                <div class="text-muted">
+                                    <p>Compute and display CO<sub>2</sub> for your expense reports</p>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
