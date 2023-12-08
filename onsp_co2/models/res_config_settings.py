@@ -25,6 +25,7 @@ class ResConfigSettings(models.TransientModel):
     module_onsp_co2_mis_builder = fields.Boolean()
     module_onsp_co2_account_asset_management = fields.Boolean()
     module_onsp_co2_employee_commuting = fields.Boolean()
+    module_onsp_co2_hr_expense_report = fields.Boolean()
 
 
     @api.depends('company_id')
@@ -46,6 +47,7 @@ class ResConfigSettings(models.TransientModel):
             # OCA
             'mis_builder',
             'account_asset_management',
+            'hr_expense',
         }
         available_module_names = self.env['ir.module.module'].search([('name', 'in', list(modules_names))]).mapped('name')
         self.available_module_names = ','.join(available_module_names)
