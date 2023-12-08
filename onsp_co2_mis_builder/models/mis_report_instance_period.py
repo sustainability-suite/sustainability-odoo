@@ -5,7 +5,7 @@ class InstPeriodCO2(models.Model):
     _inherit = "mis.report.instance.period"
 
     def _get_additional_move_line_filter(self):
-        domain = super(InstPeriodCO2, self)._get_additional_move_line_filter()
+        domain = super()._get_additional_move_line_filter()
 
         # Todo: check if there is a better way to do this, as this got refactored a lot in v16
         # the super now uses _get_filter_domain()

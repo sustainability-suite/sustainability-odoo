@@ -1,7 +1,10 @@
-from odoo import api, fields, models
-from odoo.addons.uom.models.uom_uom import UoM
-from odoo.addons.base.models.res_currency import Currency
 import logging
+
+from odoo import api, fields, models
+
+from odoo.addons.base.models.res_currency import Currency
+from odoo.addons.uom.models.uom_uom import UoM
+
 _logger = logging.getLogger(__name__)
 
 
@@ -59,7 +62,6 @@ class CarbonFactorValue(models.Model):
         ),
     ]
 
-
     co2_value = fields.Float(
         tracking=True,
         string="CO2 (kg)",
@@ -99,7 +101,7 @@ class CarbonFactorValue(models.Model):
     is_ghg_detailed_value = fields.Boolean(compute="_compute_is_ghg_detailed_value")
 
     factor_id = fields.Many2one("carbon.factor", required=True, ondelete="cascade")
-    type_id = fields.Many2one('carbon.factor.type')
+    type_id = fields.Many2one("carbon.factor.type")
     display_name = fields.Char(
         compute="_compute_display_name", store=True, recursive=True
     )

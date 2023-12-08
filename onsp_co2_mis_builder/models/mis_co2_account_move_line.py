@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models, tools
 
 
@@ -18,12 +17,12 @@ class MisAccountCO2Line(models.Model):
     )
     journal_id = fields.Many2one(related="move_line_id.journal_id")
     move_id = fields.Many2one(
-        comodel_name='account.move',
-        string='Journal Entry',
+        comodel_name="account.move",
+        string="Journal Entry",
         help="The journal entry of this CO2 entry line.",
     )
     carbon_currency_id = fields.Many2one(
-        'res.currency',
+        "res.currency",
         compute="_compute_carbon_currency_id",
     )
     account_id = fields.Many2one(
@@ -57,7 +56,9 @@ class MisAccountCO2Line(models.Model):
 
     def _compute_carbon_currency_id(self):
         for line in self:
-            line.carbon_currency_id = self.env.ref("onsp_co2.carbon_kilo", raise_if_not_found=False)
+            line.carbon_currency_id = self.env.ref(
+                "onsp_co2.carbon_kilo", raise_if_not_found=False
+            )
 
     def init(self):
         tools.drop_view_if_exists(self._cr, "mis_co2_account_move_line")
@@ -84,5 +85,3 @@ class MisAccountCO2Line(models.Model):
                     am.id = aml.move_id
             )"""
         )
-
-

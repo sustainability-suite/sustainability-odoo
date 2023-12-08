@@ -8,9 +8,8 @@ class ResCompany(models.Model):
     @api.model
     def _get_available_carbon_compute_methods(self) -> list[tuple[str, str]]:
         return [
-            ('monetary', 'Monetary'),
+            ("monetary", "Monetary"),
         ]
-
 
     carbon_in_is_manual = fields.Boolean(default=True)
     carbon_out_is_manual = fields.Boolean(default=True)
@@ -23,16 +22,14 @@ class ResCompany(models.Model):
         help="",
     )
 
-
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            vals['carbon_in_is_manual'] = True
-            vals['carbon_out_is_manual'] = True
-        return super(ResCompany, self).create(vals_list)
+            vals["carbon_in_is_manual"] = True
+            vals["carbon_out_is_manual"] = True
+        return super().create(vals_list)
 
-
-    @api.depends('currency_id')
+    @api.depends("currency_id")
     def _compute_carbon_currencies(self):
         for company in self:
             company.carbon_in_monetary_currency_id = company.currency_id
