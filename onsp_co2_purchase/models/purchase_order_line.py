@@ -52,6 +52,11 @@ class PurchaseOrderLine(models.Model):
     def _get_carbon_compute_possible_fields(self) -> list[str]:
         return ['product_id']
 
+    def _get_lines_to_compute_domain(self, force_compute: list[str]):
+        domain = super(PurchaseOrderLine, self)._get_lines_to_compute_domain(force_compute)
+        domain.append(('display_type', 'not in', ['line_section', 'line_note']))
+        return domain
+
     def _get_carbon_compute_kwargs(self) -> dict:
         res = super(PurchaseOrderLine, self)._get_carbon_compute_kwargs()
         res.update({

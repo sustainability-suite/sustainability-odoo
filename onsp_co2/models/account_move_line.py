@@ -105,6 +105,7 @@ class AccountMoveLine(models.Model):
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
         domain = super(AccountMoveLine, self)._get_lines_to_compute_domain(force_compute)
         domain.append(('carbon_is_date_locked', '=', False))
+        domain.append(('display_type', 'not in', ['line_section', 'line_note']))
         return domain
 
 
