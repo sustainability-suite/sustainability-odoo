@@ -281,26 +281,33 @@ class CarbonMixin(models.AbstractModel):
         if self.env.context.get('auto_carbon_distribution'):
             return
         carbon_types = carbon_types if carbon_types is not None else self._carbon_types
+        # carbon_types might be null (if empty list [] is passed from write method), in that case we just return
+        if not carbon_types:
+            return
+        lines_vals_list = []
+        self = self.with_context(auto_carbon_distribution=True)
+
         for record in self:
             for carbon_type in carbon_types:
                 if record[f"carbon_{carbon_type}_is_manual"] and not record[f"carbon_{carbon_type}_use_distribution"]:
                     if factor := record[f"carbon_{carbon_type}_factor_id"]:
-                        record.with_context(auto_carbon_distribution=True).write({
-                            f"carbon_{carbon_type}_distribution_line_ids": [
-                                fields.Command.clear(),
-                                fields.Command.create(
-                                    {
-                                        'factor_id': factor.id,
-                                        'carbon_type': carbon_type,
-                                        'percentage': 1,
-                                        'res_model': record._name,
-                                        'res_id': record.id,
-                                    }
-                                )
-                            ],
-                        })
+                        # Note by GCA: I don't know why we have to filter distribution lines, but there is a bug:
+                        # If we don't filter lines, they all get deleted (in & out), whatever the carbon type
+                        # It seems that the domain in the one2many field is not working as expected...
+                        record[f"carbon_{carbon_type}_distribution_line_ids"].filtered(lambda l: l.carbon_type == carbon_type).unlink()
+                        lines_vals_list.append(
+                            {
+                                'factor_id': factor.id,
+                                'carbon_type': carbon_type,
+                                'percentage': 1,
+                                'res_model': record._name,
+                                'res_id': record.id,
+                            }
+                        )
+
                     else:
                         raise UserError(_("Missing carbon factor for %s (carbon type: %s)", record._get_record_description(), carbon_type))
+        self.env['carbon.distribution.line'].create(lines_vals_list)
 
 
 
@@ -321,7 +328,7 @@ class CarbonMixin(models.AbstractModel):
 
     def create(self, vals):
         res = super(CarbonMixin, self).create(vals)
-        self.auto_carbon_distribution()
+        res.auto_carbon_distribution()
         return res
 
 
