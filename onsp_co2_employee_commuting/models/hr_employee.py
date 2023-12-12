@@ -14,7 +14,7 @@ class HrEmployee(models.Model):
 
     carbon_commuting_ids = fields.One2many('carbon.hr.commuting', 'employee_id', string="Employee commuting records")
    
-    def _get_carbon_commuting_line_vals(self) -> dict:
+    def _get_carbon_commuting_line_vals(self, date) -> dict:
         self.ensure_one()
         if not date:
             date = datetime.now()
@@ -22,7 +22,7 @@ class HrEmployee(models.Model):
         return {
             'carbon_debt': value,
             'carbon_uncertainty_value': uncertainty_value,
-            'carbon_data_uncertainty_value': uncertainty_value/(value or 1),
+            'carbon_data_uncertainty_percentage': uncertainty_value/(value or 1),
             'name': f'{self.name}{details}',
             'account_id': self.company_id.employee_commuting_account_id.id,
             'debit': 0,
