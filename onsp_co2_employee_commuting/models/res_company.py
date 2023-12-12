@@ -17,7 +17,7 @@ class ResCompany(models.Model):
     employee_commuting_carbon_cronjob_active = fields.Boolean(string="Cronjob active", default=False)
 
     def _cron_carbon_commuting_account_move_create(self):
-        for company in self.env['res.company'].search([]):
+        for company in self.env['res.company'].search([('employee_commuting_carbon_cronjob_active','=', True)]):
             if not company.employee_commuting_journal_id or not company.employee_commuting_account_id:
                 continue
 
