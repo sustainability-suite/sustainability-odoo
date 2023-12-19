@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="cron_carbon_employee_commuting_account_move_create" model="ir.cron">
             <field name="name">Create account_moves of carbon emissions due to employee commuting</field>
             <field name="model_id" ref="model_res_company" />

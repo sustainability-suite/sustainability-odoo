@@ -13,5 +13,5 @@ class ResConfigSettings(models.TransientModel):
     def set_values(self):
         super().set_values()
         employee_commuting_carbon_cron = self.env.ref('onsp_co2_employee_commuting.cron_carbon_employee_commuting_account_move_create').sudo()
-        if employee_commuting_carbon_cron and employee_commuting_carbon_cron.active != self.employee_commuting_carbon_cronjob_active:
-            employee_commuting_carbon_cron.active = self.employee_commuting_carbon_cronjob_active
+        if employee_commuting_carbon_cron and self.employee_commuting_carbon_cronjob_active:
+            employee_commuting_carbon_cron.active = True
