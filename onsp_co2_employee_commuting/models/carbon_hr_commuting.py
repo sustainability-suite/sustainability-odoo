@@ -1,6 +1,6 @@
 
 from odoo import models, fields, api
-from odoo.addons.onsp_co2_employee_commuting.models.hr_employee import WEEKS_PER_MONTH
+from .hr_employee import WEEKS_PER_MONTH
 
 
 
@@ -15,6 +15,8 @@ class CarbonCommuting(models.Model):
     
     def get_commuting_carbon_value_at_date(self, date):
         self.ensure_one()
-        commuting_value, commmuting_uncertainty_value, infos = self.carbon_factor_id.get_carbon_value(date=date, carbon_type='in', quantity=self.distance_km * WEEKS_PER_MONTH, from_uom_id=self.env.ref('uom.product_uom_km'), data_uncertainty_percentage=0)
+        commuting_value, commmuting_uncertainty_value, infos = self.carbon_factor_id.get_carbon_value(
+            date=date, carbon_type='in', quantity=self.distance_km * WEEKS_PER_MONTH, 
+            from_uom_id=self.env.ref('uom.product_uom_km'), data_uncertainty_percentage=0)
         return commuting_value, commmuting_uncertainty_value
     

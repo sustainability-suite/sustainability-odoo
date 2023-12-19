@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 
 WEEKS_PER_MONTH = 4
 # 4 weeks / months for a ratio of 48 weeks / year (5 weeks holiday)
+# is going to be computed later
 
 
 class HrEmployee(models.Model):
@@ -18,7 +19,7 @@ class HrEmployee(models.Model):
         self.ensure_one()
         if not date:
             date = datetime.now()
-        value, details, uncertainty_value = self._compute_commuting_carbon(date)
+        value, details, uncertainty_value = self._calculate_commuting_carbon(date)
         return {
             'carbon_debt': value,
             'carbon_uncertainty_value': uncertainty_value,
@@ -31,7 +32,7 @@ class HrEmployee(models.Model):
             'partner_id': self.address_home_id.id,
         }
 
-    def _compute_commuting_carbon(self, date):
+    def _calculate_commuting_carbon(self, date):
         self.ensure_one()
         total_commuting_details = ""
         # Extra check, maybe you don't need it
