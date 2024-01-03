@@ -6,7 +6,7 @@ from collections import defaultdict
 
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "carbon.copy.mixin"]
     _description = "Carbon Emission Factor"
     _order = "display_name"
     _parent_store = True
@@ -391,8 +391,6 @@ class CarbonFactor(models.Model):
 
 
         return result_value, result_value*uncertainty_percentage, result_details
-
-
 
     # --------------------------------------------
     #                   ACTIONS
