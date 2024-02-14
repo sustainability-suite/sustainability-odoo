@@ -54,7 +54,7 @@ class CarbonFactorValue(models.Model):
         ),
         (
             "not_unique_date_type_id",
-            "UNIQUE(date, type_id)",
+            "UNIQUE(factor_id, date, type_id)",
             "Date and Carbon Factor Type should be a unique pair",
         ),
     ]
