@@ -255,7 +255,8 @@ class CarbonFactor(models.Model):
         )
         total_count = defaultdict(int)
         for item in data:
-            total_count[item["carbon_in_factor_id"][0]] += item['__count']
+            if factor := item.get("carbon_in_factor_id") or item.get("carbon_out_factor_id"):
+                total_count[factor[0]] += item['__count']
 
         return total_count
 
