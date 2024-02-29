@@ -1,20 +1,22 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo import api, models, _
 
-class CopyMixin(models.Model):
+class CopyMixin(models.AbstractModel):
     _name = "carbon.copy.mixin"
-    
-    # --------------------------------------------
-    #                   COPY
-    # --------------------------------------------
-    
+    _description = "carbon.copy.mixin"
+
     def _get_copy_name(self):
         self.ensure_one()
-        return _("%s (copy)", self.name)
+        fname = self._rec_name
+        if fname in self._fields:
+            new_name = self[fname]
+        else:
+            new_name = "%s,%s" % (self._name, self.id)
+        return _("%s (copy)", new_name)
     
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         default = dict(default or {})
-        if 'name' not in default:
-            default['name'] = self._get_copy_name()
+        name = self._rec_name
+        if name not in default:
+            default[name] = self._get_copy_name()
         return super().copy(default=default)
