@@ -102,6 +102,12 @@ class CarbonLineMixin(models.AbstractModel):
         self.ensure_one()
         return self.env.company   # This should be the absolute last resort, you should override it
 
+    def get_carbon_sign(self) -> int:
+        """
+        Return the sign of the carbon value (1 or -1)
+        Mainly used for account.move.line to determine if the line is a credit or a debit
+        """
+        return 1
 
 
 
@@ -195,20 +201,20 @@ class CarbonLineMixin(models.AbstractModel):
 
 
         mode = self.carbon_origin_json.get('mode')
-        details = self.carbon_origin_json.get('details', {})
+        json_details = self.carbon_origin_json.get('details', {})
 
         if mode == 'manual':
             vals_list.append({
                 'res_model_id': res_model_id,
                 'res_id': res_id,
                 # Todo: don't set the string here but in the onchange
-                'comment': _("Manually set on %s by %s", today, details.get('username', _("Unknown User"))),
+                'comment': _("Manually set on %s by %s", today, json_details.get('username', _("Unknown User"))),
                 'value': self.carbon_debt,
             })
 
         elif mode == 'auto':
-            for factor, value_to_infos in details.items():
-                for factor_value, infos in value_to_infos.items():
+            for factor, value_to_details in json_details.items():
+                for factor_value, details in value_to_details.items():
                     vals_list.append(
                         {
                             'res_model_id': res_model_id,
@@ -216,9 +222,9 @@ class CarbonLineMixin(models.AbstractModel):
                             # Needed because json keys are strings
                             'factor_value_id': int(factor_value),
                             'comment': _("Computation made on %s", today),
-                            **infos,
-                            'uom_id': infos.get('uom_id'),
-                            'monetary_currency_id': infos.get('monetary_currency_id'),
+                            **details,
+                            'uom_id': details.get('uom_id'),
+                            'monetary_currency_id': details.get('monetary_currency_id'),
                         }
                     )
 

@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -10,13 +10,14 @@ class CarbonLineOrigin(models.Model):
     # Fake Many2one that is used in the One2many field in `carbon.line.mixin`
     res_model_id = fields.Many2one('ir.model', index=True, ondelete='cascade', required=True)
     res_model = fields.Char(related='res_model_id.model', index=True, precompute=True, store=True, readonly=True, string="Model")
-    res_id = fields.Many2oneReference(index=True, model_field='res_model', string="ID")
+    res_id = fields.Many2oneReference(index=True, model_field='res_model', string="Res id")
 
     factor_value_id = fields.Many2one('carbon.factor.value', string="Factor value")
     factor_value_type_id = fields.Many2one(related='factor_value_id.type_id', string="Factor Value Type")
     factor_id = fields.Many2one(related='factor_value_id.factor_id', string="Carbon Factor", store=True)
 
-    value = fields.Float(digits="Carbon value")          # Result of the computation (might be a partial result)
+    value = fields.Float(digits="Carbon value", required=True)          # Result of the computation (might be a partial result)
+    signed_value = fields.Float(compute="_compute_signed_value", store=True, digits="Carbon value")
     distribution = fields.Float()
     carbon_value = fields.Float(digits="Carbon Factor value")
     uncertainty_percentage = fields.Float(default=0.0)
@@ -62,6 +63,18 @@ class CarbonLineOrigin(models.Model):
                 vals[model_to_field_name[origin.res_model]] = origin.res_id
             origin.update(vals)
 
+    @api.depends('value', 'res_id')
+    def _compute_signed_value(self):
+        for origin in self:
+            origin.signed_value = origin.value * origin.get_record().get_carbon_sign()
+
+
+    def get_record(self):
+        self.ensure_one()
+        if self.res_model in self.env and (fname := self._get_model_to_field_name().get(self.res_model)):
+            return self[fname]
+        return None
+
     @api.model
     def _clean_orphan_lines(self):
         """
@@ -81,3 +94,26 @@ class CarbonLineOrigin(models.Model):
 
 
 
+
+    # --------------------------------------------
+    #                   ACTIONS
+    # --------------------------------------------
+
+
+    def action_open_record(self):
+        self.ensure_one()
+        if record := self.get_record():
+            action = record.get_formview_action()
+            action["target"] = "new"
+            return action
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _("Error"),
+                'message': _("Couldn't open record: %s,%s", self.res_model, self.res_id),
+                'type': 'danger',
+                'sticky': False,
+                'next': {'type': 'ir.actions.act_window_close'},
+            },
+        }
