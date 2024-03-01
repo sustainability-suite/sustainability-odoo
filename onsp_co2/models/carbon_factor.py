@@ -241,35 +241,25 @@ class CarbonFactor(models.Model):
         """
         Compute the total count of carbon factors for a given model.
 
-        This function reads the data from the specified model, filters it based on the carbon_in_factor_id and carbon_out_factor_id,
+        This function reads data from distribution lines associated with given model,
         and then calculates the total count of carbon factors for each item in the data.
 
         Args:
-            model (str, optional): The name of the model to calculate the carbon factors for.
+            model (str, optional): The name of the model to compute the carbon factors count for.
 
         Returns:
-            dict: A dictionary where the keys are the carbon_in_factor_id and the values are the total count of carbon factors for that id.
+            dict: A dictionary where keys are factor ids and values are the total count of `model` for that id.
         """
-        data = self.env[model].read_group(
-            self._get_carbon_domain(), ["carbon_in_factor_id", "carbon_out_factor_id"], ["carbon_in_factor_id", "carbon_out_factor_id"], lazy=False
+        distribution_lines = self.env['carbon.distribution.line'].read_group(
+            [('res_model', '=', model), ('factor_id', 'in', self.ids)],
+            ["factor_id"],
+            ["factor_id"],
         )
         total_count = defaultdict(int)
-        for item in data:
-            if factor := item.get("carbon_in_factor_id") or item.get("carbon_out_factor_id"):
-                total_count[factor[0]] += item['__count']
+        for line in distribution_lines:
+            total_count[line['factor_id'][0]] += line['factor_id_count']
 
         return total_count
-
-    def _get_carbon_domain(self) -> list:
-        """
-        Generate the domain for carbon factor queries.
-
-        This function creates a domain that can be used in queries to filter data based on the carbon_in_factor_id and carbon_out_factor_id.
-
-        Returns:
-            list: A list representing the domain for carbon factor queries. The list includes a logical OR operator and two tuples, each specifying a field name and a condition.
-        """
-        return ['|', ("carbon_in_factor_id", "in", self.ids), ("carbon_out_factor_id", "in", self.ids)]
 
 
     # --------------------------------------------
@@ -412,12 +402,15 @@ class CarbonFactor(models.Model):
             dict: An action dictionary that can be used to open a new window in the Odoo UI.
         """
         self.ensure_one()
+        distribution_lines = self.env['carbon.distribution.line'].search([('res_model', '=', model), ('factor_id', 'in', self.ids)])
+        unique_ids = list(set(distribution_lines.mapped('res_id')))
+
         return {
-            "name": ("%s %s", title, self.display_name),
+            "name": _("%s %s", title, self.display_name),
             "type": "ir.actions.act_window",
             "res_model": model,
             "views": [(False, "tree"), (False, "form")],
-            "domain": self._get_carbon_domain(),
+            "domain": [("id", "in", unique_ids)],
             "target": "current",
             "context": {
                 **self.env.context,
