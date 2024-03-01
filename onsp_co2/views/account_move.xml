@@ -36,6 +36,7 @@
                     <field name="carbon_debit" optional="hide" sum="Total CO2 Debit" digits="[13,2]" />
                     <field name="carbon_credit" optional="hide" sum="Total CO2 Credit" digits="[13,2]" />
                     <field name="carbon_balance" optional="show" sum="Total CO2 Balance" digits="[13,2]" />
+                    <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
                     <field name="carbon_origin_json" invisible="1" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
