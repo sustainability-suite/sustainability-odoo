@@ -205,6 +205,10 @@
                         </group>
 
 
+                      <group>
+                            <field name="active" invisible="1" />
+                        </group>
+
                         <notebook
               attrs="{'invisible': [('carbon_compute_method', '=', False)]}"
             >
