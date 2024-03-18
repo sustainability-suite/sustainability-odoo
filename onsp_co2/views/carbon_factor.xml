@@ -39,7 +39,7 @@
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
           <separator />
-          <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+          <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
         </search>
       </field>
     </record>
@@ -52,6 +52,7 @@
           <field name="carbon_currency_id" invisible="1" />
           <field name="recent_value_id" invisible="1" />
           <field name="has_invalid_value" invisible="1" />
+          <field name="active" invisible="1" />
 
           <sheet>
             <div class="oe_button_box" name="button_box">
@@ -195,11 +196,6 @@
                 <field name="carbon_source_id" />
                 <field name="required_type_ids" widget="many2many_tags" />
               </group>
-            </group>
-
-
-            <group>
-              <field name="active" invisible="1" />
             </group>
 
             <notebook attrs="{'invisible': [('carbon_compute_method', '=', False)]}">
