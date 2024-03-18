@@ -174,7 +174,7 @@
               name="web_ribbon"
               title="Archived"
               bg_color="bg-danger"
-              modifiers="{&quot;invisible&quot;: [[&quot;active&quot;, &quot;=&quot;, true]]}"
+              attrs="{'invisible': [('active', '=', True)]}"
             />
 
             <div class="oe_title">
