@@ -69,6 +69,7 @@ class CarbonFactor(models.Model):
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
+    active = fields.Boolean(default=True)
 
     # --------------------------------------------
 
