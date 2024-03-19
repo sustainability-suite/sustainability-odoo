@@ -429,7 +429,7 @@ class CarbonFactor(models.Model):
 
             result_value += partial_value_result * distribution
             result_details[factor_value.id] = {
-                "value": partial_value_result,
+                "value": result_value,
                 "distribution": distribution,
                 "uncertainty_percentage": uncertainty_percentage,
                 "uncertainty_value": partial_value_result * uncertainty_percentage,
