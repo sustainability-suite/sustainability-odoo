@@ -89,7 +89,7 @@ class CarbonLineOrigin(models.Model):
                 vals[model_to_field_name[origin.res_model]] = origin.res_id
             origin.update(vals)
 
-    @api.depends("value", "res_id")
+    @api.depends("value", "res_id", "res_model")
     def _compute_signed_value(self):
         for origin in self:
             origin.signed_value = origin.value * origin.get_record().get_carbon_sign()
