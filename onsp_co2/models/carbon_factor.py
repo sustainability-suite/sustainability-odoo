@@ -69,6 +69,7 @@ class CarbonFactor(models.Model):
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
+    posted_entries_qty = fields.Integer(compute="_compute_posted_entries_qty")
 
     # --------------------------------------------
 
@@ -105,6 +106,18 @@ class CarbonFactor(models.Model):
         count_data = self._get_count_by_model(model="account.account")
         for factor in self:
             factor.chart_of_account_qty = count_data.get(factor.id, 0)
+
+    def _compute_posted_entries_qty(self):
+        origins = self.env["carbon.line.origin"].read_group(
+            [("factor_id", "in", self.ids)],
+            ["factor_id"],
+            ["factor_id"],
+        )
+        factor_id_to_count = {
+            line["factor_id"][0]: line["factor_id_count"] for line in origins
+        }
+        for factor in self:
+            factor.posted_entries_qty = factor_id_to_count.get(factor.id, 0)
 
     def _compute_product_qty(self):
         count_data = self._get_count_by_model(model="product.template")
@@ -493,3 +506,15 @@ class CarbonFactor(models.Model):
         return self._generate_action(
             title=_("Product Category for"), model="product.category"
         )
+
+    def action_see_posted_entries(self):
+        origins = self.env["carbon.line.origin"].search([("factor_id", "in", self.ids)])
+        return {
+            "name": _("Journal Entries"),
+            "type": "ir.actions.act_window",
+            "res_model": "account.move",
+            "views": [(False, "tree"), (False, "form")],
+            "domain": [("id", "in", origins.move_id.ids)],
+            "target": "current",
+            "context": {**self.env.context, "create": False},
+        }

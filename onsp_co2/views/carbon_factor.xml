@@ -48,6 +48,42 @@
 
                     <sheet>
                         <div class="oe_button_box" name="button_box">
+
+
+                  <button
+                type="object"
+                name="action_see_posted_entries"
+                class="oe_stat_button"
+                icon="fa-bars"
+              >
+                                <div class="o_field_widget o_stat_info">
+                                    <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('posted_entries_qty', '&lt;=', 1)]}"
+                  >
+                                        <field
+                      name="posted_entries_qty"
+                      widget="statinfo"
+                      nolabel="1"
+                    />
+                                        Posted Entries
+                                    </span>
+                                    <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('posted_entries_qty', '&gt;', 1)]}"
+                  >
+                                        <field
+                      name="posted_entries_qty"
+                      widget="statinfo"
+                      nolabel="1"
+                    />
+                                        Posted Entry
+                                    </span>
+                                </div>
+                            </button>
+
+
+
                             <button
                 type="object"
                 name="action_see_child_ids"
