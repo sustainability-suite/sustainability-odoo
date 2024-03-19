@@ -69,7 +69,7 @@ class CarbonFactor(models.Model):
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
-    posted_entries_qty = fields.Integer(compute="_compute_posted_entries_qty")
+    account_move_qty = fields.Integer(compute="_compute_account_move_qty")
 
     # --------------------------------------------
 
@@ -107,7 +107,7 @@ class CarbonFactor(models.Model):
         for factor in self:
             factor.chart_of_account_qty = count_data.get(factor.id, 0)
 
-    def _compute_posted_entries_qty(self):
+    def _compute_account_move_qty(self):
         origins = self.env["carbon.line.origin"].read_group(
             [("factor_id", "in", self.ids)],
             ["factor_id"],
@@ -117,7 +117,7 @@ class CarbonFactor(models.Model):
             line["factor_id"][0]: line["factor_id_count"] for line in origins
         }
         for factor in self:
-            factor.posted_entries_qty = factor_id_to_count.get(factor.id, 0)
+            factor.account_move_qty = factor_id_to_count.get(factor.id, 0)
 
     def _compute_product_qty(self):
         count_data = self._get_count_by_model(model="product.template")
@@ -507,7 +507,7 @@ class CarbonFactor(models.Model):
             title=_("Product Category for"), model="product.category"
         )
 
-    def action_see_posted_entries(self):
+    def action_see_account_move_ids(self):
         origins = self.env["carbon.line.origin"].search([("factor_id", "in", self.ids)])
         return {
             "name": _("Journal Entries"),

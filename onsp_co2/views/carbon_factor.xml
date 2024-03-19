@@ -52,17 +52,17 @@
 
                   <button
                 type="object"
-                name="action_see_posted_entries"
+                name="action_see_account_move_ids"
                 class="oe_stat_button"
                 icon="fa-bars"
               >
                                 <div class="o_field_widget o_stat_info">
                                     <span
                     class="o_stat_value"
-                    attrs="{'invisible': [('posted_entries_qty', '&lt;=', 1)]}"
+                    attrs="{'invisible': [('account_move_qty', '&lt;=', 1)]}"
                   >
                                         <field
-                      name="posted_entries_qty"
+                      name="account_move_qty"
                       widget="statinfo"
                       nolabel="1"
                     />
@@ -70,10 +70,10 @@
                                     </span>
                                     <span
                     class="o_stat_value"
-                    attrs="{'invisible': [('posted_entries_qty', '&gt;', 1)]}"
+                    attrs="{'invisible': [('account_move_qty', '&gt;', 1)]}"
                   >
                                         <field
-                      name="posted_entries_qty"
+                      name="account_move_qty"
                       widget="statinfo"
                       nolabel="1"
                     />
