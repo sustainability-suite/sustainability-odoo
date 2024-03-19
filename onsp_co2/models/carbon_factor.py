@@ -432,7 +432,7 @@ class CarbonFactor(models.Model):
                 "value": result_value,
                 "distribution": distribution,
                 "uncertainty_percentage": uncertainty_percentage,
-                "uncertainty_value": partial_value_result * uncertainty_percentage,
+                "uncertainty_value": result_value * uncertainty_percentage,
                 # Values infos are return so that if they are updated later, we still have the value at the time of the computation
                 "compute_method": compute_method,
                 "carbon_value": value,
