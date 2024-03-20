@@ -27,7 +27,7 @@ class CarbonLineOrigin(models.Model):
 
     factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
     factor_value_type_id = fields.Many2one(
-        related="factor_value_id.type_id", string="Factor Value Type"
+        related="factor_value_id.type_id", string="Factor Value Type", store=True
     )
     factor_id = fields.Many2one(
         related="factor_value_id.factor_id", string="Carbon Factor", store=True

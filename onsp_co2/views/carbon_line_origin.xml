@@ -26,11 +26,48 @@
           <field name="uncertainty_percentage" widget="percentage" />
           <field name="uncertainty_value" />
           <field name="comment" />
-
           <field name="move_line_id" optional="hide" />
           <field name="move_id" optional="hide" />
           <field name="account_id" optional="hide" />
         </tree>
+      </field>
+    </record>
+
+    <record id="carbon_line_origin_filter" model="ir.ui.view">
+      <field name="name">carbon.line.origin.select</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <search string="Search Emission Factor">
+          <filter
+            string="Physical"
+            name="physical"
+            domain="[('compute_method', '=', 'physical')]"
+          />
+          <filter
+            string="Monetary"
+            name="monetary"
+            domain="[('compute_method', '=', 'monetary')]"
+          />
+          <separator />
+          <group expand="0" string="Group By">
+            <filter
+              string="Compute Method"
+              name="group_by_compute_method"
+              context="{'group_by':'compute_method'}"
+            />
+            <filter
+              string="Emission Factor"
+              name="group_by_factor_id"
+              context="{'group_by':'factor_id'}"
+            />
+            <filter
+              string="Emission Factor Type"
+              name="group_by_factor_value_type_id"
+              context="{'group_by':'factor_value_type_id'}"
+            />
+            <!-- <filter string="Emission Factor Source" name="group_by_factor_id_carbon_source" context="{'group_by':'factor_id.carbon_source_id.name'}"/>  -->
+          </group>
+        </search>
       </field>
     </record>
 
