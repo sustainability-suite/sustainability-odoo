@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
-
-        <record id="carbon_line_origin_tree" model="ir.ui.view">
-            <field name="name">carbon.line.origin.tree</field>
-            <field name="model">carbon.line.origin</field>
-            <field name="arch" type="xml">
-                <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
-                    <field name="id" />
-                    <field name="res_model" optional="hide" />
-                    <field name="res_id" optional="hide" />
-                    <button
+  <data>
+    <record id="carbon_line_origin_tree" model="ir.ui.view">
+      <field name="name">carbon.line.origin.tree</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
+          <field name="id" />
+          <field name="res_model" optional="hide" />
+          <field name="res_id" optional="hide" />
+          <button
             name="action_open_record"
             type="object"
             icon="fa-external-link-square"
             title="Open record"
           />
-                    <field name="value" optional="hide" />
-                    <field name="signed_value" />
-                    <field name="factor_value_id" />
-                    <field name="factor_value_type_id" widget="badge" />
-                    <field name="distribution" widget="percentage" />
-                    <field name="compute_method" />
-                    <field name="carbon_value" />
-                    <field name="monetary_currency_id" />
-                    <field name="uncertainty_percentage" widget="percentage" />
-                    <field name="uncertainty_value" />
-                    <field name="comment" />
+          <field name="value" optional="hide" />
+          <field name="signed_value" />
+          <field name="factor_value_id" />
+          <field name="factor_value_type_id" widget="badge" />
+          <field name="distribution" widget="percentage" />
+          <field name="compute_method" />
+          <field name="carbon_value" />
+          <field name="monetary_currency_id" />
+          <field name="uncertainty_percentage" widget="percentage" />
+          <field name="uncertainty_value" />
+          <field name="comment" />
 
-                    <field name="move_line_id" optional="hide" />
-                    <field name="move_id" optional="hide" />
-                    <field name="account_id" optional="hide" />
-                </tree>
-            </field>
-        </record>
+          <field name="move_line_id" optional="hide" />
+          <field name="move_id" optional="hide" />
+          <field name="account_id" optional="hide" />
+        </tree>
+      </field>
+    </record>
 
-
-        <record id="carbon_line_origin_action" model="ir.actions.act_window">
-            <field name="name">Carbon origins</field>
-            <field name="res_model">carbon.line.origin</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree</field>
-        </record>
-
-    </data>
+    <record id="carbon_line_origin_action" model="ir.actions.act_window">
+      <field name="name">Carbon origins</field>
+      <field name="res_model">carbon.line.origin</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree</field>
+    </record>
+  </data>
 </odoo>

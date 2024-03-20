@@ -1,148 +1,132 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
+  <t t-name="onsp_co2.CarbonOriginPopover" owl="1">
+    <div class="m-3">
+      <h6>Value origin</h6>
+      <div t-out="props.origin" />
+    </div>
+  </t>
 
+  <t t-name="onsp_co2.CarbonSettings" owl="1">
+    <div class="carbon_settings_main">
+      <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
+        <t t-if="props.title" t-out="props.title" />
+        <t t-else="">
+          Carbon '
+          <t t-out="props.type" />
+          ' settings
+        </t>
+      </div>
 
-
-    <t t-name="onsp_co2.CarbonOriginPopover" owl="1">
-        <div class="m-3">
-            <h6>Value origin</h6>
-            <div t-out="props.origin" />
-        </div>
-    </t>
-
-
-    <t t-name="onsp_co2.CarbonSettings" owl="1">
-
-        <div class="carbon_settings_main">
-            <div
-        class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
-      >
-                <t t-if="props.title" t-out="props.title" />
-                <t t-else="">Carbon '<t t-out="props.type" />' settings</t>
-            </div>
-
-            <div class="row">
-                <div class="btn-group col-6" role="group" aria-label="Settings mode">
-                    <button
+      <div class="row">
+        <div class="btn-group col-6" role="group" aria-label="Settings mode">
+          <button
             t-on-click="updateMode"
             t-attf-class="btn #{getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
             type="button"
             data-mode="auto"
           >
-                        Auto
-                    </button>
-                    <button
+            Auto
+          </button>
+          <button
             t-on-click="updateMode"
             t-attf-class="btn #{!getCarbonField('is_manual') ? 'btn-outline-secondary' : 'btn-outline-primary o_we_no_pointer_events active'}"
             type="button"
             data-mode="manual"
           >
-                        Manual
-                    </button>
-                </div>
+            Manual
+          </button>
+        </div>
 
-<!--                <div class="btn-group col-6" role="group" aria-label="Compute method" t-attf-class="#{getCarbonField('is_manual') and getCarbonField('factor_id') === false ? '' : 'no_event opacity-50'}">-->
-<!--                    <button t-on-click="updateMethod" t-attf-class="btn #{getCarbonField('compute_method') === 'monetary' ? 'active': 'opacity-75'} #{availableComputeMethods.includes('monetary') ? 'btn-outline-primary' : 'btn-outline-secondary no_event'}" data-method="monetary" type="button">-->
-<!--                        <i class="fa fa-money fa-fw mr-3" />-->
-<!--                        <span>Monetary</span>-->
-<!--                    </button>-->
-<!--                    <button t-on-click="updateMethod" t-attf-class="btn #{getCarbonField('compute_method') === 'physical' ? 'active': 'opacity-75'} #{availableComputeMethods.includes('physical') ? 'btn-outline-primary' : 'btn-outline-secondary no_event'}" data-method="physical" type="button">-->
-<!--                        <i class="fa fa-balance-scale fa-fw mr-3" />-->
-<!--                        <span>Physical</span>-->
-<!--                    </button>-->
-<!--                </div>-->
-            </div>
+        <!--                <div class="btn-group col-6" role="group" aria-label="Compute method" t-attf-class="#{getCarbonField('is_manual') and getCarbonField('factor_id') === false ? '' : 'no_event opacity-50'}">-->
+        <!--                    <button t-on-click="updateMethod" t-attf-class="btn #{getCarbonField('compute_method') === 'monetary' ? 'active': 'opacity-75'} #{availableComputeMethods.includes('monetary') ? 'btn-outline-primary' : 'btn-outline-secondary no_event'}" data-method="monetary" type="button">-->
+        <!--                        <i class="fa fa-money fa-fw mr-3" />-->
+        <!--                        <span>Monetary</span>-->
+        <!--                    </button>-->
+        <!--                    <button t-on-click="updateMethod" t-attf-class="btn #{getCarbonField('compute_method') === 'physical' ? 'active': 'opacity-75'} #{availableComputeMethods.includes('physical') ? 'btn-outline-primary' : 'btn-outline-secondary no_event'}" data-method="physical" type="button">-->
+        <!--                        <i class="fa fa-balance-scale fa-fw mr-3" />-->
+        <!--                        <span>Physical</span>-->
+        <!--                    </button>-->
+        <!--                </div>-->
+      </div>
 
+      <!-- ============================================ START UPDATE  ============================================ -->
 
-
-                <!-- ============================================ START UPDATE  ============================================ -->
-
-            <div
+      <div
         class="row mt-3"
         t-if="getCarbonField('is_manual') &amp;&amp; props.showDistribution"
       >
-                <div class="col-3"><strong>Use Distribution</strong></div>
-                <div class="col-9">
-                    <BooleanToggleField
+        <div class="col-3">
+          <strong>Use Distribution</strong>
+        </div>
+        <div class="col-9">
+          <BooleanToggleField
             record="props.record"
             value="getCarbonField('use_distribution')"
             name="getCarbonFieldFullName('use_distribution')"
             update="updateField"
           />
-                </div>
-            </div>
-<!--            TMP FIX: Show this only if the factor is manual and the distribution is not used (all record except account.account) -->
-            <div
+        </div>
+      </div>
+      <!--            TMP FIX: Show this only if the factor is manual and the distribution is not used (all record except account.account) -->
+      <div
         class="row mt-2"
         t-if="getCarbonField('is_manual') &amp;&amp; !getCarbonField('use_distribution') &amp;&amp; !props.showDistribution"
       >
-                <div class="col-3"><strong>Emission Factor</strong></div>
-                <div class="col-8">
-                    <div
+        <div class="col-3">
+          <strong>Emission Factor</strong>
+        </div>
+        <div class="col-8">
+          <div
             t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break #{getCarbonField('is_manual') ? '' : 'display-none'}"
             style="width: 100%;"
           >
-                        <div
-              name="carbon_factor_id"
-              class="o_field_widget o_field_many2one col-6"
-            >
-                            <Many2OneField
+            <div name="carbon_factor_id" class="o_field_widget o_field_many2one col-6">
+              <Many2OneField
                 readonly="!getCarbonField('is_manual')"
                 record="props.record"
                 value="getCarbonField('factor_id')"
                 name="getCarbonFieldFullName('factor_id')"
                 update="updateFactor"
               />
-                        </div>
-                    </div>
-                </div>
             </div>
-
-                <!-- ============================================ STOP UPDATE  ============================================ -->
-
-
-
-                <!-- ============================================ START DELETE  ============================================ -->
-
-<!--            <div class="row mt-3">-->
-<!--                <div class="col-3"><strong class="o_form_label">Value</strong></div>-->
-<!--                <div class="col-7">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-3"><FloatField readonly="!getCarbonField('is_manual') or getCarbonField('compute_method') == false or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('value')" name="getCarbonFieldFullName('value')" digits="[16, 4]" update="updateField" /></div>-->
-<!--                        <div class="col-3 p-0"><span t-out="props.record.data.carbon_currency_label" style="color: #A0A0A0;"/> /</div>-->
-
-<!--                        <div t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break col-6">-->
-<!--                            <div t-if="getCarbonField('compute_method') === 'physical'" name="carbon_uom_id" class="o_field_widget o_field_many2one">-->
-<!--                                <Many2OneField readonly="!getCarbonField('is_manual') or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('uom_id')" name="getCarbonFieldFullName('uom_id')" update="updateField" />-->
-<!--                            </div>-->
-<!--                            <div t-elif="getCarbonField('compute_method') === 'monetary'" name="carbon_monetary_currency_id" class="o_field_widget o_field_many2one">-->
-<!--                                <Many2OneField readonly="!getCarbonField('is_manual') or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('monetary_currency_id')" name="getCarbonFieldFullName('monetary_currency_id')" update="updateField" />-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-2 p-0 m-0">-->
-<!--                    <button t-if="!getCarbonField('is_manual')" t-on-click="showOrigin" title="See value origin" type="button" class="btn btn-secondary">-->
-<!--                        <i class="fa fa-question-circle" />-->
-<!--                    </button>-->
-<!--                    <button t-if="!getCarbonField('is_manual')" t-on-click="recomputeCarbon" title="Recompute carbon value" type="button" class="btn btn-secondary" >-->
-<!--                        <i class="fa fa-refresh" />-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-
-                <!-- ============================================ STOP DELETE  ============================================ -->
-
-
-
-
-
+          </div>
         </div>
+      </div>
 
-    </t>
+      <!-- ============================================ STOP UPDATE  ============================================ -->
 
+      <!-- ============================================ START DELETE  ============================================ -->
 
+      <!--            <div class="row mt-3">-->
+      <!--                <div class="col-3"><strong class="o_form_label">Value</strong></div>-->
+      <!--                <div class="col-7">-->
+      <!--                    <div class="row">-->
+      <!--                        <div class="col-3"><FloatField readonly="!getCarbonField('is_manual') or getCarbonField('compute_method') == false or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('value')" name="getCarbonFieldFullName('value')" digits="[16, 4]" update="updateField" /></div>-->
+      <!--                        <div class="col-3 p-0"><span t-out="props.record.data.carbon_currency_label" style="color: #A0A0A0;"/> /</div>-->
 
+      <!--                        <div t-attf-class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0 text-break col-6">-->
+      <!--                            <div t-if="getCarbonField('compute_method') === 'physical'" name="carbon_uom_id" class="o_field_widget o_field_many2one">-->
+      <!--                                <Many2OneField readonly="!getCarbonField('is_manual') or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('uom_id')" name="getCarbonFieldFullName('uom_id')" update="updateField" />-->
+      <!--                            </div>-->
+      <!--                            <div t-elif="getCarbonField('compute_method') === 'monetary'" name="carbon_monetary_currency_id" class="o_field_widget o_field_many2one">-->
+      <!--                                <Many2OneField readonly="!getCarbonField('is_manual') or getCarbonField('factor_id') != false" record="props.record" value="getCarbonField('monetary_currency_id')" name="getCarbonFieldFullName('monetary_currency_id')" update="updateField" />-->
+      <!--                            </div>-->
+      <!--                        </div>-->
+
+      <!--                    </div>-->
+      <!--                </div>-->
+      <!--                <div class="col-2 p-0 m-0">-->
+      <!--                    <button t-if="!getCarbonField('is_manual')" t-on-click="showOrigin" title="See value origin" type="button" class="btn btn-secondary">-->
+      <!--                        <i class="fa fa-question-circle" />-->
+      <!--                    </button>-->
+      <!--                    <button t-if="!getCarbonField('is_manual')" t-on-click="recomputeCarbon" title="Recompute carbon value" type="button" class="btn btn-secondary" >-->
+      <!--                        <i class="fa fa-refresh" />-->
+      <!--                    </button>-->
+      <!--                </div>-->
+      <!--            </div>-->
+
+      <!-- ============================================ STOP DELETE  ============================================ -->
+    </div>
+  </t>
 </templates>

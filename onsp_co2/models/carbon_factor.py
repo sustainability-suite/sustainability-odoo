@@ -70,6 +70,7 @@ class CarbonFactor(models.Model):
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
+    active = fields.Boolean(default=True)
 
     # --------------------------------------------
 
