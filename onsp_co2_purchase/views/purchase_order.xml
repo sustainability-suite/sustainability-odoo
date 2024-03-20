@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
-
-        <record id="purchase_order_form" model="ir.ui.view">
-            <field name="name">purchase.order.form</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_form" />
-            <field name="arch" type="xml">
-                <xpath
+  <data>
+    <record id="purchase_order_form" model="ir.ui.view">
+      <field name="name">purchase.order.form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form" />
+      <field name="arch" type="xml">
+        <xpath
           expr="//field[@name='order_line']//field[@name='price_subtotal']"
           position="after"
         >
-                    <field name="carbon_currency_id" invisible="1" />
-                    <field name="carbon_is_locked" invisible="1" />
-                    <field name="carbon_origin_json" invisible="1" force_save="1" />
+          <field name="carbon_currency_id" invisible="1" />
+          <field name="carbon_is_locked" invisible="1" />
+          <field name="carbon_origin_json" invisible="1" force_save="1" />
 
-                    <field
+          <field
             name="carbon_debt"
             digits="[13,2]"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
           />
-                    <button
+          <button
             title="Unlock co2"
             type="object"
             name="action_switch_locked"
@@ -28,7 +27,7 @@
             icon="fa-unlock"
             class="opacity-25"
           />
-                    <button
+          <button
             title="Lock co2"
             type="object"
             name="action_switch_locked"
@@ -36,40 +35,38 @@
             icon="fa-lock"
           />
 
-                    <field
+          <field
             name="carbon_data_uncertainty_percentage"
             widget="percentage"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
             optional="show"
           />
-                    <field
+          <field
             name="carbon_uncertainty_value"
             digits="[13,2]"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
             optional="show"
           />
-                    <button
+          <button
             type="object"
             name="action_see_carbon_origin"
             icon="fa-question-circle"
             title="See CO2 value origin"
           />
-                </xpath>
-                <xpath expr="//field[@name='tax_totals']" position="after">
-                    <field name="carbon_debt" digits="[13,2]" />
-                    <field name="carbon_currency_id" invisible="1" />
-                </xpath>
-            </field>
-        </record>
+        </xpath>
+        <xpath expr="//field[@name='tax_totals']" position="after">
+          <field name="carbon_debt" digits="[13,2]" />
+          <field name="carbon_currency_id" invisible="1" />
+        </xpath>
+      </field>
+    </record>
 
-
-        <record id="action_recompute_carbon_purchase_order" model="ir.actions.server">
-            <field name="name">Re-compute CO2</field>
-            <field name="model_id" ref="purchase.model_purchase_order" />
-            <field name="binding_model_id" ref="purchase.model_purchase_order" />
-            <field name="state">code</field>
-            <field name="code">action = records.action_recompute_carbon()</field>
-        </record>
-
-    </data>
+    <record id="action_recompute_carbon_purchase_order" model="ir.actions.server">
+      <field name="name">Re-compute CO2</field>
+      <field name="model_id" ref="purchase.model_purchase_order" />
+      <field name="binding_model_id" ref="purchase.model_purchase_order" />
+      <field name="state">code</field>
+      <field name="code">action = records.action_recompute_carbon()</field>
+    </record>
+  </data>
 </odoo>
