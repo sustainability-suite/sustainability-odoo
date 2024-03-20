@@ -109,15 +109,20 @@ class CarbonFactor(models.Model):
 
     def _compute_account_move_qty(self):
         origins = self.env["carbon.line.origin"].read_group(
-            [("factor_id", "in", self.ids)],
+            [
+                ("factor_id", "in", self.ids),
+                ("res_model", "=", "account.move.line"),
+                ("move_id", "!=", False),
+            ],
             ["factor_id"],
-            ["factor_id"],
+            ["factor_id", "move_id"],
+            lazy=False,
         )
-        factor_id_to_count = {
-            line["factor_id"][0]: line["factor_id_count"] for line in origins
-        }
+        factor_to_move_qty = defaultdict(int)
+        for origin in origins:
+            factor_to_move_qty[origin["factor_id"][0]] += 1
         for factor in self:
-            factor.account_move_qty = factor_id_to_count.get(factor.id, 0)
+            factor.account_move_qty = factor_to_move_qty.get(factor.id, 0)
 
     def _compute_product_qty(self):
         count_data = self._get_count_by_model(model="product.template")
