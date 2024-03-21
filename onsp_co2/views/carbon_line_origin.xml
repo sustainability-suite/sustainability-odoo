@@ -19,9 +19,12 @@
           <field name="signed_value" />
           <field name="factor_value_id" />
           <field name="factor_value_type_id" widget="badge" />
+          <field name="factor_category_id" widget="badge" />
+          <field name="factor_source_id" />
           <field name="distribution" widget="percentage" />
           <field name="compute_method" />
           <field name="carbon_value" />
+          <field name="factor_id" />
           <field name="monetary_currency_id" />
           <field name="uncertainty_percentage" widget="percentage" />
           <field name="uncertainty_value" />
@@ -29,7 +32,7 @@
           <field name="move_line_id" optional="hide" />
           <field name="move_id" optional="hide" />
           <field name="account_id" optional="hide" />
-          <field name="factor_source_id" />
+          <field name="partner_id" />
         </tree>
       </field>
     </record>
@@ -39,6 +42,10 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
+          <field name="factor_id" />
+          <field name="factor_value_type_id" />
+          <field name="factor_category_id" />
+          <field name="partner_id" />
           <filter
             string="Physical"
             name="physical"

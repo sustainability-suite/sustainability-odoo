@@ -25,7 +25,7 @@ class CarbonLineOrigin(models.Model):
         index=True, model_field="res_model", string="Res id"
     )
 
-    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
+    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor Value")
     factor_value_type_id = fields.Many2one(
         related="factor_value_id.type_id", string="Factor Value Type", store=True
     )
@@ -75,9 +75,11 @@ class CarbonLineOrigin(models.Model):
         "account.move.line",
         compute="_compute_many2one_lines",
         store=True,
-        string="Move Line",
+        string="Journal Item",
     )
-    move_id = fields.Many2one(related="move_line_id.move_id", store=True, string="Move")
+    move_id = fields.Many2one(
+        related="move_line_id.move_id", store=True, string="Journal Entry"
+    )
     account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
