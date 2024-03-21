@@ -29,6 +29,7 @@
           <field name="move_line_id" optional="hide" />
           <field name="move_id" optional="hide" />
           <field name="account_id" optional="hide" />
+          <field name="factor_source_id" />
         </tree>
       </field>
     </record>
@@ -49,6 +50,7 @@
             domain="[('compute_method', '=', 'monetary')]"
           />
           <separator />
+          <filter string="Invoice Date" name="date" date="account_invoice_date" />
           <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
             <filter
@@ -67,15 +69,19 @@
               context="{'group_by':'factor_value_type_id'}"
             />
             <filter
-              string="Carbon Source Name"
-              name="by_carbon_source_filter"
-              context="{'group_by':'factor_id:carbon_source_id'}"
+              string="Emisison Factor Source"
+              name="by_carbon_source_id"
+              context="{'group_by':'factor_source_id'}"
+            />
+            <filter
+              string="Invoice Date"
+              name="by_invoice_date"
+              context="{'group_by': 'account_invoice_date'}"
             />
             <filter
               string="Creation Date"
               name="by_create_date"
               context="{'group_by': 'create_date'}"
-              help="Emission Factor by Creation Date"
             />
           </group>
         </search>

@@ -32,7 +32,11 @@ class CarbonLineOrigin(models.Model):
     factor_id = fields.Many2one(
         related="factor_value_id.factor_id", string="Carbon Factor", store=True
     )
-
+    factor_source_id = fields.Many2one(
+        related="factor_id.carbon_source_id",
+        string="Factor Source",
+        store=True,
+    )
     value = fields.Float(
         digits="Carbon value", required=True
     )  # Result of the computation (might be a partial result)
@@ -73,6 +77,12 @@ class CarbonLineOrigin(models.Model):
     move_id = fields.Many2one(related="move_line_id.move_id", store=True, string="Move")
     account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
+    )
+    account_invoice_date = fields.Date(
+        related="move_id.invoice_date",
+        string="Account Invoice date",
+        readonly=True,
+        store=True,
     )
 
     @api.depends("res_model", "res_id")
