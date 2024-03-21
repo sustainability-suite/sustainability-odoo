@@ -64,6 +64,11 @@
               context="{'group_by':'factor_id'}"
             />
             <filter
+              string="Emission Factor Category"
+              name="by_factor_category_id"
+              context="{'group_by':'factor_category_id'}"
+            />
+            <filter
               string="Emission Factor Type"
               name="by_factor_value_type_id"
               context="{'group_by':'factor_value_type_id'}"
