@@ -32,7 +32,10 @@
           <field name="move_line_id" optional="hide" />
           <field name="move_id" optional="hide" />
           <field name="account_id" optional="hide" />
-          <field name="partner_id" />
+          <field name="partner_id" optional="hide" />
+          <field name="create_date" optional="hide" />
+          <field name="invoice_date" optional="hide" />
+          <field name="monetary_currency_id" optional="hide" />
         </tree>
       </field>
     </record>
@@ -42,10 +45,11 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
-          <field name="factor_id" />
-          <field name="factor_value_type_id" />
-          <field name="factor_category_id" />
+          <field name="factor_id" string='Name' />
+          <field name="factor_value_type_id" string='Type' />
+          <field name="factor_category_id" string='Category' />
           <field name="partner_id" />
+          <field name="monetary_currency_id" />
           <filter
             string="Physical"
             name="physical"
@@ -57,48 +61,50 @@
             domain="[('compute_method', '=', 'monetary')]"
           />
           <separator />
-          <filter string="Invoice Date" name="date" date="account_invoice_date" />
+          <filter string="Invoice Date" name="date" date="invoice_date" />
           <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
+            <filter
+              string="Name"
+              name="by_factor_id"
+              context="{'group_by':'factor_id'}"
+            />
+            <filter
+              string="Category"
+              name="by_factor_category_id"
+              context="{'group_by':'factor_category_id'}"
+            />
+            <filter
+              string="Type"
+              name="by_factor_value_type_id"
+              context="{'group_by':'factor_value_type_id'}"
+            />
+            <filter
+              string="Source"
+              name="by_carbon_source_id"
+              context="{'group_by':'factor_source_id'}"
+            />
+            <separator />
             <filter
               string="Compute Method"
               name="by_compute_method"
               context="{'group_by':'compute_method'}"
             />
             <filter
-              string="Emission Factor"
-              name="by_factor_id"
-              context="{'group_by':'factor_id'}"
+              string="Partner"
+              name="by_partner_id"
+              context="{'group_by': 'partner_id'}"
             />
-            <filter
-              string="Emission Factor Category"
-              name="by_factor_category_id"
-              context="{'group_by':'factor_category_id'}"
-            />
-            <filter
-              string="Emission Factor Type"
-              name="by_factor_value_type_id"
-              context="{'group_by':'factor_value_type_id'}"
-            />
-            <filter
-              string="Emisison Factor Source"
-              name="by_carbon_source_id"
-              context="{'group_by':'factor_source_id'}"
-            />
+            <separator />
             <filter
               string="Invoice Date"
               name="by_invoice_date"
-              context="{'group_by': 'account_invoice_date'}"
+              context="{'group_by': 'invoice_date'}"
             />
             <filter
               string="Creation Date"
               name="by_create_date"
               context="{'group_by': 'create_date'}"
-            />
-            <filter
-              string="Partner"
-              name="by_partner_id"
-              context="{'group_by': 'partner_id'}"
             />
           </group>
         </search>
