@@ -81,6 +81,9 @@ class CarbonLineOrigin(models.Model):
     account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
+    partner_id = fields.Many2one(
+        related="move_line_id.partner_id", store=True, string="Partner"
+    )
     account_invoice_date = fields.Date(
         related="move_id.invoice_date",
         string="Account Invoice date",
