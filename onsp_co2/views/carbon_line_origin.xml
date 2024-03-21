@@ -49,26 +49,33 @@
             domain="[('compute_method', '=', 'monetary')]"
           />
           <separator />
+          <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
             <filter
               string="Compute Method"
-              name="group_by_compute_method"
+              name="by_compute_method"
               context="{'group_by':'compute_method'}"
             />
             <filter
               string="Emission Factor"
-              name="group_by_factor_id"
+              name="by_factor_id"
               context="{'group_by':'factor_id'}"
             />
             <filter
               string="Emission Factor Type"
-              name="group_by_factor_value_type_id"
+              name="by_factor_value_type_id"
               context="{'group_by':'factor_value_type_id'}"
             />
             <filter
               string="Carbon Source Name"
-              name="carbon_source_filter"
+              name="by_carbon_source_filter"
               context="{'group_by':'factor_id:carbon_source_id'}"
+            />
+            <filter
+              string="Creation Date"
+              name="by_create_date"
+              context="{'group_by': 'create_date'}"
+              help="Emission Factor by Creation Date"
             />
           </group>
         </search>
