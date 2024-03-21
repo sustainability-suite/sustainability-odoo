@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature Request
+    about: Ask for a new feature.
+    url: https://github.com/MyCityCO2/co2-switzerland/issues/new?template=FEATURE_REQUEST
+  - name: Bug Report
+    about: Create a report of the issue you've encountered.
+    url: https://github.com/MyCityCO2/co2-switzerland/issues/new?template=BUG_REPORT
