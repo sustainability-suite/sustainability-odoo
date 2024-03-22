@@ -24,7 +24,7 @@ class CarbonLineOrigin(models.Model):
     res_id = fields.Many2oneReference(
         index=True, model_field="res_model", string="Res id"
     )
-    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor Value Name")
+    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
     move_line_id = fields.Many2one(
         "account.move.line",
         compute="_compute_many2one_lines",
@@ -57,25 +57,22 @@ class CarbonLineOrigin(models.Model):
 
     comment = fields.Char()
 
-    # "factor value" related fields
     factor_id = fields.Many2one(
         related="factor_value_id.factor_id", string="Name", store=True
     )
     factor_value_type_id = fields.Many2one(
-        related="factor_value_id.type_id", string="Type", store=True
+        related="factor_value_id.type_id", string="Factor Value Type", store=True
     )
 
-    # factor related fields
     factor_category_id = fields.Many2one(
-        related="factor_id.parent_id", string="Category", store=True
+        related="factor_id.parent_id", string="Factor Category", store=True
     )
     factor_source_id = fields.Many2one(
         related="factor_id.carbon_source_id",
-        string="Source",
+        string="Factor Source",
         store=True,
     )
 
-    # "move_line" related fields
     account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
@@ -85,14 +82,14 @@ class CarbonLineOrigin(models.Model):
     journal_id = fields.Many2one(
         related="move_line_id.journal_id", store=True, string="Journal"
     )
-    balance = fields.Monetary(
+    move_line_balance = fields.Monetary(
         related="move_line_id.balance",
         string="Balance",
         readonly=True,
         store=False,
         currency_field="monetary_currency_id",
     )
-    name = fields.Char(
+    move_line_label = fields.Char(
         related="move_line_id.name",
         string="Label",
         compute="_compute_name",
@@ -100,11 +97,12 @@ class CarbonLineOrigin(models.Model):
         readonly=True,
     )
 
-    # "move" related fields
-    invoice_date = fields.Date(
+    move_invoice_date = fields.Date(
         related="move_id.invoice_date", string="Invoice Date", readonly=True, store=True
     )
-    state = fields.Selection(related="move_id.state", string="Status", readonly=True)
+    move_state = fields.Selection(
+        related="move_id.state", string="Status", readonly=True
+    )
 
     @api.model
     def _get_model_to_field_name(self) -> dict[str, str]:

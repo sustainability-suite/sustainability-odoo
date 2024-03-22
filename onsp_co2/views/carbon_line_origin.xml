@@ -6,34 +6,38 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
-          <field name="factor_value_id" optional="hide" />
-          <field name="factor_id" widget="many2one" />
-          <field name="factor_value_type_id" widget="badge" />
-          <field name="carbon_value" />
-          <field name="signed_value" />
-          <field name="uncertainty_percentage" widget="percentage" />
+          <field name="factor_value_id" optional="hide" string="Factor Value Name" />
+          <field name="factor_id" widget="many2one" string="Name" />
+          <field name="factor_value_type_id" widget="badge" string="Type" />
+          <field name="carbon_value" string="Value" />
+          <field name="signed_value" string="Total" />
+          <field
+            name="uncertainty_percentage"
+            widget="percentage"
+            string="Uncertainty"
+          />
           <field name="uncertainty_value" optional="hide" />
           <field name="signed_uncertainty_value" />
           <field name="distribution" widget="percentage" />
           <field name="compute_method" />
-          <field name="monetary_currency_id" />
+          <field name="monetary_currency_id" string="Currency" />
           <field name="comment" />
           <field name="create_date" optional="hide" />
-          <field name="factor_category_id" widget="badge" />
-          <field name="factor_source_id" />
-          <field name="value" optional="hide" />
-          <field name="move_id" widget="many2one" />
-          <field name="name" />
+          <field name="factor_category_id" widget="badge" string="Category" />
+          <field name="factor_source_id" string="Source" />
+          <field name="value" optional="hide" string="Factor Value" />
+          <field name="move_id" widget="many2one" string="Journal Entry" />
+          <field name="move_line_label" string="Label" />
           <field name="account_id" optional="hide" />
           <field name="partner_id" optional="hide" />
           <field name="journal_id" />
-          <field name="balance" widget="monetary" />
-          <field name="invoice_date" optional="hide" />
+          <field name="move_line_balance" widget="monetary" string="Balance" />
+          <field name="move_invoice_date" optional="hide" />
           <field
-            name="state"
+            name="move_state"
             widget="badge"
-            decoration-info="state == 'draft'"
-            decoration-success="state == 'posted'"
+            decoration-info="move_state == 'draft'"
+            decoration-success="move_state == 'posted'"
           />
         </tree>
       </field>
@@ -60,7 +64,7 @@
             domain="[('compute_method', '=', 'monetary')]"
           />
           <separator />
-          <filter string="Invoice Date" name="date" date="invoice_date" />
+          <filter string="Invoice Date" name="date" date="move_invoice_date" />
           <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
             <filter
@@ -97,8 +101,8 @@
             <separator />
             <filter
               string="Invoice Date"
-              name="by_invoice_date"
-              context="{'group_by': 'invoice_date'}"
+              name="by_move_invoice_date"
+              context="{'group_by': 'move_invoice_date'}"
             />
             <filter
               string="Creation Date"
