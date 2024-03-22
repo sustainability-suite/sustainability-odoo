@@ -69,6 +69,7 @@ class CarbonFactor(models.Model):
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
+    account_move_qty = fields.Integer(compute="_compute_account_move_qty")
     active = fields.Boolean(default=True)
 
     # --------------------------------------------
@@ -106,6 +107,23 @@ class CarbonFactor(models.Model):
         count_data = self._get_count_by_model(model="account.account")
         for factor in self:
             factor.chart_of_account_qty = count_data.get(factor.id, 0)
+
+    def _compute_account_move_qty(self):
+        origins = self.env["carbon.line.origin"].read_group(
+            [
+                ("factor_id", "in", self.ids),
+                ("res_model", "=", "account.move.line"),
+                ("move_id", "!=", False),
+            ],
+            ["factor_id"],
+            ["factor_id", "move_id"],
+            lazy=False,
+        )
+        factor_to_move_qty = defaultdict(int)
+        for origin in origins:
+            factor_to_move_qty[origin["factor_id"][0]] += 1
+        for factor in self:
+            factor.account_move_qty = factor_to_move_qty.get(factor.id, 0)
 
     def _compute_product_qty(self):
         count_data = self._get_count_by_model(model="product.template")
@@ -446,7 +464,7 @@ class CarbonFactor(models.Model):
     #                   ACTIONS
     # --------------------------------------------
 
-    def _generate_action(self, model: str, title: str) -> dict:
+    def _generate_action(self, model: str, title: str, ids: list[int]) -> dict:
         """
         Generate an action dictionary for the specified model and title.
 
@@ -455,42 +473,60 @@ class CarbonFactor(models.Model):
         Args:
             model (str): The name of the model to display in the new window.
             title (str): The title to display in the new window.
+            ids (list[int]): A list of integer IDs representing the records to be displayed in the new window.
 
         Returns:
             dict: An action dictionary that can be used to open a new window in the Odoo UI.
         """
         self.ensure_one()
-        distribution_lines = self.env["carbon.distribution.line"].search(
-            [("res_model", "=", model), ("factor_id", "in", self.ids)]
-        )
-        unique_ids = list(set(distribution_lines.mapped("res_id")))
-
         return {
             "name": _("%s %s", title, self.display_name),
             "type": "ir.actions.act_window",
             "res_model": model,
             "views": [(False, "tree"), (False, "form")],
-            "domain": [("id", "in", unique_ids)],
+            "domain": [("id", "in", ids)],
             "target": "current",
             "context": {
                 **self.env.context,
             },
         }
 
+    def _get_distribution_lines_res_ids(self, model: str) -> list[int]:
+        distribution_lines = self.env["carbon.distribution.line"].search(
+            [("res_model", "=", model), ("factor_id", "in", self.ids)]
+        )
+        return list(set(distribution_lines.mapped("res_id")))
+
     def action_see_child_ids(self):
         return self._generate_action(
-            title=_("Child factors for"), model="carbon.factor"
+            title=_("Child factors for"),
+            model="carbon.factor",
+            ids=self._get_distribution_lines_res_ids("carbon.factor"),
         )
 
     def action_see_chart_of_account_ids(self):
         return self._generate_action(
-            title=_("Chart of Account for"), model="account.account"
+            title=_("Chart of Account for"),
+            model="account.account",
+            ids=self._get_distribution_lines_res_ids("account.account"),
         )
 
     def action_see_product_ids(self):
-        return self._generate_action(title=_("Product for"), model="product.template")
+        return self._generate_action(
+            title=_("Product for"),
+            model="product.template",
+            ids=self._get_distribution_lines_res_ids("product.template"),
+        )
 
     def action_see_product_categ_ids(self):
         return self._generate_action(
-            title=_("Product Category for"), model="product.category"
+            title=_("Product Category for"),
+            model="product.category",
+            ids=self._get_distribution_lines_res_ids("product.template"),
+        )
+
+    def action_see_account_move_ids(self):
+        origins = self.env["carbon.line.origin"].search([("factor_id", "in", self.ids)])
+        return self._generate_action(
+            title=_("Journal Entries"), model="account.move", ids=origins.move_id.ids
         )

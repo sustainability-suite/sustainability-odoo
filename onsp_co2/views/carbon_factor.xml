@@ -57,6 +57,30 @@
             <div class="oe_button_box" name="button_box">
               <button
                 type="object"
+                name="action_see_account_move_ids"
+                class="oe_stat_button"
+                icon="fa-bars"
+              >
+                <div class="o_field_widget o_stat_info">
+                  <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('account_move_qty', '&lt;=', 1)]}"
+                  >
+                    <field name="account_move_qty" widget="statinfo" nolabel="1" />
+                    Posted Entries
+                  </span>
+                  <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('account_move_qty', '&gt;', 1)]}"
+                  >
+                    <field name="account_move_qty" widget="statinfo" nolabel="1" />
+                    Posted Entry
+                  </span>
+                </div>
+              </button>
+
+              <button
+                type="object"
                 name="action_see_child_ids"
                 class="oe_stat_button"
                 icon="fa-sitemap"
