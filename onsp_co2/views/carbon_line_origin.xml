@@ -24,7 +24,8 @@
           <field name="carbon_value" />
           <field name="monetary_currency_id" />
           <field name="uncertainty_percentage" widget="percentage" />
-          <field name="uncertainty_value" />
+          <field name="uncertainty_value" optional="hide" />
+          <field name="signed_uncertainty_value" />
           <field name="comment" />
 
           <field name="move_line_id" optional="hide" />
