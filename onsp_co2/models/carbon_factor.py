@@ -491,7 +491,7 @@ class CarbonFactor(models.Model):
             },
         }
 
-    def _get_distribution_lines_ids(self, model: str) -> list[int]:
+    def _get_distribution_lines_res_ids(self, model: str) -> list[int]:
         distribution_lines = self.env["carbon.distribution.line"].search(
             [("res_model", "=", model), ("factor_id", "in", self.ids)]
         )
@@ -501,28 +501,28 @@ class CarbonFactor(models.Model):
         return self._generate_action(
             title=_("Child factors for"),
             model="carbon.factor",
-            ids=self._get_distribution_lines_ids("carbon.factor"),
+            ids=self._get_distribution_lines_res_ids("carbon.factor"),
         )
 
     def action_see_chart_of_account_ids(self):
         return self._generate_action(
             title=_("Chart of Account for"),
             model="account.account",
-            ids=self._get_distribution_lines_ids("account.account"),
+            ids=self._get_distribution_lines_res_ids("account.account"),
         )
 
     def action_see_product_ids(self):
         return self._generate_action(
             title=_("Product for"),
             model="product.template",
-            ids=self._get_distribution_lines_ids("product.template"),
+            ids=self._get_distribution_lines_res_ids("product.template"),
         )
 
     def action_see_product_categ_ids(self):
         return self._generate_action(
             title=_("Product Category for"),
             model="product.category",
-            ids=self._get_distribution_lines_ids("product.template"),
+            ids=self._get_distribution_lines_res_ids("product.template"),
         )
 
     def action_see_account_move_ids(self):
