@@ -1,6 +1,6 @@
 import logging
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -86,12 +86,27 @@ class CarbonLineOrigin(models.Model):
     partner_id = fields.Many2one(
         related="move_line_id.partner_id", store=True, string="Partner"
     )
-    invoice_date = fields.Date(
-        related="move_id.invoice_date",
-        string="Invoice Date",
-        readonly=True,
-        store=True,
+    journal_id = fields.Many2one(
+        related="move_line_id.journal_id", store=True, string="Journal"
     )
+    balance = fields.Monetary(
+        related="move_line_id.balance",
+        string="Balance",
+        readonly=True,
+        store=False,
+        currency_field="monetary_currency_id",
+    )
+    name = fields.Char(
+        related="move_line_id.name",
+        string="Label",
+        compute="_compute_name",
+        store=False,
+        readonly=True,
+    )
+    invoice_date = fields.Date(
+        related="move_id.invoice_date", string="Invoice Date", readonly=True, store=True
+    )
+    state = fields.Selection(related="move_id.state", string="Status", readonly=True)
 
     @api.depends("res_model", "res_id")
     def _compute_many2one_lines(self):
@@ -139,27 +154,3 @@ class CarbonLineOrigin(models.Model):
         res = super().create(vals_list)
         self._clean_orphan_lines()
         return res
-
-    # --------------------------------------------
-    #                   ACTIONS
-    # --------------------------------------------
-
-    def action_open_record(self):
-        self.ensure_one()
-        if record := self.get_record():
-            action = record.get_formview_action()
-            action["target"] = "new"
-            return action
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Error"),
-                "message": _(
-                    "Couldn't open record: %s,%s", self.res_model, self.res_id
-                ),
-                "type": "danger",
-                "sticky": False,
-                "next": {"type": "ir.actions.act_window_close"},
-            },
-        }

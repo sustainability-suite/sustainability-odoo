@@ -6,17 +6,16 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
-          <field name="id" />
-          <field name="res_model" optional="hide" />
-          <field name="res_id" optional="hide" />
-          <button
-            name="action_open_record"
-            type="object"
-            icon="fa-external-link-square"
-            title="Open record"
-          />
           <field name="value" optional="hide" />
           <field name="signed_value" />
+          <field name="balance" widget="monetary" />
+          <field name="name" />
+          <field
+            name="state"
+            widget="badge"
+            decoration-info="state == 'draft'"
+            decoration-success="state == 'posted'"
+          />
           <field name="factor_value_id" />
           <field name="factor_value_type_id" widget="badge" />
           <field name="factor_category_id" widget="badge" />
@@ -24,13 +23,13 @@
           <field name="distribution" widget="percentage" />
           <field name="compute_method" />
           <field name="carbon_value" />
-          <field name="factor_id" />
+          <field name="factor_id" widget="many2one" />
           <field name="monetary_currency_id" />
           <field name="uncertainty_percentage" widget="percentage" />
           <field name="uncertainty_value" />
           <field name="comment" />
-          <field name="move_line_id" optional="hide" />
-          <field name="move_id" optional="hide" />
+          <field name="move_id" widget="many2one" />
+          <field name="journal_id" />
           <field name="account_id" optional="hide" />
           <field name="partner_id" optional="hide" />
           <field name="create_date" optional="hide" />
