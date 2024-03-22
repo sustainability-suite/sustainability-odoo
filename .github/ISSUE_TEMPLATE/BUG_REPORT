@@ -1,0 +1,33 @@
+## Bug Report
+
+### Description
+
+[Provide a detailed description of the bug. Include any relevant information about when
+and how it occurs, any error messages or unexpected behavior observed, and steps to
+reproduce the bug if known.]
+
+### Expected Behavior
+
+[Describe what behavior you expected to see when the bug occurred.]
+
+### Actual Behavior
+
+[Describe what behavior you actually observed when the bug occurred.]
+
+### Steps to Reproduce
+
+1. [Step 1]
+2. [Step 2]
+3. [Step 3] ...
+
+### Environment
+
+- Operating System: [e.g., Windows 10, macOS, Linux]
+- Python Version: [e.g. 3.10]
+- Relevant Software/Tools: [List any relevant software or tools being used, e.g., IDEs,
+  libraries]
+
+### Additional Information
+
+[Include any additional notes, screenshots, or other relevant information that might
+help in understanding or resolving the bug.]
