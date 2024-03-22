@@ -24,56 +24,7 @@ class CarbonLineOrigin(models.Model):
     res_id = fields.Many2oneReference(
         index=True, model_field="res_model", string="Res id"
     )
-
-    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor Value")
-    factor_value_type_id = fields.Many2one(
-        related="factor_value_id.type_id", string="Factor Value Type", store=True
-    )
-    factor_id = fields.Many2one(
-        related="factor_value_id.factor_id", string="Carbon Factor", store=True
-    )
-    factor_category_id = fields.Many2one(
-        related="factor_id.parent_id", string="Factor Category", store=True
-    )
-    factor_source_id = fields.Many2one(
-        related="factor_id.carbon_source_id",
-        string="Factor Source",
-        store=True,
-    )
-    value = fields.Float(
-        digits="Carbon value", required=True
-    )  # Result of the computation (might be a partial result)
-    signed_value = fields.Float(
-        compute="_compute_signed_value", store=True, digits="Carbon value"
-    )
-    distribution = fields.Float()
-    carbon_value = fields.Float(digits="Carbon Factor value")
-    uncertainty_percentage = fields.Float(default=0.0)
-    uncertainty_value = fields.Float(default=0.0, digits="Carbon Factor value")
-    signed_uncertainty_value = fields.Float(
-        compute="_compute_signed_uncertainty_value", store=True, digits="Carbon value"
-    )
-    compute_method = fields.Char()
-    uom_id = fields.Many2one("uom.uom")
-    monetary_currency_id = fields.Many2one("res.currency")
-
-    comment = fields.Char()
-
-    @api.model
-    def _get_model_to_field_name(self) -> dict[str, str]:
-        return {
-            "account.move.line": "move_line_id",
-        }
-
-    """
-    Real many2one fields that are computed from the fake Many2one
-    Other fields are in submodules:
-    - onsp_co2_purchase: purchase_line_id
-    - onsp_co2_hr_expense_report: expense_id
-    - etc...
-
-    These are useful to create related fields!
-    """
+    factor_value_id = fields.Many2one("carbon.factor.value", string="Factor Value Name")
     move_line_id = fields.Many2one(
         "account.move.line",
         compute="_compute_many2one_lines",
@@ -83,6 +34,48 @@ class CarbonLineOrigin(models.Model):
     move_id = fields.Many2one(
         related="move_line_id.move_id", store=True, string="Journal Entry"
     )
+
+    value = fields.Float(
+        digits="Carbon value", required=True, string="Factor Value"
+    )  # Result of the computation (might be a partial result)
+    signed_value = fields.Float(
+        compute="_compute_signed_value",
+        store=True,
+        digits="Carbon value",
+        string="Total",
+    )
+    distribution = fields.Float()
+    carbon_value = fields.Float(digits="Carbon Factor value", string="Value")
+    uncertainty_percentage = fields.Float(default=0.0, string="Uncertainty")
+    uncertainty_value = fields.Float(default=0.0, digits="Carbon Factor value")
+    signed_uncertainty_value = fields.Float(
+        compute="_compute_signed_uncertainty_value", store=True, digits="Carbon value"
+    )
+    compute_method = fields.Char()
+    uom_id = fields.Many2one("uom.uom")
+    monetary_currency_id = fields.Many2one("res.currency", string="Currency")
+
+    comment = fields.Char()
+
+    # "factor value" related fields
+    factor_id = fields.Many2one(
+        related="factor_value_id.factor_id", string="Name", store=True
+    )
+    factor_value_type_id = fields.Many2one(
+        related="factor_value_id.type_id", string="Type", store=True
+    )
+
+    # factor related fields
+    factor_category_id = fields.Many2one(
+        related="factor_id.parent_id", string="Category", store=True
+    )
+    factor_source_id = fields.Many2one(
+        related="factor_id.carbon_source_id",
+        string="Source",
+        store=True,
+    )
+
+    # "move_line" related fields
     account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
@@ -106,10 +99,28 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
+
+    # "move" related fields
     invoice_date = fields.Date(
         related="move_id.invoice_date", string="Invoice Date", readonly=True, store=True
     )
     state = fields.Selection(related="move_id.state", string="Status", readonly=True)
+
+    @api.model
+    def _get_model_to_field_name(self) -> dict[str, str]:
+        return {
+            "account.move.line": "move_line_id",
+        }
+
+    """
+    Real many2one fields that are computed from the fake Many2one
+    Other fields are in submodules:
+    - onsp_co2_purchase: purchase_line_id
+    - onsp_co2_hr_expense_report: expense_id
+    - etc...
+
+    These are useful to create related fields!
+    """
 
     @api.depends("res_model", "res_id")
     def _compute_many2one_lines(self):
