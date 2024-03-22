@@ -43,6 +43,9 @@ class CarbonLineOrigin(models.Model):
     carbon_value = fields.Float(digits="Carbon Factor value")
     uncertainty_percentage = fields.Float(default=0.0)
     uncertainty_value = fields.Float(default=0.0, digits="Carbon Factor value")
+    signed_uncertainty_value = fields.Float(
+        compute="_compute_signed_uncertainty_value", store=True, digits="Carbon value"
+    )
     compute_method = fields.Char()
     uom_id = fields.Many2one("uom.uom")
     monetary_currency_id = fields.Many2one("res.currency")
@@ -89,12 +92,20 @@ class CarbonLineOrigin(models.Model):
                 vals[model_to_field_name[origin.res_model]] = origin.res_id
             origin.update(vals)
 
-    @api.depends("value", "res_id")
+    @api.depends("value", "res_id", "res_model")
     def _compute_signed_value(self):
         for origin in self:
             origin.signed_value = origin.value * origin.get_record().get_carbon_sign()
 
+    @api.depends("uncertainty_value", "res_id", "res_model")
+    def _compute_signed_uncertainty_value(self):
+        for origin in self:
+            origin.signed_uncertainty_value = (
+                origin.uncertainty_value * origin.get_record().get_carbon_sign()
+            )
+
     def get_record(self):
+        """Return the record that generated this origin"""
         self.ensure_one()
         if self.res_model in self.env and (
             fname := self._get_model_to_field_name().get(self.res_model)
