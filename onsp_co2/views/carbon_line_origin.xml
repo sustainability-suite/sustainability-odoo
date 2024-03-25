@@ -6,7 +6,7 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
-          <field name="move_invoice_date" string="Invoice Date" />
+          <field name="move_date" string="Invoice Date" />
           <field name="journal_id" optional="hide" string="Journal" />
           <field name="move_id" widget="many2one" string="Journal Entry" />
           <field name="account_id" optional="hide" string="Account" />
@@ -88,7 +88,7 @@
             domain="[('move_state', '=', 'cancel')]"
           />
           <separator />
-          <filter string="Invoice Date" name="date" date="move_invoice_date" />
+          <filter string="Invoice Date" name="date" date="move_date" />
           <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
             <filter
@@ -125,8 +125,8 @@
             <separator />
             <filter
               string="Invoice Date"
-              name="by_move_invoice_date"
-              context="{'group_by': 'move_invoice_date'}"
+              name="by_move_date"
+              context="{'group_by': 'move_date'}"
             />
             <filter
               string="Creation Date"

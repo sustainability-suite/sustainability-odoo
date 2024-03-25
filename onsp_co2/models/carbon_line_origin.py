@@ -109,8 +109,8 @@ class CarbonLineOrigin(models.Model):
         readonly=True,
     )
 
-    move_invoice_date = fields.Date(
-        related="move_id.invoice_date", string="Invoice Date", readonly=True, store=True
+    move_date = fields.Date(
+        related="move_id.date", string="Invoice Date", readonly=True, store=True
     )
     move_state = fields.Selection(
         related="move_id.state", string="Status", readonly=True
