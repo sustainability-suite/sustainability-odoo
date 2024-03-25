@@ -96,6 +96,18 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
+    move_line_quantity = fields.Float(
+        related="move_line_id.quantity",
+        string="Quantity",
+        store=False,
+        readonly=True,
+    )
+    move_line_product_uom_id = fields.Many2one(
+        related="move_line_id.product_uom_id",
+        string="Unit of Measure",
+        store=False,
+        readonly=True,
+    )
 
     move_invoice_date = fields.Date(
         related="move_id.invoice_date", string="Invoice Date", readonly=True, store=True
