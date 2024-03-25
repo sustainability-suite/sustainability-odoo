@@ -14,16 +14,22 @@
           <field name="move_line_label" string="Label" />
           <field name="move_line_quantity" string="Quantity" />
           <field name="move_line_product_uom_id" string="Unit of Measure" />
+          <field
+            name="carbon_data_uncertainty_percentage"
+            widget="percentage"
+            optional="hide"
+            string="Data CO2 Uncertainty"
+          />
           <field name="move_line_balance" string="Amount" />
           <field name="signed_value" string="Total (KgCO2e)" />
+          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="factor_id" widget="many2one" string="Emission Factor" />
           <field
             name="uncertainty_percentage"
             widget="percentage"
             optional="hide"
             string="Uncertainty"
           />
-          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
-          <field name="factor_id" widget="many2one" string="Emission Factor" />
           <field name="compute_method" optional="hide" string="Compute Method" />
           <field name="carbon_value" optional="hide" string="Value" />
           <field
