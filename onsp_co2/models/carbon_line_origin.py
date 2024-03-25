@@ -55,7 +55,9 @@ class CarbonLineOrigin(models.Model):
     uom_id = fields.Many2one("uom.uom")
     monetary_currency_id = fields.Many2one("res.currency", string="Currency")
     carbon_data_uncertainty_percentage = fields.Float(
-        "res.carbon_data_uncertainty_percentage"
+        related="move_line_id.carbon_data_uncertainty_percentage",
+        store=False,
+        readonly=True,
     )
 
     comment = fields.Char()
