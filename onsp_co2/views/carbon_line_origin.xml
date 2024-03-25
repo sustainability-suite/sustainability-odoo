@@ -82,7 +82,7 @@
           />
           <filter
             string="Unposted"
-            name="draft"
+            name="unposted"
             domain="[('move_state', '!=', 'posted')]"
           />
           <filter string="Invoice Date" name="date" date="move_date" />
@@ -138,6 +138,7 @@
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree</field>
+      <field name="context">{'search_default_posted': 1}</field>
     </record>
   </data>
 </odoo>
