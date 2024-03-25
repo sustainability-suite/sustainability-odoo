@@ -80,12 +80,7 @@
           <filter
             string="Unposted"
             name="draft"
-            domain="[('move_state', '=', 'draft')]"
-          />
-          <filter
-            string="Canceled"
-            name="cancel"
-            domain="[('move_state', '=', 'cancel')]"
+            domain="[('move_state', '!=', 'posted')]"
           />
           <separator />
           <filter string="Invoice Date" name="date" date="move_date" />
