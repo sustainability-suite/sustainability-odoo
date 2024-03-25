@@ -12,17 +12,18 @@
           <field name="account_id" optional="hide" string="Account" />
           <field name="partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
+          <field name="move_line_quantity" string="Quantity" />
+          <field name="move_line_product_uom_id" string="Unit of Measure" />
           <field name="move_line_balance" string="Amount" />
-          <field name="move_company_currency_id" invisible="1" />
-          <field name="signed_value" string="Total" />
+          <field name="signed_value" string="Total (KgCO2e)" />
           <field
             name="uncertainty_percentage"
             widget="percentage"
             optional="hide"
             string="Uncertainty"
           />
-          <field name="signed_uncertainty_value" string="Signed Uncertainty" />
-          <field name="factor_id" widget="many2one" string="Name" />
+          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="factor_id" widget="many2one" string="Emission Factor" />
           <field name="compute_method" optional="hide" string="Compute Method" />
           <field name="carbon_value" optional="hide" string="Value" />
           <field
@@ -35,8 +36,6 @@
           <field name="factor_category_id" widget="badge" string="Category" />
           <field name="factor_source_id" optional="hide" string="Source" />
           <field name="create_date" optional="hide" widget="date" string="Created On" />
-          <field name="move_line_quantity" string="Quantity" />
-          <field name="move_line_product_uom_id" string='Unit of Measure' />
           <field
             name="move_state"
             widget="badge"
@@ -44,6 +43,8 @@
             decoration-success="move_state == 'posted'"
             string="Status"
           />
+
+          <field name="move_company_currency_id" invisible="1" />
         </tree>
       </field>
     </record>
@@ -72,6 +73,7 @@
             name="monetary"
             domain="[('compute_method', '=', 'monetary')]"
           />
+          <filter string="Creation Date" name="date" date="create_date" />
           <separator />
           <filter
             string="Posted"
@@ -83,12 +85,10 @@
             name="draft"
             domain="[('move_state', '!=', 'posted')]"
           />
-          <separator />
           <filter string="Invoice Date" name="date" date="move_date" />
-          <filter string="Creation Date" name="date" date="create_date" />
           <group expand="0" string="Group By">
             <filter
-              string="Name"
+              string="Emission Factor"
               name="by_factor_id"
               context="{'group_by':'factor_id'}"
             />
@@ -107,27 +107,26 @@
               name="by_carbon_source_id"
               context="{'group_by':'factor_source_id'}"
             />
-            <separator />
             <filter
               string="Compute Method"
               name="by_compute_method"
               context="{'group_by':'compute_method'}"
             />
             <filter
+              string="Creation Date"
+              name="by_create_date"
+              context="{'group_by': 'create_date'}"
+            />
+            <separator />
+            <filter
               string="Partner"
               name="by_partner_id"
               context="{'group_by': 'partner_id'}"
             />
-            <separator />
             <filter
               string="Invoice Date"
               name="by_move_date"
               context="{'group_by': 'move_date'}"
-            />
-            <filter
-              string="Creation Date"
-              name="by_create_date"
-              context="{'group_by': 'create_date'}"
             />
           </group>
         </search>
