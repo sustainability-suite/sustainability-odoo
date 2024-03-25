@@ -12,7 +12,8 @@
           <field name="account_id" optional="hide" string="Account" />
           <field name="partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
-          <field name="move_line_balance" widget="monetary" string="Balance" />
+          <field name="move_line_balance" string="Amount" />
+          <field name="move_company_currency_id" invisible="1" />
           <field name="signed_value" string="Total" />
           <field
             name="uncertainty_percentage"
