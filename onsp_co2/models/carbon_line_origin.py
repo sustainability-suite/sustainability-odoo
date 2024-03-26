@@ -49,7 +49,9 @@ class CarbonLineOrigin(models.Model):
     uncertainty_percentage = fields.Float(default=0.0, string="Uncertainty")
     uncertainty_value = fields.Float(default=0.0, digits="Carbon Factor value")
     signed_uncertainty_value = fields.Float(
-        compute="_compute_signed_uncertainty_value", store=True, digits=(16, 2)
+        compute="_compute_signed_uncertainty_value",
+        store=True,
+        digits="Carbon Signed Uncertainty Value",
     )
     compute_method = fields.Char()
     uom_id = fields.Many2one("uom.uom")
