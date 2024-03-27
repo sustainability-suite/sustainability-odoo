@@ -6,32 +6,136 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
-          <field name="id" />
-          <field name="res_model" optional="hide" />
-          <field name="res_id" optional="hide" />
-          <button
-            name="action_open_record"
-            type="object"
-            icon="fa-external-link-square"
-            title="Open record"
+          <field name="move_date" string="Invoice Date" />
+          <field name="journal_id" optional="hide" string="Journal" />
+          <field name="move_id" widget="many2one" string="Journal Entry" />
+          <field name="account_id" optional="hide" string="Account" />
+          <field name="partner_id" string="Partner" />
+          <field name="move_line_label" string="Label" />
+          <field name="move_line_quantity" string="Quantity" />
+          <field name="move_line_product_uom_id" string="Unit of Measure" />
+          <field
+            name="carbon_data_uncertainty_percentage"
+            widget="percentage"
+            optional="hide"
+            string="Data CO2 Uncertainty"
           />
-          <field name="value" optional="hide" />
-          <field name="signed_value" />
-          <field name="factor_value_id" />
-          <field name="factor_value_type_id" widget="badge" />
-          <field name="distribution" widget="percentage" />
-          <field name="compute_method" />
-          <field name="carbon_value" />
-          <field name="monetary_currency_id" />
-          <field name="uncertainty_percentage" widget="percentage" />
-          <field name="uncertainty_value" optional="hide" />
-          <field name="signed_uncertainty_value" />
-          <field name="comment" />
+          <field name="move_line_balance" string="Amount" />
+          <field name="signed_value" string="Total (KgCO2e)" />
+          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="factor_id" widget="many2one" string="Emission Factor" />
+          <field
+            name="uncertainty_percentage"
+            widget="percentage"
+            optional="hide"
+            string="Uncertainty"
+          />
+          <field name="compute_method" optional="hide" string="Compute Method" />
+          <field name="carbon_value" optional="hide" string="Value" />
+          <field
+            name="distribution"
+            widget="percentage"
+            optional="hide"
+            string="Distribution"
+          />
+          <field name="factor_value_type_id" widget="badge" string="Type" />
+          <field name="factor_category_id" widget="badge" string="Category" />
+          <field name="factor_source_id" optional="hide" string="Source" />
+          <field name="create_date" optional="hide" widget="date" string="Created On" />
+          <field
+            name="move_state"
+            widget="badge"
+            decoration-info="move_state == 'draft'"
+            decoration-success="move_state == 'posted'"
+            string="Status"
+          />
 
-          <field name="move_line_id" optional="hide" />
-          <field name="move_id" optional="hide" />
-          <field name="account_id" optional="hide" />
+          <field name="move_company_currency_id" invisible="1" />
         </tree>
+      </field>
+    </record>
+
+    <record id="carbon_line_origin_filter" model="ir.ui.view">
+      <field name="name">carbon.line.origin.select</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <search string="Search Emission Factor">
+          <field name="move_id" string="Journal Entry" />
+          <field name="partner_id" string="Partner" />
+          <field name="move_line_label" string="Label" />
+          <field name="factor_id" string="Name" />
+          <field name="factor_value_type_id" string="Type" />
+          <field name="factor_category_id" string="Category" />
+          <field name="move_line_product_uom_id" string='Unit of Measure' />
+          <field name="move_state" string="Status" />
+
+          <filter
+            string="Physical"
+            name="physical"
+            domain="[('compute_method', '=', 'physical')]"
+          />
+          <filter
+            string="Monetary"
+            name="monetary"
+            domain="[('compute_method', '=', 'monetary')]"
+          />
+          <filter string="Creation Date" name="date" date="create_date" />
+          <separator />
+          <filter
+            string="Posted"
+            name="posted"
+            domain="[('move_state', '=', 'posted')]"
+          />
+          <filter
+            string="Unposted"
+            name="unposted"
+            domain="[('move_state', '!=', 'posted')]"
+          />
+          <filter string="Invoice Date" name="date" date="move_date" />
+          <group expand="0" string="Group By">
+            <filter
+              string="Emission Factor"
+              name="by_factor_id"
+              context="{'group_by':'factor_id'}"
+            />
+            <filter
+              string="Category"
+              name="by_factor_category_id"
+              context="{'group_by':'factor_category_id'}"
+            />
+            <filter
+              string="Type"
+              name="by_factor_value_type_id"
+              context="{'group_by':'factor_value_type_id'}"
+            />
+            <filter
+              string="Source"
+              name="by_carbon_source_id"
+              context="{'group_by':'factor_source_id'}"
+            />
+            <filter
+              string="Compute Method"
+              name="by_compute_method"
+              context="{'group_by':'compute_method'}"
+            />
+            <filter
+              string="Creation Date"
+              name="by_create_date"
+              context="{'group_by': 'create_date'}"
+            />
+            <separator />
+            <filter
+              string="Partner"
+              name="by_partner_id"
+              context="{'group_by': 'partner_id'}"
+            />
+            <filter
+              string="Invoice Date"
+              name="by_move_date"
+              context="{'group_by': 'move_date'}"
+            />
+          </group>
+        </search>
       </field>
     </record>
 
@@ -40,6 +144,7 @@
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree</field>
+      <field name="context">{'search_default_posted': 1}</field>
     </record>
   </data>
 </odoo>
