@@ -2,10 +2,10 @@
 <odoo>
   <data>
     <menuitem
-      id="carbon_settings_menu"
-      name="CO2 Settings"
-      parent="account.menu_finance_configuration"
-      sequence="5"
+      id="sustainability_menu"
+      name="Sustainability"
+      web_icon="onsp_co2,static/description/icon.png"
+      sequence="60"
       groups="base.group_user"
     >
       <menuitem
