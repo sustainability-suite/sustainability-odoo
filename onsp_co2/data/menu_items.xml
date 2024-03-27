@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
   <data>
+    <record id="action_sustainability_config" model="ir.actions.act_window">
+      <field name="name">Settings</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.config.settings</field>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+      <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
+    </record>
+
     <menuitem
       id="sustainability_menu"
       name="Sustainability"
@@ -49,17 +58,9 @@
           name="Settings"
           groups="base.group_system"
           sequence="1"
-          action="action_open_sustainability_settings"
+          action="action_sustainability_config"
         />
       </menuitem>
     </menuitem>
-
-    <record id="action_open_sustainability_settings" model="ir.actions.act_window">
-      <field name="name">Sustainability Settings</field>
-      <field name="res_model">res.config.settings</field>
-      <field name="view_mode">form</field>
-      <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
-      <field name="target">inline</field>
-    </record>
   </data>
 </odoo>
