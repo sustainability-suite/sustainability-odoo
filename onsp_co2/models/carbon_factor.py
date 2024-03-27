@@ -13,50 +13,60 @@ class CarbonFactor(models.Model):
     _order = "display_name"
     _parent_store = True
 
-    ghg_view_mode = fields.Boolean(
-        string="Show greenhouse gases detail", help="Toggle to show GHG details"
-    )
-
-    name = fields.Char(required=True)
+    # Core and utils fields
+    name = fields.Char(required=True, tracking=True)
     display_name = fields.Char(
         compute="_compute_display_name", store=True, recursive=True
     )
-    parent_id = fields.Many2one(
-        "carbon.factor", "Parent", index=True, ondelete="restrict"
+    carbon_source_id = fields.Many2one(
+        comodel_name="carbon.factor.source", tracking=True
     )
-    parent_path = fields.Char(index=True, unaccent=False)
-    carbon_source_id = fields.Many2one("carbon.factor.source")
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
     carbon_compute_method = fields.Selection(
-        selection=[
-            ("physical", "Physical"),
-            ("monetary", "Monetary"),
-        ],
+        selection=[("physical", "Physical"), ("monetary", "Monetary")],
         string="Compute method",
+        tracking=True,
     )
+    uncertainty_percentage = fields.Float(
+        string="Uncertainty (%)", default=0.0, tracking=True
+    )
+    active = fields.Boolean(default=True, tracking=True)
 
-    child_ids = fields.One2many("carbon.factor", "parent_id")
+    # Categories fields
+    parent_id = fields.Many2one(
+        comodel_name="carbon.factor",
+        string="Parent",
+        index=True,
+        ondelete="restrict",
+        tracking=True,
+    )
+    parent_path = fields.Char(index=True, unaccent=False)
+    child_ids = fields.One2many(comodel_name="carbon.factor", inverse_name="parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
     descendant_ids = fields.Many2many(
-        "carbon.factor", compute="_compute_descendant_ids", recursive=True
+        comodel_name="carbon.factor", compute="_compute_descendant_ids", recursive=True
     )
 
+    # Values IDs fields
+    ghg_view_mode = fields.Boolean(
+        string="Show greenhouse gases detail",
+        help="Toggle to show GHG details",
+        tracking=True,
+    )
     carbon_currency_id = fields.Many2one(
-        "res.currency", compute="_compute_carbon_currency_id"
+        comodel_name="res.currency", compute="_compute_carbon_currency_id"
     )
     carbon_currency_label = fields.Char(
         compute="_compute_carbon_currency_id", default="KgCo2e"
     )
-    uncertainty_percentage = fields.Float(string="Uncertainty (%)", default=0.0)
-
-    value_ids = fields.One2many("carbon.factor.value", "factor_id")
-    # related recent values
+    value_ids = fields.One2many(
+        comodel_name="carbon.factor.value", inverse_name="factor_id", tracking=True
+    )
     recent_value_id = fields.Many2one(
-        "carbon.factor.value", compute="_compute_recent_value", store=True
+        comodel_name="carbon.factor.value", compute="_compute_recent_value", store=True
     )
     carbon_date = fields.Date(related="recent_value_id.date")
     carbon_source = fields.Char(related="carbon_source_id.name", string="Source")
-
     carbon_value = fields.Float(related="recent_value_id.carbon_value")
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id")
     carbon_monetary_currency_id = fields.Many2one(
@@ -64,13 +74,15 @@ class CarbonFactor(models.Model):
     )
     unit_label = fields.Char(related="recent_value_id.unit_label")
 
+    # Type fields
     required_type_ids = fields.Many2many("carbon.factor.type", string="Required Types")
+
+    # Quantity fields for smart button
 
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
-    active = fields.Boolean(default=True)
 
     # --------------------------------------------
 
