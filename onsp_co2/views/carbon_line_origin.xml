@@ -140,7 +140,7 @@
     </record>
 
     <record id="carbon_line_origin_action" model="ir.actions.act_window">
-      <field name="name">Carbon origins</field>
+      <field name="name">Carbon Origins</field>
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree</field>
