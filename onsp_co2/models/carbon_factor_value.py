@@ -101,7 +101,7 @@ class CarbonFactorValue(models.Model):
     is_ghg_detailed_value = fields.Boolean(compute="_compute_is_ghg_detailed_value")
 
     factor_id = fields.Many2one("carbon.factor", required=True, ondelete="cascade")
-    type_id = fields.Many2one("carbon.factor.type")
+    type_id = fields.Many2one("carbon.factor.type", tracking=True)
     display_name = fields.Char(
         compute="_compute_display_name", store=True, recursive=True
     )
@@ -112,7 +112,7 @@ class CarbonFactorValue(models.Model):
     # Todo: check if we implement an uuid
     # uuid = fields.Char()
 
-    date = fields.Date(required=True)
+    date = fields.Date(required=True, tracking=True)
     comment = fields.Char()
     carbon_value = fields.Float(
         string="Total not broken down (kgCO2)",
@@ -129,8 +129,10 @@ class CarbonFactorValue(models.Model):
         compute_sudo=True,
     )
 
-    carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure")
-    carbon_monetary_currency_id = fields.Many2one("res.currency", string="Currency")
+    carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure", tracking=True)
+    carbon_monetary_currency_id = fields.Many2one(
+        "res.currency", string="Currency", tracking=True
+    )
     unit_label = fields.Char(compute="_compute_unit_label", string=" ")
 
     @api.depends(
