@@ -14,5 +14,14 @@
       <field name="name">Carbon Factor value</field>
       <field name="digits">6</field>
     </record>
+
+    <record
+      forcecreate="True"
+      id="decimal_signed_uncertainty"
+      model="decimal.precision"
+    >
+      <field name="name">Carbon Signed Uncertainty Value</field>
+      <field name="digits">2</field>
+    </record>
   </data>
 </odoo>
