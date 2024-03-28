@@ -87,7 +87,7 @@
           <separator />
           <filter
             string="Posted"
-            name="posted_invoice_lines"
+            name="posted"
             domain="[('move_state', '=', 'posted'), ('res_model', '=', 'account.move.line')]"
           />
           <filter
