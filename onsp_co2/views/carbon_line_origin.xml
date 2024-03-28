@@ -7,10 +7,10 @@
       <field name="arch" type="xml">
         <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
           <field name="move_date" string="Invoice Date" />
-          <field name="journal_id" optional="hide" string="Journal" />
+          <field name="move_line_journal_id" optional="hide" string="Journal" />
           <field name="move_id" widget="many2one" string="Journal Entry" />
           <field name="account_id" optional="hide" string="Account" />
-          <field name="partner_id" string="Partner" />
+          <field name="move_line_partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
           <field name="move_line_quantity" string="Quantity" />
           <field name="move_line_product_uom_id" string="Unit of Measure" />
@@ -22,7 +22,11 @@
           />
           <field name="move_line_balance" string="Amount" />
           <field name="signed_value" string="Total (KgCO2e)" />
-          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field
+            name="signed_uncertainty_value"
+            string="Uncertainty (KgCO2e)"
+            digits="[13,2]"
+          />
           <field name="factor_id" widget="many2one" string="Emission Factor" />
           <field
             name="uncertainty_percentage"
@@ -56,12 +60,12 @@
     </record>
 
     <record id="carbon_line_origin_filter" model="ir.ui.view">
-      <field name="name">carbon.line.origin.select</field>
+      <field name="name">carbon.line.origin.filter</field>
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
           <field name="move_id" string="Journal Entry" />
-          <field name="partner_id" string="Partner" />
+          <field name="move_line_partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
           <field name="factor_id" string="Name" />
           <field name="factor_value_type_id" string="Type" />
@@ -83,13 +87,13 @@
           <separator />
           <filter
             string="Posted"
-            name="posted"
-            domain="[('move_state', '=', 'posted')]"
+            name="posted_invoice_lines"
+            domain="[('move_state', '=', 'posted'), ('res_model', '=', 'account.move.line')]"
           />
           <filter
             string="Unposted"
             name="unposted"
-            domain="[('move_state', '!=', 'posted')]"
+            domain="[('move_state', '!=', 'posted'), ('res_model', '=', 'account.move.line')]"
           />
           <filter string="Invoice Date" name="date" date="move_date" />
           <group expand="0" string="Group By">
@@ -126,8 +130,8 @@
             <separator />
             <filter
               string="Partner"
-              name="by_partner_id"
-              context="{'group_by': 'partner_id'}"
+              name="by_move_line_partner_id"
+              context="{'group_by': 'move_line_partner_id'}"
             />
             <filter
               string="Invoice Date"
