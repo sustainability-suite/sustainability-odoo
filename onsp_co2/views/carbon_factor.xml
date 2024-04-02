@@ -335,18 +335,30 @@
       </field>
     </record>
 
+    <record id="carbon_factor_view_pivot" model="ir.ui.view">
+      <field name="name">carbon.factor.pivot.view</field>
+      <field name="model">carbon.factor</field>
+      <field name="arch" type="xml">
+        <pivot string="Invoices Analysis" sample="1">
+          <field name="display_name" type="col" />
+          <field name="carbon_date" interval="month" type="row" />
+          <field name="carbon_value" type="measure" />
+        </pivot>
+      </field>
+    </record>
+
     <record id="carbon_factor_action_graph" model="ir.actions.act_window">
       <field name="name">Emission Factors Analysis</field>
       <field name="res_model">carbon.factor</field>
       <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">graph</field>
+      <field name="view_mode">graph,pivot</field>
     </record>
 
     <record id="carbon_factor_action" model="ir.actions.act_window">
       <field name="name">Emission Factors</field>
       <field name="res_model">carbon.factor</field>
       <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">tree,form,graph</field>
+      <field name="view_mode">tree,form</field>
     </record>
   </data>
 </odoo>
