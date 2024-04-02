@@ -5,7 +5,14 @@
       <field name="name">carbon.line.origin.tree</field>
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
-        <tree create="0" delete="0" edit="0" default_order="res_model,res_id">
+        <tree create="0" delete="0" edit="0">
+          <button
+            name="action_open_record"
+            type="object"
+            icon="fa-external-link-square"
+            title="Open record"
+            groups="base.group_no_one"
+          />
           <field name="move_date" string="Invoice Date" />
           <field name="move_line_journal_id" optional="hide" string="Journal" />
           <field name="move_id" widget="many2one" string="Journal Entry" />

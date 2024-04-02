@@ -1,6 +1,6 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -25,14 +25,14 @@ class CarbonLineOrigin(models.Model):
         index=True, model_field="res_model", string="Res id"
     )
     factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
+    move_id = fields.Many2one(
+        related="move_line_id.move_id", store=True, string="Journal Entry"
+    )
     move_line_id = fields.Many2one(
         "account.move.line",
         compute="_compute_many2one_lines",
         store=True,
         string="Journal Item",
-    )
-    move_id = fields.Many2one(
-        related="move_line_id.move_id", store=True, string="Journal Entry"
     )
 
     value = fields.Float(
@@ -201,3 +201,27 @@ class CarbonLineOrigin(models.Model):
         res = super().create(vals_list)
         self._clean_orphan_lines()
         return res
+
+    # --------------------------------------------
+    #                   ACTIONS
+    # --------------------------------------------
+
+    def action_open_record(self):
+        self.ensure_one()
+        if record := self.get_record():
+            action = record.get_formview_action()
+            action["target"] = "new"
+            return action
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Error"),
+                "message": _(
+                    "Couldn't open record: %s,%s", self.res_model, self.res_id
+                ),
+                "type": "danger",
+                "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
