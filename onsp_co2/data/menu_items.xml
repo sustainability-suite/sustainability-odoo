@@ -10,20 +10,6 @@
       <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
     </record>
 
-    <record id="carbon_factor_action_graph" model="ir.actions.act_window">
-      <field name="name">Emission Factors Analysis</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="res_model">carbon.factor</field>
-      <field name="view_mode">graph</field>
-    </record>
-
-    <record id="carbon_line_origin_action_graph" model="ir.actions.act_window">
-      <field name="name">Carbon Origins Analysis</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="res_model">carbon.line.origin</field>
-      <field name="view_mode">graph</field>
-    </record>
-
     <menuitem
       id="sustainability_menu"
       name="Sustainability"
@@ -72,14 +58,14 @@
           name="Emission Factors"
           groups="base.group_user"
           sequence="1"
-          action="carbon_factor_action_graph"
+          action="onsp_co2.carbon_factor_action_graph"
         />
         <menuitem
           id="carbon_line_origin_graph_menu"
           name="Carbon Origins"
           groups="base.group_user"
           sequence="2"
-          action="carbon_line_origin_action_graph"
+          action="onsp_co2.carbon_line_origin_action_graph"
         />
       </menuitem>
       <menuitem

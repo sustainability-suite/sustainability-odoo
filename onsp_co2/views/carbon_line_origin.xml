@@ -55,6 +55,17 @@
       </field>
     </record>
 
+    <record id="carbon_line_origin_view_graph" model="ir.ui.view">
+      <field name="name">carbon.line.origin.graph.view</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <graph string="Carbon Origins Analysis" sample="1">
+          <field name="move_id" />
+          <field name="signed_value" type="measure" />
+        </graph>
+      </field>
+    </record>
+
     <record id="carbon_line_origin_filter" model="ir.ui.view">
       <field name="name">carbon.line.origin.select</field>
       <field name="model">carbon.line.origin</field>
@@ -139,15 +150,12 @@
       </field>
     </record>
 
-    <record id="carbon_line_origin_view_graph" model="ir.ui.view">
-      <field name="name">carbon.line.origin.graph.view</field>
-      <field name="model">carbon.line.origin</field>
-      <field name="arch" type="xml">
-        <graph string="Carbon Origins Analysis" sample="1">
-          <field name="move_id" />
-          <field name="signed_value" type="measure" />
-        </graph>
-      </field>
+    <record id="carbon_line_origin_action_graph" model="ir.actions.act_window">
+      <field name="name">Carbon Origins Analysis</field>
+      <field name="res_model">carbon.line.origin</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">graph</field>
+      <field name="context">{'search_default_posted': 0}</field>
     </record>
 
     <record id="carbon_line_origin_action" model="ir.actions.act_window">
