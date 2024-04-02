@@ -10,6 +10,15 @@
       <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
     </record>
 
+    <record id="carbon_factor_action_graph" model="ir.actions.act_window">
+      <field name="name">Emission Factors Analysis</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">carbon.factor</field>
+      <field name="view_mode">graph</field>
+      <field name="target">inline</field>
+      <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
+    </record>
+
     <menuitem
       id="sustainability_menu"
       name="Sustainability"
@@ -59,6 +68,20 @@
           groups="base.group_system"
           sequence="1"
           action="action_sustainability_config"
+        />
+      </menuitem>
+      <menuitem
+        id="menu_sustainability_reporting"
+        name="Reporting"
+        groups="base.group_user"
+        sequence="4"
+      >
+        <menuitem
+          id="carbon_factor_graph_menu"
+          name="Emission Factors"
+          groups="base.group_user"
+          sequence="1"
+          action="carbon_factor_action_graph"
         />
       </menuitem>
     </menuitem>
