@@ -15,8 +15,13 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">carbon.factor</field>
       <field name="view_mode">graph</field>
-      <field name="target">inline</field>
-      <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
+    </record>
+
+    <record id="carbon_line_origin_action_graph" model="ir.actions.act_window">
+      <field name="name">Carbon Origins Analysis</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">carbon.line.origin</field>
+      <field name="view_mode">graph</field>
     </record>
 
     <menuitem
@@ -57,24 +62,10 @@
         />
       </menuitem>
       <menuitem
-        id="menu_sustainability_configuration"
-        name="Configuration"
-        groups="base.group_system"
-        sequence="3"
-      >
-        <menuitem
-          id="menu_sustainability_config"
-          name="Settings"
-          groups="base.group_system"
-          sequence="1"
-          action="action_sustainability_config"
-        />
-      </menuitem>
-      <menuitem
         id="menu_sustainability_reporting"
         name="Reporting"
         groups="base.group_user"
-        sequence="4"
+        sequence="3"
       >
         <menuitem
           id="carbon_factor_graph_menu"
@@ -82,6 +73,27 @@
           groups="base.group_user"
           sequence="1"
           action="carbon_factor_action_graph"
+        />
+        <menuitem
+          id="carbon_line_origin_graph_menu"
+          name="Carbon Origins"
+          groups="base.group_user"
+          sequence="2"
+          action="carbon_line_origin_action_graph"
+        />
+      </menuitem>
+      <menuitem
+        id="menu_sustainability_configuration"
+        name="Configuration"
+        groups="base.group_system"
+        sequence="4"
+      >
+        <menuitem
+          id="menu_sustainability_config"
+          name="Settings"
+          groups="base.group_system"
+          sequence="1"
+          action="action_sustainability_config"
         />
       </menuitem>
     </menuitem>
