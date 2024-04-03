@@ -37,7 +37,10 @@ class AccountMoveLine(models.Model):
         res = super()._prepare_analytic_distribution_line(
             distribution, account_id, distribution_on_each_plan
         )
-        res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
+
+        # Inverting the sign from carbon balance using _is_carbon_positive
+        carbon_debt = self.carbon_debt * distribution / 100.0
+        res["carbon_debt"] = -carbon_debt if self._is_carbon_positive else carbon_debt
         return res
 
     """ These methods might seem useless but the logic could change in the future so it's better to have them """
@@ -49,6 +52,18 @@ class AccountMoveLine(models.Model):
     def is_credit(self) -> bool:
         self.ensure_one()
         return bool(self.credit)
+
+    @property
+    def _is_carbon_positive(self) -> bool:
+        """
+        This method is there to allow us to know if a line is positive or not.
+        Useful for analytic calculation and more.
+        It's a property so no need to add the parenthesis.
+        """
+        self.ensure_one()
+        if self.carbon_balance >= 0:
+            return True
+        return False
 
     # --------------------------------------------
     #                   COMPUTE
@@ -188,3 +203,14 @@ class AccountMoveLine(models.Model):
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
         return {"quantity": self.quantity, "from_uom_id": self.product_uom_id}
+
+    def action_recompute_analytic_line(self):
+        """
+        This method is used in the account move server action in order to recompute Co2.
+        Here we delete the analytic line and then recreate them.
+        I didn't find something that already does that.
+        """
+        for line in self:
+            line.analytic_line_ids.unlink()
+
+            line._create_analytic_lines()
