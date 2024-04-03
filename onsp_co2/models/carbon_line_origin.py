@@ -1,6 +1,7 @@
 import logging
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -24,33 +25,112 @@ class CarbonLineOrigin(models.Model):
     res_id = fields.Many2oneReference(
         index=True, model_field="res_model", string="Res id"
     )
-
     factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
-    factor_value_type_id = fields.Many2one(
-        related="factor_value_id.type_id", string="Factor Value Type"
+    move_id = fields.Many2one(
+        related="move_line_id.move_id", store=True, string="Journal Entry"
     )
-    factor_id = fields.Many2one(
-        related="factor_value_id.factor_id", string="Carbon Factor", store=True
+    move_line_id = fields.Many2one(
+        "account.move.line",
+        compute="_compute_many2one_lines",
+        store=True,
+        string="Journal Item",
     )
 
     value = fields.Float(
-        digits="Carbon value", required=True
+        digits="Carbon value", required=True, string="Factor Value"
     )  # Result of the computation (might be a partial result)
     signed_value = fields.Float(
-        compute="_compute_signed_value", store=True, digits="Carbon value"
+        compute="_compute_signed_value",
+        store=True,
+        digits="Carbon value",
+        string="Total",
     )
     distribution = fields.Float()
-    carbon_value = fields.Float(digits="Carbon Factor value")
-    uncertainty_percentage = fields.Float(default=0.0)
+    carbon_value = fields.Float(digits="Carbon Factor value", string="Value")
+    uncertainty_percentage = fields.Float(default=0.0, string="Uncertainty")
     uncertainty_value = fields.Float(default=0.0, digits="Carbon Factor value")
     signed_uncertainty_value = fields.Float(
-        compute="_compute_signed_uncertainty_value", store=True, digits="Carbon value"
+        compute="_compute_signed_uncertainty_value",
+        store=True,
+        digits="Carbon Signed Uncertainty Value",
     )
     compute_method = fields.Char()
     uom_id = fields.Many2one("uom.uom")
-    monetary_currency_id = fields.Many2one("res.currency")
+    monetary_currency_id = fields.Many2one("res.currency", string="Currency")
+    carbon_data_uncertainty_percentage = fields.Float(
+        related="move_line_id.carbon_data_uncertainty_percentage",
+        store=False,
+        readonly=True,
+    )
 
     comment = fields.Char()
+
+    factor_id = fields.Many2one(
+        related="factor_value_id.factor_id", string="Name", store=True
+    )
+    factor_value_type_id = fields.Many2one(
+        related="factor_value_id.type_id", string="Factor Value Type", store=True
+    )
+
+    factor_category_id = fields.Many2one(
+        related="factor_id.parent_id", string="Factor Category", store=True
+    )
+    factor_source_id = fields.Many2one(
+        related="factor_id.carbon_source_id",
+        string="Factor Source",
+        store=True,
+    )
+
+    # === account_move fields === #
+    move_company_currency_id = fields.Many2one(
+        string="Company Currency",
+        related="move_id.company_currency_id",
+        readonly=True,
+        store=False,
+    )
+    move_date = fields.Date(
+        related="move_id.date", string="Invoice Date", readonly=True, store=True
+    )
+    move_state = fields.Selection(
+        related="move_id.state", string="Status", readonly=True
+    )
+
+    # === account_move_line fields === #
+    account_id = fields.Many2one(
+        related="move_line_id.account_id", store=True, string="Account"
+    )
+    partner_id = fields.Many2one(
+        related="move_line_id.partner_id", store=True, string="Partner"
+    )
+    journal_id = fields.Many2one(
+        related="move_line_id.journal_id", store=True, string="Journal"
+    )
+    move_line_balance = fields.Monetary(
+        related="move_line_id.balance",
+        string="Balance",
+        readonly=True,
+        store=False,
+        currency_field="move_company_currency_id",
+    )
+    move_line_label = fields.Char(
+        related="move_line_id.name",
+        string="Label",
+        compute="_compute_name",
+        store=False,
+        readonly=True,
+    )
+    move_line_quantity = fields.Float(
+        related="move_line_id.quantity",
+        string="Quantity",
+        store=False,
+        readonly=True,
+    )
+    move_line_product_uom_id = fields.Many2one(
+        related="move_line_id.product_uom_id",
+        string="Unit of Measure",
+        store=False,
+        readonly=True,
+    )
 
     @api.model
     def _get_model_to_field_name(self) -> dict[str, str]:
@@ -67,16 +147,6 @@ class CarbonLineOrigin(models.Model):
 
     These are useful to create related fields!
     """
-    move_line_id = fields.Many2one(
-        "account.move.line",
-        compute="_compute_many2one_lines",
-        store=True,
-        string="Move Line",
-    )
-    move_id = fields.Many2one(related="move_line_id.move_id", store=True, string="Move")
-    account_id = fields.Many2one(
-        related="move_line_id.account_id", store=True, string="Account"
-    )
 
     @api.depends("res_model", "res_id")
     def _compute_many2one_lines(self):
@@ -104,9 +174,19 @@ class CarbonLineOrigin(models.Model):
                 origin.uncertainty_value * origin.get_record().get_carbon_sign()
             )
 
+    def action_recompute_carbon(self):
+        self._compute_signed_uncertainty_value()
+
     def get_record(self):
         """Return the record that generated this origin"""
         self.ensure_one()
+        if not self.res_model:
+            raise ValidationError(
+                _(
+                    "You're carbon line origin doesn't have a reference model, this shouldn't be possible..."
+                )
+            )
+
         if self.res_model in self.env and (
             fname := self._get_model_to_field_name().get(self.res_model)
         ):
@@ -132,27 +212,3 @@ class CarbonLineOrigin(models.Model):
         res = super().create(vals_list)
         self._clean_orphan_lines()
         return res
-
-    # --------------------------------------------
-    #                   ACTIONS
-    # --------------------------------------------
-
-    def action_open_record(self):
-        self.ensure_one()
-        if record := self.get_record():
-            action = record.get_formview_action()
-            action["target"] = "new"
-            return action
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Error"),
-                "message": _(
-                    "Couldn't open record: %s,%s", self.res_model, self.res_id
-                ),
-                "type": "danger",
-                "sticky": False,
-                "next": {"type": "ir.actions.act_window_close"},
-            },
-        }
