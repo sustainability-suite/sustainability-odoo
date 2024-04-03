@@ -348,7 +348,7 @@
       </field>
     </record>
 
-    <record id="carbon_factor_action_graph" model="ir.actions.act_window">
+    <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
       <field name="name">Emission Factors Analysis</field>
       <field name="res_model">carbon.factor</field>
       <field name="type">ir.actions.act_window</field>

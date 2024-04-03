@@ -58,7 +58,7 @@
           name="Emission Factors"
           groups="base.group_user"
           sequence="1"
-          action="onsp_co2.carbon_factor_action_graph"
+          action="onsp_co2.carbon_factor_action_reporting"
         />
         <menuitem
           id="carbon_line_origin_graph_menu"
