@@ -340,7 +340,7 @@
       <field name="name">carbon.factor.pivot.view</field>
       <field name="model">carbon.factor</field>
       <field name="arch" type="xml">
-        <pivot string="Invoices Analysis" sample="1">
+        <pivot string="Emission Factor Analysis" sample="1">
           <field name="display_name" type="col" />
           <field name="carbon_date" interval="month" type="row" />
           <field name="carbon_value" type="measure" />
