@@ -164,7 +164,7 @@
       </field>
     </record>
 
-    <record id="carbon_line_origin_action_graph" model="ir.actions.act_window">
+    <record id="carbon_line_origin_action_reporting" model="ir.actions.act_window">
       <field name="name">Carbon Origins Analysis</field>
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>

@@ -65,7 +65,7 @@
           name="Carbon Origins"
           groups="base.group_user"
           sequence="2"
-          action="onsp_co2.carbon_line_origin_action_graph"
+          action="onsp_co2.carbon_line_origin_action_reporting"
         />
       </menuitem>
       <menuitem
