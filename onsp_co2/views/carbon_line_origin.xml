@@ -20,9 +20,13 @@
             optional="hide"
             string="Data CO2 Uncertainty"
           />
-          <field name="move_line_balance" string="Amount" />
-          <field name="signed_value" string="Total (KgCO2e)" />
-          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="move_line_balance" string="Amount" sum="Amount" />
+          <field name="signed_value" string="Total (KgCO2e)" sum="Total (KgCO2e)" />
+          <field
+            name="signed_uncertainty_value"
+            string="Uncertainty (KgCO2e)"
+            sum="Uncertainty (KgCO2e)"
+          />
           <field name="factor_id" widget="many2one" string="Emission Factor" />
           <field
             name="uncertainty_percentage"
