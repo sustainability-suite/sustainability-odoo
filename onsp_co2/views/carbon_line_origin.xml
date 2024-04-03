@@ -147,4 +147,13 @@
       <field name="context">{'search_default_posted': 1}</field>
     </record>
   </data>
+
+  <record id="action_recompute_carbon_line_origin" model="ir.actions.server">
+    <field name="name">Re-compute CO2</field>
+    <field name="model_id" ref="model_carbon_line_origin" />
+    <field name="binding_model_id" ref="model_carbon_line_origin" />
+    <field name="state">code</field>
+    <field name="code">action = records.action_recompute_carbon()</field>
+    <field name="groups_id" eval="[Command.set([ref('base.group_no_one')])]" />
+  </record>
 </odoo>

@@ -1,6 +1,7 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -176,6 +177,12 @@ class CarbonLineOrigin(models.Model):
     def get_record(self):
         """Return the record that generated this origin"""
         self.ensure_one()
+        if not self.res_model:
+            raise ValidationError(
+                _(
+                    "You're carbon line origin doesn't have a reference model, this shouldn't be possible..."
+                )
+            )
         if self.res_model in self.env and (
             fname := self._get_model_to_field_name().get(self.res_model)
         ):
