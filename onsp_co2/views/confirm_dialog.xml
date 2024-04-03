@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<odoo>
+  <record id="carbon_confirm_dialog_wizard_view" model="ir.ui.view">
+    <field name="name">Confirm Dialog Wizard</field>
+    <field name="model">carbon.confirm.dialog</field>
+    <field name="arch" type="xml">
+      <form>
+        <div class='oe_title'>
+          <field name="message" />
+        </div>
+        <footer>
+          <button
+            string="Accept"
+            type="object"
+            name="action_confirm"
+            class="btn btn-primary"
+            data-hotkey="a"
+          />
+          <button
+            string="Close"
+            type="object"
+            name="action_cancel"
+            class="btn btn-secondary"
+            data-hotkey="c"
+          />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>

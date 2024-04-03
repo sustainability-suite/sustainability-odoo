@@ -20,3 +20,5 @@ from . import product_template
 from . import res_country
 from . import carbon_factor_source
 from . import carbon_factor_type
+
+from . import carbon_confirm_dialog
