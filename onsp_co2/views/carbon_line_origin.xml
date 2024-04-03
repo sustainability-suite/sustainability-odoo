@@ -62,6 +62,14 @@
         <graph string="Carbon Origins Analysis" sample="1">
           <field name="move_id" />
           <field name="signed_value" type="measure" />
+          <field name="signed_value" string="Total (KgCO2e)" />
+          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="distribution" invisible="1" />
+          <field name="factor_value_id" invisible="1" />
+          <field name="uncertainty_percentage" invisible="1" />
+          <field name="uncertainty_value" invisible="1" />
+          <field name="carbon_value" invisible="1" />
+          <field name="value" invisible="1" />
         </graph>
       </field>
     </record>

@@ -331,6 +331,7 @@
         <graph string="Emission Factor Analysis" sample="1">
           <field name="display_name" />
           <field name="carbon_value" type="measure" />
+          <field name="uncertainty_percentage" invisible="1" />
         </graph>
       </field>
     </record>
