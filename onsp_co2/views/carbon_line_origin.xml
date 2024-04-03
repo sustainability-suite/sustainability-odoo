@@ -60,9 +60,8 @@
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
         <graph string="Carbon Origins Analysis" sample="1">
-          <field name="move_id" />
-          <field name="signed_value" type="measure" />
-          <field name="signed_value" string="Total (KgCO2e)" />
+          <field name="move_date" interval="month" />
+          <field name="signed_value" string="Total (KgCO2e)" type="measure" />
           <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
           <field name="distribution" invisible="1" />
           <field name="factor_value_id" invisible="1" />
@@ -87,6 +86,7 @@
           <field name="factor_category_id" string="Category" />
           <field name="move_line_product_uom_id" string='Unit of Measure' />
           <field name="move_state" string="Status" />
+          <field name="move_date" />
 
           <filter
             string="Physical"
@@ -109,6 +109,12 @@
             string="Unposted"
             name="unposted"
             domain="[('move_state', '!=', 'posted')]"
+          />
+          <filter
+            string="Last Three Years"
+            name="last_three_years"
+            domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d'))]"
+            invisible="1"
           />
           <filter string="Invoice Date" name="date" date="move_date" />
           <group expand="0" string="Group By">
@@ -163,7 +169,9 @@
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">graph,pivot</field>
-      <field name="context">{'search_default_posted': 0}</field>
+      <field name="context">
+        {'search_default_posted': 0, 'search_default_last_three_years': 1}
+      </field>
     </record>
 
     <record id="carbon_line_origin_action" model="ir.actions.act_window">
