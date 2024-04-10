@@ -25,15 +25,6 @@ class CarbonLineOrigin(models.Model):
         index=True, model_field="res_model", string="Res id"
     )
     factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
-    move_id = fields.Many2one(
-        related="move_line_id.move_id", store=True, string="Journal Entry"
-    )
-    move_line_id = fields.Many2one(
-        "account.move.line",
-        compute="_compute_many2one_lines",
-        store=True,
-        string="Journal Item",
-    )
 
     value = fields.Float(
         digits="Carbon value", required=True, string="Factor Value"
@@ -61,7 +52,6 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
-
     comment = fields.Char()
 
     factor_id = fields.Many2one(
@@ -80,7 +70,16 @@ class CarbonLineOrigin(models.Model):
         store=True,
     )
 
-    # === account_move fields === #
+    # === account_move_line fields === #
+    move_line_id = fields.Many2one(
+        "account.move.line",
+        compute="_compute_many2one_lines",
+        store=True,
+        string="Journal Item",
+    )
+    move_id = fields.Many2one(
+        related="move_line_id.move_id", store=True, string="Journal Entry"
+    )
     move_company_currency_id = fields.Many2one(
         string="Company Currency",
         related="move_id.company_currency_id",
@@ -93,9 +92,7 @@ class CarbonLineOrigin(models.Model):
     move_state = fields.Selection(
         related="move_id.state", string="Status", readonly=True
     )
-
-    # === account_move_line fields === #
-    account_id = fields.Many2one(
+    move_line_account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
     move_line_partner_id = fields.Many2one(

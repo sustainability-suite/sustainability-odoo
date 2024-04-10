@@ -16,7 +16,7 @@
           <field name="move_date" string="Invoice Date" />
           <field name="move_line_journal_id" optional="hide" string="Journal" />
           <field name="move_id" widget="many2one" string="Journal Entry" />
-          <field name="account_id" optional="hide" string="Account" />
+          <field name="move_line_account_id" optional="hide" string="Account" />
           <field name="move_line_partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
           <field name="move_line_quantity" string="Quantity" />
