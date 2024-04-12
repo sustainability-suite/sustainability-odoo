@@ -27,11 +27,12 @@
             optional="hide"
             string="Data CO2 Uncertainty"
           />
-          <field name="move_line_balance" string="Amount" />
-          <field name="signed_value" string="Total (KgCO2e)" />
+          <field name="move_line_balance" string="Amount" sum="Amount" />
+          <field name="signed_value" string="Total (KgCO2e)" sum="Total (KgCO2e)" />
           <field
             name="signed_uncertainty_value"
             string="Uncertainty (KgCO2e)"
+            sum="Uncertainty (KgCO2e)"
             digits="[13,2]"
           />
           <field name="factor_id" widget="many2one" string="Emission Factor" />
@@ -66,6 +67,36 @@
       </field>
     </record>
 
+    <record id="carbon_line_origin_view_graph" model="ir.ui.view">
+      <field name="name">carbon.line.origin.graph.view</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <graph string="Carbon Origins Analysis" sample="1">
+          <field name="move_date" interval="month" />
+          <field name="signed_value" string="Total (KgCO2e)" type="measure" />
+          <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+          <field name="distribution" invisible="1" />
+          <field name="factor_value_id" invisible="1" />
+          <field name="uncertainty_percentage" invisible="1" />
+          <field name="uncertainty_value" invisible="1" />
+          <field name="carbon_value" invisible="1" />
+          <field name="value" invisible="1" />
+        </graph>
+      </field>
+    </record>
+
+    <record id="carbon_line_origin_view_pivot" model="ir.ui.view">
+      <field name="name">carbon.line.origin.pivot.view</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="arch" type="xml">
+        <pivot string="Carbon Origins Analysis" sample="1">
+          <field name="move_id" type="col" />
+          <field name="move_date" interval="month" type="row" />
+          <field name="signed_value" type="measure" />
+        </pivot>
+      </field>
+    </record>
+
     <record id="carbon_line_origin_filter" model="ir.ui.view">
       <field name="name">carbon.line.origin.select</field>
       <field name="model">carbon.line.origin</field>
@@ -79,6 +110,7 @@
           <field name="factor_category_id" string="Category" />
           <field name="move_line_product_uom_id" string='Unit of Measure' />
           <field name="move_state" string="Status" />
+          <field name="move_date" />
 
           <filter
             string="Physical"
@@ -101,6 +133,12 @@
             string="Unposted"
             name="unposted"
             domain="[('move_state', '!=', 'posted'), ('res_model', '=', 'account.move.line')]"
+          />
+          <filter
+            string="Last Three Years"
+            name="last_three_years"
+            domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d'))]"
+            invisible="1"
           />
           <filter string="Invoice Date" name="date" date="move_date" />
           <group expand="0" string="Group By">
@@ -150,8 +188,18 @@
       </field>
     </record>
 
+    <record id="carbon_line_origin_action_reporting" model="ir.actions.act_window">
+      <field name="name">Carbon Origins Analysis</field>
+      <field name="res_model">carbon.line.origin</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">graph,pivot</field>
+      <field name="context">
+        {'search_default_posted': 0, 'search_default_last_three_years': 1}
+      </field>
+    </record>
+
     <record id="carbon_line_origin_action" model="ir.actions.act_window">
-      <field name="name">Carbon origins</field>
+      <field name="name">Carbon Origins</field>
       <field name="res_model">carbon.line.origin</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree</field>
