@@ -1,6 +1,6 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -25,15 +25,6 @@ class CarbonLineOrigin(models.Model):
         index=True, model_field="res_model", string="Res id"
     )
     factor_value_id = fields.Many2one("carbon.factor.value", string="Factor value")
-    move_id = fields.Many2one(
-        related="move_line_id.move_id", store=True, string="Journal Entry"
-    )
-    move_line_id = fields.Many2one(
-        "account.move.line",
-        compute="_compute_many2one_lines",
-        store=True,
-        string="Journal Item",
-    )
 
     value = fields.Float(
         digits="Carbon value", required=True, string="Factor Value"
@@ -51,7 +42,7 @@ class CarbonLineOrigin(models.Model):
     signed_uncertainty_value = fields.Float(
         compute="_compute_signed_uncertainty_value",
         store=True,
-        digits="Carbon Signed Uncertainty Value",
+        digits="Carbon value",
     )
     compute_method = fields.Char()
     uom_id = fields.Many2one("uom.uom")
@@ -61,7 +52,6 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
-
     comment = fields.Char()
 
     factor_id = fields.Many2one(
@@ -80,7 +70,16 @@ class CarbonLineOrigin(models.Model):
         store=True,
     )
 
-    # === account_move fields === #
+    # === account_move_line fields === #
+    move_line_id = fields.Many2one(
+        "account.move.line",
+        compute="_compute_many2one_lines",
+        store=True,
+        string="Journal Item",
+    )
+    move_id = fields.Many2one(
+        related="move_line_id.move_id", store=True, string="Journal Entry"
+    )
     move_company_currency_id = fields.Many2one(
         string="Company Currency",
         related="move_id.company_currency_id",
@@ -93,15 +92,13 @@ class CarbonLineOrigin(models.Model):
     move_state = fields.Selection(
         related="move_id.state", string="Status", readonly=True
     )
-
-    # === account_move_line fields === #
-    account_id = fields.Many2one(
+    move_line_account_id = fields.Many2one(
         related="move_line_id.account_id", store=True, string="Account"
     )
-    partner_id = fields.Many2one(
+    move_line_partner_id = fields.Many2one(
         related="move_line_id.partner_id", store=True, string="Partner"
     )
-    journal_id = fields.Many2one(
+    move_line_journal_id = fields.Many2one(
         related="move_line_id.journal_id", store=True, string="Journal"
     )
     move_line_balance = fields.Monetary(
@@ -201,3 +198,27 @@ class CarbonLineOrigin(models.Model):
         res = super().create(vals_list)
         self._clean_orphan_lines()
         return res
+
+    # --------------------------------------------
+    #                   ACTIONS
+    # --------------------------------------------
+
+    def action_open_record(self):
+        self.ensure_one()
+        if record := self.get_record():
+            action = record.get_formview_action()
+            action["target"] = "new"
+            return action
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Error"),
+                "message": _(
+                    "Couldn't open record: %s,%s", self.res_model, self.res_id
+                ),
+                "type": "danger",
+                "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
