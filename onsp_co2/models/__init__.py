@@ -20,4 +20,6 @@ from . import product_template
 from . import res_country
 from . import carbon_factor_source
 from . import carbon_factor_type
-from . import scenario
+from . import sustainability_scenario
+from . import sustainability_action_plan
+from . import sustainability_action

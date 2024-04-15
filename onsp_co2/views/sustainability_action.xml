@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="sustainability_action_tree" model="ir.ui.view">
+      <field name="name">sustainability.action.tree</field>
+      <field name="model">sustainability.action</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name" />
+          <field name="complexity" />
+          <field name="budget" />
+          <field name="reduction_potential" />
+          <field name="image" widget="image" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="sustainability_action_window_action" model="ir.actions.act_window">
+      <field name="name">Actions</field>
+      <field name="res_model">sustainability.action</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">No actions yet !</p>
+      </field>
+    </record>
+  </data>
+</odoo>

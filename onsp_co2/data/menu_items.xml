@@ -75,11 +75,25 @@
         sequence="4"
       >
         <menuitem
-          id="scenario_menu"
-          name="Scenario"
+          id="sustainability_scenario_menu"
+          name="Scenarios"
           sequence="1"
           groups="base.group_user"
-          action="onsp_co2.scenario_action"
+          action="onsp_co2.sustainability_scenario_window_action"
+        />
+        <menuitem
+          id="sustainability_action_plan_menu"
+          name="Action Plans"
+          sequence="2"
+          groups="base.group_user"
+          action="onsp_co2.sustainability_action_plan_window_action"
+        />
+        <menuitem
+          id="sustainability_action_menu"
+          name="Actions"
+          sequence="3"
+          groups="base.group_user"
+          action="onsp_co2.sustainability_action_window_action"
         />
       </menuitem>
       <menuitem
