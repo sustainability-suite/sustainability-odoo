@@ -51,7 +51,7 @@
               <field name="complexity" widget="selection_badge" />
               <field name="budget" widget="selection_badge" />
               <field name="reduction_potential" widget="selection_badge" />
-              <field name="action_plan_ids" />
+              <field name="action_plan_ids" widget="many2many_tags" />
             </group>
             <field
               name="image_1920"
