@@ -11,6 +11,12 @@
           <field name="start_date" />
           <field name="end_date" />
           <field name="scenario_id" />
+          <button
+            name="action_open_actions"
+            title="View Actions"
+            icon="fa-arrow-right"
+            type="object"
+          />
         </tree>
       </field>
     </record>

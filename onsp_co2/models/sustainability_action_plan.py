@@ -14,3 +14,12 @@ class SustainabilityActionPlan(models.Model):
     scenario_id = fields.Many2one(
         "sustainability.scenario", required=True, ondelete="restrict"
     )
+
+    def action_open_actions(self):
+        self.ensure_one()
+
+        action_plan = self[0]
+
+        action = self.env.ref("onsp_co2.sustainability_action_window_action").read()[0]
+        action["domain"] = [("action_plan_ids", "in", action_plan.ids)]
+        return action
