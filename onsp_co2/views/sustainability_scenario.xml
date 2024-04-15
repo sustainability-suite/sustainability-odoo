@@ -13,6 +13,17 @@
       </field>
     </record>
 
+    <record id="sustainability_scenario_filter" model="ir.ui.view">
+      <field name="name">sustainability.scenario.select</field>
+      <field name="model">sustainability.scenario</field>
+      <field name="arch" type="xml">
+        <search string="Search Scenarios">
+          <separator />
+          <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+        </search>
+      </field>
+    </record>
+
     <record id="sustainability_scenario_window_action" model="ir.actions.act_window">
       <field name="name">Scenarios</field>
       <field name="res_model">sustainability.scenario</field>

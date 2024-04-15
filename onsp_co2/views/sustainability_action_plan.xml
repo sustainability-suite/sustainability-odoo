@@ -15,6 +15,17 @@
       </field>
     </record>
 
+    <record id="sustainability_action_plan_filter" model="ir.ui.view">
+      <field name="name">sustainability.action.plan.select</field>
+      <field name="model">sustainability.action.plan</field>
+      <field name="arch" type="xml">
+        <search string="Search Action Plans">
+          <separator />
+          <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+        </search>
+      </field>
+    </record>
+
     <record id="sustainability_action_plan_window_action" model="ir.actions.act_window">
       <field name="name">Action Plans</field>
       <field name="res_model">sustainability.action.plan</field>
