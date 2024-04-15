@@ -36,7 +36,7 @@
             <div class="oe_title">
               <label for="name" />
               <h1>
-                <field name="name" placeholder="Name" />
+                <field name="name" />
               </h1>
             </div>
             <group>
