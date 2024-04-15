@@ -6,4 +6,6 @@ class SustainabilityScenario(models.Model):
     _description = "Sustainability Scenario"
 
     name = fields.Char(required=True)
+    description = fields.Text(required=True)
     end_date = fields.Date(required=True)
+    active = fields.Boolean(default=True)
