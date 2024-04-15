@@ -28,6 +28,7 @@
         "views/product_category.xml",
         "views/res_country.xml",
         "views/res_config_settings.xml",
+        "views/scenario.xml",
         # Reports
         "report/invoice_document.xml",
         # Data

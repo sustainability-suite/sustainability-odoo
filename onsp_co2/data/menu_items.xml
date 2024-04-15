@@ -69,10 +69,24 @@
         />
       </menuitem>
       <menuitem
+        id="menu_decarbonisation"
+        groups="base.group_user"
+        name="Decarbonization"
+        sequence="4"
+      >
+        <menuitem
+          id="scenario_menu"
+          name="Scenario"
+          sequence="1"
+          groups="base.group_user"
+          action="onsp_co2.scenario_action"
+        />
+      </menuitem>
+      <menuitem
         id="menu_sustainability_configuration"
         name="Configuration"
         groups="base.group_system"
-        sequence="4"
+        sequence="5"
       >
         <menuitem
           id="menu_sustainability_config"
