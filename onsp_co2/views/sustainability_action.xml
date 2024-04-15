@@ -32,7 +32,14 @@
       <field name="model">sustainability.action</field>
       <field name="arch" type="xml">
         <form>
+          <field name="active" invisible="1" />
           <sheet>
+            <widget
+              name="web_ribbon"
+              title="Archived"
+              bg_color="bg-danger"
+              attrs="{'invisible': [('active', '=', True)]}"
+            />
             <div class="oe_title">
               <label for="name" />
               <h1>
