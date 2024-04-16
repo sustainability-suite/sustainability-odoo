@@ -26,4 +26,4 @@ class SustainabilityAction(models.Model):
     )
     active = fields.Boolean(default=True)
 
-    action_plan_ids = fields.Many2many("sustainability.action.plan", required=True)
+    action_plan_ids = fields.Many2many("sustainability.action.plan", required=False)
