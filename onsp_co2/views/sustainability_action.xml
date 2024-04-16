@@ -11,7 +11,12 @@
           <field name="complexity" />
           <field name="budget" />
           <field name="reduction_potential" />
-          <field name="image_128" string="Image" widget="image" />
+          <field
+            name="image"
+            string="Image"
+            widget="image"
+            options="{'size': [128, 128]}"
+          />
         </tree>
       </field>
     </record>
@@ -53,11 +58,7 @@
               <field name="reduction_potential" widget="selection_badge" />
               <field name="action_plan_ids" widget="many2many_tags" />
             </group>
-            <field
-              name="image_1920"
-              widget="image"
-              options='{"preview_image":"image_512"}'
-            />
+            <field name="image" widget="image" options="{'size': [256, 256]}" />
           </sheet>
           <div class="oe_chatter">
             <field name="message_follower_ids" />
