@@ -4,6 +4,7 @@ from odoo import fields, models
 class SustainabilityActionPlan(models.Model):
     _name = "sustainability.action.plan"
     _description = "Action Plan"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(required=True)
     description = fields.Text(required=True)
