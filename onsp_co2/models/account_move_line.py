@@ -31,7 +31,7 @@ class AccountMoveLine(models.Model):
     )
 
     is_carbon_positive = fields.Boolean(
-        compute="_computeis_carbon_positive", store=False, readonly=True
+        compute="_compute_is_carbon_positive", store=False, readonly=True
     )
 
     def _prepare_analytic_distribution_line(
@@ -57,7 +57,7 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
         return bool(self.credit)
 
-    def _computeis_carbon_positive(self):
+    def _compute_is_carbon_positive(self):
         self.ensure_one()
         self.is_carbon_positive = self.carbon_balance >= 0
 
