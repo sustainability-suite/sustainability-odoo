@@ -45,11 +45,15 @@ class AccountMove(models.Model):
 
     def action_recompute_carbon_confirm(self):
         # Todo: if a subset is 'posted'
-        wizard = self.env["carbon.confirm.dialog"].create(
+        res_ids = ",".join([str(id) for id in self.ids])
+        wizard = self.env["confirm.dialog"].create(
             dict(
                 message=_(
                     "Are you sure you want to continue ? By doing so you may make changes that wasn't supposed to happen. DO IT AT YOU'RE OWN RISK"
-                )
+                ),
+                res_model=self._name,
+                res_ids=res_ids,
+                callback="action_recompute_carbon",
             )
         )
         return {
@@ -57,13 +61,10 @@ class AccountMove(models.Model):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
-            "res_model": "carbon.confirm.dialog",
+            "res_model": "confirm.dialog",
             "res_id": wizard.id,
             "target": "new",
             "context": {
-                "model": "account.move",
-                "ids": self.ids,
-                "fname": "action_recompute_carbon",
                 **self.env.context,
             },
         }

@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <odoo>
-  <record id="carbon_confirm_dialog_wizard_view" model="ir.ui.view">
-    <field name="name">Confirm Dialog Wizard</field>
-    <field name="model">carbon.confirm.dialog</field>
+  <record id="confirm_dialog_wizard_view" model="ir.ui.view">
+    <field name="name">Dialog Wizard</field>
+    <field name="model">confirm.dialog</field>
     <field name="arch" type="xml">
       <form>
         <div class='oe_title'>
@@ -10,19 +10,13 @@
         </div>
         <footer>
           <button
-            string="Accept"
+            string="Confirm"
             type="object"
             name="action_confirm"
             class="btn btn-primary"
             data-hotkey="a"
           />
-          <button
-            string="Close"
-            type="object"
-            name="action_cancel"
-            class="btn btn-secondary"
-            data-hotkey="c"
-          />
+          <button string="Close" special="cancel" class="btn btn-secondary" />
         </footer>
       </form>
     </field>

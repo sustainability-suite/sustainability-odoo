@@ -28,13 +28,14 @@
         "views/product_category.xml",
         "views/res_country.xml",
         "views/res_config_settings.xml",
-        "views/confirm_dialog.xml",
         # Reports
         "report/invoice_document.xml",
         # Data
         "data/decimal_precision.xml",
         "data/menu_items.xml",
         "data/res_currency.xml",
+        # Wizards Views
+        "wizards/views/confirm_dialog.xml",
     ],
     "assets": {
         "web.assets_backend": [
