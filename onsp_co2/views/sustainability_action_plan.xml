@@ -74,6 +74,7 @@
               <field name="description" />
               <field name="start_date" />
               <field name="end_date" />
+              <field name="scenario_id" />
             </group>
             <notebook>
               <page string="Actions" name="page_actions">

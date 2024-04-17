@@ -6,14 +6,14 @@ class SustainabilityActionPlan(models.Model):
     _description = "Action Plan"
     _inherit = ["mail.thread", "mail.activity.mixin", "common.mixin"]
 
-    name = fields.Char(required=True)
-    description = fields.Text(required=True)
-    start_date = fields.Date(required=True)
-    end_date = fields.Date(required=True)
+    name = fields.Char(required=True, tracking=True)
+    description = fields.Text(required=True, tracking=True)
+    start_date = fields.Date(required=True, tracking=True)
+    end_date = fields.Date(required=True, tracking=True)
     active = fields.Boolean(default=True)
 
     scenario_id = fields.Many2one(
-        "sustainability.scenario", required=True, ondelete="restrict"
+        "sustainability.scenario", required=True, ondelete="restrict", tracking=True
     )
     action_ids = fields.Many2many("sustainability.action", string="Actions")
 
