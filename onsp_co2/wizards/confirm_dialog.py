@@ -26,11 +26,11 @@ class ConfirmDialog(models.TransientModel):
         if self.res_model not in self.env:
             raise ValidationError(_("The model %s doesn't exist.", self.res_model))
 
-        res_ids = self.env[self.res_model].browse(
+        records = self.env[self.res_model].browse(
             [int(id) for id in self.res_ids.split(",")]
         )
 
-        f = getattr(res_ids, self.callback)
+        f = getattr(records, self.callback)
         if not f:
             raise ValidationError(
                 _(
