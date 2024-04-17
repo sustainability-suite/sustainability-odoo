@@ -30,8 +30,8 @@ class AccountMoveLine(models.Model):
         compute="_compute_carbon_is_date_locked", store=True
     )
 
-    _is_carbon_positive = fields.Boolean(
-        compute="_compute_is_carbon_positive", store=False, readonly=True
+    is_carbon_positive = fields.Boolean(
+        compute="_computeis_carbon_positive", store=False, readonly=True
     )
 
     def _prepare_analytic_distribution_line(
@@ -44,7 +44,7 @@ class AccountMoveLine(models.Model):
 
         # Using the same sign as carbon balance
         carbon_debt = self.carbon_debt * distribution / 100.0
-        res["carbon_debt"] = carbon_debt if self._is_carbon_positive else -carbon_debt
+        res["carbon_debt"] = carbon_debt if self.is_carbon_positive else -carbon_debt
         return res
 
     """ These methods might seem useless but the logic could change in the future so it's better to have them """
@@ -57,9 +57,9 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
         return bool(self.credit)
 
-    def _compute_is_carbon_positive(self):
+    def _computeis_carbon_positive(self):
         self.ensure_one()
-        self._is_carbon_positive = self.carbon_balance >= 0
+        self.is_carbon_positive = self.carbon_balance >= 0
 
     # --------------------------------------------
     #                   COMPUTE
