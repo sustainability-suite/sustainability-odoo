@@ -1,42 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
   <data>
+    <record id="action_sustainability_config" model="ir.actions.act_window">
+      <field name="name">Settings</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.config.settings</field>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+      <field name="context">{'module' : 'onsp_co2', 'bin_size': False}</field>
+    </record>
+
     <menuitem
-      id="carbon_settings_menu"
-      name="CO2 Settings"
-      parent="account.menu_finance_configuration"
-      sequence="5"
+      id="sustainability_menu"
+      name="Sustainability"
+      web_icon="onsp_co2,static/description/icon.png"
+      sequence="60"
       groups="base.group_user"
     >
       <menuitem
-        id="carbon_factor_menu"
-        name="Emission Factors"
-        sequence="10"
-        groups="base.group_user"
-        action="onsp_co2.carbon_factor_action"
-      />
-      <menuitem
-        id="carbon_factor_source_menu"
-        name="Emission Factor Sources"
-        sequence="20"
-        groups="base.group_user"
-        action="onsp_co2.carbon_factor_source_action"
-      />
-      <menuitem
-        id="carbon_factor_type_menu"
-        name="Emission Factor Types"
-        sequence="30"
-        groups="base.group_user"
-        action="onsp_co2.carbon_factor_type_action"
-      />
-
-      <menuitem
         id="carbon_line_origin_menu"
         name="Carbon Origins"
-        sequence="40"
+        sequence="1"
         groups="base.group_user"
         action="onsp_co2.carbon_line_origin_action"
       />
+      <menuitem id="menu_emission_factors" name="Emission Factors" sequence="2">
+        <menuitem
+          id="carbon_factor_menu"
+          name="Emission Factors"
+          sequence="1"
+          groups="base.group_user"
+          action="onsp_co2.carbon_factor_action"
+        />
+        <menuitem
+          id="carbon_factor_source_menu"
+          name="Emission Factor Sources"
+          sequence="2"
+          groups="base.group_user"
+          action="onsp_co2.carbon_factor_source_action"
+        />
+        <menuitem
+          id="carbon_factor_type_menu"
+          name="Emission Factor Types"
+          sequence="3"
+          groups="base.group_user"
+          action="onsp_co2.carbon_factor_type_action"
+        />
+      </menuitem>
+      <menuitem
+        id="menu_sustainability_reporting"
+        name="Reporting"
+        groups="base.group_user"
+        sequence="3"
+      >
+        <menuitem
+          id="carbon_factor_graph_menu"
+          name="Emission Factors"
+          groups="base.group_user"
+          sequence="1"
+          action="onsp_co2.carbon_factor_action_reporting"
+        />
+        <menuitem
+          id="carbon_line_origin_graph_menu"
+          name="Carbon Origins"
+          groups="base.group_user"
+          sequence="2"
+          action="onsp_co2.carbon_line_origin_action_reporting"
+        />
+      </menuitem>
+      <menuitem
+        id="menu_sustainability_configuration"
+        name="Configuration"
+        groups="base.group_system"
+        sequence="4"
+      >
+        <menuitem
+          id="menu_sustainability_config"
+          name="Settings"
+          groups="base.group_system"
+          sequence="1"
+          action="action_sustainability_config"
+        />
+      </menuitem>
     </menuitem>
   </data>
 </odoo>
