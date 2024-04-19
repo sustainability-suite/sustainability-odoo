@@ -58,8 +58,8 @@ class AccountMoveLine(models.Model):
         return bool(self.credit)
 
     def _compute_is_carbon_positive(self):
-        self.ensure_one()
-        self.is_carbon_positive = self.carbon_balance >= 0
+        for line in self:
+            line.is_carbon_positive = line.carbon_balance >= 0
 
     # --------------------------------------------
     #                   COMPUTE
