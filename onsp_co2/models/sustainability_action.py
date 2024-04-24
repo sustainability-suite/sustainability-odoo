@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import _, fields, models
 
 _levels = [
     ("low", "Low"),
@@ -10,7 +10,7 @@ _levels = [
 class SustainabilityAction(models.Model):
     _name = "sustainability.action"
     _description = "Sustainability Action"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "common.mixin"]
 
     name = fields.Char(required=True, tracking=True)
     description = fields.Text(required=True, tracking=True)
@@ -21,3 +21,34 @@ class SustainabilityAction(models.Model):
     active = fields.Boolean(default=True)
 
     action_plan_ids = fields.Many2many("sustainability.action.plan", required=False)
+    action_plan_qty = fields.Integer(compute="_compute_action_plan_qty")
+    scenario_qty = fields.Integer(compute="_compute_scenario_qty")
+
+    def _compute_action_plan_qty(self):
+        for action in self:
+            action.action_plan_qty = len(action.action_plan_ids)
+
+    def _compute_scenario_qty(self):
+        for action in self:
+            action.scenario_qty = len(self._get_scenario_ids())
+
+    def action_see_action_plans(self):
+        return self._generate_action(
+            title=_("Action Plans for"),
+            model="sustainability.action.plan",
+            ids=self.action_plan_ids.ids,
+        )
+
+    def _get_scenario_ids(self):
+        return (
+            self.env["sustainability.scenario"]
+            .search([("action_plan_ids", "in", self.action_plan_ids.ids)])
+            .ids
+        )
+
+    def action_see_scenarios(self):
+        return self._generate_action(
+            title=_("Scenario for"),
+            model="sustainability.scenario",
+            ids=self._get_scenario_ids(),
+        )
