@@ -146,6 +146,13 @@ class ResCompany(models.Model):
                     {
                         "carbon_debt": commuting_carbon,
                         "name": f"{employee.name}{commuting_details}",
+                        "carbon_origin_json": {
+                            "mode": "manual",
+                            "details": {
+                                "uid": self.env.uid,
+                                "username": self.env.user.name,
+                            },
+                        },
                     }
                 )
                 aml_vals_list.append((0, 0, aml_vals))

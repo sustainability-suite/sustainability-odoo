@@ -5,6 +5,7 @@ from .hr_employee import WEEKS_PER_MONTH
 
 class CarbonCommuting(models.Model):
     _name = "carbon.hr.commuting"
+    _description = "Carbon Employee Commuting"
 
     carbon_factor_id = fields.Many2one(
         "carbon.factor",
@@ -27,7 +28,7 @@ class CarbonCommuting(models.Model):
         (
             commuting_value,
             commmuting_uncertainty_value,
-            infos,
+            details,
         ) = self.carbon_factor_id.get_carbon_value(
             date=date,
             carbon_type="in",
@@ -35,4 +36,4 @@ class CarbonCommuting(models.Model):
             from_uom_id=self.env.ref("uom.product_uom_km"),
             data_uncertainty_percentage=0,
         )
-        return commuting_value, commmuting_uncertainty_value
+        return commuting_value, commmuting_uncertainty_value, details
