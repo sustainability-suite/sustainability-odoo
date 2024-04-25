@@ -37,6 +37,7 @@
       <field name="model">carbon.factor</field>
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
+          <field name="display_name" string="Name" />
           <separator />
           <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
         </search>
