@@ -101,7 +101,7 @@
       <field name="name">carbon.line.origin.select</field>
       <field name="model">carbon.line.origin</field>
       <field name="arch" type="xml">
-        <search string="Search Emission Factor">
+        <search string="Search Carbon Origin">
           <field name="move_id" string="Journal Entry" />
           <field name="move_line_partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
