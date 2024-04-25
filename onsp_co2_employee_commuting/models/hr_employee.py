@@ -22,22 +22,29 @@ class HrEmployee(models.Model):
         self.ensure_one()
         if not date:
             date = datetime.now()
-        value, details, uncertainty_value = self._calculate_commuting_carbon(date)
+        (
+            value,
+            commuting_details,
+            uncertainty_value,
+            carbon_details,
+        ) = self._calculate_commuting_carbon(date)
         return {
             "carbon_debt": value,
             "carbon_uncertainty_value": uncertainty_value,
             "carbon_data_uncertainty_percentage": uncertainty_value / (value or 1),
-            "name": f"{self.name}{details}",
+            "name": f"{self.name}{commuting_details}",
             "account_id": self.company_id.employee_commuting_account_id.id,
             "debit": 0,
             "credit": 0,
             "carbon_is_locked": True,
             "partner_id": self.address_home_id.id,
+            "carbon_origin_json": {"mode": "auto", "details": carbon_details},
         }
 
     def _calculate_commuting_carbon(self, date):
         self.ensure_one()
         total_commuting_details = ""
+        total_carbon_details = dict()
         # Extra check, maybe you don't need it
         if not self.carbon_commuting_ids:
             total_commuting_details = f"No commuting for {self.name}"
@@ -50,8 +57,15 @@ class HrEmployee(models.Model):
             (
                 commuting_value,
                 uncertainty_value,
+                carbon_details,
             ) = commuting.get_commuting_carbon_value_at_date(date)
             total_commuting_value += commuting_value
             total_uncertainty_value += uncertainty_value
             total_commuting_details += f"\n| {commuting.carbon_factor_id.name} : {commuting.distance_km * WEEKS_PER_MONTH} Km"
-        return total_commuting_value, total_commuting_details, total_uncertainty_value
+            total_carbon_details |= carbon_details
+        return (
+            total_commuting_value,
+            total_commuting_details,
+            total_uncertainty_value,
+            total_carbon_details,
+        )
