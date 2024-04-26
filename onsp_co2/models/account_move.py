@@ -56,7 +56,7 @@ class AccountMove(models.Model):
                 callback="action_recompute_carbon",
             )
         )
-        
+
         return wizard.get_action()
 
     def action_recompute_carbon(self) -> dict:

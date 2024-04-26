@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <record id="skip_warning" model="res.groups">
-      <field name="name">CO2: Skip warning</field>
-      <!-- <field name="implied_ids" eval="[(4, ref('account.group_account_manager'))]"/> -->
-      <field name="category_id" ref="base.module_category_hidden"/>
+    <field name="name">CO2: Skip warning</field>
+    <!-- <field name="implied_ids" eval="[(4, ref('account.group_account_manager'))]"/> -->
+    <field name="category_id" ref="base.module_category_hidden" />
   </record>
 </odoo>

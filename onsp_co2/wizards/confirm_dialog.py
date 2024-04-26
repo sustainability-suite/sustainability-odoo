@@ -1,6 +1,6 @@
 from typing import Dict
 
-from odoo import _, fields, models, api
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -54,12 +54,12 @@ class ConfirmDialog(models.TransientModel):
             )
 
         return {}
-    
+
     def get_action(self):
-        if self.user_has_groups('onsp_co2.skip_warning'):
+        if self.user_has_groups("onsp_co2.skip_warning"):
             self.action_recompute_carbon()
             return {}
-        
+
         return {
             "name": "Warning",
             "type": "ir.actions.act_window",
