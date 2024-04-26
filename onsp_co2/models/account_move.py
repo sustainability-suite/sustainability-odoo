@@ -56,18 +56,8 @@ class AccountMove(models.Model):
                 callback="action_recompute_carbon",
             )
         )
-        return {
-            "name": "Warning",
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "confirm.dialog",
-            "res_id": wizard.id,
-            "target": "new",
-            "context": {
-                **self.env.context,
-            },
-        }
+        
+        return wizard.get_action()
 
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines."""
