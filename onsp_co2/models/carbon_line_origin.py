@@ -70,7 +70,9 @@ class CarbonLineOrigin(models.Model):
         store=True,
     )
 
-    # === account_move_line fields === #
+    # --------------------------------------------
+    #          account.move.line fields
+    # --------------------------------------------
     move_line_id = fields.Many2one(
         "account.move.line",
         compute="_compute_many2one_lines",
@@ -111,7 +113,6 @@ class CarbonLineOrigin(models.Model):
     move_line_label = fields.Char(
         related="move_line_id.name",
         string="Label",
-        compute="_compute_name",
         store=False,
         readonly=True,
     )
@@ -173,11 +174,15 @@ class CarbonLineOrigin(models.Model):
     def get_record(self):
         """Return the record that generated this origin"""
         self.ensure_one()
-        if self.res_model in self.env and (
-            fname := self._get_model_to_field_name().get(self.res_model)
-        ):
-            return self[fname]
-        return None
+        if self.res_model in self.env:
+            if fname := self._get_model_to_field_name().get(self.res_model):
+                return self[fname]
+            _logger.warning(
+                "CarbonLineOrigin: Many2one field for model `%s` does not exist, which is probably not intended",
+                self.res_model,
+            )
+            return self.env[self.res_model].browse(self.res_id).exists()
+        raise ValueError(f"Model {self.res_model} not found")
 
     @api.model
     def _clean_orphan_lines(self):
