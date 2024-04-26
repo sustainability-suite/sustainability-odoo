@@ -115,12 +115,16 @@ class CarbonLineMixin(models.AbstractModel):
 
     @api.onchange("carbon_debt")
     def _onchange_carbon_debt(self):
-        self.carbon_uncertainty_value = 0.0
-        self.carbon_data_uncertainty_percentage = 0.0
-        self.carbon_origin_json = {
-            "mode": "manual",
-            "details": {"uid": self.env.uid, "username": self.env.user.name},
-        }
+        self.update(
+            {
+                "carbon_uncertainty_value": 0.0,
+                "carbon_data_uncertainty_percentage": 0.0,
+                "carbon_origin_json": {
+                    "mode": "manual",
+                    "details": {"uid": self.env.uid, "username": self.env.user.name},
+                },
+            }
+        )
 
     def _compute_carbon_currency_id(self):
         for move in self:
@@ -219,9 +223,6 @@ class CarbonLineMixin(models.AbstractModel):
         vals_list = list()
 
         mode = self.carbon_origin_json.get("mode")
-        details = self.carbon_origin_json.get("details", {})
-
-        mode = self.carbon_origin_json.get("mode")
         json_details = self.carbon_origin_json.get("details", {})
 
         if mode == "manual":
@@ -236,6 +237,8 @@ class CarbonLineMixin(models.AbstractModel):
                         json_details.get("username", _("Unknown User")),
                     ),
                     "value": self.carbon_debt,
+                    "carbon_data_uncertainty_percentage": self.carbon_data_uncertainty_percentage,
+                    "uncertainty_value": self.carbon_uncertainty_value,
                 }
             )
 
@@ -257,9 +260,10 @@ class CarbonLineMixin(models.AbstractModel):
 
         return vals_list
 
+    @api.model
     def _create_origin_lines(self):
         origin_vals_list = list()
-        lines_to_flush = self.filtered("carbon_origin_json")
+        lines_to_flush = self.search([("carbon_origin_json", "!=", False)])
 
         for line in lines_to_flush:
             line.carbon_origin_ids.unlink()

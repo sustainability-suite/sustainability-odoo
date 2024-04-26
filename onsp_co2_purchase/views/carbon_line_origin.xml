@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="carbon_line_origin_tree" model="ir.ui.view">
+      <field name="name">carbon_line_origin_tree</field>
+      <field name="model">carbon.line.origin</field>
+      <field name="inherit_id" ref="onsp_co2.carbon_line_origin_tree" />
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position="inside">
+          <field name="purchase_line_id" optional="hide" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
