@@ -62,6 +62,8 @@
             string="Status"
           />
 
+          <field name="comment" optional="hide" />
+
           <field name="move_company_currency_id" invisible="1" />
         </tree>
       </field>
