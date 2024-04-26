@@ -1,4 +1,5 @@
 # from . import carbon_general_mixin
+from . import common_mixin
 from . import carbon_copy_mixin
 from . import carbon_line_origin
 from . import carbon_mixin
@@ -20,3 +21,6 @@ from . import product_template
 from . import res_country
 from . import carbon_factor_source
 from . import carbon_factor_type
+from . import sustainability_scenario
+from . import sustainability_action_plan
+from . import sustainability_action
