@@ -55,7 +55,7 @@ class CarbonLineOrigin(models.Model):
     comment = fields.Char()
 
     factor_id = fields.Many2one(
-        related="factor_value_id.factor_id", string="Name", store=True
+        related="factor_value_id.factor_id", string="Emission Factor", store=True
     )
     factor_value_type_id = fields.Many2one(
         related="factor_value_id.type_id", string="Factor Value Type", store=True
