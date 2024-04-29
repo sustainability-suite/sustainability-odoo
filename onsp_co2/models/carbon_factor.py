@@ -416,14 +416,14 @@ class CarbonFactor(models.Model):
             # Infos from factor
             (
                 compute_method,
-                value,
+                carbon_value,
                 uom_id,
                 monetary_currency_id,
             ) = factor_value.get_infos()
 
             if compute_method == "monetary" and amount is not None and from_currency_id:
                 # We convert the amount to the currency used in the factor value
-                partial_value_result = value * from_currency_id._convert(
+                partial_value_result = carbon_value * from_currency_id._convert(
                     amount, monetary_currency_id, self.env.company, date
                 )
 
@@ -440,7 +440,7 @@ class CarbonFactor(models.Model):
                             uom_id.category_id.name,
                         )
                     )
-                partial_value_result = value * from_uom_id._compute_quantity(
+                partial_value_result = carbon_value * from_uom_id._compute_quantity(
                     quantity, uom_id
                 )
 
@@ -463,15 +463,18 @@ class CarbonFactor(models.Model):
                     )
                 )
 
-            result_value += partial_value_result * distribution
+            # Apply the distribution and add it to the final result
+            partial_value_result *= distribution
+            result_value += partial_value_result
+
             result_details[factor_value.id] = {
-                "value": result_value,
+                "value": partial_value_result,
                 "distribution": distribution,
                 "uncertainty_percentage": uncertainty_percentage,
-                "uncertainty_value": result_value * uncertainty_percentage,
+                "uncertainty_value": partial_value_result * uncertainty_percentage,
                 # Values infos are return so that if they are updated later, we still have the value at the time of the computation
                 "compute_method": compute_method,
-                "carbon_value": value,
+                "carbon_value": carbon_value,
                 "uom_id": uom_id.id,
                 "monetary_currency_id": monetary_currency_id.id,
             }
