@@ -45,6 +45,5 @@ class AccountMove(models.Model):
 
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted'"""
-        for move in self:
-            move.line_ids.action_recompute_carbon()
+        self.line_ids.action_recompute_carbon()
         return {}

@@ -210,9 +210,17 @@ class CarbonLineMixin(models.AbstractModel):
                 distribution, **kw_arguments
             )
 
-            line.carbon_debt = debt
-            line.carbon_uncertainty_value = uncertainty_value
-            line.carbon_origin_json = {"mode": "auto", "details": details}
+            line.with_context(sustainability_recreate=False).write(
+                dict(
+                    carbon_origin_json={
+                        "mode": "auto",
+                        "details": details,
+                    },
+                    carbon_uncertainty_value=uncertainty_value,
+                    carbon_debt=debt,
+                )
+            )
+        lines_to_compute._create_origin_lines()
 
     def _get_line_origin_vals_list(self) -> list[dict]:
         """Return the vals used to create a carbon.line.origin record"""
@@ -262,11 +270,11 @@ class CarbonLineMixin(models.AbstractModel):
 
     @api.model
     def _create_origin_lines(self):
-        origin_vals_list = list()
         lines_to_flush = self.search([("carbon_origin_json", "!=", False)])
+        lines_to_flush.carbon_origin_ids.unlink()
 
+        origin_vals_list = list()
         for line in lines_to_flush:
-            line.carbon_origin_ids.unlink()
             origin_vals_list.extend(line._get_line_origin_vals_list())
 
         # To avoid empty create calls
@@ -277,18 +285,19 @@ class CarbonLineMixin(models.AbstractModel):
 
     def write(self, vals):
         res = super().write(vals)
-        self._create_origin_lines()
+        if self.env.context.get("sustainability_recreate", True):
+            self._create_origin_lines()
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        res._create_origin_lines()
+        self._create_origin_lines()
         return res
 
     def unlink(self):
         self.carbon_origin_ids.unlink()
-        super().unlink()
+        return super().unlink()
 
     # --------------------------------------------
     #                ACTION / UI
@@ -311,8 +320,7 @@ class CarbonLineMixin(models.AbstractModel):
 
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted'?"""
-        for line in self:
-            line._compute_carbon_debt(force_compute="all_states")
+        self._compute_carbon_debt(force_compute="all_states")
         return {}
 
     def action_switch_locked(self):
