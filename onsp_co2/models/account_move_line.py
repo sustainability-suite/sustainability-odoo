@@ -169,7 +169,7 @@ class AccountMoveLine(models.Model):
 
     def get_carbon_sign(self) -> int:
         self.ensure_one()
-        return -1 if self.move_id.is_inbound(include_receipts=True) else 1
+        return -1 if self.carbon_balance < 0 else 1
 
     # --- Modular methods ---
     # --- ACCOUNT ---
