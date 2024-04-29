@@ -3,7 +3,6 @@ from typing import Dict
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
-
 class ConfirmDialog(models.TransientModel):
     _name = "confirm.dialog"
 
@@ -57,7 +56,7 @@ class ConfirmDialog(models.TransientModel):
 
     def get_action(self):
         if self.user_has_groups("onsp_co2.skip_warning"):
-            self.action_recompute_carbon()
+            self.action_confirm()
             return {}
 
         return {
