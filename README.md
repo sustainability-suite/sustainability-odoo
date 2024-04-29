@@ -1,28 +1,35 @@
-![Stars](https://img.shields.io/github/stars/MyCityCO2/mycityco2-engine?style=social)
-![Watchers](https://img.shields.io/github/watchers/MyCityCO2/mycityco2-engine?style=social)
-![Forks](https://img.shields.io/github/forks/MyCityCO2/mycityco2-engine?style=social)
 
-![LastCommit](https://img.shields.io/github/last-commit/MyCityCO2/mycityco2-engine?color=green)
+<!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
+[![Pre-commit Status](https://github.com/mycityco2/mycityco2-engine/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/mycityco2/mycityco2-engine/actions/workflows/pre-commit.yml?query=branch%3A16.0)
+[![Build Status](https://github.com/mycityco2/mycityco2-engine/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/mycityco2/mycityco2-engine/actions/workflows/test.yml?query=branch%3A16.0)
+[![codecov](https://codecov.io/gh/mycityco2/mycityco2-engine/branch/16.0/graph/badge.svg)](https://codecov.io/gh/mycityco2/mycityco2-engine)
+<!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
+<!-- /!\ do not modify above this line -->
 
+# Base module to track CO2 equivalent in accounting
 
-# MyCityCO2 Engine v16
+Base module to track CO2 equivalent in accounting
 
-## License
+<!-- /!\ do not modify below this line -->
+
+<!-- prettier-ignore-start -->
+
+[//]: # (addons)
+
+This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+
+[//]: # (end addons)
+
+<!-- prettier-ignore-end -->
+
+## Licenses
 
 This repository is licensed under [AGPL-3.0](LICENSE).
 
+However, each module can have a totally different license, as long as they adhere to Open Net Sàrl
+policy. Consult each module's `__manifest__.py` file, which contains a `license` key
+that explains its license.
 
-| Addons                | Description                                                                | Installation | Dependencies                                                                                      |
-|-----------------------|----------------------------------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------|
-| [onsp_co2](onsp_co2)  | <b>Main module</b> - Track CO<sub>2</sub>e in accounting                   | Apps library | account                                                                                           |
-| [onsp_co2_account_asset_management](onsp_co2_account_asset_management) | Track CO<sub>2</sub>e in your assets (OCA module)                          | CO2 Settings | onsp_co2 <br/>[account_asset_management](https://github.com/OCA/account-financial-tools/tree/16.0) |
-| [onsp_co2_mis_builder](onsp_co2_mis_builder) | Create MIS reports from your CO<sub>2</sub>e data (OCA module)             | CO2 Settings | onsp_co2 <br/>[mis_builder](https://github.com/OCA/mis-builder)                                   |
-| [onsp_co2_purchase](onsp_co2_purchase) | Track CO<sub>2</sub>e in your Purchase app and transfer data to Accounting | CO2 Settings | onsp_co2 <br/>purchase              |
-
-
-## Credits
-
-Most of the code in this repository is written by [Open Net Sàrl](https://www.open-net.ch/) developers
-
-Check [MyCityCO2](https://www.mycityco2.ch/) for more information about the project.
+----
+<!-- /!\ Non OCA Context : Set here the full description of your organization. -->
