@@ -37,6 +37,9 @@
         "data/decimal_precision.xml",
         "data/menu_items.xml",
         "data/res_currency.xml",
+        "data/res_groups.xml",
+        # Wizards Views
+        "wizards/views/confirm_dialog.xml",
     ],
     "assets": {
         "web.assets_backend": [

@@ -68,7 +68,7 @@
       <field name="model_id" ref="purchase.model_purchase_order" />
       <field name="binding_model_id" ref="purchase.model_purchase_order" />
       <field name="state">code</field>
-      <field name="code">action = records.action_recompute_carbon()</field>
+      <field name="code">action = records.action_recompute_carbon_confirm()</field>
     </record>
   </data>
 </odoo>

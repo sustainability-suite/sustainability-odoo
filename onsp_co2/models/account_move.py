@@ -1,8 +1,11 @@
-from odoo import api, fields, models
+from typing import List
+
+from odoo import _, api, fields, models
 
 
 class AccountMove(models.Model):
     _inherit = "account.move"
+    _confirm_dialog_methods: List[str] = ["action_recompute_carbon"]
 
     carbon_currency_id = fields.Many2one(
         "res.currency",
@@ -43,8 +46,25 @@ class AccountMove(models.Model):
                 sum(move.invoice_line_ids.mapped("carbon_uncertainty_value"))
             )
 
+    def action_recompute_carbon_confirm(self):
+        # Todo: if a subset is 'posted'
+        res_ids = ",".join([str(id) for id in self.ids])
+        wizard = self.env["confirm.dialog"].create(
+            dict(
+                message=_(
+                    "Are you sure you want to continue ? By doing so you may make changes that wasn't supposed to happen. DO IT AT YOU'RE OWN RISK"
+                ),
+                res_model=self._name,
+                res_ids=res_ids,
+                callback="action_recompute_carbon",
+                skip_group_ids=self.env.ref("onsp_co2.skip_warning"),
+            )
+        )
+
+        return wizard.get_action()
+
     def action_recompute_carbon(self) -> dict:
-        """Force re-computation of carbon values for lines. Todo: add a confirm dialog if a subset is 'posted'"""
+        """Force re-computation of carbon values for lines."""
         for move in self:
             move.line_ids.action_recompute_carbon()
         return {}

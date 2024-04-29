@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<odoo>
+  <record id="confirm_dialog_wizard_view" model="ir.ui.view">
+    <field name="name">Dialog Wizard</field>
+    <field name="model">confirm.dialog</field>
+    <field name="arch" type="xml">
+      <form>
+        <div class='oe_title'>
+          <field name="message" />
+        </div>
+        <footer>
+          <button
+            string="Confirm"
+            type="object"
+            name="action_confirm"
+            class="btn btn-primary"
+            data-hotkey="a"
+          />
+          <button string="Close" special="cancel" class="btn btn-secondary" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
