@@ -280,6 +280,13 @@
                       decoration-it="is_ghg_detailed_value"
                     />
                     <field
+                      name="nf3_value"
+                      force_save="1"
+                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                      decoration-muted="is_ghg_detailed_value"
+                      decoration-it="is_ghg_detailed_value"
+                    />
+                    <field
                       name="other_ghg_value"
                       force_save="1"
                       attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
