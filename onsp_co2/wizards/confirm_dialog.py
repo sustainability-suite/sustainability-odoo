@@ -3,11 +3,13 @@ from typing import Dict
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
+
 class ConfirmDialog(models.TransientModel):
     _name = "confirm.dialog"
 
     ALLOWED_METHODS_BY_MODEL: Dict[str, list] = {
-        "account.move": ["action_recompute_carbon"]
+        "account.move": ["action_recompute_carbon"],
+        "purchase.order": ["action_recompute_carbon"],
     }
 
     ALLOWED_METHODS_ACROSS_MODEL: list = ["copy"]
