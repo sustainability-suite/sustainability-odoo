@@ -1,6 +1,6 @@
 from typing import Any, Union
 
-from odoo import _, api, models
+from odoo import api, models
 
 
 class PurchaseOrderLine(models.Model):
@@ -9,15 +9,22 @@ class PurchaseOrderLine(models.Model):
 
     def _prepare_account_move_line(self, move=False):
         res = super()._prepare_account_move_line(move)
-        res.update(
-            {
-                "carbon_debt": self.carbon_debt,
-                "carbon_uncertainty_value": self.carbon_uncertainty_value,
-                "carbon_is_locked": True,
-                "carbon_origin_name": _("Purchase Order %s", self.order_id.name),
-                "carbon_origin_value": "",
-            }
-        )
+        if self.carbon_is_locked:
+            res.update(
+                {
+                    "carbon_debt": self.carbon_debt,
+                    "carbon_uncertainty_value": self.carbon_uncertainty_value,
+                    "carbon_data_uncertainty_percentage": self.carbon_data_uncertainty_percentage,
+                    "carbon_is_locked": True,
+                    "carbon_origin_json": {
+                        "mode": "manual",
+                        "details": {
+                            "uid": self.env.uid,
+                            "username": self.env.user.name,
+                        },
+                    },
+                }
+            )
         return res
 
     # --------------------------------------------

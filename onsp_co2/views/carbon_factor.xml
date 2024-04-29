@@ -37,6 +37,7 @@
       <field name="model">carbon.factor</field>
       <field name="arch" type="xml">
         <search string="Search Emission Factor">
+          <field name="display_name" string="Name" />
           <separator />
           <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
         </search>
@@ -324,8 +325,39 @@
       </field>
     </record>
 
+    <record id="carbon_factor_view_graph" model="ir.ui.view">
+      <field name="name">carbon.factor.graph.view</field>
+      <field name="model">carbon.factor</field>
+      <field name="arch" type="xml">
+        <graph string="Emission Factor Analysis" sample="1">
+          <field name="display_name" />
+          <field name="carbon_value" type="measure" />
+          <field name="uncertainty_percentage" invisible="1" />
+        </graph>
+      </field>
+    </record>
+
+    <record id="carbon_factor_view_pivot" model="ir.ui.view">
+      <field name="name">carbon.factor.pivot.view</field>
+      <field name="model">carbon.factor</field>
+      <field name="arch" type="xml">
+        <pivot string="Emission Factor Analysis" sample="1">
+          <field name="display_name" type="col" />
+          <field name="carbon_date" interval="month" type="row" />
+          <field name="carbon_value" type="measure" />
+        </pivot>
+      </field>
+    </record>
+
+    <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
+      <field name="name">Emission Factors Analysis</field>
+      <field name="res_model">carbon.factor</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">graph,pivot</field>
+    </record>
+
     <record id="carbon_factor_action" model="ir.actions.act_window">
-      <field name="name">CO2 Emission Factors</field>
+      <field name="name">Emission Factors</field>
       <field name="res_model">carbon.factor</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree,form</field>

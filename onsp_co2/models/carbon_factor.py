@@ -8,69 +8,87 @@ from odoo.exceptions import ValidationError
 
 class CarbonFactor(models.Model):
     _name = "carbon.factor"
-    _inherit = ["mail.thread", "mail.activity.mixin", "carbon.copy.mixin"]
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin",
+        "carbon.copy.mixin",
+        "common.mixin",
+    ]
     _description = "Carbon Emission Factor"
     _order = "display_name"
     _parent_store = True
 
-    ghg_view_mode = fields.Boolean(
-        string="Show greenhouse gases detail", help="Toggle to show GHG details"
-    )
-
-    name = fields.Char(required=True)
+    # Core and utils fields
+    name = fields.Char(required=True, tracking=True)
     display_name = fields.Char(
         compute="_compute_display_name", store=True, recursive=True
     )
-    parent_id = fields.Many2one(
-        "carbon.factor", "Parent", index=True, ondelete="restrict"
+    carbon_source_id = fields.Many2one(
+        comodel_name="carbon.factor.source", tracking=True
     )
-    parent_path = fields.Char(index=True, unaccent=False)
-    carbon_source_id = fields.Many2one("carbon.factor.source")
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
     carbon_compute_method = fields.Selection(
-        selection=[
-            ("physical", "Physical"),
-            ("monetary", "Monetary"),
-        ],
+        selection=[("physical", "Physical"), ("monetary", "Monetary")],
         string="Compute method",
+        tracking=True,
     )
+    uncertainty_percentage = fields.Float(
+        string="Uncertainty (%)", default=0.0, tracking=True
+    )
+    active = fields.Boolean(default=True, tracking=True)
 
-    child_ids = fields.One2many("carbon.factor", "parent_id")
+    # Categories fields
+    parent_id = fields.Many2one(
+        comodel_name="carbon.factor",
+        string="Parent",
+        index=True,
+        ondelete="restrict",
+        tracking=True,
+    )
+    parent_path = fields.Char(index=True, unaccent=False)
+    child_ids = fields.One2many(comodel_name="carbon.factor", inverse_name="parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
     descendant_ids = fields.Many2many(
-        "carbon.factor", compute="_compute_descendant_ids", recursive=True
+        comodel_name="carbon.factor", compute="_compute_descendant_ids", recursive=True
     )
 
+    # Values IDs fields
+    ghg_view_mode = fields.Boolean(
+        string="Show greenhouse gases detail",
+        help="Toggle to show GHG details",
+        tracking=True,
+    )
     carbon_currency_id = fields.Many2one(
-        "res.currency", compute="_compute_carbon_currency_id"
+        comodel_name="res.currency", compute="_compute_carbon_currency_id"
     )
     carbon_currency_label = fields.Char(
         compute="_compute_carbon_currency_id", default="KgCo2e"
     )
-    uncertainty_percentage = fields.Float(string="Uncertainty (%)", default=0.0)
-
-    value_ids = fields.One2many("carbon.factor.value", "factor_id")
-    # related recent values
-    recent_value_id = fields.Many2one(
-        "carbon.factor.value", compute="_compute_recent_value", store=True
+    value_ids = fields.One2many(
+        comodel_name="carbon.factor.value", inverse_name="factor_id", tracking=True
     )
-    carbon_date = fields.Date(related="recent_value_id.date")
+    recent_value_id = fields.Many2one(
+        comodel_name="carbon.factor.value", compute="_compute_recent_value", store=True
+    )
+    carbon_date = fields.Date(related="recent_value_id.date", store=True)
     carbon_source = fields.Char(related="carbon_source_id.name", string="Source")
 
-    carbon_value = fields.Float(related="recent_value_id.carbon_value")
+    carbon_value = fields.Float(related="recent_value_id.carbon_value", store=True)
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id")
     carbon_monetary_currency_id = fields.Many2one(
         related="recent_value_id.carbon_monetary_currency_id"
     )
     unit_label = fields.Char(related="recent_value_id.unit_label")
 
+    # Type fields
     required_type_ids = fields.Many2many("carbon.factor.type", string="Required Types")
+
+    # Quantity fields for smart button
 
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
-    active = fields.Boolean(default=True)
 
     # --------------------------------------------
 
@@ -463,33 +481,6 @@ class CarbonFactor(models.Model):
     # --------------------------------------------
     #                   ACTIONS
     # --------------------------------------------
-
-    def _generate_action(self, model: str, title: str, ids: list[int]) -> dict:
-        """
-        Generate an action dictionary for the specified model and title.
-
-        This function creates an action dictionary that can be used to open a new window in the Odoo UI. The new window will display the specified model's data, filtered by the carbon domain.
-
-        Args:
-            model (str): The name of the model to display in the new window.
-            title (str): The title to display in the new window.
-            ids (list[int]): A list of integer IDs representing the records to be displayed in the new window.
-
-        Returns:
-            dict: An action dictionary that can be used to open a new window in the Odoo UI.
-        """
-        self.ensure_one()
-        return {
-            "name": _("%s %s", title, self.display_name),
-            "type": "ir.actions.act_window",
-            "res_model": model,
-            "views": [(False, "tree"), (False, "form")],
-            "domain": [("id", "in", ids)],
-            "target": "current",
-            "context": {
-                **self.env.context,
-            },
-        }
 
     def _get_distribution_lines_res_ids(self, model: str) -> list[int]:
         distribution_lines = self.env["carbon.distribution.line"].search(

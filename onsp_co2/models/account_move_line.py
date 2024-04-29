@@ -30,6 +30,10 @@ class AccountMoveLine(models.Model):
         compute="_compute_carbon_is_date_locked", store=True
     )
 
+    is_carbon_positive = fields.Boolean(
+        compute="_compute_is_carbon_positive", store=False, readonly=True
+    )
+
     def _prepare_analytic_distribution_line(
         self, distribution, account_id, distribution_on_each_plan
     ) -> dict:
@@ -37,7 +41,10 @@ class AccountMoveLine(models.Model):
         res = super()._prepare_analytic_distribution_line(
             distribution, account_id, distribution_on_each_plan
         )
-        res["carbon_debt"] = -self.carbon_debt * distribution / 100.0
+
+        # Using the same sign as carbon balance
+        carbon_debt = self.carbon_debt * distribution / 100.0
+        res["carbon_debt"] = carbon_debt if self.is_carbon_positive else -carbon_debt
         return res
 
     """ These methods might seem useless but the logic could change in the future so it's better to have them """
@@ -49,6 +56,10 @@ class AccountMoveLine(models.Model):
     def is_credit(self) -> bool:
         self.ensure_one()
         return bool(self.credit)
+
+    def _compute_is_carbon_positive(self):
+        for line in self:
+            line.is_carbon_positive = line.carbon_balance >= 0
 
     # --------------------------------------------
     #                   COMPUTE
@@ -188,3 +199,20 @@ class AccountMoveLine(models.Model):
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
         return {"quantity": self.quantity, "from_uom_id": self.product_uom_id}
+
+    def action_recompute_carbon(self) -> dict:
+        res = super().action_recompute_carbon()
+
+        self.action_recompute_analytic_line()
+
+        return res
+
+    def action_recompute_analytic_line(self):
+        """
+        This method is used in the account move server action in order to recompute Co2.
+        Here we delete the analytic line and then recreate them.
+        I didn't find something that already does that.
+        This method is multi.
+        """
+        self.analytic_line_ids.unlink()
+        self._create_analytic_lines()

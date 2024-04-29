@@ -24,6 +24,7 @@
             name="carbon_debt"
             digits="[13,2]"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+            force_save="1"
           />
           <button
             title="Unlock co2"
@@ -45,12 +46,14 @@
             name="carbon_data_uncertainty_percentage"
             widget="percentage"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+            force_save="1"
             optional="show"
           />
           <field
             name="carbon_uncertainty_value"
             digits="[13,2]"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+            force_save="1"
             optional="show"
           />
           <button

@@ -39,12 +39,14 @@
             name="carbon_data_uncertainty_percentage"
             widget="percentage"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+            force_save="1"
             optional="show"
           />
           <field
             name="carbon_uncertainty_value"
             digits="[13,2]"
             attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+            force_save="1"
             optional="show"
           />
           <button
@@ -55,7 +57,7 @@
           />
         </xpath>
         <xpath expr="//field[@name='tax_totals']" position="after">
-          <field name="carbon_debt" digits="[13,2]" />
+          <field name="carbon_debt" digits="[13,2]" force_save="1" />
           <field name="carbon_currency_id" invisible="1" />
         </xpath>
       </field>
