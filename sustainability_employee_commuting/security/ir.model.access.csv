@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+carbon_hr_commuting_rule_access,carbon_hr_commuting_rule_access,model_carbon_hr_commuting,base.group_user,1,0,0,0
+carbon_hr_commuting_rule_access_hr,carbon_hr_commuting_rule_access_hr,model_carbon_hr_commuting,hr.group_hr_user,1,1,1,1
