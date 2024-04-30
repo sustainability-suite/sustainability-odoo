@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="sustainability_action_plan_tree" model="ir.ui.view">
+      <field name="name">sustainability.action.plan.tree</field>
+      <field name="model">sustainability.action.plan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="description" />
+          <field name="start_date" />
+          <field name="end_date" />
+          <field name="scenario_id" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="sustainability_action_plan_filter" model="ir.ui.view">
+      <field name="name">sustainability.action.plan.select</field>
+      <field name="model">sustainability.action.plan</field>
+      <field name="arch" type="xml">
+        <search string="Search Action Plans">
+          <separator />
+          <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+        </search>
+      </field>
+    </record>
+
+    <record id="sustainability_action_plan_form" model="ir.ui.view">
+      <field name="name">sustainability.action.plan.form</field>
+      <field name="model">sustainability.action.plan</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="active" invisible="1" />
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+              <button
+                type="object"
+                name="action_see_actions"
+                class="oe_stat_button"
+                icon="fa-leaf"
+              >
+                <div class="o_field_widget o_stat_info">
+                  <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('action_qty', '&lt;=', 1)]}"
+                  >
+                    <field name="action_qty" widget="statinfo" nolabel="1" />
+                    Actions
+                  </span>
+                  <span
+                    class="o_stat_value"
+                    attrs="{'invisible': [('action_qty', '&gt;', 1)]}"
+                  >
+                    <field name="action_qty" widget="statinfo" nolabel="1" />
+                    Action
+                  </span>
+                </div>
+              </button>
+            </div>
+            <widget
+              name="web_ribbon"
+              title="Archived"
+              bg_color="bg-danger"
+              attrs="{'invisible': [('active', '=', True)]}"
+            />
+            <div class="oe_title">
+              <label for="name" />
+              <h1>
+                <field name="name" />
+              </h1>
+            </div>
+            <group>
+              <field name="description" />
+              <field name="start_date" />
+              <field name="end_date" />
+              <field name="scenario_id" />
+            </group>
+            <notebook>
+              <page string="Actions" name="page_actions">
+                <field name="action_ids" colspan="2" nolabel="1">
+                  <tree editable="bottom" />
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" />
+            <field name="activity_ids" />
+            <field name="message_ids" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="sustainability_action_plan_window_action" model="ir.actions.act_window">
+      <field name="name">Action Plans</field>
+      <field name="res_model">sustainability.action.plan</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">No action plans yet !</p>
+      </field>
+    </record>
+  </data>
+</odoo>
