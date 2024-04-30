@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_account_change_lock_date" model="ir.ui.view">
+      <field name="name">view_account_change_lock_date</field>
+      <field name="model">account.change.lock.date</field>
+      <field name="inherit_id" ref="account_accountant.view_account_change_lock_date" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='fiscalyear_lock_date']/.." position="after">
+          <group string="CO2 Period Closing">
+            <div class="text-muted mb-3" colspan="2">
+              <i>
+                Prevent CO2
+                <sub>e</sub>
+                computation for journal entries
+              </i>
+            </div>
+            <field
+              name="carbon_lock_date"
+              placeholder="Pick a date to lock"
+              options="{'datepicker': {'warn_future': true}}"
+            />
+          </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

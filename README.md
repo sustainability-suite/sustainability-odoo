@@ -13,12 +13,12 @@
 This repository is licensed under [AGPL-3.0](LICENSE).
 
 
-| Addons                | Description                                                                | Installation | Dependencies                                                                                      |
-|-----------------------|----------------------------------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------|
-| [onsp_co2](onsp_co2)  | <b>Main module</b> - Track CO<sub>2</sub>e in accounting                   | Apps library | account                                                                                           |
-| [onsp_co2_account_asset_management](onsp_co2_account_asset_management) | Track CO<sub>2</sub>e in your assets (OCA module)                          | CO2 Settings | onsp_co2 <br/>[account_asset_management](https://github.com/OCA/account-financial-tools/tree/16.0) |
-| [onsp_co2_mis_builder](onsp_co2_mis_builder) | Create MIS reports from your CO<sub>2</sub>e data (OCA module)             | CO2 Settings | onsp_co2 <br/>[mis_builder](https://github.com/OCA/mis-builder)                                   |
-| [onsp_co2_purchase](onsp_co2_purchase) | Track CO<sub>2</sub>e in your Purchase app and transfer data to Accounting | CO2 Settings | onsp_co2 <br/>purchase              |
+| Addons                | Description                                                                | Installation            | Dependencies                                                                                      |
+|-----------------------|----------------------------------------------------------------------------|-------------------------|---------------------------------------------------------------------------------------------------|
+| [sustainability](sustainability)  | <b>Main module</b> - Track CO<sub>2</sub>e in accounting                   | Apps library            | account                                                                                           |
+| [sustainability_account_asset_management](sustainability_account_asset_management) | Track CO<sub>2</sub>e in your assets (OCA module)                          | Sustainability Settings | sustainability <br/>[account_asset_management](https://github.com/OCA/account-financial-tools/tree/16.0) |
+| [sustainability_mis_builder](sustainability_mis_builder) | Create MIS reports from your CO<sub>2</sub>e data (OCA module)             | Sustainability Settings            | sustainability <br/>[mis_builder](https://github.com/OCA/mis-builder)                                   |
+| [sustainability_purchase](sustainability_purchase) | Track CO<sub>2</sub>e in your Purchase app and transfer data to Accounting | Sustainability Settings            | sustainability <br/>purchase              |
 
 
 ## Credits
