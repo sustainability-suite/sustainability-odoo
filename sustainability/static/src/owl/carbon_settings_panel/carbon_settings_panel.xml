@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<templates xml:space="preserve">
-    <t t-name="sustainability.CarbonSettingsPanel">
-        <div t-foreach="carbon_types" t-as="type" t-key="type" class="o_widget o_widget_carbon_settings">
-            <CarbonSettings type="type" record="props.record" title="getCarbonTitle(type)" showDistribution="getShowDistribution(type)" />
-        </div>
-    </t>
-</templates>
