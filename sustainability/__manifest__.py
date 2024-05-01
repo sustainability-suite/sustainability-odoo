@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "16.0.1.3.0",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Gautier Casabona",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
@@ -27,7 +27,7 @@
         "views/carbon_factor_type.xml",
         "views/product_category.xml",
         "views/res_country.xml",
-        "views/res_config_settings.xml",
+        # "views/res_config_settings.xml",
         "views/sustainability_scenario.xml",
         "views/sustainability_action_plan.xml",
         "views/sustainability_action.xml",
@@ -47,10 +47,9 @@
     "images": [
         "static/description/co2_base_green.png",
     ],
-    "installable": False,
+    "installable": True,
     "application": True,
     "auto_install": False,
     "license": "AGPL-3",
     "sequence": 1,
-    "pre_init_hook": "migrate_ir_model_data",
 }
