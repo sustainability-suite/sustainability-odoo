@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <data>
     <record id="view_account_form" model="ir.ui.view">
@@ -7,44 +7,29 @@
       <field name="inherit_id" ref="account.view_account_form" />
       <field name="arch" type="xml">
         <xpath expr="//page[@name='accounting']" position="inside">
-          <group string="CO2 Settings" name="group_carbon_settings">
+          <group name="group_carbon_settings" string="CO2 Settings">
             <group>
-              <field name="carbon_allowed_factor_ids" invisible="1" />
-
+              <field invisible="1" name="carbon_allowed_factor_ids" />
               <label for="carbon_in_is_manual" string="Mode" />
-              <div style="font-size: 1.15rem;" class="gap-1 d-inline-flex ">
-                <div
-                  class="opacity-50 mr-2"
-                  attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
-                >
+              <div class="gap-1 d-inline-flex " style="font-size: 1.15rem;">
+                <div class="opacity-50 mr-2" invisible="carbon_in_is_manual != True">
                   Auto
                 </div>
-                <div
-                  style="font-weight: bold;"
-                  attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
-                >
+                <div invisible="carbon_in_is_manual == True" style="font-weight: bold;">
                   Auto
                 </div>
-
                 <field
+                  class=""
                   name="carbon_in_is_manual"
                   nolabel="1"
-                  widget="boolean_toggle"
-                  class=""
                   style="margin-left: 8px;"
+                  widget="boolean_toggle"
                 />
-                <field name="carbon_in_mode" invisible="1" />
-
-                <div
-                  class="opacity-50"
-                  attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
-                >
+                <field invisible="1" name="carbon_in_mode" />
+                <div class="opacity-50" invisible="carbon_in_is_manual == True">
                   Manual
                 </div>
-                <div
-                  style="font-weight: bold;"
-                  attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
-                >
+                <div invisible="carbon_in_is_manual != True" style="font-weight: bold;">
                   Manual
                 </div>
               </div>
@@ -56,40 +41,34 @@
               <!--&lt;!&ndash;                                <field name="carbon_in_value_origin" />&ndash;&gt;-->
               <!--                            </div>-->
               <field
+                invisible="carbon_in_is_manual == True"
                 name="carbon_in_fallback_reference"
                 widget="reference"
-                attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
               />
-
               <field
+                invisible="carbon_in_is_manual == False"
                 name="carbon_in_use_distribution"
-                attrs="{'invisible': [('carbon_in_is_manual', '=', False)]}"
               />
               <field
+                invisible="carbon_in_is_manual == False or carbon_in_use_distribution == True"
                 name="carbon_in_factor_id"
-                attrs="{
-                                'invisible': ['|', ('carbon_in_is_manual', '=', False), ('carbon_in_use_distribution', '=', True)],
-                                'required': [('carbon_in_is_manual', '=', True), ('carbon_in_use_distribution', '=', False)],
-                            }"
+                required="carbon_in_is_manual == True and carbon_in_use_distribution == False"
               />
-
-              <field name="model_name" invisible="1" />
+              <field invisible="1" name="model_name" />
               <field
-                name="carbon_in_distribution_line_ids"
-                force_save="1"
-                attrs="{
-                                        'invisible': ['|', ('carbon_in_is_manual', '!=', True), ('carbon_in_use_distribution', '!=', True)],
-                                        'required': [('carbon_in_use_distribution', '=', True)],
-                                   }"
-                context="{'default_carbon_type': 'in', 'default_res_model': model_name, 'default_res_id': id}"
                 colspan="2"
+                context="{'default_carbon_type': 'in', 'default_res_model': model_name, 'default_res_id': id}"
+                force_save="1"
+                invisible="carbon_in_is_manual != True or carbon_in_use_distribution != True"
+                name="carbon_in_distribution_line_ids"
                 nolabel="1"
+                required="carbon_in_use_distribution == True"
               >
                 <tree editable="bottom">
                   <field name="factor_id" />
                   <field name="percentage" widget="percentage" />
-                  <field name="carbon_type" invisible="1" />
-                  <field name="res_model" invisible="1" force_save="1" />
+                  <field invisible="1" name="carbon_type" />
+                  <field force_save="1" invisible="1" name="res_model" />
                 </tree>
               </field>
             </group>
