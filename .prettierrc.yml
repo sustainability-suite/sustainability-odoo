@@ -1,8 +1,9 @@
 # Defaults for all prettier-supported languages.
 # Prettier will complete this with settings from .editorconfig file.
 bracketSpacing: false
-printWidth: 88
+printWidth: 160
 proseWrap: always
 semi: true
+tabWidth: 4
 trailingComma: "es5"
 xmlWhitespaceSensitivity: "ignore"

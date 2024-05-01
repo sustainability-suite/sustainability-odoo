@@ -1,322 +1,273 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <data>
-    <record id="carbon_factor_tree" model="ir.ui.view">
-      <field name="name">carbon.factor.tree</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field column_invisible="1" name="carbon_currency_id" />
-          <field column_invisible="1" name="carbon_compute_method" />
-          <field column_invisible="1" name="recent_value_id" />
-          <field name="display_name" string="Name" />
-          <field
-            invisible="recent_value_id == False or carbon_compute_method == False"
-            name="carbon_value"
-          />
-          <field
-            invisible="recent_value_id == False or carbon_compute_method == False"
-            name="carbon_currency_label"
-            string=" "
-          />
-          <field
-            invisible="recent_value_id == False or carbon_compute_method == False"
-            name="unit_label"
-          />
-          <field name="carbon_date" />
-          <field name="carbon_compute_method" optional="hide" />
-          <field name="uncertainty_percentage" optional="show" widget="percentage" />
-          <field name="carbon_source" optional="show" />
-        </tree>
-      </field>
-    </record>
-    <record id="carbon_factor_filter" model="ir.ui.view">
-      <field name="name">carbon.factor.select</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <search string="Search Emission Factor">
-          <field name="display_name" string="Name" />
-          <separator />
-          <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
-        </search>
-      </field>
-    </record>
-    <record id="carbon_factor_form" model="ir.ui.view">
-      <field name="name">carbon.factor.form</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <form>
-          <field invisible="1" name="carbon_currency_id" />
-          <field invisible="1" name="recent_value_id" />
-          <field invisible="1" name="has_invalid_value" />
-          <field invisible="1" name="active" />
-          <sheet>
-            <div class="oe_button_box" name="button_box">
-              <button
-                class="oe_stat_button"
-                icon="fa-bars"
-                name="action_see_account_move_ids"
-                type="object"
-              >
-                <div class="o_field_widget o_stat_info">
-                  <span class="o_stat_value" invisible="account_move_qty &lt;= 1">
-                    <field name="account_move_qty" nolabel="1" widget="statinfo" />
-                    Posted Entries
-                  </span>
-                  <span class="o_stat_value" invisible="account_move_qty > 1">
-                    <field name="account_move_qty" nolabel="1" widget="statinfo" />
-                    Posted Entry
-                  </span>
-                </div>
-              </button>
-              <button
-                class="oe_stat_button"
-                icon="fa-sitemap"
-                name="action_see_child_ids"
-                type="object"
-              >
-                <div class="o_field_widget o_stat_info">
-                  <span class="o_stat_value" invisible="child_qty &lt;= 1">
-                    <field name="child_qty" nolabel="1" widget="statinfo" />
-                    Children Factors
-                  </span>
-                  <span class="o_stat_value" invisible="child_qty > 1">
-                    <field name="child_qty" nolabel="1" widget="statinfo" />
-                    Child Factor
-                  </span>
-                </div>
-              </button>
-              <button
-                class="oe_stat_button"
-                icon="fa-book"
-                name="action_see_chart_of_account_ids"
-                type="object"
-              >
-                <div class="o_field_widget o_stat_info">
-                  <span class="o_stat_value" invisible="chart_of_account_qty &lt;= 1">
-                    <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
-                    Accounts
-                  </span>
-                  <span class="o_stat_value" invisible="chart_of_account_qty > 1">
-                    <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
-                    Account
-                  </span>
-                </div>
-              </button>
-              <button
-                class="oe_stat_button"
-                icon="fa-th-list"
-                name="action_see_product_ids"
-                type="object"
-              >
-                <div class="o_field_widget o_stat_info">
-                  <span class="o_stat_value" invisible="product_qty &lt;= 1">
-                    <field name="product_qty" nolabel="1" widget="statinfo" />
-                    Products
-                  </span>
-                  <span class="o_stat_value" invisible="product_qty > 1">
-                    <field name="product_qty" nolabel="1" widget="statinfo" />
-                    Product
-                  </span>
-                </div>
-              </button>
-              <button
-                class="oe_stat_button"
-                icon="fa-sort"
-                name="action_see_product_categ_ids"
-                type="object"
-              >
-                <div class="o_field_widget o_stat_info">
-                  <span class="o_stat_value" invisible="product_categ_qty &lt;= 1">
-                    <field name="product_categ_qty" nolabel="1" widget="statinfo" />
-                    Products Categories
-                  </span>
-                  <span class="o_stat_value" invisible="product_categ_qty > 1">
-                    <field name="product_categ_qty" nolabel="1" widget="statinfo" />
-                    Product Category
-                  </span>
-                </div>
-              </button>
-            </div>
-            <widget
-              bg_color="bg-danger"
-              invisible="active == True"
-              name="web_ribbon"
-              title="Archived"
-            />
-            <div class="oe_title">
-              <label for="name" />
-              <h1>
-                <field name="name" placeholder="e.g. Electric Train" />
-              </h1>
-            </div>
-            <group>
-              <field name="parent_id" />
-            </group>
-            <group>
-              <group>
-                <field name="carbon_compute_method" />
-                <field name="uncertainty_percentage" widget="percentage" />
-              </group>
-              <group>
-                <field name="carbon_source_id" />
-                <field name="required_type_ids" widget="many2many_tags" />
-              </group>
-            </group>
-            <notebook invisible="carbon_compute_method == False">
-              <page name="page_values" string="Values">
-                <group>
-                  <field name="ghg_view_mode" widget="boolean_toggle" />
-                </group>
-                <div
-                  class="alert alert-danger col-6"
-                  colspan="2"
-                  invisible="has_invalid_value == False"
-                  role="alert"
-                >
-                  Some values miss a currency or a unit of measure
-                  <br />
-                  Please fix them before using this factor.
-                </div>
-                <field colspan="2" name="value_ids" nolabel="1">
-                  <tree editable="bottom">
-                    <field name="date" />
-                    <field name="type_id" />
-                    <field invisible="1" name="is_carbon_value_computed" />
-                    <field
-                      decoration-it="is_carbon_value_computed"
-                      decoration-muted="is_carbon_value_computed"
-                      force_save="1"
-                      name="carbon_value"
-                      readonly="is_carbon_value_computed == True"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == True"
-                      name="carbon_currency_label"
-                      string=" "
-                    />
-                    <field invisible="1" name="is_ghg_detailed_value" />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="co2_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="ch4_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="n2o_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="sf6_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="hfc_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="pfc_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.ghg_view_mode == False"
-                      decoration-it="is_ghg_detailed_value"
-                      decoration-muted="is_ghg_detailed_value"
-                      force_save="1"
-                      name="other_ghg_value"
-                      readonly="is_carbon_value_computed != True and carbon_value != 0"
-                    />
-                    <field
-                      column_invisible="parent.carbon_compute_method != 'physical'"
-                      name="carbon_uom_id"
-                      required="parent.carbon_compute_method == 'physical'"
-                    />
-                    <field
-                      column_invisible="parent.carbon_compute_method != 'monetary'"
-                      name="carbon_monetary_currency_id"
-                      required="parent.carbon_compute_method == 'monetary'"
-                    />
-                    <field name="comment" />
-                    <button
-                      confirm="Do you really want to erase the precision value?"
-                      icon="fa-solid fa-eraser"
-                      invisible="parent.ghg_view_mode == False"
-                      name="action_reset_precision_value"
-                      title="Erase the precision value"
-                      type="object"
-                    />
-                  </tree>
-                </field>
-              </page>
-            </notebook>
-          </sheet>
-          <div class="oe_chatter">
-            <field name="message_follower_ids" />
-            <field name="activity_ids" />
-            <field name="message_ids" />
-          </div>
-        </form>
-      </field>
-    </record>
-    <record id="carbon_factor_view_graph" model="ir.ui.view">
-      <field name="name">carbon.factor.graph.view</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <graph sample="1" string="Emission Factor Analysis">
-          <field name="display_name" />
-          <field name="carbon_value" type="measure" />
-          <field invisible="1" name="uncertainty_percentage" />
-        </graph>
-      </field>
-    </record>
-    <record id="carbon_factor_view_pivot" model="ir.ui.view">
-      <field name="name">carbon.factor.pivot.view</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <pivot sample="1" string="Emission Factor Analysis">
-          <field name="display_name" type="col" />
-          <field interval="month" name="carbon_date" type="row" />
-          <field name="carbon_value" type="measure" />
-        </pivot>
-      </field>
-    </record>
-    <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
-      <field name="name">Emission Factors Analysis</field>
-      <field name="res_model">carbon.factor</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">graph,pivot</field>
-    </record>
-    <record id="carbon_factor_action" model="ir.actions.act_window">
-      <field name="name">Emission Factors</field>
-      <field name="res_model">carbon.factor</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-  </data>
+    <data>
+        <record id="carbon_factor_tree" model="ir.ui.view">
+            <field name="name">carbon.factor.tree</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field column_invisible="1" name="carbon_currency_id" />
+                    <field column_invisible="1" name="carbon_compute_method" />
+                    <field column_invisible="1" name="recent_value_id" />
+                    <field name="display_name" string="Name" />
+                    <field invisible="recent_value_id == False or carbon_compute_method == False" name="carbon_value" />
+                    <field invisible="recent_value_id == False or carbon_compute_method == False" name="carbon_currency_label" string=" " />
+                    <field invisible="recent_value_id == False or carbon_compute_method == False" name="unit_label" />
+                    <field name="carbon_date" />
+                    <field name="carbon_compute_method" optional="hide" />
+                    <field name="uncertainty_percentage" optional="show" widget="percentage" />
+                    <field name="carbon_source" optional="show" />
+                </tree>
+            </field>
+        </record>
+        <record id="carbon_factor_filter" model="ir.ui.view">
+            <field name="name">carbon.factor.select</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <search string="Search Emission Factor">
+                    <field name="display_name" string="Name" />
+                    <separator />
+                    <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
+                </search>
+            </field>
+        </record>
+        <record id="carbon_factor_form" model="ir.ui.view">
+            <field name="name">carbon.factor.form</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="carbon_currency_id" />
+                    <field invisible="1" name="recent_value_id" />
+                    <field invisible="1" name="has_invalid_value" />
+                    <field invisible="1" name="active" />
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-bars" name="action_see_account_move_ids" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" invisible="account_move_qty &lt;= 1">
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
+                                        Posted Entries
+                                    </span>
+                                    <span class="o_stat_value" invisible="account_move_qty > 1">
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
+                                        Posted Entry
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-sitemap" name="action_see_child_ids" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" invisible="child_qty &lt;= 1">
+                                        <field name="child_qty" nolabel="1" widget="statinfo" />
+                                        Children Factors
+                                    </span>
+                                    <span class="o_stat_value" invisible="child_qty > 1">
+                                        <field name="child_qty" nolabel="1" widget="statinfo" />
+                                        Child Factor
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-book" name="action_see_chart_of_account_ids" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" invisible="chart_of_account_qty &lt;= 1">
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
+                                        Accounts
+                                    </span>
+                                    <span class="o_stat_value" invisible="chart_of_account_qty > 1">
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
+                                        Account
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-th-list" name="action_see_product_ids" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" invisible="product_qty &lt;= 1">
+                                        <field name="product_qty" nolabel="1" widget="statinfo" />
+                                        Products
+                                    </span>
+                                    <span class="o_stat_value" invisible="product_qty > 1">
+                                        <field name="product_qty" nolabel="1" widget="statinfo" />
+                                        Product
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-sort" name="action_see_product_categ_ids" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" invisible="product_categ_qty &lt;= 1">
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
+                                        Products Categories
+                                    </span>
+                                    <span class="o_stat_value" invisible="product_categ_qty > 1">
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
+                                        Product Category
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget bg_color="bg-danger" invisible="active == True" name="web_ribbon" title="Archived" />
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field name="name" placeholder="e.g. Electric Train" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="parent_id" />
+                        </group>
+                        <group>
+                            <group>
+                                <field name="carbon_compute_method" />
+                                <field name="uncertainty_percentage" widget="percentage" />
+                            </group>
+                            <group>
+                                <field name="carbon_source_id" />
+                                <field name="required_type_ids" widget="many2many_tags" />
+                            </group>
+                        </group>
+                        <notebook invisible="carbon_compute_method == False">
+                            <page name="page_values" string="Values">
+                                <group>
+                                    <field name="ghg_view_mode" widget="boolean_toggle" />
+                                </group>
+                                <div class="alert alert-danger col-6" colspan="2" invisible="has_invalid_value == False" role="alert">
+                                    Some values miss a currency or a unit of measure
+                                    <br />
+                                    Please fix them before using this factor.
+                                </div>
+                                <field colspan="2" name="value_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="date" />
+                                        <field name="type_id" />
+                                        <field invisible="1" name="is_carbon_value_computed" />
+                                        <field
+                                            decoration-it="is_carbon_value_computed"
+                                            decoration-muted="is_carbon_value_computed"
+                                            force_save="1"
+                                            name="carbon_value"
+                                            readonly="is_carbon_value_computed == True"
+                                        />
+                                        <field column_invisible="parent.ghg_view_mode == True" name="carbon_currency_label" string=" " />
+                                        <field invisible="1" name="is_ghg_detailed_value" />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="co2_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="ch4_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="n2o_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="sf6_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="hfc_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="pfc_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.ghg_view_mode == False"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
+                                            name="other_ghg_value"
+                                            readonly="is_carbon_value_computed != True and carbon_value != 0"
+                                        />
+                                        <field
+                                            column_invisible="parent.carbon_compute_method != 'physical'"
+                                            name="carbon_uom_id"
+                                            required="parent.carbon_compute_method == 'physical'"
+                                        />
+                                        <field
+                                            column_invisible="parent.carbon_compute_method != 'monetary'"
+                                            name="carbon_monetary_currency_id"
+                                            required="parent.carbon_compute_method == 'monetary'"
+                                        />
+                                        <field name="comment" />
+                                        <button
+                                            confirm="Do you really want to erase the precision value?"
+                                            icon="fa-solid fa-eraser"
+                                            invisible="parent.ghg_view_mode == False"
+                                            name="action_reset_precision_value"
+                                            title="Erase the precision value"
+                                            type="object"
+                                        />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="carbon_factor_view_graph" model="ir.ui.view">
+            <field name="name">carbon.factor.graph.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <graph sample="1" string="Emission Factor Analysis">
+                    <field name="display_name" />
+                    <field name="carbon_value" type="measure" />
+                    <field invisible="1" name="uncertainty_percentage" />
+                </graph>
+            </field>
+        </record>
+        <record id="carbon_factor_view_pivot" model="ir.ui.view">
+            <field name="name">carbon.factor.pivot.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <pivot sample="1" string="Emission Factor Analysis">
+                    <field name="display_name" type="col" />
+                    <field interval="month" name="carbon_date" type="row" />
+                    <field name="carbon_value" type="measure" />
+                </pivot>
+            </field>
+        </record>
+        <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
+            <field name="name">Emission Factors Analysis</field>
+            <field name="res_model">carbon.factor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">graph,pivot</field>
+        </record>
+        <record id="carbon_factor_action" model="ir.actions.act_window">
+            <field name="name">Emission Factors</field>
+            <field name="res_model">carbon.factor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
 </odoo>
