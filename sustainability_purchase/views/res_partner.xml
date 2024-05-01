@@ -11,7 +11,6 @@
           expr="//page[@name='sales_purchases']//group[@name='container_row_2']"
           position="after"
         >
-          <!--                    <widget name="carbon_settings_panel" types="in" options="{'in': {'title': 'Purchases'}} "/>-->
 
           <group string="CO2 Settings" name="group_carbon_settings">
             <field name="carbon_allowed_factor_ids" invisible="1" />
