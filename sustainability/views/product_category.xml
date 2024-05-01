@@ -7,7 +7,6 @@
             <field name="inherit_id" ref="account.view_category_property_form" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='account_property']" position="after">
-                    <!--                    <widget name="carbon_settings_panel" types="in,out" options="{'in': {'title': 'Purchases'}, 'out': {'title': 'Sales'}} "/>-->
                     <group name="group_carbon_settings" string="CO2 Settings">
                         <field invisible="1" name="carbon_allowed_factor_ids" />
                         <group string="Purchases">

@@ -38,12 +38,6 @@
         "data/menu_items.xml",
         "data/res_currency.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "sustainability/static/src/css/*.scss",
-            "sustainability/static/src/owl/**/*",
-        ],
-    },
     "images": [
         "static/description/co2_base_green.png",
     ],
