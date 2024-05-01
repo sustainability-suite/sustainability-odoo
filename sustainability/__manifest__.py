@@ -47,7 +47,7 @@
     "images": [
         "static/description/co2_base_green.png",
     ],
-    "installable": True,
+    "installable": False,
     "application": True,
     "auto_install": False,
     "license": "AGPL-3",

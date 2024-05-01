@@ -10,7 +10,7 @@
     "website": "https://www.open-net.ch",
     "depends": ["hr_expense", "sustainability"],
     "data": ["views/hr_expense.xml", "views/hr_expense_sheet.xml"],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "license": "AGPL-3",
 }

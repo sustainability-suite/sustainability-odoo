@@ -6,7 +6,7 @@
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
     "depends": ["account_asset_management", "sustainability"],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "license": "AGPL-3",
 }

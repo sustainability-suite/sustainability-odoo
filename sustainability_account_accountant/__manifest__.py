@@ -2,7 +2,7 @@
     "name": "Sustainability Accounting (enterprise)",
     "category": "Accounting/Sustainability",
     "version": "16.0.1.0.0",
-    "installable": True,
+    "installable": False,
     "auto_install": True,
     "application": False,
     "license": "AGPL-3",
