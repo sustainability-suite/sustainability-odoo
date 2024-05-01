@@ -7,7 +7,6 @@
             <field name="inherit_id" ref="product.product_template_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='general_information']//group[1]" position="after">
-                    <!--                    <widget name="carbon_settings_panel" types="in,out" options="{'in': {'title': 'Purchases'}, 'out': {'title': 'Sales'}} "/>-->
                     <group name="group_carbon_settings" string="CO2 Settings">
                         <field invisible="1" name="carbon_allowed_factor_ids" />
                         <group string="Purchases">
