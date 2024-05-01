@@ -92,9 +92,6 @@ class CarbonFactor(models.Model):
 
     # --------------------------------------------
 
-    def name_get(self) -> list[tuple[int, str]]:
-        return [(factor.id, factor.display_name) for factor in self]
-
     def _get_record_description(self) -> str:
         self.ensure_one()
         return self._description + (f": {self.name}" if hasattr(self, "name") else "")

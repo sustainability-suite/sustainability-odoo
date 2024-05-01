@@ -46,7 +46,7 @@
           icon="fa-question-circle"
           title="See CO2 value origin"
         />
-        <field name="carbon_currency_id" invisible="1" />
+        <field name="carbon_currency_id" column_invisible="1" />
       </xpath>
     </field>
   </record>

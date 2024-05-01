@@ -64,7 +64,7 @@
 
           <field name="comment" optional="hide" />
 
-          <field name="move_company_currency_id" invisible="1" />
+          <field name="move_company_currency_id" column_invisible="1" />
         </tree>
       </field>
     </record>
