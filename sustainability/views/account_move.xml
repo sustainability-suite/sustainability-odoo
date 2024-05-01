@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <data>
     <record id="view_move_form" model="ir.ui.view">
@@ -10,127 +10,123 @@
           expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']"
           position="after"
         >
-          <field name="carbon_currency_id" invisible="1" />
-          <field name="carbon_is_locked" invisible="1" />
-          <field name="carbon_origin_json" invisible="1" force_save="1" />
-          <field name="carbon_debit" invisible="1" />
-          <field name="carbon_credit" invisible="1" />
-          <field name="carbon_balance" invisible="1" />
-          <field name="debit" invisible="1" />
-          <field name="credit" invisible="1" />
-          <field name="balance" invisible="1" />
-
+          <field invisible="1" name="carbon_currency_id" />
+          <field invisible="1" name="carbon_is_locked" />
+          <field force_save="1" invisible="1" name="carbon_origin_json" />
+          <field invisible="1" name="carbon_debit" />
+          <field invisible="1" name="carbon_credit" />
+          <field invisible="1" name="carbon_balance" />
+          <field invisible="1" name="debit" />
+          <field invisible="1" name="credit" />
+          <field invisible="1" name="balance" />
           <field
-            name="carbon_debt"
             digits="[13,2]"
-            attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
             force_save="1"
+            name="carbon_debt"
+            readonly="carbon_is_locked == True"
           />
           <button
+            class="opacity-25"
+            icon="fa-unlock"
+            invisible="carbon_is_locked == True"
+            name="action_switch_locked"
             title="Unlock co2"
             type="object"
-            name="action_switch_locked"
-            attrs="{'invisible': [('carbon_is_locked', '=', True)]}"
-            icon="fa-unlock"
-            class="opacity-25"
           />
           <button
+            icon="fa-lock"
+            invisible="carbon_is_locked == False"
+            name="action_switch_locked"
             title="Lock co2"
             type="object"
-            name="action_switch_locked"
-            attrs="{'invisible': [('carbon_is_locked', '=', False)]}"
-            icon="fa-lock"
           />
-
           <field
+            force_save="1"
             name="carbon_data_uncertainty_percentage"
-            widget="percentage"
-            attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
-            force_save="1"
             optional="show"
+            readonly="carbon_is_locked == True"
+            widget="percentage"
           />
           <field
-            name="carbon_uncertainty_value"
             digits="[13,2]"
-            attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
             force_save="1"
+            name="carbon_uncertainty_value"
             optional="show"
+            readonly="carbon_is_locked == True"
           />
           <button
-            type="object"
-            name="action_see_carbon_origin"
             icon="fa-question-circle"
+            name="action_see_carbon_origin"
             title="See CO2 value origin"
+            type="object"
           />
         </xpath>
         <xpath expr="//field[@name='amount_residual']" position="after">
-          <field name="carbon_balance" digits="[13,2]" />
-          <field name="carbon_uncertainty_value" digits="[13,2]" />
-          <field name="carbon_currency_id" invisible="1" />
+          <field digits="[13,2]" name="carbon_balance" />
+          <field digits="[13,2]" name="carbon_uncertainty_value" />
+          <field invisible="1" name="carbon_currency_id" />
         </xpath>
         <xpath
           expr="//field[@name='line_ids']//tree//field[@name='credit']"
           position="after"
         >
           <field
+            digits="[13,2]"
             name="carbon_debt"
             optional="hide"
             sum="Total CO2 Debt"
-            digits="[13,2]"
           />
           <field
+            digits="[13,2]"
             name="carbon_debit"
             optional="hide"
             sum="Total CO2 Debit"
-            digits="[13,2]"
           />
           <field
+            digits="[13,2]"
             name="carbon_credit"
             optional="hide"
             sum="Total CO2 Credit"
-            digits="[13,2]"
           />
           <field
+            digits="[13,2]"
             name="carbon_balance"
             optional="show"
             sum="Total CO2 Balance"
-            digits="[13,2]"
           />
           <button
-            type="object"
-            name="action_see_carbon_origin"
             icon="fa-question-circle"
+            name="action_see_carbon_origin"
             title="See CO2 value origin"
+            type="object"
           />
-          <field name="carbon_origin_json" invisible="1" force_save="1" />
-          <field name="carbon_currency_id" invisible="1" />
+          <field force_save="1" invisible="1" name="carbon_origin_json" />
+          <field invisible="1" name="carbon_currency_id" />
         </xpath>
         <xpath
           expr="//field[@name='line_ids']//form//field[@name='credit']"
           position="after"
         >
-          <field name="carbon_debit" sum="Total CO2 Debit" digits="[13,2]" />
-          <field name="carbon_credit" sum="Total CO2 Credit" digits="[13,2]" />
-          <field name="carbon_debt" invisible="1" />
-          <field name="carbon_balance" invisible="1" />
-          <field name="carbon_origin_json" invisible="1" force_save="1" />
-          <field name="carbon_currency_id" invisible="1" />
+          <field digits="[13,2]" name="carbon_debit" sum="Total CO2 Debit" />
+          <field digits="[13,2]" name="carbon_credit" sum="Total CO2 Credit" />
+          <field invisible="1" name="carbon_debt" />
+          <field invisible="1" name="carbon_balance" />
+          <field force_save="1" invisible="1" name="carbon_origin_json" />
+          <field invisible="1" name="carbon_currency_id" />
         </xpath>
       </field>
     </record>
-
     <record id="view_move_tree" model="ir.ui.view">
       <field name="name">view_move_tree</field>
       <field name="model">account.move</field>
       <field name="inherit_id" ref="account.view_move_tree" />
       <field name="arch" type="xml">
         <xpath expr="//tree" position="inside">
-          <field name="carbon_balance" optional="show" digits="[13,2]" />
-          <field name="carbon_currency_id" invisible="1" />
+          <field digits="[13,2]" name="carbon_balance" optional="show" />
+          <field column_invisible="1" name="carbon_currency_id" />
         </xpath>
       </field>
     </record>
-
     <record id="action_recompute_carbon_account_move" model="ir.actions.server">
       <field name="name">Re-compute CO2</field>
       <field name="model_id" ref="account.model_account_move" />
