@@ -13,28 +13,28 @@
                         <group string="Purchases">
                             <label for="carbon_in_is_manual" string="Mode" />
                             <div class="gap-1 d-inline-flex ml-3" style="font-size: 1.15rem;">
-                                <div class="opacity-50 mr-2" invisible="carbon_in_is_manual != True">Auto</div>
-                                <div invisible="carbon_in_is_manual == True" style="font-weight: bold;">Auto</div>
+                                <div class="opacity-50 mr-2" invisible="not carbon_in_is_manual">Auto</div>
+                                <div invisible="carbon_in_is_manual" style="font-weight: bold;">Auto</div>
                                 <field class="" name="carbon_in_is_manual" nolabel="1" style="margin-left: 8px;" widget="boolean_toggle" />
                                 <field invisible="1" name="carbon_in_mode" />
-                                <div class="opacity-50" invisible="carbon_in_is_manual == True">Manual</div>
-                                <div invisible="carbon_in_is_manual != True" style="font-weight: bold;">Manual</div>
+                                <div class="opacity-50" invisible="carbon_in_is_manual">Manual</div>
+                                <div invisible="not carbon_in_is_manual" style="font-weight: bold;">Manual</div>
                             </div>
-                            <field invisible="carbon_in_is_manual == True" name="carbon_in_fallback_reference" widget="reference" />
-                            <field invisible="carbon_in_is_manual == False" name="carbon_in_factor_id" required="carbon_in_is_manual == True" />
+                            <field invisible="carbon_in_is_manual" name="carbon_in_fallback_reference" widget="reference" />
+                            <field invisible="not carbon_in_is_manual" name="carbon_in_factor_id" required="carbon_in_is_manual" />
                         </group>
                         <group string="Sales">
                             <label for="carbon_out_is_manual" string="Mode" />
                             <div class="gap-1 d-inline-flex " style="font-size: 1.15rem;">
-                                <div class="opacity-50 mr-2" invisible="carbon_out_is_manual != True">Auto</div>
-                                <div invisible="carbon_out_is_manual == True" style="font-weight: bold;">Auto</div>
+                                <div class="opacity-50 mr-2" invisible="not carbon_out_is_manual">Auto</div>
+                                <div invisible="carbon_out_is_manual" style="font-weight: bold;">Auto</div>
                                 <field class="" name="carbon_out_is_manual" nolabel="1" style="margin-left: 8px;" widget="boolean_toggle" />
                                 <field invisible="1" name="carbon_out_mode" />
-                                <div class="opacity-50" invisible="carbon_out_is_manual == True">Manual</div>
-                                <div invisible="carbon_out_is_manual != True" style="font-weight: bold;">Manual</div>
+                                <div class="opacity-50" invisible="carbon_out_is_manual">Manual</div>
+                                <div invisible="not carbon_out_is_manual" style="font-weight: bold;">Manual</div>
                             </div>
-                            <field invisible="carbon_out_is_manual == True" name="carbon_out_fallback_reference" widget="reference" />
-                            <field invisible="carbon_out_is_manual == False" name="carbon_out_factor_id" required="carbon_out_is_manual == True" />
+                            <field invisible="carbon_out_is_manual" name="carbon_out_fallback_reference" widget="reference" />
+                            <field invisible="not carbon_out_is_manual" name="carbon_out_factor_id" required="carbon_out_is_manual" />
                         </group>
                     </group>
                 </xpath>

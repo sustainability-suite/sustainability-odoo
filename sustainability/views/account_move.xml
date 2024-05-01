@@ -16,18 +16,11 @@
                     <field invisible="1" name="debit" />
                     <field invisible="1" name="credit" />
                     <field invisible="1" name="balance" />
-                    <field digits="[13,2]" force_save="1" name="carbon_debt" readonly="carbon_is_locked == True" />
-                    <button
-                        class="opacity-25"
-                        icon="fa-unlock"
-                        invisible="carbon_is_locked == True"
-                        name="action_switch_locked"
-                        title="Unlock co2"
-                        type="object"
-                    />
-                    <button icon="fa-lock" invisible="carbon_is_locked == False" name="action_switch_locked" title="Lock co2" type="object" />
-                    <field force_save="1" name="carbon_data_uncertainty_percentage" optional="show" readonly="carbon_is_locked == True" widget="percentage" />
-                    <field digits="[13,2]" force_save="1" name="carbon_uncertainty_value" optional="show" readonly="carbon_is_locked == True" />
+                    <field digits="[13,2]" force_save="1" name="carbon_debt" readonly="carbon_is_locked" />
+                    <button class="opacity-25" icon="fa-unlock" invisible="carbon_is_locked" name="action_switch_locked" title="Unlock co2" type="object" />
+                    <button icon="fa-lock" invisible="not carbon_is_locked" name="action_switch_locked" title="Lock co2" type="object" />
+                    <field force_save="1" name="carbon_data_uncertainty_percentage" optional="show" readonly="carbon_is_locked" widget="percentage" />
+                    <field digits="[13,2]" force_save="1" name="carbon_uncertainty_value" optional="show" readonly="carbon_is_locked" />
                     <button icon="fa-question-circle" name="action_see_carbon_origin" title="See CO2 value origin" type="object" />
                 </xpath>
                 <xpath expr="//field[@name='amount_residual']" position="after">
