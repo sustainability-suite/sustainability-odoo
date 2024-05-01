@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <data>
     <record id="sustainability_scenario_tree" model="ir.ui.view">
@@ -12,78 +12,64 @@
         </tree>
       </field>
     </record>
-
     <record id="sustainability_scenario_filter" model="ir.ui.view">
       <field name="name">sustainability.scenario.select</field>
       <field name="model">sustainability.scenario</field>
       <field name="arch" type="xml">
         <search string="Search Scenarios">
           <separator />
-          <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+          <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
         </search>
       </field>
     </record>
-
     <record id="sustainability_scenario_form" model="ir.ui.view">
       <field name="name">sustainability.scenario.form</field>
       <field name="model">sustainability.scenario</field>
       <field name="arch" type="xml">
         <form>
-          <field name="active" invisible="1" />
+          <field invisible="1" name="active" />
           <sheet>
             <div class="oe_button_box" name="button_box">
               <button
-                type="object"
-                name="action_see_action_plans"
                 class="oe_stat_button"
                 icon="fa-tasks"
+                name="action_see_action_plans"
+                type="object"
               >
                 <div class="o_field_widget o_stat_info">
-                  <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_plan_qty', '&lt;=', 1)]}"
-                  >
-                    <field name="action_plan_qty" widget="statinfo" nolabel="1" />
+                  <span class="o_stat_value" invisible="action_plan_qty &lt;= 1">
+                    <field name="action_plan_qty" nolabel="1" widget="statinfo" />
                     Action Plans
                   </span>
-                  <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_plan_qty', '&gt;', 1)]}"
-                  >
-                    <field name="action_plan_qty" widget="statinfo" nolabel="1" />
+                  <span class="o_stat_value" invisible="action_plan_qty > 1">
+                    <field name="action_plan_qty" nolabel="1" widget="statinfo" />
                     Action Plan
                   </span>
                 </div>
               </button>
               <button
-                type="object"
-                name="action_see_actions"
                 class="oe_stat_button"
                 icon="fa-leaf"
+                name="action_see_actions"
+                type="object"
               >
                 <div class="o_field_widget o_stat_info">
-                  <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_qty', '&lt;=', 1)]}"
-                  >
-                    <field name="action_qty" widget="statinfo" nolabel="1" />
+                  <span class="o_stat_value" invisible="action_qty &lt;= 1">
+                    <field name="action_qty" nolabel="1" widget="statinfo" />
                     Actions
                   </span>
-                  <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_qty', '&gt;', 1)]}"
-                  >
-                    <field name="action_qty" widget="statinfo" nolabel="1" />
+                  <span class="o_stat_value" invisible="action_qty > 1">
+                    <field name="action_qty" nolabel="1" widget="statinfo" />
                     Action
                   </span>
                 </div>
               </button>
             </div>
             <widget
+              bg_color="bg-danger"
+              invisible="active == True"
               name="web_ribbon"
               title="Archived"
-              bg_color="bg-danger"
-              attrs="{'invisible': [('active', '=', True)]}"
             />
             <div class="oe_title">
               <label for="name" />
@@ -96,8 +82,8 @@
               <field name="end_date" />
             </group>
             <notebook>
-              <page string="Action Plans" name="page_action_plans">
-                <field name="action_plan_ids" colspan="2" nolabel="1">
+              <page name="page_action_plans" string="Action Plans">
+                <field colspan="2" name="action_plan_ids" nolabel="1">
                   <tree editable="bottom" />
                 </field>
               </page>
@@ -111,7 +97,6 @@
         </form>
       </field>
     </record>
-
     <record id="sustainability_scenario_window_action" model="ir.actions.act_window">
       <field name="name">Scenarios</field>
       <field name="res_model">sustainability.scenario</field>
