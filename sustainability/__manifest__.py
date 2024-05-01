@@ -52,4 +52,5 @@
     "auto_install": False,
     "license": "AGPL-3",
     "sequence": 1,
+    "pre_init_hook": "migrate_ir_model_data",
 }
