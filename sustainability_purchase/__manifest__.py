@@ -1,6 +1,6 @@
 {
     "name": "Sustainability Purchase",
-    "version": "16.0.1.3.0",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Gautier Casabona",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
