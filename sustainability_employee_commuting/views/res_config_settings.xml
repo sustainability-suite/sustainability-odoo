@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <record id="res_config_settings_view_form" model="ir.ui.view">
-    <field name="name">res.config.settings.view.form.inherit.sustainability.commuting</field>
-    <field name="model">res.config.settings</field>
-    <field name="inherit_id" ref="sustainability.res_config_settings_view_form" />
-    <field name="arch" type="xml">
-      <xpath expr="//app[@name='sustainability']/block[1]" position="after">
-        <block title="Employee Commuting">
-            <setting string="Emission factor" help="Emission factor node applicable to employee commuting">
-                <field name="employee_commuting_carbon_factor_id" placeholder="Pick a emission factor" options="{'no_create': True}" />
-            </setting>
-            <setting string="Emission journal" help="Emission journal applicable to employee commuting">
-                <field name="employee_commuting_journal_id" placeholder="Pick a journal" options="{'no_create': True}" />
-            </setting>
-            <setting string="Emission account" help="Emission account applicable to employee commuting">
-                <field name="employee_commuting_account_id" placeholder="Pick an account" options="{'no_create': True}" />
-            </setting>
-            <setting string="Activate automatic computation" help="Automatically compute employee commuting's CO2e every month">
-                <field name="employee_commuting_carbon_cronjob_active" />
-            </setting>
-        </block>
-      </xpath>
-    </field>
-  </record>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sustainability.commuting</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sustainability.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='sustainability']/block[1]" position="after">
+                <block title="Employee Commuting">
+                    <setting string="Emission factor" help="Emission factor node applicable to employee commuting">
+                        <field name="employee_commuting_carbon_factor_id" placeholder="Pick a emission factor" options="{'no_create': True}" />
+                    </setting>
+                    <setting string="Emission journal" help="Emission journal applicable to employee commuting">
+                        <field name="employee_commuting_journal_id" placeholder="Pick a journal" options="{'no_create': True}" />
+                    </setting>
+                    <setting string="Emission account" help="Emission account applicable to employee commuting">
+                        <field name="employee_commuting_account_id" placeholder="Pick an account" options="{'no_create': True}" />
+                    </setting>
+                    <setting string="Activate automatic computation" help="Automatically compute employee commuting's CO2e every month">
+                        <field name="employee_commuting_carbon_cronjob_active" />
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
 </odoo>
