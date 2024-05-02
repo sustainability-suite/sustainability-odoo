@@ -37,7 +37,7 @@ class HrEmployee(models.Model):
             "debit": 0,
             "credit": 0,
             "carbon_is_locked": True,
-            #TODO: discuss partner logic with BCH
+            # TODO: discuss partner logic with BCH
             "partner_id": self.user_partner_id.id or self.address_id.id or False,
             "carbon_origin_json": {"mode": "auto", "details": carbon_details},
         }
