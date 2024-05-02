@@ -2,7 +2,7 @@
 
 {
     "name": "CO2 Employee Commuting",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Dehlya Herbelin",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
@@ -24,9 +24,8 @@
     "images": [
         "static/description/co2_base_green.png",
     ],
-    "installable": False,
+    "installable": True,
     "application": False,
     "auto_install": False,
     "license": "AGPL-3",
-    "sequence": 1,
 }
