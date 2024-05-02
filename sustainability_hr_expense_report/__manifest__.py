@@ -4,7 +4,7 @@
 {
     "name": "CO2 : Expense Reports ",
     "summary": "Provide CO2 accounting data for expense reports",
-    "version": "16.0.0.1.0",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Dehlya Herbelin",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",

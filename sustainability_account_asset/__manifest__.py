@@ -1,7 +1,7 @@
 {
     "name": "Open Net Productivity: Carbon for assets ",
     "summary": "Glue module to make Sustainability module compatible with account_asset from Odoo",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Gautier Casabona",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
