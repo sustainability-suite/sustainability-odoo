@@ -27,7 +27,7 @@
         "views/carbon_factor_type.xml",
         "views/product_category.xml",
         "views/res_country.xml",
-        # "views/res_config_settings.xml",
+        "views/res_config_settings.xml",
         "views/sustainability_scenario.xml",
         "views/sustainability_action_plan.xml",
         "views/sustainability_action.xml",
