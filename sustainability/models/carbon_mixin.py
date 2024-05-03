@@ -334,7 +334,6 @@ class CarbonMixin(models.AbstractModel):
             return
         lines_vals_list = []
         self = self.with_context(auto_carbon_distribution=True)
-
         for record in self:
             for carbon_type in carbon_types:
                 if (
@@ -342,12 +341,7 @@ class CarbonMixin(models.AbstractModel):
                     and not record[f"carbon_{carbon_type}_use_distribution"]
                 ):
                     if factor := record[f"carbon_{carbon_type}_factor_id"]:
-                        # Note by GCA: I don't know why we have to filter distribution lines, but there is a bug:
-                        # If we don't filter lines, they all get deleted (in & out), whatever the carbon type
-                        # It seems that the domain in the one2many field is not working as expected...
-                        record[f"carbon_{carbon_type}_distribution_line_ids"].filtered(
-                            lambda x: x.carbon_type == carbon_type
-                        ).unlink()
+                        record._get_distribution_lines(carbon_type).unlink()
                         lines_vals_list.append(
                             {
                                 "factor_id": factor.id,
@@ -392,6 +386,14 @@ class CarbonMixin(models.AbstractModel):
     #                   HELPERS
     # --------------------------------------------
 
+    # Note by GCA: I don't know why we have to filter distribution lines, but there is a bug:
+    # If we don't filter lines, they all get returned (in & out), whatever the carbon type
+    # It seems that the domain in the one2many field is not working as expected...
+    def _get_distribution_lines(self, carbon_type: str):
+        return self[f"carbon_{carbon_type}_distribution_line_ids"].filtered(
+            lambda x: x.carbon_type == carbon_type
+        )
+
     def has_valid_carbon_value(self, carbon_type: str):
         self.ensure_one()
         return self[
@@ -401,10 +403,7 @@ class CarbonMixin(models.AbstractModel):
     def has_valid_carbon_distribution(self, carbon_type: str):
         self.ensure_one()
         total_percentage = sum(
-            [
-                line.percentage
-                for line in self[f"carbon_{carbon_type}_distribution_line_ids"]
-            ]
+            [line.percentage for line in self._get_distribution_lines(carbon_type)]
         )
         return total_percentage == 1
 
