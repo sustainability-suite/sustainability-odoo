@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-  <data>
-    <record id="view_account_asset_form" model="ir.ui.view">
-      <field name="name">view_account_asset_form</field>
-      <field name="model">account.asset</field>
-      <field name="inherit_id" ref="account_asset.view_account_asset_form" />
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='asset_values']" position="inside">
-          <field
-            name="carbon_debt"
-            widget="monetary"
-            options="{'currency_field': 'carbon_currency_id'}"
-          />
-          <field name="carbon_currency_id" invisible="1" />
-        </xpath>
-      </field>
-    </record>
-  </data>
+    <data>
+        <record id="view_account_asset_form" model="ir.ui.view">
+            <field name="name">view_account_asset_form</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='asset_values']" position="inside">
+                    <field name="carbon_debt" widget="monetary" options="{'currency_field': 'carbon_currency_id'}" />
+                    <field name="carbon_currency_id" invisible="1" />
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
