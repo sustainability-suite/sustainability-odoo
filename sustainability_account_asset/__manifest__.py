@@ -9,7 +9,7 @@
     "data": [
         "views/account_asset.xml",
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
     "application": False,
     "license": "AGPL-3",
