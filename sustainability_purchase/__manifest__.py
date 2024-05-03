@@ -20,10 +20,7 @@
         "views/purchase_order.xml",
         "views/res_partner.xml",
     ],
-    "images": [
-        "static/description/co2_base_green.png",
-    ],
-    "installable": False,
+    "installable": True,
     "application": False,
     "auto_install": False,
     "license": "AGPL-3",
