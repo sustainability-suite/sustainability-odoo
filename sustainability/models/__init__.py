@@ -24,3 +24,5 @@ from . import carbon_factor_type
 from . import sustainability_scenario
 from . import sustainability_action_plan
 from . import sustainability_action
+from . import sustainability_approach
+from . import sustainability_nomenclature

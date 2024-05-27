@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <record id="view_approach_list" model="ir.ui.view">
+      <field name="name">sustainability.approach.list</field>
+      <field name="model">sustainability.approach</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_approach_characterization_list" model="ir.ui.view">
+      <field name="name">sustainability.approach.characterization.list</field>
+      <field name="model">sustainability.approach.characterization</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name" />
+          <field name="approach_id" />
+          <field name="regulatory_nomenclature_category_id" />
+          <field name="is_default" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="approach_window_action" model="ir.actions.act_window">
+      <field name="name">Approaches</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sustainability.approach</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <record id="approach_characterization_window_action" model="ir.actions.act_window">
+      <field name="name">Approach Characterizations</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sustainability.approach.characterization</field>
+      <field name="view_mode">tree</field>
+    </record>
+  </data>
+</odoo>
