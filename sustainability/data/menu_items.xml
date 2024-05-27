@@ -75,7 +75,37 @@
                 />
             </menuitem>
             <menuitem id="menu_sustainability_configuration" name="Configuration" groups="base.group_system" sequence="5">
-                <menuitem id="menu_sustainability_config" name="Settings" groups="base.group_system" sequence="1" action="action_sustainability_config" />
+                <menuitem id="menu_nomenclature" name="Nomenclatures" action="nomenclature_window_action" groups="base.group_user" sequence="1" />
+                <menuitem
+                    id="menu_nomenclature_category"
+                    name="Nomenclature Categories"
+                    action="nomenclature_category_window_action"
+                    groups="base.group_user"
+                    sequence="2"
+                />
+                <menuitem
+                    id="menu_nomenclature_sub_category"
+                    name="Nomenclature Sub Categories"
+                    action="nomenclature_sub_category_window_action"
+                    groups="base.group_user"
+                    sequence="3"
+                />
+                <menuitem
+                    id="menu_nomenclature_reporting"
+                    name="Nomenclature Reporting"
+                    action="nomenclature_reporting_window_action"
+                    groups="base.group_user"
+                    sequence="4"
+                />
+                <menuitem id="menu_approach" name="Approaches" action="approach_window_action" groups="base.group_user" sequence="5" />
+                <menuitem
+                    id="menu_approach_characterization"
+                    name="Approach Characterizations"
+                    action="approach_characterization_window_action"
+                    groups="base.group_user"
+                    sequence="6"
+                />
+                <menuitem id="menu_sustainability_config" name="Settings" groups="base.group_system" action="action_sustainability_config" sequence="7" />
             </menuitem>
         </menuitem>
     </data>
