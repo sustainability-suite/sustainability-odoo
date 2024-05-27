@@ -35,23 +35,7 @@
                     action="sustainability.carbon_factor_type_action"
                 />
             </menuitem>
-            <menuitem id="menu_sustainability_reporting" name="Reporting" groups="base.group_user" sequence="3">
-                <menuitem
-                    id="carbon_factor_graph_menu"
-                    name="Emission Factors"
-                    groups="base.group_user"
-                    sequence="1"
-                    action="sustainability.carbon_factor_action_reporting"
-                />
-                <menuitem
-                    id="carbon_line_origin_graph_menu"
-                    name="Carbon Origins"
-                    groups="base.group_user"
-                    sequence="2"
-                    action="sustainability.carbon_line_origin_action_reporting"
-                />
-            </menuitem>
-            <menuitem id="menu_decarbonisation" groups="base.group_user" name="Decarbonization" sequence="4">
+            <menuitem id="menu_decarbonisation" groups="base.group_user" name="Decarbonization" sequence="3">
                 <menuitem
                     id="sustainability_scenario_menu"
                     name="Scenarios"
@@ -72,6 +56,22 @@
                     sequence="3"
                     groups="base.group_user"
                     action="sustainability.sustainability_action_window_action"
+                />
+            </menuitem>
+            <menuitem id="menu_sustainability_reporting" name="Reporting" groups="base.group_user" sequence="4">
+                <menuitem
+                    id="carbon_factor_graph_menu"
+                    name="Emission Factors"
+                    groups="base.group_user"
+                    sequence="1"
+                    action="sustainability.carbon_factor_action_reporting"
+                />
+                <menuitem
+                    id="carbon_line_origin_graph_menu"
+                    name="Carbon Origins"
+                    groups="base.group_user"
+                    sequence="2"
+                    action="sustainability.carbon_line_origin_action_reporting"
                 />
             </menuitem>
             <menuitem id="menu_sustainability_configuration" name="Configuration" groups="base.group_system" sequence="5">
