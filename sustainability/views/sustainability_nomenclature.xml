@@ -49,8 +49,13 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field name="name" placeholder="e.g. Direct emissions from fixed combustion sources" />
+                            </h1>
+                        </div>
                         <group>
-                            <field name="name" />
                             <field name="description" />
                             <field name="reporting_section" />
                             <field name="category_id" />
@@ -60,6 +65,11 @@
                             <field name="examples" />
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
                 </form>
             </field>
         </record>
@@ -79,21 +89,21 @@
         </record>
 
         <record id="nomenclature_window_action" model="ir.actions.act_window">
-            <field name="name">Nomenclature</field>
+            <field name="name">Nomenclatures</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sustainability.nomenclature</field>
             <field name="view_mode">tree</field>
         </record>
 
         <record id="nomenclature_category_window_action" model="ir.actions.act_window">
-            <field name="name">Nomenclature Category</field>
+            <field name="name">Nomenclature Categories</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sustainability.nomenclature.category</field>
             <field name="view_mode">tree</field>
         </record>
 
         <record id="nomenclature_sub_category_window_action" model="ir.actions.act_window">
-            <field name="name">Nomenclature Sub Category</field>
+            <field name="name">Nomenclature Sub Categories</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sustainability.nomenclature.sub_category</field>
             <field name="view_mode">tree,form</field>
