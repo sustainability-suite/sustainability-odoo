@@ -67,8 +67,8 @@
             <field name="arch" type="xml">
                 <pivot string="Carbon Origins Analysis" sample="1">
                     <field name="move_id" type="col" />
-                    <field name="move_date" interval="month" type="row" />
-                    <field name="signed_value" type="measure" />
+                    <field name="move_date" interval="year" type="row" />
+                    <field name="signed_value" type="measure" widget="integer" />
                 </pivot>
             </field>
         </record>
