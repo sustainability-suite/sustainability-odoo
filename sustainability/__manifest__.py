@@ -31,6 +31,8 @@
         "views/sustainability_scenario.xml",
         "views/sustainability_action_plan.xml",
         "views/sustainability_action.xml",
+        "views/sustainability_approach.xml",
+        "views/sustainability_nomenclature.xml",
         # Reports
         "report/invoice_document.xml",
         # Data
