@@ -162,6 +162,7 @@
     <record id="carbon_factor_28" model="carbon.factor">
         <field name="name">Métro - Ile de France</field>
         <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.2</field>
     </record>
 </odoo>
