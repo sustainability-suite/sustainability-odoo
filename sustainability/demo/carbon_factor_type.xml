@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="carbon_factor_type_1" model="carbon.factor.type">
+        <field name="code">AMONT</field>
+        <field name="name">Amont</field>
+    </record>
+    <record id="carbon_factor_type_2" model="carbon.factor.type">
+        <field name="code">COMBUS</field>
+        <field name="name">Combustion</field>
+    </record>
+    <record id="carbon_factor_type_3" model="carbon.factor.type">
+        <field name="code">PERTE</field>
+        <field name="name">Pertes</field>
+    </record>
+    <record id="carbon_factor_type_4" model="carbon.factor.type">
+        <field name="code">FABRICATION</field>
+        <field name="name">Fabrication</field>
+    </record>
+</odoo>

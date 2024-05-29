@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="carbon_factor_source_1" model="carbon.factor.source">
+        <field name="code">ADEME</field>
+        <field name="name">Ademe - Base Carbone®</field>
+        <field name="author">ADEME</field>
+        <field name="url">https://base-empreinte.ademe.fr/documentation/base-carbone</field>
+    </record>
+    <record id="carbon_factor_source_2" model="carbon.factor.source">
+        <field name="code">ECOINVENT</field>
+        <field name="name">ecoinvent Database</field>
+        <field name="author">Ecoinvent</field>
+        <field name="url">https://ecoinvent.org/the-ecoinvent-database/</field>
+    </record>
+    <record id="carbon_factor_source_3" model="carbon.factor.source">
+        <field name="code">OFEV</field>
+        <field name="name">Office fédéral de l'environnement OFEV</field>
+        <field name="author">Office fédéral de l'environnement OFEV</field>
+        <field name="url">https://www.bafu.admin.ch/bafu/fr/home/office.html</field>
+    </record>
+    <record id="carbon_factor_source_4" model="carbon.factor.source">
+        <field name="code">OTHER</field>
+        <field name="name">Autre</field>
+        <field name="author">N/A</field>
+        <field name="url">n/a</field>
+    </record>
+    <record id="carbon_factor_source_5" model="carbon.factor.source">
+        <field name="code">EXIOBASE</field>
+        <field name="name">Exiobase</field>
+        <field name="author">Exiobase</field>
+        <field name="url">https://zenodo.org/records/5589597#.Yh9_Zi8w1ao</field>
+    </record>
+</odoo>
