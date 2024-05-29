@@ -129,12 +129,6 @@
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_37" model="carbon.factor">
-        <field name="name">Produits métallurgiques</field>
-        <field name="carbon_compute_method">monetary</field>
-        <field name="carbon_source_id" ref="carbon_factor_source_1" />
-        <field name="uncertainty_percentage">0.8</field>
-    </record>
     <record id="carbon_factor_39" model="carbon.factor">
         <field name="name">Papier et carton</field>
         <field name="carbon_compute_method">monetary</field>
