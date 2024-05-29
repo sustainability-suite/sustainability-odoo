@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="carbon_factor_33" model="carbon.factor">
+    <record id="carbon_factor_1" model="carbon.factor">
         <field name="name">Petites fournitures</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_22" model="carbon.factor">
+    <record id="carbon_factor_2" model="carbon.factor">
         <field name="name">Pizza à la viande, type bolognaise, France continentale</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_38" model="carbon.factor">
+    <record id="carbon_factor_3" model="carbon.factor">
         <field name="name">Réparation et installation de machines et d'équipements</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_18" model="carbon.factor">
+    <record id="carbon_factor_4" model="carbon.factor">
         <field name="name">Fioul domestique, Europe, Base Carbone</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.05</field>
     </record>
-    <record id="carbon_factor_20" model="carbon.factor">
+    <record id="carbon_factor_5" model="carbon.factor">
         <field name="name">Hébergement et restauration, France continentale</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_34" model="carbon.factor">
+    <record id="carbon_factor_6" model="carbon.factor">
         <field name="name">Télécommunications</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_40" model="carbon.factor">
+    <record id="carbon_factor_7" model="carbon.factor">
         <field name="name">Maintenance multitechnique</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.33</field>
     </record>
-    <record id="carbon_factor_41" model="carbon.factor">
+    <record id="carbon_factor_8" model="carbon.factor">
         <field name="name">Services (imprimerie, publicité, architecture et ingénierie, maintenance multi-technique des bâtimen</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_42" model="carbon.factor">
+    <record id="carbon_factor_9" model="carbon.factor">
         <field name="name">Meubles et autres biens manufacturés</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_44" model="carbon.factor">
+    <record id="carbon_factor_10" model="carbon.factor">
         <field name="name">Ordinateur portable</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.5</field>
     </record>
-    <record id="carbon_factor_36" model="carbon.factor">
+    <record id="carbon_factor_11" model="carbon.factor">
         <field name="name">Swiss national global fallback record</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_3" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_28" model="carbon.factor">
+    <record id="carbon_factor_12" model="carbon.factor">
         <field name="name">Transports</field>
         <field name="carbon_compute_method" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_29" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_28" />
+    <record id="carbon_factor_13" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_12" />
         <field name="name">Pieds</field>
         <field name="carbon_compute_method">physical</field>
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_24" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_28" />
+    <record id="carbon_factor_14" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_12" />
         <field name="name">Voiture - motorisation moyenne Suisse</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_2" />
         <field name="uncertainty_percentage">0.6</field>
     </record>
-    <record id="carbon_factor_31" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_28" />
+    <record id="carbon_factor_15" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_12" />
         <field name="name">Vélo avec assistance électrique</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_2" />
         <field name="uncertainty_percentage">0.6</field>
     </record>
-    <record id="carbon_factor_30" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_28" />
+    <record id="carbon_factor_16" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_12" />
         <field name="name">Vélo non assisté</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_2" />
         <field name="uncertainty_percentage">0.6</field>
     </record>
-    <record id="carbon_factor_82" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_28" />
+    <record id="carbon_factor_17" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_12" />
         <field name="name">Navette fluviale</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.6</field>
     </record>
-    <record id="carbon_factor_19" model="carbon.factor">
+    <record id="carbon_factor_18" model="carbon.factor">
         <field name="name">Electricité - mix moyen, Suisse</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_3" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_23" model="carbon.factor">
+    <record id="carbon_factor_19" model="carbon.factor">
         <field name="name">Assurance, services bancaires, conseil et honoraires, France continentale, Base Carbone</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_32" model="carbon.factor">
+    <record id="carbon_factor_20" model="carbon.factor">
         <field name="name">Consommables bureautiques</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_43" model="carbon.factor">
+    <record id="carbon_factor_21" model="carbon.factor">
         <field name="name">Machines et équipements</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_39" model="carbon.factor">
+    <record id="carbon_factor_22" model="carbon.factor">
         <field name="name">Papier et carton</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_21" model="carbon.factor">
+    <record id="carbon_factor_23" model="carbon.factor">
         <field name="name">Pizza 4 fromages, France continentale</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_27" model="carbon.factor">
+    <record id="carbon_factor_24" model="carbon.factor">
         <field name="name">Autocar gazole, Suisse</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
@@ -159,7 +159,7 @@
         <field name="carbon_source_id" ref="carbon_factor_source_1" />
         <field name="uncertainty_percentage">0.2</field>
     </record>
-    <record id="carbon_factor_83" model="carbon.factor">
+    <record id="carbon_factor_28" model="carbon.factor">
         <field name="name">Métro - Ile de France</field>
         <field name="carbon_compute_method">physical</field>
         <field name="uncertainty_percentage">0.2</field>
