@@ -139,7 +139,7 @@
         <field name="carbon_value">0.353</field>
     </record>
     <record id="carbon_factor_value_23" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_28" />
+        <field name="factor_id" ref="carbon_factor_27" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.000240</field>
