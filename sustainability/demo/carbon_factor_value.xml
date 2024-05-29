@@ -7,55 +7,55 @@
         <field name="category_id" ref="uom_categ_energy" />
     </record>
     <record id="carbon_factor_value_1" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_29" />
+        <field name="factor_id" ref="carbon_factor_13" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.000000</field>
     </record>
     <record id="carbon_factor_value_2" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_38" />
+        <field name="factor_id" ref="carbon_factor_3" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.390000</field>
     </record>
     <record id="carbon_factor_value_3" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_39" />
+        <field name="factor_id" ref="carbon_factor_22" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.900000</field>
     </record>
     <record id="carbon_factor_value_4" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_30" />
+        <field name="factor_id" ref="carbon_factor_16" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.008681</field>
     </record>
     <record id="carbon_factor_value_5" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_31" />
+        <field name="factor_id" ref="carbon_factor_15" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.015086</field>
     </record>
     <record id="carbon_factor_value_6" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_20" />
+        <field name="factor_id" ref="carbon_factor_5" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.3200</field>
     </record>
     <record id="carbon_factor_value_7" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_21" />
+        <field name="factor_id" ref="carbon_factor_23" />
         <field name="carbon_uom_id" ref="uom.product_uom_kgm" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">3.3100</field>
     </record>
     <record id="carbon_factor_value_8" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_22" />
+        <field name="factor_id" ref="carbon_factor_2" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">7.4800</field>
     </record>
     <record id="carbon_factor_value_9" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_23" />
+        <field name="factor_id" ref="carbon_factor_19" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.1100</field>
@@ -67,91 +67,91 @@
         <field name="carbon_value">0.0070</field>
     </record>
     <record id="carbon_factor_value_11" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_32" />
+        <field name="factor_id" ref="carbon_factor_20" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.917000</field>
     </record>
     <record id="carbon_factor_value_12" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_33" />
+        <field name="factor_id" ref="carbon_factor_1" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.367000</field>
     </record>
     <record id="carbon_factor_value_13" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_34" />
+        <field name="factor_id" ref="carbon_factor_6" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.170000</field>
     </record>
     <record id="carbon_factor_value_14" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_36" />
+        <field name="factor_id" ref="carbon_factor_11" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.220000</field>
     </record>
     <record id="carbon_factor_value_15" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_40" />
+        <field name="factor_id" ref="carbon_factor_7" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.215000</field>
     </record>
     <record id="carbon_factor_value_16" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_41" />
+        <field name="factor_id" ref="carbon_factor_8" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.170000</field>
     </record>
     <record id="carbon_factor_value_17" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_42" />
+        <field name="factor_id" ref="carbon_factor_9" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.600000</field>
     </record>
     <record id="carbon_factor_value_18" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_43" />
+        <field name="factor_id" ref="carbon_factor_21" />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.700000</field>
     </record>
     <record id="carbon_factor_value_19" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_44" />
+        <field name="factor_id" ref="carbon_factor_10" />
         <field name="carbon_uom_id" ref="uom.product_uom_unit" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">156.240000</field>
     </record>
     <record id="carbon_factor_value_20" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_82" />
+        <field name="factor_id" ref="carbon_factor_17" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.051028</field>
     </record>
     <record id="carbon_factor_value_21" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_19" />
+        <field name="factor_id" ref="carbon_factor_18" />
         <field name="carbon_uom_id" ref="product_uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.181000</field>
     </record>
     <record id="carbon_factor_value_22" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_24" />
+        <field name="factor_id" ref="carbon_factor_14" />
         <field name="carbon_uom_id" ref="product_uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.353</field>
     </record>
     <record id="carbon_factor_value_23" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_83" />
+        <field name="factor_id" ref="carbon_factor_28" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.000240</field>
     </record>
     <record id="carbon_factor_value_24" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_18" />
+        <field name="factor_id" ref="carbon_factor_4" />
         <field name="carbon_uom_id" ref="product_uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.265894</field>
     </record>
     <record id="carbon_factor_value_25" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_27" />
+        <field name="factor_id" ref="carbon_factor_24" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.152000</field>
