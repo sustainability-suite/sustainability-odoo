@@ -43,6 +43,12 @@
     "images": [
         "static/description/co2_base_green.png",
     ],
+    "demo": [
+        "demo/carbon_factor_source.xml",
+        "demo/carbon_factor_type.xml",
+        "demo/carbon_factor.xml",
+        "demo/carbon_factor_value.xml",
+    ],
     "installable": True,
     "application": True,
     "auto_install": False,
