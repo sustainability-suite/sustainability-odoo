@@ -137,7 +137,7 @@
                                     <tree editable="bottom">
                                         <field name="date" />
                                         <field name="type_id" />
-                                        <field invisible="1" name="is_carbon_value_computed" />
+                                        <field column_invisible="1" name="is_carbon_value_computed" />
                                         <field
                                             decoration-it="is_carbon_value_computed"
                                             decoration-muted="is_carbon_value_computed"
@@ -146,7 +146,7 @@
                                             readonly="is_carbon_value_computed"
                                         />
                                         <field column_invisible="parent.ghg_view_mode" name="carbon_currency_label" string=" " />
-                                        <field invisible="1" name="is_ghg_detailed_value" />
+                                        <field column_invisible="1" name="is_ghg_detailed_value" />
                                         <field
                                             column_invisible="not parent.ghg_view_mode"
                                             decoration-it="is_ghg_detailed_value"
