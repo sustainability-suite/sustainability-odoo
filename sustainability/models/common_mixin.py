@@ -21,7 +21,7 @@ class CommonMixin(models.AbstractModel):
         """
         self.ensure_one()
         return {
-            "name": _("%s %s", title, self.display_name),
+            "name": _("%s %s", title, self.name),
             "type": "ir.actions.act_window",
             "res_model": model,
             "views": [(False, "tree"), (False, "form")],
