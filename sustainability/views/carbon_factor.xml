@@ -9,14 +9,17 @@
                     <field column_invisible="1" name="carbon_currency_id" />
                     <field column_invisible="1" name="carbon_compute_method" />
                     <field column_invisible="1" name="recent_value_id" />
-                    <field name="display_name" string="Name" />
+                    <field name="name" />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="carbon_value" />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="carbon_currency_label" string=" " />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="unit_label" />
-                    <field name="carbon_date" />
-                    <field name="carbon_compute_method" optional="hide" />
                     <field name="uncertainty_percentage" optional="show" widget="percentage" />
                     <field name="carbon_source" optional="show" />
+                    <field name="root" optional="hide" />
+                    <field name="parent_id" optional="hide" />
+                    <field name="category" optional="show" />
+                    <field name="carbon_date" optional="hide" />
+                    <field name="carbon_compute_method" optional="hide" />
                 </tree>
             </field>
         </record>
@@ -25,9 +28,31 @@
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
                 <search string="Search Emission Factor">
-                    <field name="display_name" string="Name" />
+                    <field name="name" />
+                    <field name="category" />
+                    <field name="carbon_source_id" string="Source" />
+                    <field name="factor_value_type_id" string="Type" />
+                    <field name="carbon_uom_id" />
+                    <filter domain="[('carbon_compute_method', '=', 'monetary')]" name="monetary" string="Monetary" />
+                    <filter domain="[('carbon_compute_method', '=', 'physical')]" name="physical" string="Physical" />
+                    <separator />
+                    <filter domain="[('ghg_view_mode', '=', True)]" name="ghg" string="Detailed by gas" />
+                    <filter domain="[('ghg_view_mode', '=', False)]" name="physical" string="Not detailed by gas" />
                     <separator />
                     <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
+                    <group expand="0" string="Group By">
+                        <filter string="Root" name="by_root" context="{'group_by':'root'}" />
+                        <filter string="Parent" name="by_parent_id" context="{'group_by':'parent_id'}" />
+                        <filter string="Category" name="by_category" context="{'group_by':'category'}" />
+                        <separator />
+                        <filter string="Compute method" name="by_carbon_compute_method" context="{'group_by':'carbon_compute_method'}" />
+                        <filter string="Source" name="by_carbon_source_id" context="{'group_by':'carbon_source_id'}" />
+                        <filter string="Uncertainty" name="by_uncertainty_percentage" context="{'group_by':'uncertainty_percentage'}" />
+                        <filter string="Type" name="by_factor_value_type_id" context="{'group_by':'factor_value_type_id'}" />
+                        <filter string="Create date" name="by_create_date" context="{'group_by':'create_date'}" />
+                        <filter string="Detailed by gas" name="by_ghg_view_mode" context="{'group_by':'ghg_view_mode'}" />
+                        <filter string="Unit of measure" name="by_carbon_uom_id" context="{'group_by':'carbon_uom_id'}" />
+                    </group>
                 </search>
             </field>
         </record>
@@ -107,11 +132,19 @@
                         <div class="oe_title">
                             <label for="name" />
                             <h1>
-                                <field name="name" placeholder="e.g. Electric Train" />
+                                <field name="name" placeholder="e.g. Electric Train" widget="text" />
                             </h1>
                         </div>
                         <group>
-                            <field name="parent_id" />
+                            <group>
+                                <field name="root" />
+                            </group>
+                            <group>
+                                <field name="parent_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="category" />
                         </group>
                         <group>
                             <group>
@@ -240,7 +273,7 @@
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
                 <graph sample="1" string="Emission Factor Analysis">
-                    <field name="display_name" />
+                    <field name="name" />
                     <field name="carbon_value" type="measure" />
                     <field invisible="1" name="uncertainty_percentage" />
                 </graph>
@@ -251,7 +284,7 @@
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
                 <pivot sample="1" string="Emission Factor Analysis">
-                    <field name="display_name" type="col" />
+                    <field name="name" type="col" />
                     <field interval="month" name="carbon_date" type="row" />
                     <field name="carbon_value" type="measure" />
                 </pivot>

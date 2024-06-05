@@ -15,14 +15,11 @@ class CarbonFactor(models.Model):
         "common.mixin",
     ]
     _description = "Carbon Emission Factor"
-    _order = "display_name"
+    _order = "name"
     _parent_store = True
 
     # Core and utils fields
     name = fields.Char(required=True, tracking=True)
-    display_name = fields.Char(
-        compute="_compute_display_name", store=True, recursive=True
-    )
     carbon_source_id = fields.Many2one(
         comodel_name="carbon.factor.source", tracking=True
     )
@@ -33,7 +30,7 @@ class CarbonFactor(models.Model):
         tracking=True,
     )
     uncertainty_percentage = fields.Float(
-        string="Uncertainty (%)", default=0.0, tracking=True
+        string="Uncertainty (%)", default=0.0, tracking=True, group_operator=False
     )
     active = fields.Boolean(default=True, tracking=True)
 
@@ -45,6 +42,9 @@ class CarbonFactor(models.Model):
         ondelete="restrict",
         tracking=True,
     )
+    hierarchy = fields.Char(compute="_compute_hierarchy", recursive=True)
+    category = fields.Char(compute="_compute_category", store=True)
+    root = fields.Char(compute="_compute_root", store=True)
     parent_path = fields.Char(index=True, unaccent=False)
     child_ids = fields.One2many(comodel_name="carbon.factor", inverse_name="parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
@@ -73,8 +73,10 @@ class CarbonFactor(models.Model):
     carbon_date = fields.Date(related="recent_value_id.date", store=True)
     carbon_source = fields.Char(related="carbon_source_id.name", string="Source")
 
-    carbon_value = fields.Float(related="recent_value_id.carbon_value", store=True)
-    carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id")
+    carbon_value = fields.Float(
+        related="recent_value_id.carbon_value", store=True, group_operator=False
+    )
+    carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id", store=True)
     carbon_monetary_currency_id = fields.Many2one(
         related="recent_value_id.carbon_monetary_currency_id"
     )
@@ -82,7 +84,9 @@ class CarbonFactor(models.Model):
 
     # Type fields
     required_type_ids = fields.Many2many("carbon.factor.type", string="Required Types")
-
+    factor_value_type_id = fields.Many2one(
+        related="recent_value_id.type_id", string="Factor Value Type", store=True
+    )
     # Quantity fields for smart button
 
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
@@ -158,14 +162,33 @@ class CarbonFactor(models.Model):
             )
             factor.carbon_currency_label = factor.carbon_currency_id.currency_unit_label
 
-    @api.depends("parent_id.display_name", "name")
-    def _compute_display_name(self):
+    @api.depends("parent_id.hierarchy", "name")
+    def _compute_hierarchy(self):
         for factor in self:
-            factor.display_name = (
-                f"{factor.parent_id.display_name}/{factor.name}"
+            factor.hierarchy = (
+                f"{factor.parent_id.hierarchy} > {factor.name}"
                 if factor.parent_id
                 else factor.name
             )
+
+    @api.depends("hierarchy")
+    def _compute_category(self):
+        for factor in self:
+            if factor.hierarchy:
+                hierarchy_list = factor.hierarchy.split(" > ")
+                hierarchy_list.pop()
+                factor.category = " > ".join(hierarchy_list)
+            else:
+                factor.category = ""
+
+    @api.depends("hierarchy")
+    def _compute_root(self):
+        for factor in self:
+            if factor.hierarchy:
+                hierarchy_list = factor.hierarchy.split(" > ")
+                factor.root = hierarchy_list[0]
+            else:
+                factor.root = ""
 
     @api.depends(
         "carbon_compute_method", "carbon_monetary_currency_id", "carbon_uom_id"
@@ -430,7 +453,7 @@ class CarbonFactor(models.Model):
                     raise ValidationError(
                         _(
                             "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.",
-                            self.display_name,
+                            self.name,
                             from_uom_id.name,
                             from_uom_id.category_id.name,
                             uom_id.name,
