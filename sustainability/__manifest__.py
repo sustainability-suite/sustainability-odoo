@@ -39,6 +39,7 @@
         "data/decimal_precision.xml",
         "data/menu_items.xml",
         "data/res_currency.xml",
+        "data/uom.xml",
     ],
     "images": [
         "static/description/co2_base_green.png",

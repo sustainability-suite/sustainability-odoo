@@ -1,11 +1,4 @@
 <odoo>
-    <record id="uom_categ_energy" model="uom.category">
-        <field name="name">Energy</field>
-    </record>
-    <record id="product_uom_kwh" model="uom.uom">
-        <field name="name">kwh</field>
-        <field name="category_id" ref="uom_categ_energy" />
-    </record>
     <record id="carbon_factor_value_1" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_13" />
         <field name="carbon_uom_id" ref="uom.product_uom_km" />
@@ -128,13 +121,13 @@
     </record>
     <record id="carbon_factor_value_21" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_18" />
-        <field name="carbon_uom_id" ref="product_uom_kwh" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.181000</field>
     </record>
     <record id="carbon_factor_value_22" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_14" />
-        <field name="carbon_uom_id" ref="product_uom_kwh" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.353</field>
     </record>
@@ -146,7 +139,7 @@
     </record>
     <record id="carbon_factor_value_24" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_4" />
-        <field name="carbon_uom_id" ref="product_uom_kwh" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.265894</field>
     </record>
