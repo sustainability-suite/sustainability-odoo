@@ -89,7 +89,7 @@ class CarbonMixin(models.AbstractModel):
                 "in",
                 [method[0] for method in self._get_available_carbon_compute_methods()],
             ),
-            ("recent_value_id", "!=", False),
+            ("most_recent_value", "!=", False),
         ]
 
     # --------------------------------------------

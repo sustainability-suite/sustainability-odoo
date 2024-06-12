@@ -33,6 +33,7 @@ class CarbonFactor(models.Model):
         string="Uncertainty (%)", default=0.0, tracking=True, group_operator=False
     )
     active = fields.Boolean(default=True, tracking=True)
+    color = fields.Integer(default=0)
 
     # Categories fields
     parent_id = fields.Many2one(
@@ -71,7 +72,6 @@ class CarbonFactor(models.Model):
         comodel_name="carbon.factor.value", compute="_compute_recent_value", store=True
     )
     carbon_date = fields.Date(related="recent_value_id.date", store=True)
-    carbon_source = fields.Char(related="carbon_source_id.name", string="Source")
 
     carbon_value = fields.Float(
         related="recent_value_id.carbon_value", store=True, group_operator=False
@@ -81,6 +81,18 @@ class CarbonFactor(models.Model):
         related="recent_value_id.carbon_monetary_currency_id"
     )
     unit_label = fields.Char(related="recent_value_id.unit_label")
+
+    # Recent value, used for hierarchy view
+    most_recent_value = fields.Char(compute="_compute_most_recent_value", store=True)
+    most_recent_value_date = fields.Date(
+        compute="_compute_most_recent_value", store=True
+    )
+    most_recent_value_total = fields.Float(
+        compute="_compute_most_recent_value", store=True
+    )
+    most_recent_value_unit_label = fields.Char(
+        compute="_compute_most_recent_value", store=True
+    )
 
     # Type fields
     required_type_ids = fields.Many2many("carbon.factor.type", string="Required Types")
@@ -111,6 +123,31 @@ class CarbonFactor(models.Model):
             factor.recent_value_id = value_with_dates and max(
                 value_with_dates, key=lambda f: f.date
             )
+
+    @api.depends(
+        "value_ids.date",
+        "value_ids.carbon_value",
+        "value_ids.unit_label",
+        "carbon_currency_label",
+    )
+    def _compute_most_recent_value(self):
+        carbon_precision = self.env["decimal.precision"].precision_get(
+            "Carbon Factor value"
+        )
+        for factor in self:
+            if not factor.value_ids:
+                factor.most_recent_value_total = 0.0
+                factor.most_recent_value_date = False
+                factor.most_recent_value_unit_label = ""
+                factor.most_recent_value = ""
+            else:
+                recent_values = factor._get_values_at_date()
+                factor.most_recent_value_total = round(
+                    sum(recent_values.mapped("carbon_value")), carbon_precision
+                )
+                factor.most_recent_value_date = recent_values[0].date
+                factor.most_recent_value_unit_label = recent_values[0].unit_label
+                factor.most_recent_value = f"{factor.most_recent_value_total} {factor.carbon_currency_label} {factor.most_recent_value_unit_label} ({factor.most_recent_value_date})"
 
     @api.depends("child_ids")
     def _compute_child_qty(self):
@@ -189,21 +226,6 @@ class CarbonFactor(models.Model):
                 factor.root = hierarchy_list[0]
             else:
                 factor.root = ""
-
-    @api.depends(
-        "carbon_compute_method", "carbon_monetary_currency_id", "carbon_uom_id"
-    )
-    def _compute_unit_label(self):
-        for factor in self:
-            if not factor.carbon_compute_method or not (
-                factor.carbon_uom_id or factor.carbon_monetary_currency_id
-            ):
-                factor.unit_label = ""
-            else:
-                factor.unit_label = "/ " + (
-                    factor.carbon_uom_id.name
-                    or factor.carbon_monetary_currency_id.currency_unit_label
-                )
 
     @api.depends(
         "carbon_compute_method",

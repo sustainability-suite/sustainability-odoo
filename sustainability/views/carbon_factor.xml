@@ -14,7 +14,7 @@
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="carbon_currency_label" string=" " />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="unit_label" />
                     <field name="uncertainty_percentage" optional="show" widget="percentage" />
-                    <field name="carbon_source" optional="show" />
+                    <field name="carbon_source_id" optional="show" />
                     <field name="root" optional="hide" />
                     <field name="parent_id" optional="hide" />
                     <field name="category" optional="show" />
@@ -23,6 +23,58 @@
                 </tree>
             </field>
         </record>
+        <record id="carbon_factor_hierarchy" model="ir.ui.view">
+            <field name="name">carbon.factor.hierarchy</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <hierarchy child_field="child_ids" draggable="1">
+                    <field name="name" />
+                    <field name="color" />
+                    <field name="chart_of_account_qty" />
+                    <field name="product_categ_qty" />
+                    <field name="product_qty" />
+                    <field name="account_move_qty" />
+                    <templates>
+                        <t t-name="hierarchy-box">
+                            <div
+                                t-attf-class="o_hierarchy_node_header d-flex justify-content-center align-items-center o_hierarchy_node_color_{{ record.color.raw_value }}"
+                            >
+                                <strong t-attf-class="{{record.color.raw_value ? 'text-white' : ''}}">
+                                    <field name="name" />
+                                </strong>
+                            </div>
+                            <div class="o_hierarchy_node_body d-grid" style="grid-template: auto 1fr;">
+                                <div class="text-center p-2">
+                                    <i>
+                                        <field name="most_recent_value" />
+                                    </i>
+                                </div>
+                                <div class="px-3">
+                                    <span class=" mx-2" t-if="record.chart_of_account_qty.raw_value">
+                                        <i class="fa fa-book" title="Account" />
+                                        <t t-out="record.chart_of_account_qty.raw_value" />
+                                    </span>
+                                    <span class=" mx-2" t-if="record.account_move_qty.raw_value">
+                                        <i class="fa fa-sort" title="Entries" />
+                                        <t t-out="record.account_move_qty.raw_value" />
+                                    </span>
+
+                                    <span class=" mx-2" t-if="record.product_categ_qty.raw_value">
+                                        <i class="fa fa-sort" title="Categories" />
+                                        <t t-out="record.product_categ_qty.raw_value" />
+                                    </span>
+                                    <span class=" mx-2" t-if="record.product_qty.raw_value">
+                                        <i class="fa fa-th-list" title="Products" />
+                                        <t t-out="record.product_qty.raw_value" />
+                                    </span>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </hierarchy>
+            </field>
+        </record>
+
         <record id="carbon_factor_filter" model="ir.ui.view">
             <field name="name">carbon.factor.select</field>
             <field name="model">carbon.factor</field>
@@ -62,7 +114,10 @@
             <field name="arch" type="xml">
                 <form>
                     <field invisible="1" name="carbon_currency_id" />
-                    <field invisible="1" name="recent_value_id" />
+                    <field invisible="1" name="most_recent_value" />
+                    <field invisible="1" name="most_recent_value_date" />
+                    <field invisible="1" name="most_recent_value_total" />
+                    <field invisible="1" name="most_recent_value_unit_label" />
                     <field invisible="1" name="has_invalid_value" />
                     <field invisible="1" name="active" />
                     <sheet>
@@ -141,12 +196,13 @@
                             </group>
                             <group>
                                 <field name="parent_id" />
+                                <field name="color" widget="color_picker" />
                             </group>
                         </group>
                         <group>
                             <field name="category" />
                         </group>
-                        <group>
+                        <group string="Settings">
                             <group>
                                 <field name="carbon_compute_method" />
                                 <field name="uncertainty_percentage" widget="percentage" />
@@ -274,7 +330,7 @@
             <field name="arch" type="xml">
                 <graph sample="1" string="Emission Factor Analysis">
                     <field name="name" />
-                    <field name="carbon_value" type="measure" />
+                    <field name="most_recent_value_total" type="measure" />
                     <field invisible="1" name="uncertainty_percentage" />
                 </graph>
             </field>
@@ -285,8 +341,8 @@
             <field name="arch" type="xml">
                 <pivot sample="1" string="Emission Factor Analysis">
                     <field name="name" type="col" />
-                    <field interval="month" name="carbon_date" type="row" />
-                    <field name="carbon_value" type="measure" />
+                    <field interval="month" name="most_recent_value_date" type="row" />
+                    <field name="most_recent_value_total" type="measure" />
                 </pivot>
             </field>
         </record>
@@ -300,7 +356,7 @@
             <field name="name">Emission Factors</field>
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,hierarchy,form</field>
         </record>
     </data>
 </odoo>
