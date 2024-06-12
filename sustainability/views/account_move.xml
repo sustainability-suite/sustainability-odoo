@@ -7,15 +7,15 @@
             <field name="inherit_id" ref="account.view_move_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']" position="after">
-                    <field invisible="1" name="carbon_currency_id" />
-                    <field invisible="1" name="carbon_is_locked" />
-                    <field force_save="1" invisible="1" name="carbon_origin_json" />
-                    <field invisible="1" name="carbon_debit" />
-                    <field invisible="1" name="carbon_credit" />
-                    <field invisible="1" name="carbon_balance" />
-                    <field invisible="1" name="debit" />
-                    <field invisible="1" name="credit" />
-                    <field invisible="1" name="balance" />
+                    <field column_invisible="1" name="carbon_currency_id" />
+                    <field column_invisible="1" name="carbon_is_locked" />
+                    <field column_invisible="1" name="carbon_origin_json" force_save="1" />
+                    <field column_invisible="1" name="carbon_debit" />
+                    <field column_invisible="1" name="carbon_credit" />
+                    <field column_invisible="1" name="carbon_balance" />
+                    <field column_invisible="1" name="debit" />
+                    <field column_invisible="1" name="credit" />
+                    <field column_invisible="1" name="balance" />
                     <field digits="[13,2]" force_save="1" name="carbon_debt" readonly="carbon_is_locked" />
                     <button class="opacity-25" icon="fa-unlock" invisible="carbon_is_locked" name="action_switch_locked" title="Unlock co2" type="object" />
                     <button icon="fa-lock" invisible="not carbon_is_locked" name="action_switch_locked" title="Lock co2" type="object" />
