@@ -492,7 +492,7 @@ class CarbonFactor(models.Model):
         return self._generate_action(
             title=_("Child factors for"),
             model="carbon.factor",
-            ids=list(self.child_ids.mapped("id")),
+            ids=self.child_ids.ids,
         )
 
     def action_see_chart_of_account_ids(self):
