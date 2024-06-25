@@ -25,8 +25,37 @@ class ResCompany(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            currency = self.env["res.currency"].browse(vals["currency_id"])
+            factor_name = f"Global Emission Factor Fallback {currency.name}"
+
+            carbon_factor = self.env["carbon.factor"].search(
+                [("name", "=", factor_name)], limit=1
+            )
+
+            if not carbon_factor:
+                carbon_factor = self.env["carbon.factor"].create(
+                    {
+                        "name": factor_name,
+                        "carbon_compute_method": "monetary",
+                        "uncertainty_percentage": 2,
+                        "value_ids": [
+                            (
+                                0,
+                                0,
+                                {
+                                    "carbon_value": 10.0,
+                                    "carbon_monetary_currency_id": currency.id,
+                                    "date": "2000-01-01",
+                                },
+                            ),
+                        ],
+                    }
+                )
+            vals["carbon_in_factor_id"] = carbon_factor.id
+            vals["carbon_out_factor_id"] = carbon_factor.id
             vals["carbon_in_is_manual"] = True
             vals["carbon_out_is_manual"] = True
+
         return super().create(vals_list)
 
     @api.depends("currency_id")
