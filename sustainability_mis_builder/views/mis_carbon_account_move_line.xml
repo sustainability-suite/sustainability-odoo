@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <record id="mis_co2_account_move_line_form" model="ir.ui.view">
-    <field name="name">MIS Carbon Account Move Line Form</field>
-    <field name="model">mis.carbon.account.move.line</field>
-    <field name="arch" type="xml">
-      <form>
-        <sheet>
-          <group>
-            <group>
-              <field name="partner_id" />
-              <field name="move_id" />
-              <field name="move_line_id" />
-              <field name="name" />
-            </group>
-            <group>
-              <field name="date" />
-              <field name="company_id" />
-              <field name="account_id" />
-              <field name="credit" />
-              <field name="debit" />
-              <field name="balance" />
-            </group>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <record id="mis_co2_account_move_line_form" model="ir.ui.view">
+        <field name="name">MIS Carbon Account Move Line Form</field>
+        <field name="model">mis.carbon.account.move.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="move_id" />
+                            <field name="move_line_id" />
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="date" />
+                            <field name="company_id" />
+                            <field name="account_id" />
+                            <field name="credit" />
+                            <field name="debit" />
+                            <field name="balance" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-  <record id="mis_co2_account_move_line_tree" model="ir.ui.view">
-    <field name="name">MIS Carbon Account Move Line Tree</field>
-    <field name="model">mis.carbon.account.move.line</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="date" />
-        <field name="move_id" />
-        <field name="account_id" />
-        <field name="partner_id" />
-        <field name="name" />
-        <field name="debit" />
-        <field name="credit" />
-        <field name="balance" />
-      </tree>
-    </field>
-  </record>
+    <record id="mis_co2_account_move_line_tree" model="ir.ui.view">
+        <field name="name">MIS Carbon Account Move Line Tree</field>
+        <field name="model">mis.carbon.account.move.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="carbon_currency_id" invisible="1" />
+                <field name="date" />
+                <field name="journal_id" />
+                <field name="move_id" />
+                <field name="account_id" />
+                <field name="partner_id" />
+                <field name="name" />
+                <field name="debit" sum="Total Debit" />
+                <field name="credit" sum="Total Credit" />
+                <field name="balance" sum="Total Balance" />
+            </tree>
+        </field>
+    </record>
 </odoo>

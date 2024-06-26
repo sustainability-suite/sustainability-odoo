@@ -3,8 +3,8 @@
 
 {
     "name": "Sustainability MIS Builder",
-    "summary": "Provide CO2 accounting lines data for MIS builder reports",
-    "version": "17.0.0.1.0",
+    "summary": "Provide CO2e accounting lines data for MIS builder reports",
+    "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Julien Guenat",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
@@ -13,7 +13,6 @@
         "views/mis_carbon_account_move_line.xml",
         "security/ir.model.access.csv",
     ],
-    "installable": False,
-    "auto_install": False,
+    "installable": True,
     "license": "AGPL-3",
 }
