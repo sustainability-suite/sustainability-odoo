@@ -13,13 +13,17 @@ class MisCarbonAccountMoveLine(models.Model):
     move_line_id = fields.Many2one(
         string="Journal Items",
         comodel_name="account.move.line",
-        help="The journal item of this CO2 entry line.",
+        help="The journal item of this carbon line.",
     )
-    journal_id = fields.Many2one(related="move_line_id.journal_id")
+    journal_id = fields.Many2one(
+        comodel_name="account.journal",
+        string="Journal",
+        help="The journal of this carbon line.",
+    )
     move_id = fields.Many2one(
         comodel_name="account.move",
         string="Journal Entry",
-        help="The journal entry of this CO2 entry line.",
+        help="The journal entry of this carbon line.",
     )
     carbon_currency_id = fields.Many2one(
         "res.currency",
@@ -38,19 +42,23 @@ class MisCarbonAccountMoveLine(models.Model):
         comodel_name="res.partner",
     )
     balance = fields.Monetary(
-        string="CO2 Balance (Kg)",
+        string="Balance",
         currency_field="carbon_currency_id",
     )
     debit = fields.Monetary(
-        string="CO2 Debit (Kg)",
+        string="Debit",
         currency_field="carbon_currency_id",
     )
     credit = fields.Monetary(
-        string="CO2 Credit (Kg)",
+        string="Credit",
         currency_field="carbon_currency_id",
     )
-    state = fields.Selection(
-        [("draft", "Unposted"), ("posted", "Posted")],
+    parent_state = fields.Selection(
+        selection=[
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("cancel", "Cancelled"),
+        ],
         string="Status",
     )
 
@@ -61,8 +69,8 @@ class MisCarbonAccountMoveLine(models.Model):
             )
 
     def init(self):
-        tools.drop_view_if_exists(self._cr, "mis_carbon_account_move_line")
-        self._cr.execute(
+        tools.drop_view_if_exists(self.env.cr, "mis_carbon_account_move_line")
+        self.env.cr.execute(
             """
             CREATE OR REPLACE VIEW mis_carbon_account_move_line AS (
                 SELECT
@@ -75,7 +83,7 @@ class MisCarbonAccountMoveLine(models.Model):
                     aml.journal_id AS journal_id,
                     aml.company_id AS company_id,
                     aml.partner_id AS partner_id,
-                    'posted'::VARCHAR AS state,
+                    am.state AS parent_state,
                     aml.carbon_debit AS debit,
                     aml.carbon_credit AS credit,
                     aml.carbon_balance AS balance
