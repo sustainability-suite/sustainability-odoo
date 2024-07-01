@@ -233,6 +233,14 @@
                                             decoration-it="is_ghg_detailed_value"
                                             decoration-muted="is_ghg_detailed_value"
                                             force_save="1"
+                                            name="nf3_value"
+                                            readonly="not is_carbon_value_computed and carbon_value"
+                                        />
+                                        <field
+                                            column_invisible="not parent.ghg_view_mode"
+                                            decoration-it="is_ghg_detailed_value"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            force_save="1"
                                             name="other_ghg_value"
                                             readonly="not is_carbon_value_computed and carbon_value"
                                         />

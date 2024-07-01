@@ -51,6 +51,11 @@ class CarbonFactorValue(models.Model):
             "PFC value can not be negative !",
         ),
         (
+            "not_negative_nf3_value",
+            "CHECK(nf3_value >= 0)",
+            "NF3 value can not be negative !",
+        ),
+        (
             "not_negative_other_ghg_value",
             "CHECK(other_ghg_value >= 0)",
             "Other GHG value can not be negative !",
@@ -90,6 +95,11 @@ class CarbonFactorValue(models.Model):
     pfc_value = fields.Float(
         tracking=True,
         string="PFC (kgCO2e)",
+        digits="Carbon Factor value",
+    )
+    nf3_value = fields.Float(
+        tracking=True,
+        string="NF3 (kgCO2e)",
         digits="Carbon Factor value",
     )
     other_ghg_value = fields.Float(
@@ -186,6 +196,7 @@ class CarbonFactorValue(models.Model):
                 + value.sf6_value
                 + value.hfc_value
                 + value.pfc_value
+                + value.nf3_value
                 + value.other_ghg_value
             )
             value.is_carbon_value_computed = total > 0
@@ -202,6 +213,7 @@ class CarbonFactorValue(models.Model):
                     "sf6_value": 0.0,
                     "hfc_value": 0.0,
                     "pfc_value": 0.0,
+                    "nf3_value": 0.0,
                     "other_ghg_value": 0.0,
                     "carbon_value": 0.0,
                 }
