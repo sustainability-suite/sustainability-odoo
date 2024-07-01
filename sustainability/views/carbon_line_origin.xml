@@ -107,7 +107,7 @@
           <field name="move_id" string="Journal Entry" />
           <field name="move_line_partner_id" string="Partner" />
           <field name="move_line_label" string="Label" />
-          <field name="factor_id" string="Name" />
+          <field name="factor_id" string="Emission Factor" />
           <field name="factor_value_type_id" string="Type" />
           <field name="factor_category_id" string="Category" />
           <field name="move_line_product_uom_id" string='Unit of Measure' />
