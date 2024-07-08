@@ -11,6 +11,7 @@
     "description": """ """,
     "depends": [
         "account",
+        "web_hierarchy",
     ],
     "data": [
         # Security
