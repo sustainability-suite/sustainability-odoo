@@ -14,13 +14,44 @@
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="carbon_currency_label" string=" " />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="unit_label" />
                     <field name="uncertainty_percentage" optional="show" widget="percentage" />
-                    <field name="carbon_source" optional="show" />
+                    <field name="carbon_source_id" optional="show" />
                     <field name="root" optional="hide" />
                     <field name="parent_id" optional="hide" />
                     <field name="category" optional="show" />
                     <field name="carbon_date" optional="hide" />
                     <field name="carbon_compute_method" optional="hide" />
                 </tree>
+            </field>
+        </record>
+        <record id="carbon_factor_hierarchy" model="ir.ui.view">
+            <field name="name">carbon.factor.hierarchy</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <hierarchy child_field="child_ids" draggable="1">
+                    <field name="name" />
+                    <templates>
+                        <t t-name="hierarchy-box">
+                            <div
+                                t-if="record.carbon_value.raw_value"
+                                t-attf-class="o_hierarchy_node_header bg-secondary d-flex gap-1 justify-content-center align-items-center px-2"
+                            >
+                                <field name="carbon_value" />
+                                <field name="carbon_currency_label" />
+                                <field name="unit_label" />
+                            </div>
+                            <div t-else="" class="o_hierarchy_node_header bg-secondary" />
+                            <div class="o_hierarchy_node_body d-grid" style="grid-template: auto 1fr;">
+                                <div class="text-center p-2">
+                                    <div t-if="record.name.raw_value">
+                                        <span t-att-title="record.name.raw_value">
+                                            <field name="name" class="oe_inline fw-bold" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </hierarchy>
             </field>
         </record>
         <record id="carbon_factor_filter" model="ir.ui.view">
@@ -308,7 +339,7 @@
             <field name="name">Emission Factors</field>
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,hierarchy,form</field>
         </record>
     </data>
 </odoo>
