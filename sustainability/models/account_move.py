@@ -32,9 +32,7 @@ class AccountMove(models.Model):
     @api.depends("invoice_line_ids.carbon_balance")
     def _compute_carbon_balance(self):
         for move in self:
-            move.carbon_balance = abs(
-                sum(move.invoice_line_ids.mapped("carbon_balance"))
-            )
+            move.carbon_balance = sum(move.invoice_line_ids.mapped("carbon_balance"))
 
     @api.depends("invoice_line_ids.carbon_uncertainty_value")
     def _compute_carbon_uncertainty_value(self):
