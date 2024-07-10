@@ -96,10 +96,16 @@
                     <filter
                         string="Last Three Years"
                         name="last_three_years"
-                        domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d'))]"
+                        domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d')), ('move_date', '&lt;=', (context_today()).strftime('%Y-%m-%d'))]"
                         invisible="1"
                     />
                     <filter string="Invoice Date" name="date" date="move_date" />
+                    <separator />
+                    <filter
+                        string="Expense"
+                        name="expense"
+                        domain="[('move_line_account_id.account_type', 'in', ['expense', 'expense_depreciation', 'expense_direct_cost'])]"
+                    />
                     <group expand="0" string="Group By">
                         <filter string="Emission Factor" name="by_factor_id" context="{'group_by':'factor_id'}" />
                         <filter string="Category" name="by_factor_category_id" context="{'group_by':'factor_category_id'}" />
