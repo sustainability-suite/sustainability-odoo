@@ -13,15 +13,15 @@
 
                         <group string="Purchases">
                             <label for="carbon_in_is_manual" string="Mode" />
-                            <div style="font-size: 1.15rem;" class="gap-1 d-inline-flex ml-3">
-                                <div class="opacity-50 mr-2" invisible="not carbon_in_is_manual">Auto</div>
-                                <div style="font-weight: bold;" invisible="carbon_in_is_manual">Auto</div>
+                            <div class="gap-1 d-inline-flex ml-3">
+                                <div class="opacity-50 mr-2" invisible="not carbon_in_is_manual">Undefined</div>
+                                <div style="font-weight: bold;" invisible="carbon_in_is_manual">Undefined</div>
 
                                 <field name="carbon_in_is_manual" nolabel="1" widget="boolean_toggle" class="" style="margin-left: 8px;" />
                                 <field name="carbon_in_mode" invisible="1" />
 
-                                <div class="opacity-50" invisible="carbon_in_is_manual">Manual</div>
-                                <div style="font-weight: bold;" invisible="not carbon_in_is_manual">Manual</div>
+                                <div class="opacity-50" invisible="carbon_in_is_manual">Set</div>
+                                <div style="font-weight: bold;" invisible="not carbon_in_is_manual">Set</div>
                             </div>
                             <field name="carbon_in_fallback_reference" widget="reference" invisible="carbon_in_is_manual" />
                             <field name="carbon_in_factor_id" invisible="not carbon_in_is_manual" required="carbon_in_is_manual" />

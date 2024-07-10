@@ -29,7 +29,7 @@
                     <field invisible="1" name="carbon_currency_id" />
                 </xpath>
                 <xpath expr="//field[@name='line_ids']//tree//field[@name='credit']" position="after">
-                    <field digits="[13,2]" name="carbon_debt" optional="hide" sum="Total CO2 Debt" />
+                    <field digits="[13,2]" name="carbon_debt" optional="hide" sum="Total CO2" />
                     <field digits="[13,2]" name="carbon_debit" optional="hide" sum="Total CO2 Debit" />
                     <field digits="[13,2]" name="carbon_credit" optional="hide" sum="Total CO2 Credit" />
                     <field digits="[13,2]" name="carbon_balance" optional="show" sum="Total CO2 Balance" />

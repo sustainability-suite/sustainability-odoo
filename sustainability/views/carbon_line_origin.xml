@@ -14,7 +14,7 @@
                     <field name="move_line_label" string="Label" />
                     <field name="move_line_quantity" string="Quantity" />
                     <field name="move_line_product_uom_id" string="Unit of Measure" />
-                    <field name="carbon_data_uncertainty_percentage" widget="percentage" optional="hide" string="Data CO2 Uncertainty" />
+                    <field name="carbon_data_uncertainty_percentage" widget="percentage" optional="hide" string="CO2 Uncertainty %" />
                     <field name="move_line_balance" string="Amount" sum="Amount" />
                     <field name="signed_value" string="Total (KgCO2e)" sum="Total (KgCO2e)" />
                     <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" sum="Uncertainty (KgCO2e)" digits="[13,2]" />
@@ -46,7 +46,7 @@
             <field name="name">carbon.line.origin.graph.view</field>
             <field name="model">carbon.line.origin</field>
             <field name="arch" type="xml">
-                <graph string="Carbon Origins Analysis" sample="1">
+                <graph string="Carbon Footprint Analysis" sample="1">
                     <field name="move_date" interval="month" />
                     <field name="signed_value" string="Total (KgCO2e)" type="measure" />
                     <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
@@ -64,7 +64,7 @@
             <field name="name">carbon.line.origin.pivot.view</field>
             <field name="model">carbon.line.origin</field>
             <field name="arch" type="xml">
-                <pivot string="Carbon Origins Analysis" sample="1">
+                <pivot string="Carbon Footprint Analysis" sample="1">
                     <field name="move_id" type="col" />
                     <field name="move_date" interval="year" type="row" />
                     <field name="signed_value" type="measure" widget="integer" />
@@ -116,7 +116,7 @@
         </record>
 
         <record id="carbon_line_origin_action_reporting" model="ir.actions.act_window">
-            <field name="name">Carbon Origins Analysis</field>
+            <field name="name">Carbon Footprint Analysis</field>
             <field name="res_model">carbon.line.origin</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">graph,pivot</field>
@@ -124,12 +124,12 @@
         </record>
 
         <record id="carbon_line_origin_action" model="ir.actions.act_window">
-            <field name="name">Carbon Origins</field>
+            <field name="name">Carbon Footprint</field>
             <field name="res_model">carbon.line.origin</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree</field>
             <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">No carbon origins yet !</p>
+                <p class="o_view_nocontent_smiling_face">No sources of emission yet !</p>
             </field>
             <field name="context">{'search_default_posted': 1}</field>
         </record>

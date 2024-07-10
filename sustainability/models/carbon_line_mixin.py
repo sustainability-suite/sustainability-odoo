@@ -15,7 +15,7 @@ class CarbonLineMixin(models.AbstractModel):
         compute="_compute_carbon_currency_id",
     )
     carbon_debt = fields.Monetary(
-        string="CO2 Debt",
+        string="CO2",
         currency_field="carbon_currency_id",
         help="A positive value means that your system's debt grows, a negative value means it shrinks",
         compute="_compute_carbon_debt",
@@ -23,7 +23,7 @@ class CarbonLineMixin(models.AbstractModel):
         store=True,
     )
     carbon_data_uncertainty_percentage = fields.Float(
-        string="Data CO2 uncertainty",
+        string="CO2 Uncertainty %",
         default=lambda self: self.env.company.carbon_default_data_uncertainty_percentage,
     )
     carbon_uncertainty_value = fields.Monetary(
