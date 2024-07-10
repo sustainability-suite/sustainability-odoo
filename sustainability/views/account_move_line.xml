@@ -11,7 +11,7 @@
                 <field name="carbon_uncertainty_value" sum="Total CO2 Uncertainty" optional="hide" />
                 <field name="carbon_debit" sum="Total CO2 Debit" optional="hide" readonly="1" digits="[13,2]" />
                 <field name="carbon_credit" sum="Total CO2 Credit" optional="hide" readonly="1" digits="[13,2]" />
-                <field name="carbon_debt" sum="Total CO2 Debt" optional="hide" readonly="1" digits="[13,2]" />
+                <field name="carbon_debt" sum="Total CO2" optional="hide" readonly="1" digits="[13,2]" />
                 <button type="object" name="action_see_carbon_origin" icon="fa-question-circle" title="See CO2 value origin" />
                 <field name="carbon_currency_id" column_invisible="1" />
             </xpath>
