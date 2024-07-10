@@ -9,7 +9,7 @@ class PurchaseOrder(models.Model):
         compute="_compute_carbon_currency_id",
     )
     carbon_debt = fields.Monetary(
-        string="CO2 Debt",
+        string="CO2",
         compute="_compute_carbon_debt",
         store=True,
         currency_field="carbon_currency_id",
