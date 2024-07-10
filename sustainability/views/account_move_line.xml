@@ -35,7 +35,7 @@
         />
         <field
           name="carbon_debt"
-          sum="Total CO2 Debt"
+          sum="Total CO2"
           optional="hide"
           readonly="1"
           digits="[13,2]"

@@ -18,18 +18,18 @@
 
             <group string="Purchases">
               <label for="carbon_in_is_manual" string="Mode" />
-              <div style="font-size: 1.15rem;" class="gap-1 d-inline-flex ml-3">
+              <div class="gap-1 d-inline-flex ml-3">
                 <div
                   class="opacity-50 mr-2"
                   attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
                 >
-                  Auto
+                  Undefined
                 </div>
                 <div
                   style="font-weight: bold;"
                   attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
                 >
-                  Auto
+                  Undefined
                 </div>
 
                 <field
@@ -45,13 +45,13 @@
                   class="opacity-50"
                   attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
                 >
-                  Manual
+                  Set
                 </div>
                 <div
                   style="font-weight: bold;"
                   attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
                 >
-                  Manual
+                  Set
                 </div>
               </div>
               <!--                            <div class="alert alert-info" role="alert" colspan="2" attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}">-->

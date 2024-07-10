@@ -4,9 +4,7 @@ from odoo import api, fields, models
 class AccountAsset(models.Model):
     _inherit = "account.asset"
 
-    carbon_debt = fields.Float(
-        compute="_compute_carbon_debt", string="CO2 Debt", store=True
-    )
+    carbon_debt = fields.Float(compute="_compute_carbon_debt", string="CO2", store=True)
     carbon_currency_id = fields.Many2one(
         "res.currency",
         compute="_compute_carbon_currency_id",
