@@ -114,7 +114,7 @@ class CarbonMixin(models.AbstractModel):
         default="auto",
         compute="_compute_carbon_in_mode",
         store=True,
-    )
+    )  # TODO: rename selection list with a migration script for XML consistency (once tha values are finalized)
     carbon_in_factor_id = fields.Many2one(
         "carbon.factor",
         string="Emission Factor",

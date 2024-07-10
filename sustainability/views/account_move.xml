@@ -72,12 +72,7 @@
           expr="//field[@name='line_ids']//tree//field[@name='credit']"
           position="after"
         >
-          <field
-            name="carbon_debt"
-            optional="hide"
-            sum="Total CO2 Debt"
-            digits="[13,2]"
-          />
+          <field name="carbon_debt" optional="hide" sum="Total CO2" digits="[13,2]" />
           <field
             name="carbon_debit"
             optional="hide"

@@ -19,7 +19,7 @@
     >
       <menuitem
         id="carbon_line_origin_menu"
-        name="Carbon Origins"
+        name="Carbon Footprint"
         sequence="1"
         groups="base.group_user"
         action="sustainability.carbon_line_origin_action"
@@ -90,7 +90,7 @@
         />
         <menuitem
           id="carbon_line_origin_graph_menu"
-          name="Carbon Origins"
+          name="Carbon Footprint"
           groups="base.group_user"
           sequence="2"
           action="sustainability.carbon_line_origin_action_reporting"
