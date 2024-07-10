@@ -65,8 +65,8 @@
             <field name="model">carbon.line.origin</field>
             <field name="arch" type="xml">
                 <pivot string="Carbon Origins Analysis" sample="1">
-                    <field name="move_id" type="col" />
-                    <field name="move_date" interval="year" type="row" />
+                    <field name="move_date" interval="year" type="col" />
+                    <field name="factor_id" type="row" />
                     <field name="signed_value" type="measure" widget="integer" />
                 </pivot>
             </field>
@@ -96,10 +96,15 @@
                     <filter
                         string="Last Three Years"
                         name="last_three_years"
-                        domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d'))]"
+                        domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d')), ('move_date', '&lt;=', (context_today()).strftime('%Y-%m-%d'))]"
                         invisible="1"
                     />
                     <filter string="Invoice Date" name="date" date="move_date" />
+                    <separator />
+                    <filter
+                        string="Expense"
+                        domain="[('move_line_account_id.account_type', 'in', ['expense', 'expense_depreciation', 'expense_direct_cost'])]]"
+                    />
                     <group expand="0" string="Group By">
                         <filter string="Emission Factor" name="by_factor_id" context="{'group_by':'factor_id'}" />
                         <filter string="Category" name="by_factor_category_id" context="{'group_by':'factor_category_id'}" />
