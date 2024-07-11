@@ -5,6 +5,15 @@ from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
+COMPUTATION_LEVELS_MAP = {
+    "account.move.line": "Carbon on invoice",
+    "product.product": "Product",
+    "product.category": "Product category",
+    "res.partner": "Partner",
+    "account.account": "Account",
+    "res.company": "Company fallback",
+}
+
 
 class CarbonLineMixin(models.AbstractModel):
     _name = "carbon.line.mixin"
@@ -122,6 +131,7 @@ class CarbonLineMixin(models.AbstractModel):
                 "carbon_origin_json": {
                     "mode": "manual",
                     "details": {"uid": self.env.uid, "username": self.env.user.name},
+                    "model_name": self._name,
                 },
             }
         )
@@ -205,14 +215,20 @@ class CarbonLineMixin(models.AbstractModel):
                     skipped_lines |= line
                     continue
 
-            factors, distribution = record.get_carbon_distribution(carbon_type)
+            factors, distribution, model_name = record.get_carbon_distribution(
+                carbon_type
+            )
             debt, uncertainty_value, details = factors.get_carbon_value(
                 distribution, **kw_arguments
             )
 
             line.carbon_debt = debt
             line.carbon_uncertainty_value = uncertainty_value
-            line.carbon_origin_json = {"mode": "auto", "details": details}
+            line.carbon_origin_json = {
+                "mode": "auto",
+                "details": details,
+                "model_name": model_name,
+            }
 
         return skipped_lines
 
@@ -226,6 +242,7 @@ class CarbonLineMixin(models.AbstractModel):
 
         mode = self.carbon_origin_json.get("mode")
         json_details = self.carbon_origin_json.get("details", {})
+        model_name = self.carbon_origin_json.get("model_name", "")
 
         if mode == "manual":
             vals_list.append(
@@ -241,6 +258,7 @@ class CarbonLineMixin(models.AbstractModel):
                     "value": self.carbon_debt,
                     "carbon_data_uncertainty_percentage": self.carbon_data_uncertainty_percentage,
                     "uncertainty_value": self.carbon_uncertainty_value,
+                    "computation_level": COMPUTATION_LEVELS_MAP.get(model_name),
                 }
             )
 
@@ -257,6 +275,7 @@ class CarbonLineMixin(models.AbstractModel):
                             **details,
                             "uom_id": details.get("uom_id"),
                             "monetary_currency_id": details.get("monetary_currency_id"),
+                            "computation_level": COMPUTATION_LEVELS_MAP.get(model_name),
                         }
                     )
 
