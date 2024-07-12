@@ -20,6 +20,10 @@
         "views/purchase_order.xml",
         "views/res_partner.xml",
     ],
+    "demo": [
+        "data/demo.xml",
+    ],
+    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": False,
     "auto_install": False,
