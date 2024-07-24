@@ -5,15 +5,6 @@ from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
-COMPUTATION_LEVELS_MAP = {
-    "account.move.line": "Carbon on invoice",
-    "product.product": "Product",
-    "product.category": "Product category",
-    "res.partner": "Partner",
-    "account.account": "Account",
-    "res.company": "Company fallback",
-}
-
 
 class CarbonLineMixin(models.AbstractModel):
     _name = "carbon.line.mixin"
@@ -119,6 +110,16 @@ class CarbonLineMixin(models.AbstractModel):
         Mainly used for account.move.line to determine if the line is a credit or a debit
         """
         return 1
+
+    def _get_computation_levels_mapping(self) -> dict:
+        return {
+            "account.move.line": _("Carbon on invoice"),
+            "product.product": _("Product"),
+            "product.category": _("Product category"),
+            "res.partner": _("Partner"),
+            "account.account": _("Account"),
+            "res.company": _("Company fallback"),
+        }
 
     # --------------------------------------------
 
@@ -258,7 +259,9 @@ class CarbonLineMixin(models.AbstractModel):
                     "value": self.carbon_debt,
                     "carbon_data_uncertainty_percentage": self.carbon_data_uncertainty_percentage,
                     "uncertainty_value": self.carbon_uncertainty_value,
-                    "computation_level": COMPUTATION_LEVELS_MAP.get(model_name),
+                    "computation_level": self._get_computation_levels_mapping().get(
+                        model_name
+                    ),
                 }
             )
 
@@ -275,7 +278,9 @@ class CarbonLineMixin(models.AbstractModel):
                             **details,
                             "uom_id": details.get("uom_id"),
                             "monetary_currency_id": details.get("monetary_currency_id"),
-                            "computation_level": COMPUTATION_LEVELS_MAP.get(model_name),
+                            "computation_level": self._get_computation_levels_mapping().get(
+                                model_name
+                            ),
                         }
                     )
 
