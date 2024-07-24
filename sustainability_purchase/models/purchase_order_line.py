@@ -89,3 +89,9 @@ class PurchaseOrderLine(models.Model):
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
         return {"quantity": self.product_qty, "from_uom_id": self.product_uom}
+
+    @api.model
+    def create(self, vals):
+        lines = super().create(vals)
+        lines.action_recompute_carbon()
+        return lines
