@@ -19,6 +19,7 @@
                     <field name="signed_value" string="Total (KgCO2e)" sum="Total (KgCO2e)" />
                     <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" sum="Uncertainty (KgCO2e)" digits="[13,2]" />
                     <field name="factor_id" widget="many2one" string="Emission Factor" />
+                    <field name="computation_level" optional="hide" string="Computation Level" />
                     <field name="uncertainty_percentage" widget="percentage" optional="hide" string="Uncertainty" />
                     <field name="compute_method" optional="hide" string="Compute Method" />
                     <field name="carbon_value" optional="hide" string="Value" />
