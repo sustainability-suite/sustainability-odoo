@@ -36,6 +36,7 @@
             digits="[13,2]"
           />
           <field name="factor_id" widget="many2one" string="Emission Factor" />
+          <field name="computation_level" optional="hide" string="Computation Level" />
           <field
             name="uncertainty_percentage"
             widget="percentage"
