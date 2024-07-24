@@ -69,6 +69,7 @@ class CarbonLineOrigin(models.Model):
         string="Factor Source",
         store=True,
     )
+    computation_level = fields.Char()
 
     # --------------------------------------------
     #          account.move.line fields

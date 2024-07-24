@@ -421,11 +421,15 @@ class CarbonMixin(models.AbstractModel):
 
     def get_carbon_distribution(
         self, carbon_type: str
-    ) -> tuple[CarbonFactor, dict[CarbonFactor, float]]:
+    ) -> tuple[CarbonFactor, dict[CarbonFactor, float], str]:
         """Return factors and their distributions for a given carbon type"""
         self.ensure_one()
         lines = self[f"carbon_{carbon_type}_distribution_line_ids"]
-        return lines.factor_id, {line.factor_id: line.percentage for line in lines}
+        return (
+            lines.factor_id,
+            {line.factor_id: line.percentage for line in lines},
+            self.model_name,
+        )
 
     def carbon_widget_update_field(self, field_name: str, value: Any):
         field = getattr(self, field_name)
