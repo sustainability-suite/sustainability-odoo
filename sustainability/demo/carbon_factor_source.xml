@@ -6,4 +6,10 @@
         <field name="author">ADEME</field>
         <field name="url">https://base-empreinte.ademe.fr/documentation/base-carbone</field>
     </record>
+    <record id="carbon_factor_source_other" model="carbon.factor.source">
+        <field name="code">OTHER</field>
+        <field name="name">Other</field>
+        <field name="author">N/A</field>
+        <field name="url">n/a</field>
+    </record>
 </odoo>

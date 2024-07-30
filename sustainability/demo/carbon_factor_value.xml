@@ -253,4 +253,10 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">10.000000</field>
     </record>
+    <record id="carbon_factor_value_37" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_23" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.500000</field>
+    </record>
 </odoo>

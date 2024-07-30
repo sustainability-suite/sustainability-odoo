@@ -203,4 +203,13 @@
         <field name="carbon_compute_method">monetary</field>
         <field name="uncertainty_percentage">1</field>
     </record>
+
+    <!-- Others -->
+    <record id="carbon_factor_23" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_achats_de_services" />
+        <field name="name">Azure Interior - Furniture eco conceptor</field>
+        <field name="carbon_compute_method">monetary</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_other" />
+        <field name="uncertainty_percentage">0.1</field>
+    </record>
 </odoo>
