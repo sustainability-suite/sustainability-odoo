@@ -79,6 +79,17 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
+    <record id="carbon_factor_canape_textile" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_achats_de_biens" />
+        <field name="name">Canapé textile</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
+        <field name="uncertainty_percentage">0.15</field>
+        <field
+            name="required_type_ids"
+            eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
+        />
+    </record>
 
     <!-- Electricité -->
     <record id="carbon_factor_electricite" model="carbon.factor">

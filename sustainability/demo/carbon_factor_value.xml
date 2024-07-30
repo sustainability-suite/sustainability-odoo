@@ -139,6 +139,28 @@
         <field name="carbon_value">16.100000</field>
     </record>
 
+    <record id="carbon_factor_value_canape_textile_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">26.600000</field>
+    </record>
+    <record id="carbon_factor_value_canape_textile_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">53.000000</field>
+    </record>
+    <record id="carbon_factor_value_canape_textile_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">99.500000</field>
+    </record>
+
     <!-- Electricité -->
     <record id="carbon_factor_value_20" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_electricite_france" />
