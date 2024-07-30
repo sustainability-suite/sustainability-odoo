@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="base.res_partner_12" model="res.partner">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="sustainability.carbon_factor_20" />
+            <field name="carbon_in_factor_id" ref="sustainability.carbon_factor_azure_interior_furniture_eco_conceptor" />
         </record>
     </data>
 </odoo>

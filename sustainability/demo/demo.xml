@@ -3,23 +3,39 @@
     <data noupdate="1">
         <record id="account.1_expense" model="account.account">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="carbon_factor_21" />
+            <field name="carbon_in_factor_id" ref="carbon_factor_meubles_autres_bien_manufactures" />
         </record>
         <record id="product.product_product_12" model="product.product">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="carbon_factor_3" />
+            <field name="carbon_in_factor_id" ref="carbon_factor_chaise_bois_textile" />
         </record>
         <record id="product.product_delivery_01_product_template" model="product.template">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="carbon_factor_4" />
+            <field name="carbon_in_factor_id" ref="carbon_factor_chaise_plastique" />
+        </record>
+        <record id="product.consu_delivery_03_product_template" model="product.template">
+            <field name="carbon_in_is_manual">True</field>
+            <field name="carbon_in_factor_id" ref="carbon_factor_table_representative" />
+        </record>
+        <record id="product.consu_delivery_01_product_template" model="product.template">
+            <field name="carbon_in_is_manual">True</field>
+            <field name="carbon_in_factor_id" ref="carbon_factor_table_representative" />
         </record>
         <record id="product.product_category_5" model="product.category">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="carbon_factor_7" />
+            <field name="carbon_in_factor_id" ref="carbon_factor_table_representative" />
+        </record>
+        <record id="product.product_category_4" model="product.category">
+            <field name="carbon_in_is_manual">True</field>
+            <field name="carbon_in_factor_id" ref="carbon_factor_assurance_service_bancaires_conseil_honoraires" />
+        </record>
+        <record id="product.product_category_3" model="product.category">
+            <field name="carbon_in_is_manual">True</field>
+            <field name="carbon_in_factor_id" ref="carbon_factor_assurance_service_bancaires_conseil_honoraires" />
         </record>
         <record id="base.main_company" model="res.company">
             <field name="carbon_in_is_manual">True</field>
-            <field name="carbon_in_factor_id" ref="carbon_factor_22" />
+            <field name="carbon_in_factor_id" ref="carbon_factor_global_fallback" />
         </record>
     </data>
 </odoo>

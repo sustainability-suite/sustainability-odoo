@@ -6,7 +6,7 @@
         <field name="carbon_compute_method" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_1" model="carbon.factor">
+    <record id="carbon_factor_armoire_representative" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Armoire représentative</field>
         <field name="carbon_compute_method">physical</field>
@@ -17,7 +17,7 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
-    <record id="carbon_factor_2" model="carbon.factor">
+    <record id="carbon_factor_chaise_bois" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Chaise bois</field>
         <field name="carbon_compute_method">physical</field>
@@ -28,7 +28,7 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
-    <record id="carbon_factor_3" model="carbon.factor">
+    <record id="carbon_factor_chaise_bois_textile" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Chaise bois textile</field>
         <field name="carbon_compute_method">physical</field>
@@ -39,7 +39,7 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
-    <record id="carbon_factor_4" model="carbon.factor">
+    <record id="carbon_factor_chaise_plastique" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Chaise plastique</field>
         <field name="carbon_compute_method">physical</field>
@@ -50,14 +50,14 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
-    <record id="carbon_factor_5" model="carbon.factor">
+    <record id="carbon_factor_mobilier_fabrication" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Mobilier fabrication</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.5</field>
     </record>
-    <record id="carbon_factor_6" model="carbon.factor">
+    <record id="carbon_factor_table_bois_massif" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Table bois massif</field>
         <field name="carbon_compute_method">physical</field>
@@ -68,7 +68,7 @@
             eval="[(6, 0, [ref('carbon_factor_type_energie'), ref('carbon_factor_type_transports'), ref('carbon_factor_type_intrants')])]"
         />
     </record>
-    <record id="carbon_factor_7" model="carbon.factor">
+    <record id="carbon_factor_table_representative" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_biens" />
         <field name="name">Table représentative</field>
         <field name="carbon_compute_method">physical</field>
@@ -86,7 +86,7 @@
         <field name="carbon_compute_method" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_8" model="carbon.factor">
+    <record id="carbon_factor_electricite_france" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - France</field>
         <field name="carbon_compute_method">physical</field>
@@ -97,42 +97,42 @@
             eval="[(6, 0, [ref('carbon_factor_type_transport_distribution'), ref('carbon_factor_type_combustion_centrale'), ref('carbon_factor_type_amont')])]"
         />
     </record>
-    <record id="carbon_factor_9" model="carbon.factor">
+    <record id="carbon_factor_electricite_belgique" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Belgique</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_10" model="carbon.factor">
+    <record id="carbon_factor_electricite_suisse" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Suisse</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_11" model="carbon.factor">
+    <record id="carbon_factor_electricite_allemagne" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Allemagne</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_12" model="carbon.factor">
+    <record id="carbon_factor_electricite_espagne" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Espagne</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_13" model="carbon.factor">
+    <record id="carbon_factor_electricite_royame_uni" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Royaume-Uni</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.1</field>
     </record>
-    <record id="carbon_factor_14" model="carbon.factor">
+    <record id="carbon_factor_electricite_norvege" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_electricite" />
         <field name="name">Electricité - mix moyen consommation - Norvège</field>
         <field name="carbon_compute_method">physical</field>
@@ -146,70 +146,68 @@
         <field name="carbon_compute_method" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_15" model="carbon.factor">
+    <record id="carbon_factor_assurance_service_bancaires_conseil_honoraires" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Assurance, services bancaires, conseil et honoraires</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_16" model="carbon.factor">
+    <record id="carbon_factor_construction" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Construction</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_17" model="carbon.factor">
+    <record id="carbon_factor_courrier" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Courrier</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_18" model="carbon.factor">
+    <record id="carbon_factor_enseignement" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Enseignement</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_19" model="carbon.factor">
+    <record id="carbon_factor_papier_carton" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Papier et carton</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_20" model="carbon.factor">
+    <record id="carbon_factor_telecommunications" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Télécommunications</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-    <record id="carbon_factor_21" model="carbon.factor">
+    <record id="carbon_factor_meubles_autres_bien_manufactures" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Meubles et autres biens manufacturés</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
-
-    <!-- Fallback -->
-    <record id="carbon_factor_22" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_achats_de_services" />
-        <field name="name">Global Emission Factor Fallback</field>
-        <field name="carbon_compute_method">monetary</field>
-        <field name="uncertainty_percentage">1</field>
-    </record>
-
-    <!-- Others -->
-    <record id="carbon_factor_23" model="carbon.factor">
+    <record id="carbon_factor_azure_interior_furniture_eco_conceptor" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Azure Interior - Furniture eco conceptor</field>
         <field name="carbon_compute_method">monetary</field>
         <field name="carbon_source_id" ref="carbon_factor_source_other" />
         <field name="uncertainty_percentage">0.1</field>
+    </record>
+
+    <!-- Fallback -->
+    <record id="carbon_factor_global_fallback" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_achats_de_services" />
+        <field name="name">Global Emission Factor Fallback</field>
+        <field name="carbon_compute_method">monetary</field>
+        <field name="uncertainty_percentage">1</field>
     </record>
 </odoo>
