@@ -72,7 +72,7 @@ class CarbonFactor(models.Model):
     )
     carbon_date = fields.Date(related="recent_value_id.date", store=True)
 
-    carbon_value = fields.Float(related="recent_value_id.carbon_value", store=True)
+    carbon_value = fields.Float(compute="_compute_carbon_value", store=True)
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id", store=True)
     carbon_monetary_currency_id = fields.Many2one(
         related="recent_value_id.carbon_monetary_currency_id"
@@ -108,6 +108,22 @@ class CarbonFactor(models.Model):
             factor.recent_value_id = value_with_dates and max(
                 value_with_dates, key=lambda f: f.date
             )
+
+    @api.depends("value_ids.date")
+    def _compute_carbon_value(self):
+        for factor in self:
+            value_with_dates = factor.value_ids.filtered("date")
+            if value_with_dates:
+                dates_values = {}
+                for factor_value in value_with_dates:
+                    dates_values[factor_value.date] = (
+                        dates_values.get(factor_value.date, 0)
+                        + factor_value.carbon_value
+                    )
+                most_recent_date = max(dates_values.keys())
+                factor.carbon_value = dates_values[most_recent_date]
+            else:
+                factor.carbon_value = False
 
     @api.depends("child_ids")
     def _compute_child_qty(self):
