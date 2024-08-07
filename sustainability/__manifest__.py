@@ -52,7 +52,6 @@
         "demo/carbon_factor_value.xml",
         "demo/demo.xml",
     ],
-    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": True,
     "auto_install": False,
