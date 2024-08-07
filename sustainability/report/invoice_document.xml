@@ -10,7 +10,7 @@
                             <sub>2</sub>
                             Equivalent:
                         </strong>
-                        <span t-out="round(o.carbon_balance)" />
+                        <span t-out="round(-o.carbon_balance)" />
                         <span t-out="o.carbon_currency_id.currency_unit_label" />
                         <div t-out="o.company_id.invoice_report_footer" />
                     </div>
