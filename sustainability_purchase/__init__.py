@@ -24,11 +24,3 @@ def add_carbon_mode_columns(env):
         SET carbon_in_mode = 'auto', carbon_out_mode = 'auto'
         """
     )
-
-
-def post_init_hook(env):
-    """Create `carbon.line.origin` records if demo data"""
-    if env.ref("base.user_demo", raise_if_not_found=False):
-        moves = env["purchase.order"].search([])
-        for move in moves:
-            move.action_recompute_carbon()

@@ -5,5 +5,8 @@
             <field name="carbon_in_is_manual">True</field>
             <field name="carbon_in_factor_id" ref="sustainability.carbon_factor_azure_interior_furniture_eco_conceptor" />
         </record>
+        <function model="purchase.order" name="action_recompute_carbon">
+            <value model="purchase.order" eval="obj().search([]).ids" />
+        </function>
     </data>
 </odoo>

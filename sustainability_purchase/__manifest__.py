@@ -23,7 +23,6 @@
     "demo": [
         "data/demo.xml",
     ],
-    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": False,
     "auto_install": False,
