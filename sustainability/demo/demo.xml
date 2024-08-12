@@ -74,7 +74,7 @@
         </function>
 
         <function model="account.move" name="action_recompute_carbon">
-            <value eval="[ref('demo_invoice_carbon_on_invoice')]" />
+            <value model="account.move" eval="obj().search([('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund'])]).ids" />
         </function>
     </data>
 </odoo>
