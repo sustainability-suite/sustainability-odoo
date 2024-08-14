@@ -24,7 +24,7 @@ class ResCompany(models.Model):
         string="Cronjob active", default=False
     )
 
-    def _cron_carbon_commuting_account_move_create(self):
+    def _cron_carbon_commuting_account_move_create(self, to_post=False):
         for company in self.env["res.company"].search(
             [("employee_commuting_carbon_cronjob_active", "=", True)]
         ):
@@ -67,14 +67,14 @@ class ResCompany(models.Model):
             for account_move_date in list(date_set):
                 account_move_creation_success = (
                     company.carbon_commuting_create_account_move(
-                        account_move_date=account_move_date
+                        account_move_date=account_move_date, to_post=to_post
                     )
                 )
                 # stop if it didn't work in order to not have any skipped month
                 if not account_move_creation_success:
                     break
 
-    def carbon_commuting_create_account_move(self, account_move_date):
+    def carbon_commuting_create_account_move(self, account_move_date, to_post=False):
         self.ensure_one()
         company = self
         try:
@@ -157,10 +157,11 @@ class ResCompany(models.Model):
                 )
                 aml_vals_list.append((0, 0, aml_vals))
 
-            self.env["account.move"].create(
+            account_move = self.env["account.move"].create(
                 {
                     "ref": f'Employee_Commuting_Carbon_{account_move_date.strftime("%Y%m")}',
                     "journal_id": company.employee_commuting_journal_id.id,
+                    "invoice_date": account_move_date.strftime("%Y-%m-%d"),
                     "date": account_move_date.strftime("%Y-%m-%d"),
                     "partner_id": company.partner_id.id,
                     "company_id": company.id,
@@ -172,6 +173,8 @@ class ResCompany(models.Model):
                     ),
                 }
             )
+            if to_post:
+                account_move.action_post()
             return True
 
         except Exception as e:

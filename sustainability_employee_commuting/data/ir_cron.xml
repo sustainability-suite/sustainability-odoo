@@ -6,7 +6,7 @@
             <field name="model_id" ref="model_res_company" />
             <field name="user_id">1</field>
             <field name="state">code</field>
-            <field name="code">model._cron_carbon_commuting_account_move_create()</field>
+            <field name="code">model._cron_carbon_commuting_account_move_create(to_post=True)</field>
             <field name="interval_type">months</field>
             <field name="interval_number">1</field>
             <field name="numbercall">-1</field>
