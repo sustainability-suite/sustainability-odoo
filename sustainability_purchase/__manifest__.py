@@ -20,6 +20,9 @@
         "views/purchase_order.xml",
         "views/res_partner.xml",
     ],
+    "demo": [
+        "data/demo.xml",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
