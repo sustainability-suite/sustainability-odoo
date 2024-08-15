@@ -3,7 +3,7 @@
 {
     "name": "CO2 Employee Commuting",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl, Dehlya Herbelin",
+    "author": "Open Net Sàrl, Dehlya Herbelin, Adam Bonnet",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
     "summary": "Module for employee commuting co2",
@@ -15,6 +15,7 @@
     "data": [
         # Data
         "data/ir_cron.xml",
+        "data/scheduled_actions.xml",
         # Views
         "views/res_config_settings.xml",
         "views/hr_employee_commuting.xml",
