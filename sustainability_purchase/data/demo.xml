@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="base.res_partner_12" model="res.partner">
+            <field name="carbon_in_is_manual">True</field>
+            <field name="carbon_in_factor_id" ref="sustainability.carbon_factor_azure_interior_furniture_eco_conceptor" />
+        </record>
+        <function model="purchase.order" name="action_recompute_carbon">
+            <value model="purchase.order" eval="obj().search([]).ids" />
+        </function>
+        <function model="account.move" name="action_recompute_carbon">
+            <value model="account.move" eval="obj().search([('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund'])]).ids" />
+        </function>
+    </data>
+</odoo>

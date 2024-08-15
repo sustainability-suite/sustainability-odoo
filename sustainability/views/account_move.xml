@@ -27,7 +27,7 @@
             force_save="1"
           />
           <button
-            title="Unlock co2"
+            title="Lock co2"
             type="object"
             name="action_switch_locked"
             attrs="{'invisible': [('carbon_is_locked', '=', True)]}"
@@ -35,7 +35,7 @@
             class="opacity-25"
           />
           <button
-            title="Lock co2"
+            title="Unlock co2"
             type="object"
             name="action_switch_locked"
             attrs="{'invisible': [('carbon_is_locked', '=', False)]}"
