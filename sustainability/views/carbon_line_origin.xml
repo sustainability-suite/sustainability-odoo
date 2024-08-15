@@ -90,6 +90,7 @@
 
                     <filter string="Physical" name="physical" domain="[('compute_method', '=', 'physical')]" />
                     <filter string="Monetary" name="monetary" domain="[('compute_method', '=', 'monetary')]" />
+                    <separator />
                     <filter string="Creation Date" name="date" date="create_date" />
                     <separator />
                     <filter string="Posted" name="posted" domain="[('move_state', '=', 'posted'), ('res_model', '=', 'account.move.line')]" />
@@ -100,6 +101,7 @@
                         domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d')), ('move_date', '&lt;=', (context_today()).strftime('%Y-%m-%d'))]"
                         invisible="1"
                     />
+                    <separator />
                     <filter string="Invoice Date" name="date" date="move_date" />
                     <separator />
                     <filter
