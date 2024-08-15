@@ -55,6 +55,7 @@
         "demo/carbon_factor_type.xml",
         "demo/carbon_factor.xml",
         "demo/carbon_factor_value.xml",
+        "demo/demo.xml",
     ],
     "installable": True,
     "application": True,

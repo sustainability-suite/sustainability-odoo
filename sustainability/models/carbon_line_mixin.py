@@ -116,6 +116,7 @@ class CarbonLineMixin(models.AbstractModel):
             "account.move.line": _("Carbon on invoice"),
             "product.product": _("Product"),
             "product.category": _("Product category"),
+            "product.template": _("Product template"),
             "res.partner": _("Partner"),
             "account.account": _("Account"),
             "res.company": _("Company fallback"),
