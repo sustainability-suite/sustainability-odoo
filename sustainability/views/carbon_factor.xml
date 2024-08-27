@@ -187,6 +187,9 @@
                                 <field name="required_type_ids" widget="many2many_tags" />
                             </group>
                         </group>
+                        <group>
+                            <field name="carbon_value" />
+                        </group>
                         <notebook invisible="carbon_compute_method == False">
                             <page name="page_values" string="Values">
                                 <group>
