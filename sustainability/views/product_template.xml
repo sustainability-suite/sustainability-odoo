@@ -21,6 +21,7 @@
                             </div>
                             <field invisible="carbon_in_is_manual" name="carbon_in_fallback_reference" widget="reference" />
                             <field invisible="not carbon_in_is_manual" name="carbon_in_factor_id" required="carbon_in_is_manual" />
+                            <field invisible="not carbon_in_is_manual" name="carbon_in_approach_characterization_id" required="carbon_in_is_manual" />
                         </group>
                         <group string="Sales">
                             <label for="carbon_out_is_manual" string="Mode" />
@@ -34,6 +35,7 @@
                             </div>
                             <field invisible="carbon_out_is_manual" name="carbon_out_fallback_reference" widget="reference" />
                             <field invisible="not carbon_out_is_manual" name="carbon_out_factor_id" required="carbon_out_is_manual" />
+                            <field invisible="not carbon_out_is_manual" name="carbon_out_approach_characterization_id" required="carbon_out_is_manual" />
                         </group>
                     </group>
                 </xpath>

@@ -122,6 +122,12 @@ class CarbonLineMixin(models.AbstractModel):
             "res.company": _("Company fallback"),
         }
 
+    def _get_carbon_characterization_id(self) -> int:
+        if hasattr(self, "product_id"):
+            return 1
+        else:
+            return 1
+
     # --------------------------------------------
 
     @api.onchange("carbon_debt")
@@ -230,6 +236,9 @@ class CarbonLineMixin(models.AbstractModel):
                 "mode": "auto",
                 "details": details,
                 "model_name": model_name,
+                "approach_characterization": record.get_approach_characterization(
+                    carbon_type
+                ),
             }
 
         return skipped_lines
@@ -245,6 +254,9 @@ class CarbonLineMixin(models.AbstractModel):
         mode = self.carbon_origin_json.get("mode")
         json_details = self.carbon_origin_json.get("details", {})
         model_name = self.carbon_origin_json.get("model_name", "")
+        approach_characterization = self.carbon_origin_json.get(
+            "approach_characterization", ""
+        )
 
         if mode == "manual":
             vals_list.append(
@@ -281,6 +293,9 @@ class CarbonLineMixin(models.AbstractModel):
                             "monetary_currency_id": details.get("monetary_currency_id"),
                             "computation_level": self._get_computation_levels_mapping().get(
                                 model_name
+                            ),
+                            "carbon_approach_characterization_id": int(
+                                approach_characterization
                             ),
                         }
                     )

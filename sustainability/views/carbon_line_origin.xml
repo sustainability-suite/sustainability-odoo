@@ -27,6 +27,7 @@
                     <field name="factor_value_type_id" widget="badge" string="Type" />
                     <field name="factor_category_id" widget="badge" string="Category" />
                     <field name="factor_source_id" optional="hide" string="Source" />
+                    <field name="carbon_approach_characterization_id" optional="hide" />
                     <field name="create_date" optional="hide" widget="date" string="Created On" />
                     <field
                         name="move_state"
