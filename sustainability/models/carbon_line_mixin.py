@@ -322,7 +322,7 @@ class CarbonLineMixin(models.AbstractModel):
 
     def unlink(self):
         self.carbon_origin_ids.unlink()
-        super().unlink()
+        return super().unlink()
 
     # --------------------------------------------
     #                ACTION / UI
