@@ -443,13 +443,13 @@ class CarbonMixin(models.AbstractModel):
             self.model_name,
         )
 
-    def get_approach_characterization(self, carbon_type: str) -> str:
+    def get_approach_characterization(self, carbon_type: str) -> int:
         """Return characterization for a given carbon type"""
         self.ensure_one()
         approach_characterization = self[
             f"carbon_{carbon_type}_approach_characterization_id"
         ]
-        return str(approach_characterization.id) if approach_characterization else ""
+        return approach_characterization.id if approach_characterization else False
 
     def carbon_widget_update_field(self, field_name: str, value: Any):
         field = getattr(self, field_name)
