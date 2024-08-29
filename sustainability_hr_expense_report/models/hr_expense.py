@@ -32,7 +32,7 @@ class HrExpense(models.Model):
         "date",
     )
     def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
-        super()._compute_carbon_debt(force_compute)
+        return super()._compute_carbon_debt(force_compute)
 
     @api.model
     def _get_states_to_auto_recompute(self) -> list[str]:

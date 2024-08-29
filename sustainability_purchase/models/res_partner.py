@@ -32,11 +32,11 @@ class ResPartner(models.Model):
 
     @api.depends("parent_id.carbon_in_factor_id")
     def _compute_carbon_in_mode(self):
-        super()._compute_carbon_in_mode()
+        return super()._compute_carbon_in_mode()
 
     @api.depends("parent_id.carbon_out_factor_id")
     def _compute_carbon_out_mode(self):
-        super()._compute_carbon_out_mode()
+        return super()._compute_carbon_out_mode()
 
     def _cron_initial_carbon_compute_res_partner(self):
         partners = self.env["res.partner"].search(
