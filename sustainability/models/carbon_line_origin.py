@@ -71,6 +71,11 @@ class CarbonLineOrigin(models.Model):
     )
     computation_level = fields.Char()
 
+    carbon_approach_characterization_id = fields.Many2one(
+        comodel_name="sustainability.approach.characterization",
+        string="Approach Characterization",
+    )
+
     # --------------------------------------------
     #          account.move.line fields
     # --------------------------------------------

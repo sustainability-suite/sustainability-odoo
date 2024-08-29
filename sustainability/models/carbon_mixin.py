@@ -124,6 +124,12 @@ class CarbonMixin(models.AbstractModel):
     carbon_in_fallback_reference = fields.Reference(
         selection="_selection_fallback_model", readonly=True, string="Fallback record"
     )
+
+    carbon_in_approach_characterization_id = fields.Many2one(
+        "sustainability.approach.characterization",
+        string="Approach Characterization",
+    )
+
     carbon_in_value_origin = fields.Char(string="Value origin", readonly=True)
 
     carbon_in_use_distribution = fields.Boolean(
@@ -162,6 +168,12 @@ class CarbonMixin(models.AbstractModel):
     carbon_out_fallback_reference = fields.Reference(
         selection="_selection_fallback_model", readonly=True, string="Fallback record "
     )
+
+    carbon_out_approach_characterization_id = fields.Many2one(
+        "sustainability.approach.characterization",
+        string="Approach Characterization ",
+    )
+
     carbon_out_value_origin = fields.Char(string="Value origin ", readonly=True)
 
     carbon_out_use_distribution = fields.Boolean(
@@ -430,6 +442,14 @@ class CarbonMixin(models.AbstractModel):
             {line.factor_id: line.percentage for line in lines},
             self.model_name,
         )
+
+    def get_approach_characterization(self, carbon_type: str) -> int:
+        """Return characterization for a given carbon type"""
+        self.ensure_one()
+        approach_characterization = self[
+            f"carbon_{carbon_type}_approach_characterization_id"
+        ]
+        return approach_characterization.id if approach_characterization else False
 
     def carbon_widget_update_field(self, field_name: str, value: Any):
         field = getattr(self, field_name)
