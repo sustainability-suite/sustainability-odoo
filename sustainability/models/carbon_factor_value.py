@@ -16,51 +16,6 @@ class CarbonFactorValue(models.Model):
 
     _sql_constraints = [
         (
-            "not_negative_carbon_value",
-            "CHECK(carbon_value >= 0)",
-            "CO2e value can not be negative !",
-        ),
-        (
-            "not_negative_co2_value",
-            "CHECK(co2_value >= 0)",
-            "CO2e value can not be negative !",
-        ),
-        (
-            "not_negative_ch4_value",
-            "CHECK(ch4_value >= 0)",
-            "CH4 value can not be negative !",
-        ),
-        (
-            "not_negative_n2o_value",
-            "CHECK(n2o_value >= 0)",
-            "N2O value can not be negative !",
-        ),
-        (
-            "not_negative_sf6_value",
-            "CHECK(sf6_value >= 0)",
-            "SF6 value can not be negative !",
-        ),
-        (
-            "not_negative_hfc_value",
-            "CHECK(hfc_value >= 0)",
-            "HFC value can not be negative !",
-        ),
-        (
-            "not_negative_pfc_value",
-            "CHECK(pfc_value >= 0)",
-            "PFC value can not be negative !",
-        ),
-        (
-            "not_negative_nf3_value",
-            "CHECK(nf3_value >= 0)",
-            "NF3 value can not be negative !",
-        ),
-        (
-            "not_negative_other_ghg_value",
-            "CHECK(other_ghg_value >= 0)",
-            "Other GHG value can not be negative !",
-        ),
-        (
             "not_unique_date_type_id",
             "UNIQUE(factor_id, date, type_id)",
             "Date and Carbon Factor Type should be a unique pair",
