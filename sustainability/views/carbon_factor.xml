@@ -170,7 +170,7 @@
                             <h2 class="ms-auto">
                                 <field invisible="not recent_value_id or not carbon_compute_method" name="carbon_value" />
                                 <field invisible="not recent_value_id or not carbon_compute_method" name="carbon_currency_label" class="ms-2" />
-                                <field invisible="not recent_value_id or not carbon_compute_method" name="unit_label" />
+                                <field invisible="not recent_value_id or not carbon_compute_method" name="unit_label" class="ms-1" />
                             </h2>
                         </div>
                         <group>
