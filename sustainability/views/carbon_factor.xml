@@ -259,11 +259,18 @@
               bg_color="bg-danger"
               attrs="{'invisible': [('active', '=', True)]}"
             />
-            <div class="oe_title">
-              <label for="name" />
-              <h1>
-                <field name="name" placeholder="e.g. Electric Train" widget="text" />
-              </h1>
+            <div class="d-flex align-items-center">
+                <div class="w-75">
+                    <label for="name" />
+                    <h1>
+                        <field name="name" placeholder="e.g. Electric Train" widget="text" />
+                    </h1>
+                </div>
+                <h2 class="ms-auto">
+                    <field name="carbon_value" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
+                    <field name="carbon_currency_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" class="ms-2" />
+                    <field name="unit_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" class="ms-1" />
+                </h2>
             </div>
             <group>
               <group>
