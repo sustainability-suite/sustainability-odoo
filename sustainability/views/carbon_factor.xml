@@ -160,11 +160,18 @@
                             </button>
                         </div>
                         <widget bg_color="bg-danger" invisible="active" name="web_ribbon" title="Archived" />
-                        <div class="oe_title">
-                            <label for="name" />
-                            <h1>
-                                <field name="name" placeholder="e.g. Electric Train" widget="text" />
-                            </h1>
+                        <div class="d-flex align-items-center">
+                            <div class="w-75">
+                                <label for="name" />
+                                <h1>
+                                    <field name="name" placeholder="e.g. Electric Train" widget="text" />
+                                </h1>
+                            </div>
+                            <h2 class="ms-auto">
+                                <field invisible="not recent_value_id or not carbon_compute_method" name="carbon_value" />
+                                <field invisible="not recent_value_id or not carbon_compute_method" name="carbon_currency_label" class="ms-2" />
+                                <field invisible="not recent_value_id or not carbon_compute_method" name="unit_label" class="ms-1" />
+                            </h2>
                         </div>
                         <group>
                             <group>
