@@ -21,10 +21,10 @@ class CarbonFactor(models.Model):
     # Core and utils fields
     name = fields.Char(required=True, tracking=True)
     carbon_database_id = fields.Many2one(
-        comodel_name="carbon.factor.database", tracking=True
+        comodel_name="carbon.factor.database", tracking=True, string="Database"
     )
     carbon_contributor_id = fields.Many2one(
-        comodel_name="carbon.factor.contributor", tracking=True
+        comodel_name="carbon.factor.contributor", tracking=True, string="Contributor"
     )
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
     carbon_compute_method = fields.Selection(
@@ -79,7 +79,9 @@ class CarbonFactor(models.Model):
     )
     carbon_date = fields.Date(related="recent_value_id.date", store=True)
 
-    carbon_value = fields.Float(compute="_compute_carbon_value", store=True)
+    carbon_value = fields.Float(
+        compute="_compute_carbon_value", store=True, string="Value"
+    )
     carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id", store=True)
     carbon_monetary_currency_id = fields.Many2one(
         related="recent_value_id.carbon_monetary_currency_id"

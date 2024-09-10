@@ -21,16 +21,23 @@
             <menuitem id="menu_emission_factors" name="Emission Factors" sequence="2">
                 <menuitem id="carbon_factor_menu" name="Emission Factors" sequence="1" groups="base.group_user" action="sustainability.carbon_factor_action" />
                 <menuitem
-                    id="carbon_factor_source_menu"
-                    name="Emission Factor Sources"
+                    id="carbon_factor_database_menu"
+                    name="Emission Factor Databases"
                     sequence="2"
                     groups="base.group_user"
-                    action="sustainability.carbon_factor_source_action"
+                    action="sustainability.carbon_factor_database_action"
+                />
+                <menuitem
+                    id="carbon_factor_contributor_menu"
+                    name="Emission Factor Contributors"
+                    sequence="3"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_contributor_action"
                 />
                 <menuitem
                     id="carbon_factor_type_menu"
                     name="Emission Factor Types"
-                    sequence="3"
+                    sequence="4"
                     groups="base.group_user"
                     action="sustainability.carbon_factor_type_action"
                 />
@@ -76,7 +83,6 @@
             </menuitem>
             <menuitem id="menu_sustainability_configuration" name="Configuration" groups="base.group_system" sequence="5">
                 <menuitem id="menu_sustainability_config" name="Settings" groups="base.group_system" action="action_sustainability_config" sequence="1" />
-
                 <menuitem id="menu_nomenclature" name="Nomenclatures" groups="base.group_user" sequence="2">
                     <menuitem id="menu_nomenclature_overview" name="Overview" action="nomenclature_window_action" groups="base.group_user" sequence="1" />
                     <menuitem
