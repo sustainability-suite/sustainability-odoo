@@ -2,7 +2,7 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Union
 
-from odoo import _, api, fields, models
+from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -33,6 +33,10 @@ class CarbonFactor(models.Model):
         string="Uncertainty (%)", default=0.0, tracking=True, group_operator=False
     )
     active = fields.Boolean(default=True, tracking=True)
+    country_id = fields.Many2one("res.country", string="Country", tracking=True)
+    country_group_id = fields.Many2one(
+        "res.country.group", string="Country Group", tracking=True
+    )
 
     # Categories fields
     parent_id = fields.Many2one(
@@ -96,6 +100,14 @@ class CarbonFactor(models.Model):
     def _get_record_description(self) -> str:
         self.ensure_one()
         return self._description + (f": {self.name}" if hasattr(self, "name") else "")
+
+    @api.constrains("country_id", "country_group_id")
+    def _check_country_constraints(self):
+        for record in self:
+            if record.country_id and record.country_group_id:
+                raise exceptions.ValidationError(
+                    "You can only select either a Country or a Country Group, not both."
+                )
 
     # --------------------------------------------
     #                   COMPUTE
