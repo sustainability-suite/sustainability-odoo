@@ -20,8 +20,11 @@ class CarbonFactor(models.Model):
 
     # Core and utils fields
     name = fields.Char(required=True, tracking=True)
-    carbon_source_id = fields.Many2one(
-        comodel_name="carbon.factor.source", tracking=True
+    carbon_database_id = fields.Many2one(
+        comodel_name="carbon.factor.database", tracking=True
+    )
+    carbon_contributor_id = fields.Many2one(
+        comodel_name="carbon.factor.contributor", tracking=True
     )
     has_invalid_value = fields.Boolean(compute="_compute_has_invalid_value")
     carbon_compute_method = fields.Selection(

@@ -26,7 +26,7 @@
                     <field name="distribution" widget="percentage" optional="hide" string="Distribution" />
                     <field name="factor_value_type_id" widget="badge" string="Type" />
                     <field name="factor_category_id" widget="badge" string="Category" />
-                    <field name="factor_source_id" optional="hide" string="Source" />
+                    <field name="factor_database_id" optional="hide" string="Database" />
                     <field name="create_date" optional="hide" widget="date" string="Created On" />
                     <field
                         name="move_state"
@@ -113,7 +113,7 @@
                         <filter string="Emission Factor" name="by_factor_id" context="{'group_by':'factor_id'}" />
                         <filter string="Category" name="by_factor_category_id" context="{'group_by':'factor_category_id'}" />
                         <filter string="Type" name="by_factor_value_type_id" context="{'group_by':'factor_value_type_id'}" />
-                        <filter string="Source" name="by_carbon_source_id" context="{'group_by':'factor_source_id'}" />
+                        <filter string="Database" name="by_carbon_database_id" context="{'group_by':'factor_database_id'}" />
                         <filter string="Compute Method" name="by_compute_method" context="{'group_by':'compute_method'}" />
                         <filter string="Creation Date" name="by_create_date" context="{'group_by': 'create_date'}" />
                         <separator />

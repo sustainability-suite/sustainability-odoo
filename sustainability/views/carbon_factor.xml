@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <record id="carbon_factor_tree" model="ir.ui.view">
@@ -14,7 +14,7 @@
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="carbon_currency_label" string=" " />
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="unit_label" />
                     <field name="uncertainty_percentage" optional="show" widget="percentage" />
-                    <field name="carbon_source_id" optional="show" />
+                    <field name="carbon_database_id" optional="show" />
                     <field name="country_id" optional="show" />
                     <field name="country_group_id" optional="show" />
                     <field name="root" optional="hide" />
@@ -63,7 +63,7 @@
                 <search string="Search Emission Factor">
                     <field name="name" />
                     <field name="category" />
-                    <field name="carbon_source_id" string="Source" />
+                    <field name="carbon_database_id" string="Database" />
                     <field name="factor_value_type_id" string="Type" />
                     <field name="carbon_uom_id" />
                     <field name="country_id" />
@@ -81,7 +81,7 @@
                         <filter string="Category" name="by_category" context="{'group_by':'category'}" />
                         <separator />
                         <filter string="Compute method" name="by_carbon_compute_method" context="{'group_by':'carbon_compute_method'}" />
-                        <filter string="Source" name="by_carbon_source_id" context="{'group_by':'carbon_source_id'}" />
+                        <filter string="Database" name="by_carbon_database_id" context="{'group_by':'carbon_database_id'}" />
                         <filter string="Uncertainty" name="by_uncertainty_percentage" context="{'group_by':'uncertainty_percentage'}" />
                         <filter string="Type" name="by_factor_value_type_id" context="{'group_by':'factor_value_type_id'}" />
                         <filter string="Create date" name="by_create_date" context="{'group_by':'create_date'}" />
@@ -108,61 +108,41 @@
                             <button class="oe_stat_button" icon="fa-bars" name="action_see_account_move_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="account_move_qty &lt;= 1">
-                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
-                                        Posted Entries
-                                    </span>
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" /> Posted Entries </span>
                                     <span class="o_stat_value" invisible="account_move_qty > 1">
-                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
-                                        Posted Entry
-                                    </span>
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" /> Posted Entry </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-sitemap" name="action_see_child_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="child_qty &lt;= 1">
-                                        <field name="child_qty" nolabel="1" widget="statinfo" />
-                                        Children Factors
-                                    </span>
+                                        <field name="child_qty" nolabel="1" widget="statinfo" /> Children Factors </span>
                                     <span class="o_stat_value" invisible="child_qty > 1">
-                                        <field name="child_qty" nolabel="1" widget="statinfo" />
-                                        Child Factor
-                                    </span>
+                                        <field name="child_qty" nolabel="1" widget="statinfo" /> Child Factor </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-book" name="action_see_chart_of_account_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="chart_of_account_qty &lt;= 1">
-                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
-                                        Accounts
-                                    </span>
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" /> Accounts </span>
                                     <span class="o_stat_value" invisible="chart_of_account_qty > 1">
-                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
-                                        Account
-                                    </span>
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" /> Account </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-th-list" name="action_see_product_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="product_qty &lt;= 1">
-                                        <field name="product_qty" nolabel="1" widget="statinfo" />
-                                        Products
-                                    </span>
+                                        <field name="product_qty" nolabel="1" widget="statinfo" /> Products </span>
                                     <span class="o_stat_value" invisible="product_qty > 1">
-                                        <field name="product_qty" nolabel="1" widget="statinfo" />
-                                        Product
-                                    </span>
+                                        <field name="product_qty" nolabel="1" widget="statinfo" /> Product </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-sort" name="action_see_product_categ_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="product_categ_qty &lt;= 1">
-                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
-                                        Products Categories
-                                    </span>
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" /> Products Categories </span>
                                     <span class="o_stat_value" invisible="product_categ_qty > 1">
-                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
-                                        Product Category
-                                    </span>
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" /> Product Category </span>
                                 </div>
                             </button>
                         </div>
@@ -198,7 +178,7 @@
                                 <field name="country_id" />
                             </group>
                             <group>
-                                <field name="carbon_source_id" />
+                                <field name="carbon_database_id" />
                                 <field name="required_type_ids" widget="many2many_tags" />
                                 <field name="country_group_id" />
                             </group>
@@ -208,11 +188,8 @@
                                 <group>
                                     <field name="ghg_view_mode" widget="boolean_toggle" />
                                 </group>
-                                <div class="alert alert-danger col-6" colspan="2" invisible="has_invalid_value == False" role="alert">
-                                    Some values miss a currency or a unit of measure
-                                    <br />
-                                    Please fix them before using this factor.
-                                </div>
+                                <div class="alert alert-danger col-6" colspan="2" invisible="has_invalid_value == False" role="alert"> Some values miss a
+                                    currency or a unit of measure <br /> Please fix them before using this factor. </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="date" />
