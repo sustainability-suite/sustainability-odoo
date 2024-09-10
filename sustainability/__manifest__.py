@@ -51,6 +51,7 @@
     ],
     "demo": [
         "demo/carbon_factor_database.xml",
+        "demo/carbon_factor_contributor.xml",
         "demo/carbon_factor_type.xml",
         "demo/carbon_factor.xml",
         "demo/carbon_factor_value.xml",
