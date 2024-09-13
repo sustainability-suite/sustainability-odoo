@@ -53,11 +53,11 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Julien Guenat <julien@jguenat.ch>
-* Adam Bonnet <adambonnet0@gmail.com>
-* Jacopo Bacci <bacci.jaco@gmail.com>
-* Dehlya Herbelin <herbelin.dehlya@gmail.com>
-* Gautier Casabona <gcasabona.pro@gmail.com>
+* Julien Guenat <https://github.com/jguenat>
+* Adam Bonnet <https://github.com/bonnetadam>
+* Jacopo Bacci <https://github.com/jacopobacci>
+* Dehlya Herbelin <https://github.com/dehlya>
+* Gautier Casabona <https://github.com/mrfabemol>
 
 Maintainers
 ~~~~~~~~~~~

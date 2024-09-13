@@ -51,8 +51,8 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Julien Guenat <julien@jguenat.ch>
-* Gautier Casabona <gcasabona.pro@gmail.com>
+* Julien Guenat <https://github.com/jguenat>
+* Gautier Casabona <https://github.com/mrfabemol>
 
 Maintainers
 ~~~~~~~~~~~

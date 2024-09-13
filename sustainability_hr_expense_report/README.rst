@@ -51,8 +51,8 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Adam Bonnet <adambonnet0@gmail.com>
-* Dehlya Herbelin <herbelin.dehlya@gmail.com>
+* Adam Bonnet <https://github.com/bonnetadam>
+* Dehlya Herbelin <https://github.com/dehlya>
 
 Maintainers
 ~~~~~~~~~~~
