@@ -230,6 +230,9 @@ class CarbonLineMixin(models.AbstractModel):
                 "mode": "auto",
                 "details": details,
                 "model_name": model_name,
+                "approach_characterization": record.get_approach_characterization(
+                    carbon_type
+                ),
             }
 
         return skipped_lines
@@ -245,6 +248,9 @@ class CarbonLineMixin(models.AbstractModel):
         mode = self.carbon_origin_json.get("mode")
         json_details = self.carbon_origin_json.get("details", {})
         model_name = self.carbon_origin_json.get("model_name", "")
+        approach_characterization = self.carbon_origin_json.get(
+            "approach_characterization", False
+        )
 
         if mode == "manual":
             vals_list.append(
@@ -282,6 +288,7 @@ class CarbonLineMixin(models.AbstractModel):
                             "computation_level": self._get_computation_levels_mapping().get(
                                 model_name
                             ),
+                            "carbon_approach_characterization_id": approach_characterization,
                         }
                     )
 
