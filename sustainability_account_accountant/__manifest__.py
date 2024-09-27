@@ -6,7 +6,7 @@
     "auto_install": True,
     "application": False,
     "license": "AGPL-3",
-    "author": "Open Net Sàrl, Julien Guenat, Adam Bonnet, Jacopo Bacci",
+    "author": "Open Net Sàrl, Gautier Casabona, Julien Guenat, Adam Bonnet, Jacopo Bacci",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "website": "https://www.open-net.ch",
