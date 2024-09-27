@@ -6,6 +6,8 @@
     "summary": "Provide CO2e accounting lines data for MIS builder reports",
     "version": "17.0.1.0.0",
     "author": "Open Net Sàrl, Julien Guenat",
+    "maintainers": ["jguenat"],
+    "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
     "depends": ["mis_builder", "sustainability"],
