@@ -42,4 +42,4 @@ addon | version | maintainers | summary
 
 Most of the code in this repository is written by [Open Net Sàrl](https://www.open-net.ch/) developers
 
-Check [MyCityCO2](https://www.mycityco2.ch/) for more information about the project.
+Check [MyCompanyCo2](https://www.mycompanyco2.ch/) for more information about the project.
