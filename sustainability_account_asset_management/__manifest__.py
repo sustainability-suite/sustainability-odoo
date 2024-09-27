@@ -2,7 +2,7 @@
     "name": "Open Net Productivity: Account Asset Management",
     "summary": "Glue module to make co2 module compatible with assets management from OCA",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl, Julien Guenat, Adam Bonnet, Jacopo Bacci",
+    "author": "Open Net Sàrl, Gautier Casabona, Julien Guenat, Adam Bonnet, Jacopo Bacci",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Alpha",
     "category": "Accounting/Sustainability",

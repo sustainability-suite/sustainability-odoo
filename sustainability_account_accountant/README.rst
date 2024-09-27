@@ -46,6 +46,7 @@ Authors
 ~~~~~~~
 
 * Open Net Sàrl
+* Gautier Casabona
 * Julien Guenat
 * Adam Bonnet
 * Jacopo Bacci
