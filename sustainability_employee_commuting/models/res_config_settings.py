@@ -26,7 +26,7 @@ class ResConfigSettings(models.TransientModel):
     )
 
     def set_values(self):
-        super().set_values()
+        res = super().set_values()
         employee_commuting_carbon_cron = self.env.ref(
             "sustainability_employee_commuting.cron_carbon_employee_commuting_account_move_create"
         ).sudo()
@@ -35,3 +35,5 @@ class ResConfigSettings(models.TransientModel):
             and self.employee_commuting_carbon_cronjob_active
         ):
             employee_commuting_carbon_cron.active = True
+
+        return res
