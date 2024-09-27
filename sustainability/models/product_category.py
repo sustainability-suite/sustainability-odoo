@@ -17,8 +17,8 @@ class ProductCategory(models.Model):
 
     @api.depends("parent_id.carbon_in_factor_id")
     def _compute_carbon_in_mode(self):
-        super()._compute_carbon_in_mode()
+        return super()._compute_carbon_in_mode()
 
     @api.depends("parent_id.carbon_out_factor_id")
     def _compute_carbon_out_mode(self):
-        super()._compute_carbon_out_mode()
+        return super()._compute_carbon_out_mode()
