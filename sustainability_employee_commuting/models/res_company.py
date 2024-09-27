@@ -48,9 +48,11 @@ class ResCompany(models.Model):
                     last_account_move.employee_commuting_carbon_date, time(1, 00)
                 )
                 if last_account_move
-                else datetime.combine(company.carbon_lock_date, time(1, 00))
-                if company.carbon_lock_date
-                else datetime.now().replace(day=1, month=1)
+                else (
+                    datetime.combine(company.carbon_lock_date, time(1, 00))
+                    if company.carbon_lock_date
+                    else datetime.now().replace(day=1, month=1)
+                )
             )
 
             # Check all months between last account_move and now
