@@ -5,7 +5,7 @@
     "name": "CO2 : Expense Reports ",
     "summary": "Provide CO2 accounting data for expense reports",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl, Adam Bonnet",
+    "author": "Open Net Sàrl",
     "maintainers": ["bonnetadam"],
     "development_status": "Alpha",
     "category": "Accounting/Sustainability",
