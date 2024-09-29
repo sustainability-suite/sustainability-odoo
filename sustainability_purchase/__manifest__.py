@@ -1,7 +1,7 @@
 {
     "name": "Sustainability Purchase",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl, Gautier Casabona, Julien Guenat, Adam Bonnet, Jacopo Bacci",
+    "author": "Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
