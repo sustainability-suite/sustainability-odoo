@@ -3,7 +3,7 @@
 {
     "name": "CO2 Employee Commuting",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl, Adam Bonnet",
+    "author": "Open Net Sàrl",
     "maintainers": ["bonnetadam"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",

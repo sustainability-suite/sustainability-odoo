@@ -46,7 +46,6 @@ Authors
 ~~~~~~~
 
 * Open Net Sàrl
-* Julien Guenat
 
 Contributors
 ~~~~~~~~~~~~
