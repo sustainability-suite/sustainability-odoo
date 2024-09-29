@@ -46,19 +46,16 @@ Authors
 ~~~~~~~
 
 * Open Net Sàrl
-* Gautier Casabona
-* Julien Guenat
-* Adam Bonnet
-* Jacopo Bacci
 
 Contributors
 ~~~~~~~~~~~~
 
+* Gautier Casabona <https://github.com/mrfabemol>
+* Jacopo Bacci <https://github.com/jacopobacci>
+* Benoît Chambourdon <https://github.com/ben3474>
 * Julien Guenat <https://github.com/jguenat>
 * Adam Bonnet <https://github.com/bonnetadam>
-* Jacopo Bacci <https://github.com/jacopobacci>
 * Dehlya Herbelin <https://github.com/dehlya>
-* Gautier Casabona <https://github.com/mrfabemol>
 
 Maintainers
 ~~~~~~~~~~~
