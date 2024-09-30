@@ -233,6 +233,12 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.110000</field>
     </record>
+    <record id="carbon_factor_value_hebergement_restauration" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_hebergement_restauration" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.320000</field>
+    </record>
     <record id="carbon_factor_value_construction" model="carbon.factor.value">
         <field name="factor_id" ref="carbon_factor_construction" />
         <field name="carbon_monetary_currency_id" ref="base.EUR" />
