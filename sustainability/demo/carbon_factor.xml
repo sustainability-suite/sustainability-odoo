@@ -164,6 +164,13 @@
         <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
         <field name="uncertainty_percentage">0.8</field>
     </record>
+    <record id="carbon_factor_hebergement_restauration" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_achats_de_services" />
+        <field name="name">Hébergement et restauration</field>
+        <field name="carbon_compute_method">monetary</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
+        <field name="uncertainty_percentage">0.8</field>
+    </record>
     <record id="carbon_factor_construction" model="carbon.factor">
         <field name="parent_id" ref="carbon_factor_achats_de_services" />
         <field name="name">Construction</field>
