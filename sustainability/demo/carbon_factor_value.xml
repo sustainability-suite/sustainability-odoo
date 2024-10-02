@@ -281,4 +281,11 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.500000</field>
     </record>
+
+    <record id="carbon_factor_value_electric_bike" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electric_bike" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.02</field>
+    </record>
 </odoo>

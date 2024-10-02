@@ -221,4 +221,18 @@
         <field name="carbon_compute_method">monetary</field>
         <field name="uncertainty_percentage">1</field>
     </record>
+
+    <!-- For commuting demo data -->
+    <record id="carbon_factor_transports" model="carbon.factor">
+        <field name="name">Transports</field>
+        <field name="carbon_compute_method" />
+        <field name="uncertainty_percentage">0</field>
+    </record>
+    <record id="carbon_factor_electric_bike" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transports" />
+        <field name="name">Electric bike</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_other" />
+        <field name="uncertainty_percentage">0.6</field>
+    </record>
 </odoo>
