@@ -223,16 +223,44 @@
     </record>
 
     <!-- For commuting demo data -->
-    <record id="carbon_factor_transports" model="carbon.factor">
-        <field name="name">Transports</field>
+    <record id="carbon_factor_transportation" model="carbon.factor">
+        <field name="name">Transportation</field>
         <field name="carbon_compute_method" />
         <field name="uncertainty_percentage">0</field>
     </record>
-    <record id="carbon_factor_electric_bike" model="carbon.factor">
-        <field name="parent_id" ref="carbon_factor_transports" />
-        <field name="name">Electric bike</field>
+    <record id="carbon_factor_electric_bicycle" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transportation" />
+        <field name="name">Electric bicycle</field>
         <field name="carbon_compute_method">physical</field>
         <field name="carbon_source_id" ref="carbon_factor_source_other" />
         <field name="uncertainty_percentage">0.6</field>
+    </record>
+    <record id="carbon_factor_bicycle" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transportation" />
+        <field name="name">Bicycle</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_other" />
+        <field name="uncertainty_percentage">0.2</field>
+    </record>
+    <record id="carbon_factor_bus" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transportation" />
+        <field name="name">Bus</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_other" />
+        <field name="uncertainty_percentage">0.2</field>
+    </record>
+    <record id="carbon_factor_metro" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transportation" />
+        <field name="name">Metro</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_ademe" />
+        <field name="uncertainty_percentage">0.2</field>
+    </record>
+    <record id="carbon_factor_walking" model="carbon.factor">
+        <field name="parent_id" ref="carbon_factor_transportation" />
+        <field name="name">Walking</field>
+        <field name="carbon_compute_method">physical</field>
+        <field name="carbon_source_id" ref="carbon_factor_source_other" />
+        <field name="uncertainty_percentage">0</field>
     </record>
 </odoo>
