@@ -26,6 +26,8 @@
           />
           <field name="uncertainty_percentage" widget="percentage" optional="show" />
           <field name="carbon_source" optional="show" />
+          <field name="country_id" optional="show" />
+          <field name="country_group_id" optional="show" />
           <field name="root" optional="hide" />
           <field name="parent_id" optional="hide" />
           <field name="category" optional="show" />
@@ -45,6 +47,8 @@
           <field name="carbon_source_id" string="Source" />
           <field name="factor_value_type_id" string="Type" />
           <field name="carbon_uom_id" />
+          <field name="country_id" />
+          <field name="country_group_id" />
           <filter
             domain="[('carbon_compute_method', '=', 'monetary')]"
             name="monetary"
@@ -115,6 +119,17 @@
               string="Unit of measure"
               name="by_carbon_uom_id"
               context="{'group_by':'carbon_uom_id'}"
+            />
+            <separator />
+            <filter
+              string="Country"
+              name="by_country_id"
+              context="{'group_by':'country_id'}"
+            />
+            <filter
+              string="Country Group"
+              name="by_country_group_id"
+              context="{'group_by':'country_group_id'}"
             />
           </group>
         </search>
@@ -260,17 +275,28 @@
               attrs="{'invisible': [('active', '=', True)]}"
             />
             <div class="d-flex align-items-center">
-                <div class="w-75">
-                    <label for="name" />
-                    <h1>
-                        <field name="name" placeholder="e.g. Electric Train" widget="text" />
-                    </h1>
-                </div>
-                <h2 class="ms-auto">
-                    <field name="carbon_value" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" />
-                    <field name="carbon_currency_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" class="ms-2" />
-                    <field name="unit_label" attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}" class="ms-1" />
-                </h2>
+              <div class="w-75">
+                <label for="name" />
+                <h1>
+                  <field name="name" placeholder="e.g. Electric Train" widget="text" />
+                </h1>
+              </div>
+              <h2 class="ms-auto">
+                <field
+                  name="carbon_value"
+                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                />
+                <field
+                  name="carbon_currency_label"
+                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                  class="ms-2"
+                />
+                <field
+                  name="unit_label"
+                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                  class="ms-1"
+                />
+              </h2>
             </div>
             <group>
               <group>
@@ -287,10 +313,12 @@
               <group>
                 <field name="carbon_compute_method" />
                 <field name="uncertainty_percentage" widget="percentage" />
+                <field name="country_id" />
               </group>
               <group>
                 <field name="carbon_source_id" />
                 <field name="required_type_ids" widget="many2many_tags" />
+                <field name="country_group_id" />
               </group>
             </group>
 
