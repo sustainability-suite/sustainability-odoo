@@ -19,7 +19,8 @@ from . import product_category
 from . import product_product
 from . import product_template
 from . import res_country
-from . import carbon_factor_source
+from . import carbon_factor_database
+from . import carbon_factor_contributor
 from . import carbon_factor_type
 from . import sustainability_scenario
 from . import sustainability_action_plan
