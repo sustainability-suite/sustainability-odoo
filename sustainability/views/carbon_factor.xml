@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="carbon_factor_tree" model="ir.ui.view">
@@ -111,41 +111,61 @@
                             <button class="oe_stat_button" icon="fa-bars" name="action_see_account_move_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="account_move_qty &lt;= 1">
-                                        <field name="account_move_qty" nolabel="1" widget="statinfo" /> Posted Entries </span>
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
+                                        Posted Entries
+                                    </span>
                                     <span class="o_stat_value" invisible="account_move_qty > 1">
-                                        <field name="account_move_qty" nolabel="1" widget="statinfo" /> Posted Entry </span>
+                                        <field name="account_move_qty" nolabel="1" widget="statinfo" />
+                                        Posted Entry
+                                    </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-sitemap" name="action_see_child_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="child_qty &lt;= 1">
-                                        <field name="child_qty" nolabel="1" widget="statinfo" /> Children Factors </span>
+                                        <field name="child_qty" nolabel="1" widget="statinfo" />
+                                        Children Factors
+                                    </span>
                                     <span class="o_stat_value" invisible="child_qty > 1">
-                                        <field name="child_qty" nolabel="1" widget="statinfo" /> Child Factor </span>
+                                        <field name="child_qty" nolabel="1" widget="statinfo" />
+                                        Child Factor
+                                    </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-book" name="action_see_chart_of_account_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="chart_of_account_qty &lt;= 1">
-                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" /> Accounts </span>
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
+                                        Accounts
+                                    </span>
                                     <span class="o_stat_value" invisible="chart_of_account_qty > 1">
-                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" /> Account </span>
+                                        <field name="chart_of_account_qty" nolabel="1" widget="statinfo" />
+                                        Account
+                                    </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-th-list" name="action_see_product_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="product_qty &lt;= 1">
-                                        <field name="product_qty" nolabel="1" widget="statinfo" /> Products </span>
+                                        <field name="product_qty" nolabel="1" widget="statinfo" />
+                                        Products
+                                    </span>
                                     <span class="o_stat_value" invisible="product_qty > 1">
-                                        <field name="product_qty" nolabel="1" widget="statinfo" /> Product </span>
+                                        <field name="product_qty" nolabel="1" widget="statinfo" />
+                                        Product
+                                    </span>
                                 </div>
                             </button>
                             <button class="oe_stat_button" icon="fa-sort" name="action_see_product_categ_ids" type="object">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value" invisible="product_categ_qty &lt;= 1">
-                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" /> Products Categories </span>
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
+                                        Products Categories
+                                    </span>
                                     <span class="o_stat_value" invisible="product_categ_qty > 1">
-                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" /> Product Category </span>
+                                        <field name="product_categ_qty" nolabel="1" widget="statinfo" />
+                                        Product Category
+                                    </span>
                                 </div>
                             </button>
                         </div>
@@ -196,8 +216,12 @@
                                 <group>
                                     <field name="ghg_view_mode" widget="boolean_toggle" />
                                 </group>
-                                <div class="alert alert-danger col-6" colspan="2" invisible="has_invalid_value == False" role="alert"> Some values miss a
-                                    currency or a unit of measure <br /> Please fix them before using this factor. </div>
+                                <div class="alert alert-danger col-6" colspan="2" invisible="has_invalid_value == False" role="alert">
+                                    Some values miss a
+                                    currency or a unit of measure
+                                    <br />
+                                    Please fix them before using this factor.
+                                </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="date" />
