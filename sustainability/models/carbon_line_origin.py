@@ -64,9 +64,14 @@ class CarbonLineOrigin(models.Model):
     factor_category_id = fields.Many2one(
         related="factor_id.parent_id", string="Factor Category", store=True
     )
-    factor_source_id = fields.Many2one(
-        related="factor_id.carbon_source_id",
-        string="Factor Source",
+    factor_database_id = fields.Many2one(
+        related="factor_id.carbon_database_id",
+        string="Database",
+        store=True,
+    )
+    factor_contributor_id = fields.Many2one(
+        related="factor_id.carbon_contributor_id",
+        string="Contributor",
         store=True,
     )
     computation_level = fields.Char()

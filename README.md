@@ -20,6 +20,30 @@ This repository is licensed under [AGPL-3.0](LICENSE).
 | [sustainability_mis_builder](sustainability_mis_builder) | Create MIS reports from your CO<sub>2</sub>e data (OCA module)             | Sustainability Settings            | sustainability <br/>[mis_builder](https://github.com/OCA/mis-builder)                                   |
 | [sustainability_purchase](sustainability_purchase) | Track CO<sub>2</sub>e in your Purchase app and transfer data to Accounting | Sustainability Settings            | sustainability <br/>purchase              |
 
+<<<<<<< HEAD
+=======
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[sustainability](sustainability/) | 17.0.1.1.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Base module to track CO2 equivalent in accounting
+[sustainability_account_accountant](sustainability_account_accountant/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Accounting (enterprise)
+[sustainability_account_asset](sustainability_account_asset/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module to make Sustainability module compatible with account_asset from Odoo
+[sustainability_employee_commuting](sustainability_employee_commuting/) | 17.0.1.0.0 | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) | Module for employee commuting co2
+[sustainability_mis_builder](sustainability_mis_builder/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Provide CO2e accounting lines data for MIS builder reports
+[sustainability_purchase](sustainability_purchase/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
+
+
+Unported addons
+---------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[sustainability_account_asset_management](sustainability_account_asset_management/) | 17.0.1.0.0 (unported) | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Glue module to make co2 module compatible with assets management from OCA
+[sustainability_hr_expense_report](sustainability_hr_expense_report/) | 17.0.1.0.0 (unported) | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) | Provide CO2 accounting data for expense reports
+
+[//]: # (end addons)
+<!-- prettier-ignore-end -->
+>>>>>>> 6466a2f ([IMP] sustainability: emission factor database and contributor (#184))
 
 ## Credits
 

@@ -33,16 +33,23 @@
           action="sustainability.carbon_factor_action"
         />
         <menuitem
-          id="carbon_factor_source_menu"
-          name="Emission Factor Sources"
+          id="carbon_factor_database_menu"
+          name="Emission Factor Databases"
           sequence="2"
           groups="base.group_user"
-          action="sustainability.carbon_factor_source_action"
+          action="sustainability.carbon_factor_database_action"
+        />
+        <menuitem
+            id="carbon_factor_contributor_menu"
+            name="Emission Factor Contributors"
+            sequence="3"
+            groups="base.group_user"
+            action="sustainability.carbon_factor_contributor_action"
         />
         <menuitem
           id="carbon_factor_type_menu"
           name="Emission Factor Types"
-          sequence="3"
+          sequence="4"
           groups="base.group_user"
           action="sustainability.carbon_factor_type_action"
         />
