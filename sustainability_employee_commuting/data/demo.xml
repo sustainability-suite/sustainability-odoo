@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="base.main_company" model="res.company">
+            <field name="employee_commuting_carbon_factor_id" ref="sustainability.carbon_factor_transportation" />
+            <field name="employee_commuting_journal_id" ref="sustainability.account_journal_carbon" />
+            <field name="employee_commuting_account_id" ref="sustainability.account_account_carbon" />
+            <field name="employee_commuting_carbon_cronjob_active" eval="True" />
+        </record>
+
+        <record id="demo_carbon_commuting_admin" model="carbon.hr.commuting">
+            <field name="carbon_factor_id" ref="sustainability.carbon_factor_electric_bicycle" />
+            <field name="distance_km">50</field>
+            <field name="employee_id" ref="hr.employee_admin" />
+        </record>
+        <record id="demo_carbon_commuting_al" model="carbon.hr.commuting">
+            <field name="carbon_factor_id" ref="sustainability.carbon_factor_bus" />
+            <field name="distance_km">60</field>
+            <field name="employee_id" ref="hr.employee_al" />
+        </record>
+        <record id="demo_carbon_commuting_stw" model="carbon.hr.commuting">
+            <field name="carbon_factor_id" ref="sustainability.carbon_factor_metro" />
+            <field name="distance_km">55</field>
+            <field name="employee_id" ref="hr.employee_fme" />
+        </record>
+
+        <function model="res.company" name="_cron_carbon_commuting_account_move_create">
+            <value eval="[ref('base.main_company')]" />
+        </function>
+        <function model="account.move" name="action_post">
+            <value model="account.move" eval="obj().search([('journal_id', '=', ref('sustainability.account_journal_carbon'))]).ids" />
+        </function>
+        <function model="account.move" name="action_recompute_carbon">
+            <value model="account.move" eval="obj().search([('journal_id', '=', ref('sustainability.account_journal_carbon'))]).ids" />
+        </function>
+    </data>
+</odoo>
