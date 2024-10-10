@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="carbon_factor_contributor_tree" model="ir.ui.view">
+            <field name="name">carbon.factor.contributor.tree</field>
+            <field name="model">carbon.factor.contributor</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="carbon_factor_contributor_action" model="ir.actions.act_window">
+            <field name="name">Emission Factor Contributors</field>
+            <field name="res_model">carbon.factor.contributor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>
