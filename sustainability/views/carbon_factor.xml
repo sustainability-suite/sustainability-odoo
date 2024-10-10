@@ -15,6 +15,8 @@
                     <field invisible="not recent_value_id  or not carbon_compute_method " name="unit_label" />
                     <field name="uncertainty_percentage" optional="show" widget="percentage" />
                     <field name="carbon_source_id" optional="show" />
+                    <field name="country_id" optional="show" />
+                    <field name="country_group_id" optional="show" />
                     <field name="root" optional="hide" />
                     <field name="parent_id" optional="hide" />
                     <field name="category" optional="show" />
@@ -64,6 +66,8 @@
                     <field name="carbon_source_id" string="Source" />
                     <field name="factor_value_type_id" string="Type" />
                     <field name="carbon_uom_id" />
+                    <field name="country_id" />
+                    <field name="country_group_id" />
                     <filter domain="[('carbon_compute_method', '=', 'monetary')]" name="monetary" string="Monetary" />
                     <filter domain="[('carbon_compute_method', '=', 'physical')]" name="physical" string="Physical" />
                     <separator />
@@ -83,6 +87,9 @@
                         <filter string="Create date" name="by_create_date" context="{'group_by':'create_date'}" />
                         <filter string="Detailed by gas" name="by_ghg_view_mode" context="{'group_by':'ghg_view_mode'}" />
                         <filter string="Unit of measure" name="by_carbon_uom_id" context="{'group_by':'carbon_uom_id'}" />
+                        <separator />
+                        <filter string="Country" name="by_country_id" context="{'group_by':'country_id'}" />
+                        <filter string="Country Group" name="by_country_group_id" context="{'group_by':'country_group_id'}" />
                     </group>
                 </search>
             </field>
@@ -188,10 +195,12 @@
                             <group>
                                 <field name="carbon_compute_method" />
                                 <field name="uncertainty_percentage" widget="percentage" />
+                                <field name="country_id" />
                             </group>
                             <group>
                                 <field name="carbon_source_id" />
                                 <field name="required_type_ids" widget="many2many_tags" />
+                                <field name="country_group_id" />
                             </group>
                         </group>
                         <notebook invisible="carbon_compute_method == False">
