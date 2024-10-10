@@ -106,7 +106,9 @@ class CarbonFactor(models.Model):
         for record in self:
             if record.country_id and record.country_group_id:
                 raise exceptions.ValidationError(
-                    "You can only select either a Country or a Country Group, not both."
+                    _(
+                        "You can only select either a Country or a Country Group, not both."
+                    )
                 )
 
     # --------------------------------------------
