@@ -41,6 +41,7 @@
         "data/menu_items.xml",
         "data/res_currency.xml",
         "data/uom.xml",
+        "data/res_country_group.xml",
     ],
     "images": [
         "static/description/co2_base_green.png",
