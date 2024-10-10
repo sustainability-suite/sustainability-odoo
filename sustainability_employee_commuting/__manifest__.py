@@ -27,6 +27,9 @@
     "images": [
         "static/description/co2_base_green.png",
     ],
+    "demo": [
+        "data/demo.xml",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
