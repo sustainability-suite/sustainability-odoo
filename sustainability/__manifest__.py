@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "author": "Open Net Sàrl, Gautier Casabona, Julien Guenat, Adam Bonnet, Jacopo Bacci",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -26,7 +26,8 @@
         "views/carbon_line_origin.xml",
         "views/product_template.xml",
         "views/carbon_factor.xml",
-        "views/carbon_factor_source.xml",
+        "views/carbon_factor_database.xml",
+        "views/carbon_factor_contributor.xml",
         "views/carbon_factor_type.xml",
         "views/product_category.xml",
         "views/res_country.xml",
@@ -49,7 +50,8 @@
         "static/description/co2_base_green.png",
     ],
     "demo": [
-        "demo/carbon_factor_source.xml",
+        "demo/carbon_factor_database.xml",
+        "demo/carbon_factor_contributor.xml",
         "demo/carbon_factor_type.xml",
         "demo/carbon_factor.xml",
         "demo/carbon_factor_value.xml",

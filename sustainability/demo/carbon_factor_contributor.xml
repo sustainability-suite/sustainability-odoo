@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="carbon_factor_contributor_ademe" model="carbon.factor.contributor">
+        <field name="name">Ademe</field>
+    </record>
+    <record id="carbon_factor_contributor_other" model="carbon.factor.contributor">
+        <field name="name">Other</field>
+    </record>
+</odoo>
