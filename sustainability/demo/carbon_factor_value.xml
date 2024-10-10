@@ -287,4 +287,36 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.500000</field>
     </record>
+
+    <!-- Transportation -->
+    <record id="carbon_factor_value_electric_bicycle" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electric_bicycle" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.020000</field>
+    </record>
+    <record id="carbon_factor_value_bicycle" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_bicycle" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.009000</field>
+    </record>
+    <record id="carbon_factor_value_bus" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_bus" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.202000</field>
+    </record>
+    <record id="carbon_factor_value_metro" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_metro" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.002700</field>
+    </record>
+    <record id="carbon_factor_value_walking" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_walking" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.000000</field>
+    </record>
 </odoo>
