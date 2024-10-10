@@ -109,5 +109,18 @@
         <function model="account.move" name="action_recompute_carbon">
             <value model="account.move" eval="obj().search([('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund'])]).ids" />
         </function>
+
+        <!-- For commuting demo data -->
+        <record id="account_journal_carbon" model="account.journal">
+            <field name="name">Carbon</field>
+            <field name="type">general</field>
+            <field name="code">CO2</field>
+            <field name="currency_id" ref="base.USD" />
+        </record>
+        <record id="account_account_carbon" model="account.account">
+            <field name="name">Carbon extra-accounting</field>
+            <field name="account_type">expense</field>
+            <field name="code">640000</field>
+        </record>
     </data>
 </odoo>
