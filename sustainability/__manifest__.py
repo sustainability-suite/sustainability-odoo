@@ -40,6 +40,7 @@
         "data/menu_items.xml",
         "data/res_currency.xml",
         "data/uom.xml",
+        "data/res_country_group.xml",
     ],
     "assets": {
         "web.assets_backend": [
