@@ -1,6 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 carbon_factor_rule_access,carbon_factor_rule_access,model_carbon_factor,base.group_user,1,1,1,1
-carbon_factor_source_rule_access,carbon_factor_source_rule_access,model_carbon_factor_source,base.group_user,1,1,1,1
+carbon_factor_database_rule_access,carbon_factor_database_rule_access,model_carbon_factor_database,base.group_user,1,1,1,1
+carbon_factor_contributor_rule_access,carbon_factor_contributor_rule_access,model_carbon_factor_contributor,base.group_user,1,1,1,1
 carbon_factor_value_rule_access,carbon_factor_value_rule_access,model_carbon_factor_value,base.group_user,1,1,1,1
 carbon_factor_type_rule_access,carbon_factor_type_rule_access,model_carbon_factor_type,base.group_user,1,1,1,1
 carbon_distribution_line_rule_access,carbon_distribution_line_rule_access,model_carbon_distribution_line,base.group_user,1,1,1,1
