@@ -117,7 +117,7 @@ class CarbonMixin(models.AbstractModel):
     )  # TODO: rename selection list with a migration script for XML consistency (once tha values are finalized)
     carbon_in_factor_id = fields.Many2one(
         "carbon.factor",
-        string="Emission Factor",
+        string="Emission Factor Purchases",
         ondelete="set null",
         domain="[('id', 'in', carbon_allowed_factor_ids)]",
     )
@@ -155,7 +155,7 @@ class CarbonMixin(models.AbstractModel):
     )
     carbon_out_factor_id = fields.Many2one(
         "carbon.factor",
-        string="Emission Factor ",
+        string="Emission Factor Sales",
         ondelete="set null",
         domain="[('id', 'in', carbon_allowed_factor_ids)]",
     )

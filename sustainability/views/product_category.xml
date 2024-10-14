@@ -20,7 +20,7 @@
                                 <div invisible="not carbon_in_is_manual" style="font-weight: bold;">Set</div>
                             </div>
                             <field invisible="carbon_in_is_manual" name="carbon_in_fallback_reference" widget="reference" />
-                            <field invisible="not carbon_in_is_manual" name="carbon_in_factor_id" required="carbon_in_is_manual" />
+                            <field invisible="not carbon_in_is_manual" name="carbon_in_factor_id" string="Emission Factor" required="carbon_in_is_manual" />
                         </group>
                         <group string="Sales">
                             <label for="carbon_out_is_manual" string="Mode" />
@@ -33,7 +33,7 @@
                                 <div invisible="not carbon_out_is_manual" style="font-weight: bold;">Set</div>
                             </div>
                             <field invisible="carbon_out_is_manual" name="carbon_out_fallback_reference" widget="reference" />
-                            <field invisible="not carbon_out_is_manual" name="carbon_out_factor_id" required="carbon_out_is_manual" />
+                            <field invisible="not carbon_out_is_manual" name="carbon_out_factor_id" string="Emission Factor" required="carbon_out_is_manual" />
                         </group>
                     </group>
                 </xpath>
