@@ -113,7 +113,7 @@
         <!-- For commuting demo data -->
         <record id="account_journal_carbon" model="account.journal">
             <field name="name">Carbon</field>
-            <field name="type">general</field>
+            <field name="type">purchase</field>
             <field name="code">CO2</field>
             <field name="currency_id" ref="base.USD" />
         </record>
