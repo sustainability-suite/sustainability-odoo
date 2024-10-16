@@ -13,10 +13,10 @@
                 <app string="Sustainability" name="sustainability">
                     <block title="Accounting">
                         <setting string="Default CO2e inbound factor" help="Used as a fallback value">
-                            <field name="carbon_in_factor_id" options="{'no_create': True}" />
+                            <field name="carbon_in_factor_id" string="Emission Factor" options="{'no_create': True}" />
                         </setting>
                         <setting string="Default CO2e outbound factor" help="Used as a fallback value for sales">
-                            <field name="carbon_out_factor_id" options="{'no_create': True}" />
+                            <field name="carbon_out_factor_id" string="Emission Factor" options="{'no_create': True}" />
                         </setting>
                         <setting string="Lock date" help="Prevent CO2e computation for journal entries">
                             <field name="carbon_lock_date" options="{'warn_future': true}" placeholder="Pick a date to lock" />
