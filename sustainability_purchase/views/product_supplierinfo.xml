@@ -28,7 +28,7 @@
             title="Re-compute CO2e value"
             attrs="{'invisible': [('carbon_in_factor_id', '!=', False)]}"
           />
-          <field name="carbon_in_factor_id" />
+          <field name="carbon_in_factor_id" string="Emission Factor"/>
         </xpath>
       </field>
     </record>
