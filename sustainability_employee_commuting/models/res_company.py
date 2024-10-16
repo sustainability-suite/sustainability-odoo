@@ -183,7 +183,7 @@ class ResCompany(models.Model):
             notification_message = (
                 f"Error processing employee {employee.name}: {str(e)}."
             )
-            _logger.info(notification_message)
+            _logger.error(notification_message)
             employee.message_post(
                 body=notification_message,
                 subject=f"Error Notification : Commuting Carbon print on the {account_move_date.strftime('%Y-%m-%d')}",
