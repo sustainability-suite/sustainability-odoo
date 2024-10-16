@@ -211,7 +211,7 @@ class CarbonLineMixin(models.AbstractModel):
                     record = record[f"carbon_{carbon_type}_fallback_reference"]
                 else:
                     # This shouldn't happen if can_use_X_carbon_value is well implemented
-                    _logger.error(
+                    _logger.warning(
                         f"Skip carbon compute for {line._name}({line.id}) - '{line.display_name}' (last incorrect fallback: {record._name}({record.id}) '{record.display_name}') -  this line"
                     )
                     skipped_lines |= line
