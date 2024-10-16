@@ -24,6 +24,7 @@
                             <field
                                 invisible="not carbon_in_is_manual or carbon_in_use_distribution"
                                 name="carbon_in_factor_id"
+                                string="Emission Factor"
                                 required="carbon_in_is_manual and not carbon_in_use_distribution"
                             />
                             <field invisible="1" name="model_name" />
