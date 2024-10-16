@@ -24,7 +24,7 @@
                                 <div style="font-weight: bold;" invisible="not carbon_in_is_manual">Set</div>
                             </div>
                             <field name="carbon_in_fallback_reference" widget="reference" invisible="carbon_in_is_manual" />
-                            <field name="carbon_in_factor_id" invisible="not carbon_in_is_manual" required="carbon_in_is_manual" />
+                            <field name="carbon_in_factor_id" string="Emission Factor" invisible="not carbon_in_is_manual" required="carbon_in_is_manual" />
                         </group>
                     </group>
                 </xpath>

@@ -12,4 +12,6 @@ class AccountAccount(models.Model):
             ("monetary", "Monetary"),
         ]
 
-    carbon_in_factor_id = fields.Many2one(tracking=True)
+    carbon_in_factor_id = fields.Many2one(
+        string="Emission Factor Purchases", tracking=True
+    )

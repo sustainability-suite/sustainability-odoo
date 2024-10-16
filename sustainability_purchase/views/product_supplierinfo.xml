@@ -24,7 +24,7 @@
                         title="Re-compute CO2e value"
                         readonly="carbon_in_factor_id"
                     />
-                    <field name="carbon_in_factor_id" />
+                    <field name="carbon_in_factor_id" string="Emission Factor" />
                 </xpath>
             </field>
         </record>
