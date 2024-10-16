@@ -68,6 +68,7 @@
               />
               <field
                 name="carbon_in_factor_id"
+                string="Emission Factor"
                 attrs="{'invisible': [('carbon_in_is_manual', '=', False)], 'required': [('carbon_in_is_manual', '=', True)]}"
               />
             </group>
