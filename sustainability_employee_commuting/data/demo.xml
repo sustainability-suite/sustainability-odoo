@@ -13,6 +13,11 @@
             <field name="distance_km">50</field>
             <field name="employee_id" ref="hr.employee_admin" />
         </record>
+        <record id="demo_carbon_commuting_mit" model="carbon.hr.commuting">
+            <field name="carbon_factor_id" ref="sustainability.carbon_factor_bicycle" />
+            <field name="distance_km">40</field>
+            <field name="employee_id" ref="hr.employee_mit" />
+        </record>
         <record id="demo_carbon_commuting_al" model="carbon.hr.commuting">
             <field name="carbon_factor_id" ref="sustainability.carbon_factor_bus" />
             <field name="distance_km">60</field>
@@ -21,6 +26,11 @@
         <record id="demo_carbon_commuting_stw" model="carbon.hr.commuting">
             <field name="carbon_factor_id" ref="sustainability.carbon_factor_metro" />
             <field name="distance_km">55</field>
+            <field name="employee_id" ref="hr.employee_stw" />
+        </record>
+        <record id="demo_carbon_commuting_fme" model="carbon.hr.commuting">
+            <field name="carbon_factor_id" ref="sustainability.carbon_factor_walking" />
+            <field name="distance_km">25</field>
             <field name="employee_id" ref="hr.employee_fme" />
         </record>
 
