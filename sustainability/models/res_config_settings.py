@@ -5,10 +5,14 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     carbon_in_factor_id = fields.Many2one(
-        related="company_id.carbon_in_factor_id", readonly=False
+        string="Emission Factor Purchases",
+        related="company_id.carbon_in_factor_id",
+        readonly=False,
     )
     carbon_out_factor_id = fields.Many2one(
-        related="company_id.carbon_out_factor_id", readonly=False
+        string="Emission Factor Sales",
+        related="company_id.carbon_out_factor_id",
+        readonly=False,
     )
     carbon_allowed_factor_ids = fields.Many2many(
         related="company_id.carbon_allowed_factor_ids"
