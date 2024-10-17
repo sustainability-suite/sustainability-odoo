@@ -1,5 +1,5 @@
-# © 2021 Open Net Sarl
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# © 2024 Open Net Sarl
+# License LGPL-3 or later (https://www.gnu.org/licenses/agpl).
 
 {
     "name": "Sustainability",
@@ -60,6 +60,6 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "sequence": 1,
 }
