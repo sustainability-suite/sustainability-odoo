@@ -4,7 +4,7 @@
     "name": "CO2 Employee Commuting",
     "version": "17.0.1.0.0",
     "author": "Open Net Sàrl",
-    "maintainers": ["bonnetadam"],
+    "maintainers": ["bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
