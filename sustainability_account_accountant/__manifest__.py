@@ -5,7 +5,7 @@
     "installable": True,
     "auto_install": True,
     "application": False,
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "author": "Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",

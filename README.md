@@ -10,7 +10,7 @@
 
 ## License
 
-This repository is licensed under [AGPL-3.0](LICENSE).
+This repository is licensed under [AGPL-3.0](LICENSE). Each module might be subject to a different license : see module manifest.
 
 
 <!-- prettier-ignore-start -->

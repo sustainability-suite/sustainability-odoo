@@ -13,9 +13,9 @@ Sustainability Accounting (enterprise)
 .. |badge1| image:: https://img.shields.io/badge/maturity-Production%2FStable-green.png
     :target: https://odoo-community.org/page/development-status
     :alt: Production/Stable
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-    :alt: License: AGPL-3
+.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+    :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-sustainability--suite%2Fsustainability--odoo-lightgray.png?logo=github
     :target: https://github.com/sustainability-suite/sustainability-odoo/tree/17.0/sustainability_account_accountant
     :alt: sustainability-suite/sustainability-odoo
