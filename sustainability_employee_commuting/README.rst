@@ -59,10 +59,13 @@ Maintainers
 .. |maintainer-bonnetadam| image:: https://github.com/bonnetadam.png?size=40px
     :target: https://github.com/bonnetadam
     :alt: bonnetadam
+.. |maintainer-jacopobacci| image:: https://github.com/jacopobacci.png?size=40px
+    :target: https://github.com/jacopobacci
+    :alt: jacopobacci
 
-Current maintainer:
+Current maintainers:
 
-|maintainer-bonnetadam| 
+|maintainer-bonnetadam| |maintainer-jacopobacci| 
 
 This module is part of the `sustainability-suite/sustainability-odoo <https://github.com/sustainability-suite/sustainability-odoo/tree/17.0/sustainability_employee_commuting>`_ project on GitHub.
 
