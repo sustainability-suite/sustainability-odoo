@@ -1,6 +1,6 @@
-===============================================
-Open Net Productivity: Account Asset Management
-===============================================
+============================================
+Sustainability: Account Asset Management OCA
+============================================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -10,9 +10,9 @@ Open Net Productivity: Account Asset Management
    !! source digest: sha256:35216e3775b80060e4cd6703901d76f46a39cc0d11b5d5e636130c46f3564963
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
@@ -23,6 +23,11 @@ Open Net Productivity: Account Asset Management
 |badge1| |badge2| |badge3|
 
 Glue module to make co2 module compatible with assets management from OCA
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
@@ -46,19 +51,12 @@ Authors
 ~~~~~~~
 
 * Open Net Sàrl
-* Gautier Casabona
-* Julien Guenat
-* Adam Bonnet
-* Jacopo Bacci
 
 Contributors
 ~~~~~~~~~~~~
 
-* Julien Guenat <https://github.com/jguenat>
-* Adam Bonnet <https://github.com/bonnetadam>
-* Jacopo Bacci <https://github.com/jacopobacci>
-* Dehlya Herbelin <https://github.com/dehlya>
 * Gautier Casabona <https://github.com/mrfabemol>
+* Julien Guenat <https://github.com/jguenat>
 
 Maintainers
 ~~~~~~~~~~~
@@ -66,16 +64,10 @@ Maintainers
 .. |maintainer-jguenat| image:: https://github.com/jguenat.png?size=40px
     :target: https://github.com/jguenat
     :alt: jguenat
-.. |maintainer-bonnetadam| image:: https://github.com/bonnetadam.png?size=40px
-    :target: https://github.com/bonnetadam
-    :alt: bonnetadam
-.. |maintainer-jacopobacci| image:: https://github.com/jacopobacci.png?size=40px
-    :target: https://github.com/jacopobacci
-    :alt: jacopobacci
 
-Current maintainers:
+Current maintainer:
 
-|maintainer-jguenat| |maintainer-bonnetadam| |maintainer-jacopobacci| 
+|maintainer-jguenat| 
 
 This module is part of the `sustainability-suite/sustainability-odoo <https://github.com/sustainability-suite/sustainability-odoo/tree/17.0/sustainability_account_asset_management>`_ project on GitHub.
 

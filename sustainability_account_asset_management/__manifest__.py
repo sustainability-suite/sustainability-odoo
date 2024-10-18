@@ -1,5 +1,5 @@
 {
-    "name": "Open Net Productivity: Account Asset Management",
+    "name": "Sustainability: Account Asset Management OCA",
     "summary": "Glue module to make co2 module compatible with assets management from OCA",
     "version": "17.0.1.0.0",
     "author": "Open Net Sàrl",
@@ -8,7 +8,7 @@
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
     "depends": ["account_asset_management", "sustainability"],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
     "license": "AGPL-3",
     "application": False,
