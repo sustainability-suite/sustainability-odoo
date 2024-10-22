@@ -10,7 +10,7 @@
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "website": "https://www.open-net.ch",
-    "depends": ["sustainability", "account_accountant"],
+    "depends": ["sustainability"],
     "assets": {
         "web.assets_backend": [],
     },

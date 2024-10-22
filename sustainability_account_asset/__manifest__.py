@@ -7,7 +7,7 @@
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
-    "depends": ["account_asset", "sustainability"],
+    "depends": ["sustainability"],
     "data": [
         "views/account_asset.xml",
     ],
