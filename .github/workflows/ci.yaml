@@ -39,9 +39,21 @@
       test:
         runs-on: ubuntu-22.04
         container: ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest
-        name: test with Odoo
+        name: Test module ${{ matrix.INCLUDE }}
         strategy:
           fail-fast: false
+          matrix:
+             INCLUDE:
+               - sustainability
+               - sustainability_account_accountant
+               - sustainability_account_asset
+               - sustainability_account_asset_management
+               - sustainability_employee_commuting
+               - sustainability_hr_expense_report
+               - sustainability_mis_builder
+               - sustainability_purchase
+        env:
+          INCLUDE: ${{ matrix.INCLUDE }}
         services:
           postgres:
             image: postgres:16.0
