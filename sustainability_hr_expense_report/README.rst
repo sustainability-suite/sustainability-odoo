@@ -10,9 +10,9 @@ CO2 : Expense Reports
    !! source digest: sha256:38d14931903029f731cdd587c5abfd5b99db8bf11fc98c64328ad8ba835f2ac3
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
@@ -23,6 +23,11 @@ CO2 : Expense Reports
 |badge1| |badge2| |badge3|
 
 Provide CO2 accounting data for expense reports
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 
@@ -46,7 +51,6 @@ Authors
 ~~~~~~~
 
 * Open Net Sàrl
-* Adam Bonnet
 
 Contributors
 ~~~~~~~~~~~~

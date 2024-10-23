@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [sustainability_account_accountant](sustainability_account_accountant/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Accounting (enterprise)
 [sustainability_account_asset](sustainability_account_asset/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module to make Sustainability module compatible with account_asset from Odoo
 [sustainability_employee_commuting](sustainability_employee_commuting/) | 17.0.1.0.0 | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Module for employee commuting co2
+[sustainability_hr_expense_report](sustainability_hr_expense_report/) | 17.0.1.0.0 | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) | Provide CO2 accounting data for expense reports
 [sustainability_mis_builder](sustainability_mis_builder/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Provide CO2e accounting lines data for MIS builder reports
 [sustainability_purchase](sustainability_purchase/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
 
@@ -33,7 +34,6 @@ Unported addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [sustainability_account_asset_management](sustainability_account_asset_management/) | 17.0.1.0.0 (unported) | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Glue module to make co2 module compatible with assets management from OCA
-[sustainability_hr_expense_report](sustainability_hr_expense_report/) | 17.0.1.0.0 (unported) | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) | Provide CO2 accounting data for expense reports
 
 [//]: # (end addons)
 <!-- prettier-ignore-end -->
