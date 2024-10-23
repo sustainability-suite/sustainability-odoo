@@ -11,8 +11,8 @@
                 <label for="carbon_debt" />
                 <div class="o_row">
                     <field name="carbon_debt" digits="[13,2]" readonly="carbon_is_locked" />
-                    <button title="Unlock co2" type="object" name="action_switch_locked" invisible="carbon_is_locked" icon="fa-unlock" class="opacity-25" />
-                    <button title="Lock co2" type="object" name="action_switch_locked" invisible="not carbon_is_locked" icon="fa-lock" />
+                    <button title="Unlock co2" type="object" name="action_switch_locked" invisible="not carbon_is_locked" icon="fa-unlock" class="opacity-25" />
+                    <button title="Lock co2" type="object" name="action_switch_locked" invisible="carbon_is_locked" icon="fa-lock" />
                 </div>
             </xpath>
         </field>
