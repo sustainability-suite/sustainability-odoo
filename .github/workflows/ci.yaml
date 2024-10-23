@@ -36,3 +36,44 @@
                   echo "$newfiles"
                   exit 1
               fi
+      test:
+        runs-on: ubuntu-22.04
+        container: ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest
+        name: Test module ${{ matrix.INCLUDE }}
+        strategy:
+          fail-fast: false
+          matrix:
+             INCLUDE:
+               - sustainability
+               - sustainability_account_accountant
+               - sustainability_account_asset
+               - sustainability_account_asset_management
+               - sustainability_employee_commuting
+               - sustainability_hr_expense_report
+               - sustainability_mis_builder
+               - sustainability_purchase
+        env:
+          INCLUDE: ${{ matrix.INCLUDE }}
+        services:
+          postgres:
+            image: postgres:16.0
+            env:
+              POSTGRES_USER: odoo
+              POSTGRES_PASSWORD: odoo
+              POSTGRES_DB: odoo
+            ports:
+              - 5432:5432
+        steps:
+          - uses: actions/checkout@v3
+            with:
+              persist-credentials: false
+          - name: Install addons and dependencies
+            run: oca_install_addons
+          - name: Check licenses
+            run: manifestoo -d . check-licenses
+          - name: Check development status
+            run: manifestoo -d . check-dev-status --default-dev-status=Beta
+          - name: Initialize test db
+            run: oca_init_test_database
+          - name: Run tests
+            run: oca_run_tests

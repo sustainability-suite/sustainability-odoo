@@ -10,7 +10,7 @@
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
-    "depends": ["mis_builder", "sustainability"],
+    "depends": ["sustainability"],
     "data": [
         "views/mis_carbon_account_move_line.xml",
         "security/ir.model.access.csv",
