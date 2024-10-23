@@ -9,8 +9,10 @@
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://www.open-net.ch",
-    "summary": "Base module to track CO2 equivalent in accounting",
-    "description": """ """,
+    "summary": """Base module to track CO2 equivalent in accounting, Sustainability,
+     GHG Protocol, CSRD Directive, BEGES, ADEME, ISO format, Action Plan, Emission Factors,
+     carbon CO2 footprint computation, Analytical accounting, Decarbonization
+    """,
     "depends": [
         "account",
         "web_hierarchy",
@@ -47,7 +49,7 @@
         "data/res_country_group.xml",
     ],
     "images": [
-        "static/description/co2_base_green.png",
+        "static/description/banner.png",
     ],
     "demo": [
         "demo/carbon_factor_database.xml",
