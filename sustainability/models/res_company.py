@@ -25,8 +25,11 @@ class ResCompany(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            currency = self.env["res.currency"].browse(vals["currency_id"])
-            factor_name = f"Global Emission Factor Fallback {currency.name}"
+            if "currency_id" in vals:
+                currency = self.env["res.currency"].browse(vals["currency_id"])
+                factor_name = f"Global Emission Factor Fallback {currency.name}"
+            else:
+                factor_name = "Global Emission Factor Fallback"
 
             carbon_factor = self.env["carbon.factor"].search(
                 [("name", "=", factor_name)], limit=1
