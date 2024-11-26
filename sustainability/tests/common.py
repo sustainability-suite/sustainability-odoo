@@ -18,7 +18,7 @@ class CarbonCommon(TransactionCase):
         carbon_database = cls.env["carbon.factor.database"].create({"name": "Ademe"})
         cls.carbon_factor_monetary = cls.env["carbon.factor"].create(
             {
-                "name": "Test",
+                "name": "Test monetary",
                 "carbon_compute_method": "monetary",
                 "uncertainty_percentage": 0.8,
                 "carbon_database_id": carbon_database.id,
