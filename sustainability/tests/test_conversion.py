@@ -7,19 +7,13 @@ class TestCarbonUom(CarbonCommon):
             {
                 "name": "Consulting",
                 "type": "service",
-                "categ_id": self.env.ref("product.product_category_all").id,
+                "categ_id": self.product_category.id,
                 "uom_id": self.uom_hour.id,
                 "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
                 "standard_price": 50.0,
-                "carbon_out_is_manual": True,
-                "carbon_out_compute_method": "physical",
-                "carbon_out_value": 2.5,
-                "carbon_out_uom_id": self.uom_hour.id,
                 "carbon_in_is_manual": True,
-                "carbon_in_compute_method": "physical",
-                "carbon_in_value": 1.5,
-                "carbon_in_uom_id": self.uom_hour.id,
+                "carbon_in_factor_id": self.carbon_factor_physical.id,
             }
         )
 
@@ -27,7 +21,7 @@ class TestCarbonUom(CarbonCommon):
             [
                 {
                     "move_type": "out_invoice",
-                    "partner_id": self.env.ref("base.res_partner_2").id,
+                    "partner_id": self.partner.id,
                     "invoice_line_ids": [
                         (
                             0,
@@ -37,6 +31,14 @@ class TestCarbonUom(CarbonCommon):
                                 "product_id": product_consulting_uom.id,
                                 "quantity": 1.0,
                                 "product_uom_id": self.uom_day.id,
+                                "carbon_origin_json": {
+                                    "mode": "manual",
+                                    "details": {
+                                        "uid": self.env.uid,
+                                        "username": self.user.id,
+                                    },
+                                    "model_name": "account.move.line",
+                                },
                             },
                         ),
                     ],
@@ -45,7 +47,7 @@ class TestCarbonUom(CarbonCommon):
         )
         self.assertEqual(
             round(invoice_out.carbon_balance, 1),
-            20.0,
+            -19.0,
             "Converted quantity for customer invoice does not correspond.",
         )
 
@@ -53,7 +55,7 @@ class TestCarbonUom(CarbonCommon):
             [
                 {
                     "move_type": "in_invoice",
-                    "partner_id": self.env.ref("base.res_partner_2").id,
+                    "partner_id": self.partner.id,
                     "invoice_line_ids": [
                         (
                             0,
@@ -63,6 +65,14 @@ class TestCarbonUom(CarbonCommon):
                                 "product_id": product_consulting_uom.id,
                                 "quantity": 1.0,
                                 "product_uom_id": self.uom_day.id,
+                                "carbon_origin_json": {
+                                    "mode": "manual",
+                                    "details": {
+                                        "uid": self.env.uid,
+                                        "username": self.user.id,
+                                    },
+                                    "model_name": "account.move.line",
+                                },
                             },
                         ),
                     ],
@@ -71,7 +81,7 @@ class TestCarbonUom(CarbonCommon):
         )
         self.assertEqual(
             round(invoice_in.carbon_balance, 1),
-            12.0,
+            0.2,
             "Converted quantity for vendor bill does not correspond.",
         )
 
@@ -81,8 +91,10 @@ class TestCarbonUom(CarbonCommon):
             {
                 "name": "Consulting",
                 "type": "service",
-                "categ_id": self.env.ref("product.product_category_all").id,
+                "categ_id": self.product_category.id,
                 "lst_price": 10.0,
+                "carbon_out_is_manual": True,
+                "carbon_out_factor_id": self.carbon_factor_monetary.id,
             }
         )
 
@@ -90,7 +102,7 @@ class TestCarbonUom(CarbonCommon):
             [
                 {
                     "move_type": "out_invoice",
-                    "partner_id": self.env.ref("base.res_partner_2").id,
+                    "partner_id": self.partner.id,
                     "invoice_date": "2023-01-01",
                     "invoice_line_ids": [
                         (
@@ -100,24 +112,23 @@ class TestCarbonUom(CarbonCommon):
                                 "name": "Consulting",
                                 "product_id": product_consulting_currency.id,
                                 "quantity": 10.0,
+                                "carbon_origin_json": {
+                                    "mode": "manual",
+                                    "details": {
+                                        "uid": self.env.ref("base.user_admin").id,
+                                        "username": self.user.id,
+                                    },
+                                    "model_name": "account.move.line",
+                                },
                             },
                         ),
                     ],
                 }
             ]
         )
-        invoice_out.invoice_line_ids[:1].account_id.write(
-            {
-                "carbon_out_is_manual": True,
-                "carbon_out_compute_method": "monetary",
-                "carbon_out_value": 2,
-                "carbon_out_monetary_currency_id": self.currency_eur.id,
-            }
-        )
 
-        # Round to zero because of stupid rounding errors
         self.assertEqual(
             round(invoice_out.carbon_balance, 0),
-            190.0,
+            -2.0,
             "Converted quantity for customer invoice does not correspond.",
         )
