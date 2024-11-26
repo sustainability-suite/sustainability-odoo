@@ -15,13 +15,10 @@ class CarbonCommon(TransactionCase):
         cls.currency_usd = cls.env.ref("base.USD")
 
         # Carbon Factor Database and Factors
-        carbon_database = cls.env["carbon.factor.database"].create({"name": "Ademe"})
         cls.carbon_factor_monetary = cls.env["carbon.factor"].create(
             {
                 "name": "Test monetary",
                 "carbon_compute_method": "monetary",
-                "uncertainty_percentage": 0.8,
-                "carbon_database_id": carbon_database.id,
             }
         )
         cls.env["carbon.factor.value"].create(
@@ -36,8 +33,6 @@ class CarbonCommon(TransactionCase):
             {
                 "name": "Test physical",
                 "carbon_compute_method": "physical",
-                "uncertainty_percentage": 0.5,
-                "carbon_database_id": carbon_database.id,
             }
         )
         cls.env["carbon.factor.value"].create(
@@ -80,7 +75,7 @@ class CarbonCommon(TransactionCase):
         # Product Category
         cls.product_category = cls.env["product.category"].create(
             {
-                "name": "Sustainable Products",
+                "name": "Test Product Category",
                 "carbon_in_is_manual": True,
                 "carbon_in_factor_id": cls.carbon_factor_monetary.id,
             }
