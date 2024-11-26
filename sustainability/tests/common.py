@@ -14,7 +14,7 @@ class CarbonCommon(TransactionCase):
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_usd = cls.env.ref("base.USD")
 
-        # Carbon Factor Database and Factors
+        # Carbon Factors
         cls.carbon_factor_default_fallback = cls.env["carbon.factor"].create(
             {
                 "name": "Global Emission Factor Fallback",
