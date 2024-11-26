@@ -1,0 +1,28 @@
+<odoo>
+    <template id="products_item_extension" inherit_id="website_sale.products_item">
+        <xpath expr="//div[contains(@class, 'oe_product_image')]" position="inside">
+            <t t-if="product.carbon_out_factor_value">
+                <div
+                    t-attf-class="co2-total-label position-absolute top-0 end-0 p-1 text-white"
+                    style="background-color: rgba(0, 0, 0, 0.7); font-size: 0.8rem;"
+                >
+                    <t t-out="'%.2f' % product.carbon_out_factor_value" />
+                    <span style="font-size: 0.7rem;">kgCO2e</span>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="product_extension" inherit_id="website_sale.product">
+        <xpath expr="//div[@t-attf-class[contains(., 'o_wsale_product_images')]]" position="inside">
+            <t t-if="product.carbon_out_factor_value">
+                <div
+                    t-attf-class="co2-total-label position-absolute top-0 end-0 p-1 text-white"
+                    style="background-color: rgba(0, 0, 0, 0.7); font-size: 0.8rem;"
+                >
+                    <t t-out="'%.2f' % product.carbon_out_factor_value" />
+                    <span style="font-size: 0.7rem;">kgCO2e</span>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
