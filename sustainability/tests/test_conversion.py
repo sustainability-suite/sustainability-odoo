@@ -29,7 +29,6 @@ class TestCarbonUom(CarbonCommon):
                             0,
                             0,
                             {
-                                "name": "Consulting",
                                 "product_id": product_consulting_uom.id,
                                 "quantity": 1.0,
                                 "product_uom_id": self.uom_day.id,
@@ -55,18 +54,9 @@ class TestCarbonUom(CarbonCommon):
                             0,
                             0,
                             {
-                                "name": "Consulting",
                                 "product_id": product_consulting_uom.id,
                                 "quantity": 1.0,
                                 "product_uom_id": self.uom_day.id,
-                                "carbon_origin_json": {
-                                    "mode": "manual",
-                                    "details": {
-                                        "uid": self.env.uid,
-                                        "username": self.user.id,
-                                    },
-                                    "model_name": "account.move.line",
-                                },
                             },
                         ),
                     ],
@@ -104,17 +94,8 @@ class TestCarbonUom(CarbonCommon):
                             0,
                             0,
                             {
-                                "name": "Consulting",
                                 "product_id": product_consulting_currency.id,
                                 "quantity": 10.0,
-                                "carbon_origin_json": {
-                                    "mode": "manual",
-                                    "details": {
-                                        "uid": self.env.ref("base.user_admin").id,
-                                        "username": self.user.id,
-                                    },
-                                    "model_name": "account.move.line",
-                                },
                             },
                         ),
                     ],
