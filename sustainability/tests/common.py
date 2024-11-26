@@ -15,6 +15,20 @@ class CarbonCommon(TransactionCase):
         cls.currency_usd = cls.env.ref("base.USD")
 
         # Carbon Factor Database and Factors
+        cls.carbon_factor_default_fallback = cls.env["carbon.factor"].create(
+            {
+                "name": "Global Emission Factor Fallback",
+                "carbon_compute_method": "monetary",
+            }
+        )
+        cls.env["carbon.factor.value"].create(
+            {
+                "factor_id": cls.carbon_factor_default_fallback.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 10.000000,
+            }
+        )
         cls.carbon_factor_monetary = cls.env["carbon.factor"].create(
             {
                 "name": "Test monetary",
@@ -26,7 +40,7 @@ class CarbonCommon(TransactionCase):
                 "factor_id": cls.carbon_factor_monetary.id,
                 "carbon_monetary_currency_id": cls.currency_eur.id,
                 "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
-                "carbon_value": 0.025,
+                "carbon_value": 0.025000,
             }
         )
         cls.carbon_factor_physical = cls.env["carbon.factor"].create(
@@ -40,7 +54,7 @@ class CarbonCommon(TransactionCase):
                 "factor_id": cls.carbon_factor_physical.id,
                 "carbon_uom_id": cls.uom_hour.id,
                 "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
-                "carbon_value": 0.022,
+                "carbon_value": 0.022000,
             }
         )
 
@@ -67,8 +81,8 @@ class CarbonCommon(TransactionCase):
         cls.env.company.write(
             {
                 "currency_id": cls.currency_usd.id,
-                "carbon_in_factor_id": cls.carbon_factor_monetary.id,
-                "carbon_out_factor_id": cls.carbon_factor_monetary.id,
+                "carbon_in_factor_id": cls.carbon_factor_default_fallback.id,
+                "carbon_out_factor_id": cls.carbon_factor_default_fallback.id,
             }
         )
 

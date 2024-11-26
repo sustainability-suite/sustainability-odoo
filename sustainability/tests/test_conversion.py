@@ -5,13 +5,15 @@ class TestCarbonUom(CarbonCommon):
     def test_10_uom(self):
         product_consulting_uom = self.env["product.product"].create(
             {
-                "name": "Consulting",
+                "name": "Consulting uom test",
                 "type": "service",
                 "categ_id": self.product_category.id,
                 "uom_id": self.uom_hour.id,
                 "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
                 "standard_price": 50.0,
+                "carbon_out_is_manual": True,
+                "carbon_out_factor_id": self.carbon_factor_physical.id,
                 "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
             }
@@ -31,14 +33,6 @@ class TestCarbonUom(CarbonCommon):
                                 "product_id": product_consulting_uom.id,
                                 "quantity": 1.0,
                                 "product_uom_id": self.uom_day.id,
-                                "carbon_origin_json": {
-                                    "mode": "manual",
-                                    "details": {
-                                        "uid": self.env.uid,
-                                        "username": self.user.id,
-                                    },
-                                    "model_name": "account.move.line",
-                                },
                             },
                         ),
                     ],
@@ -46,8 +40,8 @@ class TestCarbonUom(CarbonCommon):
             ]
         )
         self.assertEqual(
-            round(invoice_out.carbon_balance, 1),
-            -19.0,
+            round(invoice_out.carbon_balance, 2),
+            -0.18,
             "Converted quantity for customer invoice does not correspond.",
         )
 
@@ -80,8 +74,8 @@ class TestCarbonUom(CarbonCommon):
             ]
         )
         self.assertEqual(
-            round(invoice_in.carbon_balance, 1),
-            0.2,
+            round(invoice_in.carbon_balance, 2),
+            0.18,
             "Converted quantity for vendor bill does not correspond.",
         )
 
@@ -89,12 +83,13 @@ class TestCarbonUom(CarbonCommon):
         """Use EUR for carbon currency but USD for invoice"""
         product_consulting_currency = self.env["product.product"].create(
             {
-                "name": "Consulting",
+                "name": "Consulting currency test",
                 "type": "service",
                 "categ_id": self.product_category.id,
                 "lst_price": 10.0,
                 "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_monetary.id,
+                "currency_id": self.env.ref("base.USD"),
             }
         )
 
@@ -128,7 +123,7 @@ class TestCarbonUom(CarbonCommon):
         )
 
         self.assertEqual(
-            round(invoice_out.carbon_balance, 0),
-            -2.0,
+            round(invoice_out.carbon_balance, 2),
+            -2.38,
             "Converted quantity for customer invoice does not correspond.",
         )
