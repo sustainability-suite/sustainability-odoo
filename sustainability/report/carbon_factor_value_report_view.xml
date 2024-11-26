@@ -22,6 +22,7 @@
                     <separator />
                     <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
                     <group expand="0" string="Group By">
+                        <filter string="Name" name="by_factor_id" context="{'group_by':'factor_id'}" />
                         <filter string="Root" name="by_root" context="{'group_by':'root'}" />
                         <filter string="Parent" name="by_parent_id" context="{'group_by':'parent_id'}" />
                         <filter string="Category" name="by_category" context="{'group_by':'category'}" />
