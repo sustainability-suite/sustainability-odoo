@@ -17,7 +17,7 @@
             <t t-if="product.carbon_out_factor_value">
                 <div
                     t-attf-class="co2-total-label position-absolute text-black bg-light rounded-pill border"
-                    style="font-size: 0.8rem; top: 0.25rem; right: 0.25rem; padding: 0.125rem 0.5rem;"
+                    style="font-size: 0.8rem; top: 0; right: 0; padding: 0.125rem 0.5rem;"
                 >
                     <t t-out="'%.1f' % product.carbon_out_factor_value" />
                     <span style="font-size: 0.7rem;">kgCO2e</span>
