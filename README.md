@@ -26,7 +26,11 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+<<<<<<< HEAD
 [sustainability](sustainability/) | 17.0.1.1.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Base module to track CO2 equivalent in accounting
+=======
+[sustainability](sustainability/) | 17.0.1.1.1 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Base module to track CO2 equivalent in accounting, Sustainability, GHG Protocol, CSRD Directive, BEGES, ADEME, ISO format, Action Plan, Emission Factors, carbon CO2 footprint computation, Analytical accounting, Decarbonization
+>>>>>>> 192c853 ([FIX] sustainability: 'Kg' to 'kg' unit (#206))
 [sustainability_account_accountant](sustainability_account_accountant/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Accounting (enterprise)
 [sustainability_account_asset](sustainability_account_asset/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module to make Sustainability module compatible with account_asset from Odoo
 [sustainability_employee_commuting](sustainability_employee_commuting/) | 17.0.1.0.0 | [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) | Module for employee commuting co2
