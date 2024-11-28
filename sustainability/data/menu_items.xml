@@ -96,10 +96,17 @@
           action="sustainability.carbon_factor_action_reporting"
         />
         <menuitem
+            id="carbon_factor_value_report_menu"
+            name="Emission Factors By Vintage"
+            groups="base.group_user"
+            sequence="2"
+            action="sustainability.carbon_factor_value_report_action"
+        />
+        <menuitem
           id="carbon_line_origin_graph_menu"
           name="Carbon Footprint"
           groups="base.group_user"
-          sequence="2"
+          sequence="3"
           action="sustainability.carbon_line_origin_action_reporting"
         />
       </menuitem>
