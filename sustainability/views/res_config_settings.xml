@@ -74,6 +74,13 @@
                         >
                             <field name="module_sustainability_hr_expense_report" />
                         </setting>
+                        <setting
+                            string="Show CO2e in eCommerce"
+                            invisible="(not ('website_sale' in available_module_names))"
+                            help="Display CO2e values in eCommerce products"
+                        >
+                            <field name="module_sustainability_website_sale" />
+                        </setting>
                     </block>
                     <div class="col-6 p-4 center-content center co2_extra_modules" invisible="extra_module_names == False" style="margin-left: 3rem">
                         <h4>Use Sutainability module with more applications !</h4>
