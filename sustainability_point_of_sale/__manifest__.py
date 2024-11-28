@@ -1,0 +1,15 @@
+{
+    "name": "Sustainability Point of Sale",
+    "category": "Sales/Point of Sale",
+    "version": "17.0.1.0.0",
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+    "license": "LGPL-3",
+    "author": "Open Net Sàrl",
+    "maintainers": ["jacopobacci"],
+    "development_status": "Production/Stable",
+    "website": "https://www.open-net.ch",
+    "depends": ["sustainability", "point_of_sale"],
+    "sequence": 1,
+}
