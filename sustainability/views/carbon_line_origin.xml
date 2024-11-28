@@ -16,8 +16,8 @@
                     <field name="move_line_product_uom_id" string="Unit of Measure" />
                     <field name="carbon_data_uncertainty_percentage" widget="percentage" optional="hide" string="CO2 Uncertainty %" />
                     <field name="move_line_balance" string="Amount" sum="Amount" />
-                    <field name="signed_value" string="Total (KgCO2e)" sum="Total (KgCO2e)" />
-                    <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" sum="Uncertainty (KgCO2e)" digits="[13,2]" />
+                    <field name="signed_value" string="Total (kgCO2e)" sum="Total (kgCO2e)" />
+                    <field name="signed_uncertainty_value" string="Uncertainty (kgCO2e)" sum="Uncertainty (kgCO2e)" digits="[13,2]" />
                     <field name="factor_id" widget="many2one" string="Emission Factor" />
                     <field name="computation_level" optional="hide" string="Computation Level" />
                     <field name="uncertainty_percentage" widget="percentage" optional="hide" string="Uncertainty" />
@@ -50,8 +50,8 @@
             <field name="arch" type="xml">
                 <graph string="Carbon Footprint Analysis" sample="1">
                     <field name="move_date" interval="month" />
-                    <field name="signed_value" string="Total (KgCO2e)" type="measure" />
-                    <field name="signed_uncertainty_value" string="Uncertainty (KgCO2e)" />
+                    <field name="signed_value" string="Total (kgCO2e)" type="measure" />
+                    <field name="signed_uncertainty_value" string="Uncertainty (kgCO2e)" />
                     <field name="distribution" invisible="1" />
                     <field name="factor_value_id" invisible="1" />
                     <field name="uncertainty_percentage" invisible="1" />
@@ -85,7 +85,7 @@
                     <field name="factor_id" string="Emission Factor" />
                     <field name="factor_value_type_id" string="Type" />
                     <field name="factor_category_id" string="Category" />
-                    <field name="move_line_product_uom_id" string='Unit of Measure' />
+                    <field name="move_line_product_uom_id" string="Unit of Measure" />
                     <field name="move_state" string="Status" />
                     <field name="move_date" />
 
