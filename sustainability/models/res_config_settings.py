@@ -40,6 +40,7 @@ class ResConfigSettings(models.TransientModel):
     module_sustainability_employee_commuting = fields.Boolean()
     module_sustainability_hr_expense_report = fields.Boolean()
     module_sustainability_stock = fields.Boolean()
+    module_sustainability_point_of_sale = fields.Boolean()
 
     @api.depends("company_id")
     def _compute_available_modules(self):
@@ -55,6 +56,7 @@ class ResConfigSettings(models.TransientModel):
             # Community
             "purchase",
             "hr",
+            "point_of_sale",
             # Enterprise
             "account_asset",
             # OCA
