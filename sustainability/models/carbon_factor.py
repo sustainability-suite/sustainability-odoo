@@ -69,7 +69,7 @@ class CarbonFactor(models.Model):
         comodel_name="res.currency", compute="_compute_carbon_currency_id"
     )
     carbon_currency_label = fields.Char(
-        compute="_compute_carbon_currency_id", default="KgCo2e"
+        compute="_compute_carbon_currency_id", default="kgCO2e"
     )
     value_ids = fields.One2many(
         comodel_name="carbon.factor.value", inverse_name="factor_id", tracking=True
