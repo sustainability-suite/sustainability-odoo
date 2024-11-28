@@ -41,6 +41,7 @@
         "views/sustainability_nomenclature.xml",
         # Reports
         "report/invoice_document.xml",
+        "report/carbon_factor_value_report_view.xml",
         # Data
         "data/decimal_precision.xml",
         "data/menu_items.xml",
