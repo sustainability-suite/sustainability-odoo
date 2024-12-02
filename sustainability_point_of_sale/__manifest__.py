@@ -11,5 +11,10 @@
     "development_status": "Production/Stable",
     "website": "https://www.open-net.ch",
     "depends": ["sustainability", "point_of_sale"],
+    "assets": {
+        "point_of_sale._assets_pos": [
+            "sustainability_point_of_sale/static/src/**/*",
+        ],
+    },
     "sequence": 1,
 }

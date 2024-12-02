@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="sustainability_point_of_sale.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="inside">
+            <t t-if="props.data.total_carbon_factor">
+                <div class="text-end">
+                    Ͼ
+                    <span t-out="props.data.total_carbon_factor" class="ms-1" />
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>
