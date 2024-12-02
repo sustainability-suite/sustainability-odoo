@@ -34,11 +34,11 @@ patch(Orderline.prototype, {
 
         if (!carbonOutFactor) return;
 
-        const carbonFactor = await this.env.services.orm.call("carbon.factor", "search_read", [[["id", "=", carbonOutFactor[0]]], ["carbon_value"]]);
+        const carbonFactorRes = await this.env.services.orm.call("carbon.factor", "search_read", [[["id", "=", carbonOutFactor[0]]], ["carbon_value"]]);
 
-        if (carbonFactor.length === 0) return;
+        if (carbonFactorRes.length === 0) return;
 
-        const carbonValue = carbonFactor[0].carbon_value || 0;
+        const carbonValue = carbonFactorRes[0].carbon_value || 0;
         this.carbon_value = Math.round(carbonValue * qty * 100) / 100;
     },
     getDisplayData() {
