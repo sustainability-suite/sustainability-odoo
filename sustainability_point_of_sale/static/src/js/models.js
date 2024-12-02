@@ -21,36 +21,25 @@ patch(Order.prototype, {
 patch(Orderline.prototype, {
     async setup() {
         super.setup(...arguments);
-        try {
-            const productId = this.product.id;
-            const qty = this.quantity;
+        this.carbon_value = 0;
 
-            const productRes = await this.env.services.orm.call("product.product", "search_read", [[["id", "=", productId]], ["carbon_out_factor_id"]]);
+        const productId = this.product.id;
+        const qty = this.quantity;
 
-            if (productRes.length === 0) {
-                this.carbon_value = 0;
-                return;
-            }
+        const productRes = await this.env.services.orm.call("product.product", "search_read", [[["id", "=", productId]], ["carbon_out_factor_id"]]);
 
-            const carbonOutFactor = productRes[0].carbon_out_factor_id;
+        if (productRes.length === 0) return;
 
-            if (!carbonOutFactor) {
-                this.carbon_value = 0;
-                return;
-            }
+        const carbonOutFactor = productRes[0].carbon_out_factor_id;
 
-            const carbonFactorRes = await this.env.services.orm.call("carbon.factor", "search_read", [[["id", "=", carbonOutFactor[0]]], ["carbon_value"]]);
+        if (!carbonOutFactor) return;
 
-            if (carbonFactorRes.length === 0) {
-                this.carbon_value = 0;
-                return;
-            }
+        const carbonFactor = await this.env.services.orm.call("carbon.factor", "search_read", [[["id", "=", carbonOutFactor[0]]], ["carbon_value"]]);
 
-            const carbonValue = carbonFactorRes[0].carbon_value || 0;
-            this.carbon_value = Math.round(carbonValue * qty * 100) / 100;
-        } catch (error) {
-            this.carbon_value = 0;
-        }
+        if (carbonFactor.length === 0) return;
+
+        const carbonValue = carbonFactor[0].carbon_value || 0;
+        this.carbon_value = Math.round(carbonValue * qty * 100) / 100;
     },
     getDisplayData() {
         return {
