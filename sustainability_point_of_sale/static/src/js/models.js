@@ -14,7 +14,7 @@ patch(Order.prototype, {
 
     get_total_carbon_value() {
         const total = this.orderlines.reduce((sum, line) => sum + line.carbon_value, 0);
-        return Math.round(total * 100) / 100;
+        return (Math.round(total * 100) / 100).toFixed(2);
     },
 });
 
@@ -44,7 +44,7 @@ patch(Orderline.prototype, {
     getDisplayData() {
         return {
             ...super.getDisplayData(),
-            carbon_value: this.carbon_value,
+            carbon_value: this.carbon_value.toFixed(2),
         };
     },
 });
