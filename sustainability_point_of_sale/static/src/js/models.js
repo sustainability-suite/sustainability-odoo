@@ -49,4 +49,10 @@ patch(Orderline.prototype, {
             carbon_value: (this.carbon_value * qty).toFixed(2),
         };
     },
+    export_as_JSON() {
+        const json = super.export_as_JSON(...arguments);
+        const productId = json.product_id;
+        productQuantities[productId] = json.qty;
+        return json;
+    },
 });
