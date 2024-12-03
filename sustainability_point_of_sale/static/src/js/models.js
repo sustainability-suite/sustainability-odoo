@@ -16,7 +16,8 @@ patch(Order.prototype, {
     },
     get_total_carbon_value() {
         const total = this.orderlines.reduce((sum, line) => sum + line.carbon_value * line.quantity, 0);
-        return total.toFixed(2);
+        if (total) return total.toFixed(2);
+        return 0;
     },
 });
 
@@ -44,10 +45,11 @@ patch(Orderline.prototype, {
     },
     getDisplayData() {
         const qty = productQuantities[this.product.id];
-        return {
-            ...super.getDisplayData(),
-            carbon_value: (this.carbon_value * qty).toFixed(2),
-        };
+        const data = super.getDisplayData();
+
+        if (this.carbon_value) data.carbon_value = (this.carbon_value * qty).toFixed(2);
+
+        return data;
     },
     export_as_JSON() {
         const json = super.export_as_JSON(...arguments);
