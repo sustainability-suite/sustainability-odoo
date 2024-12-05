@@ -32,10 +32,20 @@ patch(Orderline.prototype, {
         const productId = this.product.id;
         productQuantities[productId] = (productQuantities[productId] || 0) + 1;
 
-        const productRes = await this.env.services.orm.searchRead("product.product", [["id", "=", productId]], ["carbon_out_factor_id"]);
+        const productRes = await this.env.services.orm.searchRead("product.product", [["id", "=", productId]], ["carbon_out_factor_id", "product_tmpl_id"]);
         if (productRes.length === 0) return;
 
-        const carbonOutFactor = productRes[0].carbon_out_factor_id;
+        let carbonOutFactor = productRes[0].carbon_out_factor_id;
+
+        if (!carbonOutFactor) {
+            const productTemplate = productRes[0].product_tmpl_id;
+            const productTemplateRes = await this.env.services.orm.searchRead("product.template", [["id", "=", productTemplate[0]]], ["carbon_out_factor_id"]);
+
+            if (productTemplateRes.length === 0) return;
+
+            carbonOutFactor = productTemplateRes[0].carbon_out_factor_id;
+        }
+
         if (!carbonOutFactor) return;
 
         const carbonFactor = await this.env.services.orm.searchRead("carbon.factor", [["id", "=", carbonOutFactor[0]]], ["carbon_value"]);
