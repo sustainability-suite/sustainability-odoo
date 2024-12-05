@@ -19,17 +19,15 @@
                                 <div class="o_label_extra_data">
                                     <t t-out="extra_html" />
                                 </div>
+                                <span>
+                                    <span style="font-size: 1.3em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                    <span style="font-size: 1em;">kgCO2e</span>
+                                </span>
                                 <strong
-                                    class="o_label_price"
+                                    class="o_label_price ms-2"
                                     t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                                     t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"
                                 />
-                                <span class="ms-2" style="font-size: 1.3em;">
-                                    <span class="me-1">Ͼ</span>
-                                    <span t-out="'{:.0f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                    <span>.</span>
-                                    <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value).split('.')[1]" />
-                                </span>
                             </div>
                             <div class="o_label_clear" />
                         </div>
@@ -46,17 +44,15 @@
                             <strong t-field="product.display_name" />
                         </div>
                         <div class="text-end" style="padding-top:0;padding-bottom:0">
+                            <span>
+                                <span style="font-size: 1em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.7em;">kgCO2e</span>
+                            </span>
                             <strong
                                 class="o_label_price_medium"
                                 t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                                 t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"
                             />
-                            <span class="ms-2" style="font-size: 1em;">
-                                <span class="me-1">Ͼ</span>
-                                <span t-out="'{:.0f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span>.</span>
-                                <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value).split('.')[1]" />
-                            </span>
                         </div>
                         <div class="text-center o_label_small_barcode">
                             <span class="text-nowrap" t-field="product.default_code" />
@@ -81,49 +77,21 @@
                             <span class="text-nowrap" t-field="product.default_code" />
                         </div>
                         <div class="o_label_price_medium text-end">
+                            <span>
+                                <span style="font-size: 1em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.7em;">kgCO2e</span>
+                            </span>
                             <strong
+                                class="ms-2"
                                 t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                                 t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"
                             />
-                            <span class="ms-2" style="font-size: 1em;">
-                                <span class="me-1">Ͼ</span>
-                                <span t-out="'{:.0f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span>.</span>
-                                <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value).split('.')[1]" />
-                            </span>
                         </div>
                         <div class="text-center o_label_small_barcode">
                             <t t-if="barcode">
                                 <div t-out="barcode" style="padding:0" t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': barcode_size}" />
                                 <span class="text-center" t-out="barcode" />
                             </t>
-                        </div>
-                    </div>
-                </td>
-            </xpath>
-        </template>
-
-        <template id="report_simple_label4x12_no_price_inherit" inherit_id="product.report_simple_label4x12_no_price">
-            <xpath expr="//td" position="replace">
-                <td t-att-style="make_invisible and 'visibility:hidden;'">
-                    <div class="o_label_full o_label_small_text" t-att-style="table_style">
-                        <div class="o_label_name">
-                            <strong t-field="product.display_name" />
-                        </div>
-                        <div class="o_label_left_column o_label_full_with">
-                            <span class="text-nowrap" t-field="product.default_code" />
-                        </div>
-                        <div class="text-center o_label_small_barcode">
-                            <t t-if="barcode">
-                                <div t-out="barcode" style="padding:0" t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': barcode_size}" />
-                                <span class="text-center" t-out="barcode" />
-                            </t>
-                        </div>
-                        <div class="text-center" style="font-size: 1em;">
-                            <span class="me-1">Ͼ</span>
-                            <span t-out="'{:.0f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                            <span>.</span>
-                            <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value).split('.')[1]" />
                         </div>
                     </div>
                 </td>
@@ -155,18 +123,15 @@
                             <small class="text-nowrap" t-field="product.default_code" />
                         </div>
                         <div class="text-end" style="padding: 0 4px;">
+                            <span>
+                                <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.5em;">kgCO2e</span>
+                            </span>
                             <strong
-                                class="o_label_price_small"
+                                class="o_label_price_small ms-2"
                                 t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                                 t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}"
                             />
-
-                            <span class="ms-2" style="font-size: 0.8em;">
-                                <span class="me-1">Ͼ</span>
-                                <span t-out="'{:.0f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span>.</span>
-                                <span style="font-size: 0.6em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value).split('.')[1]" />
-                            </span>
                             <div t-if="False" class="o_label_extra_data">
                                 <t t-out="extra_html" />
                             </div>
@@ -231,7 +196,7 @@
                                                     <t t-call="sustainability_product_label_print.report_simple_label4x12_inherit" />
                                                 </t>
                                                 <t t-else="">
-                                                    <t t-call="sustainability_product_label_print.report_simple_label4x12_no_price_inherit" />
+                                                    <t t-call="product.report_simple_label4x12_no_price" />
                                                 </t>
                                             </t>
                                         </t>
