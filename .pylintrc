@@ -4,7 +4,7 @@ score=n
 
 [ODOOLINT]
 readme_template_url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
-manifest_required_authors=Open Net Sarl
+manifest_required_authors="Open Net Sàrl"
 manifest_required_keys=license
 license_allowed=AGPL-3
 valid_odoo_versions=16.0
@@ -51,7 +51,6 @@ enable=anomalous-backslash-in-string,
     use-vim-comment,
     wrong-tabs-instead-of-spaces,
     xml-syntax-error,
-    attribute-string-redundant,
     character-not-valid-in-resource-link,
     consider-merging-classes-inherited,
     context-overridden,
@@ -79,8 +78,7 @@ enable=anomalous-backslash-in-string,
     category-allowed,
     manifest-author-string,
     odoo-exception-warning,
-    ; manifest-required-author, ; try to make it work with "OpenNet Sarl" just like fix-website
-    ; missing-return ;
+    missing-return
 
 [REPORTS]
 msg-template={path}:{line}: [{msg_id}({symbol}), {obj}] {msg}
