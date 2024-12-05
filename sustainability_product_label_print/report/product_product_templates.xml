@@ -20,8 +20,8 @@
                                     <t t-out="extra_html" />
                                 </div>
                                 <span>
-                                    <span style="font-size: 1.3em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                    <span style="font-size: 1em;">kgCO2e</span>
+                                    <span style="font-size: 1em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                    <span style="font-size: 0.8em;">kgCO2e</span>
                                 </span>
                                 <strong
                                     class="o_label_price ms-2"
@@ -45,8 +45,8 @@
                         </div>
                         <div class="text-end" style="padding-top:0;padding-bottom:0">
                             <span>
-                                <span style="font-size: 1em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span style="font-size: 0.7em;">kgCO2e</span>
+                                <span style="font-size: 0.8em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.6em;">kgCO2e</span>
                             </span>
                             <strong
                                 class="o_label_price_medium"
@@ -78,8 +78,8 @@
                         </div>
                         <div class="o_label_price_medium text-end">
                             <span>
-                                <span style="font-size: 1em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span style="font-size: 0.7em;">kgCO2e</span>
+                                <span style="font-size: 0.8em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.6em;">kgCO2e</span>
                             </span>
                             <strong
                                 class="ms-2"
@@ -124,8 +124,8 @@
                         </div>
                         <div class="text-end" style="padding: 0 4px;">
                             <span>
-                                <span style="font-size: 0.7em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
-                                <span style="font-size: 0.5em;">kgCO2e</span>
+                                <span style="font-size: 0.6em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
+                                <span style="font-size: 0.4em;">kgCO2e</span>
                             </span>
                             <strong
                                 class="o_label_price_small ms-2"
