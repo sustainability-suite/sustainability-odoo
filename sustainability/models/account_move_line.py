@@ -138,9 +138,9 @@ class AccountMoveLine(models.Model):
         res = super()._get_carbon_compute_kwargs()
         res.update(
             {
-                "carbon_type": "out"
-                if self.move_id.is_inbound(include_receipts=True)
-                else "in",
+                "carbon_type": (
+                    "out" if self.move_id.is_inbound(include_receipts=True) else "in"
+                ),
                 "date": self.move_id.date or self.move_id.invoice_date,
                 # We take the company currency because credit/debit are expressed in that currency
                 "from_currency_id": (
