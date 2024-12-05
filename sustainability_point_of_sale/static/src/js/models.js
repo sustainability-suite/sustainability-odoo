@@ -26,6 +26,11 @@ patch(Orderline.prototype, {
         await super.setup(...arguments);
         await this._setCarbonValue();
     },
+    /**
+     * Retrieves the product's carbon output factor from the product or its template and sets the `carbon_value`.
+     * The standard retrieval hierarchy (product -> template -> category -> company) is bypassed to ensure greater precision for the POS.
+     * If the carbon factor is not found in the product or template, the value (0) won't be shown.
+     */
     async _setCarbonValue() {
         this.carbon_value = 0;
 
