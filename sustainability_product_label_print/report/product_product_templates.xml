@@ -19,7 +19,7 @@
         </template>
 
         <template id="report_simple_label4x12_inherit" inherit_id="product.report_simple_label4x12">
-            <xpath expr="//div[contains(@class, 'o_label_price_medium')]//strong" position="before">
+            <xpath expr="//div[hasclass('o_label_price_medium')]//strong" position="before">
                 <span class="me-2">
                     <span style="font-size: 0.8em;" t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)" />
                     <span style="font-size: 0.6em;">kgCO2e</span>
