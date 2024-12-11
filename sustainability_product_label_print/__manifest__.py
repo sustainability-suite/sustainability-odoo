@@ -13,7 +13,6 @@
     "depends": ["sustainability"],
     "data": [
         "report/product_product_templates.xml",
-        "report/product_template_templates.xml",
     ],
     "sequence": 1,
 }
