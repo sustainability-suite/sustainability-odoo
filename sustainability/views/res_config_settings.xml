@@ -81,6 +81,13 @@
                         >
                             <field name="module_sustainability_website_sale" />
                         </setting>
+                        <setting
+                            string="Show CO2e in Point of Sale"
+                            invisible="(not ('point_of_sale' in available_module_names))"
+                            help="Display CO2e values in Point of Sale receipts"
+                        >
+                            <field name="module_sustainability_point_of_sale" />
+                        </setting>
                     </block>
                     <div class="col-6 p-4 center-content center co2_extra_modules" invisible="extra_module_names == False" style="margin-left: 3rem">
                         <h4>Use Sutainability module with more applications !</h4>
