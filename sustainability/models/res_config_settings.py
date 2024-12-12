@@ -41,6 +41,7 @@ class ResConfigSettings(models.TransientModel):
     module_sustainability_hr_expense_report = fields.Boolean()
     module_sustainability_website_sale = fields.Boolean()
     module_sustainability_point_of_sale = fields.Boolean()
+    module_sustainability_product_label_print = fields.Boolean()
 
     @api.depends("company_id")
     def _compute_available_modules(self):
