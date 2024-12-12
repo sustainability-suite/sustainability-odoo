@@ -88,6 +88,9 @@
                         >
                             <field name="module_sustainability_point_of_sale" />
                         </setting>
+                        <setting string="Show CO2e in products printed labels" help="Display CO2e values in products printed labels">
+                            <field name="module_sustainability_product_label_print" />
+                        </setting>
                     </block>
                     <div class="col-6 p-4 center-content center co2_extra_modules" invisible="extra_module_names == False" style="margin-left: 3rem">
                         <h4>Use Sutainability module with more applications !</h4>
