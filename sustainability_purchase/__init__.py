@@ -1,4 +1,5 @@
 from . import models
+from . import wizards
 
 
 def add_carbon_mode_columns(env):
