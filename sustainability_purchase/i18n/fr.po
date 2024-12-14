@@ -1,0 +1,276 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-29 17:09+0000\n"
+"PO-Revision-Date: 2024-12-29 17:09+0000\n"
+"Last-Translator: Nico Darnis\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,help:sustainability_purchase.field_purchase_order_line__carbon_debt
+msgid ""
+"A positive value means that your system's debt grows, a negative value means"
+" it shrinks"
+msgstr ""
+"Une valeur positive signifie que la dette de votre système augmente, une "
+"valeur négative signifie qu'elle diminue"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_debt
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_debt
+msgid "CO2"
+msgstr "CO2"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "CO2 Settings"
+msgstr "Paramètres CO2"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_uncertainty_value
+msgid "CO2 Uncertainty"
+msgstr "Incertitude CO2"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_data_uncertainty_percentage
+msgid "CO2 Uncertainty %"
+msgstr "Incertitude CO2 %"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_allowed_factor_ids
+msgid "Carbon Allowed Factor"
+msgstr "Facteur de carbone permis"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_currency_id
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_currency_id
+msgid "Carbon Currency"
+msgstr "Devise CO2"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_carbon_factor
+msgid "Carbon Emission Factor"
+msgstr "Facteur d'émission de carbone"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_has_valid_distribution
+msgid "Carbon In Has Valid Distribution"
+msgstr "Le Carbon entrant a une distribution valide"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_is_manual
+msgid "Carbon In Is Manual"
+msgstr "Le Carbon entrant est en manuel"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_mode
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_users__carbon_in_mode
+msgid "Carbon In Mode"
+msgstr "Mode du Carbon entrant"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_is_locked
+msgid "Carbon Is Locked"
+msgstr "Le Carbon est verrouillé"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_json
+msgid "Carbon Origin Json"
+msgstr "Origine du Carbon Json"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_has_valid_distribution
+msgid "Carbon Out Has Valid Distribution"
+msgstr "Le Carbon sortant a une distribution valide"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_is_manual
+msgid "Carbon Out Is Manual"
+msgstr "Le Carbon sortant est en manuel"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_mode
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_users__carbon_out_mode
+msgid "Carbon Out Mode"
+msgstr "Mode du Carbon sortant"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_ids
+msgid "Carbon value origin details"
+msgstr "Détails de l'origine de la valeur du carbone"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_res_partner
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
+msgid "Contact"
+msgstr "Contact"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_carbon_factor__contact_qty
+msgid "Contact Qty"
+msgstr "Qté du contact"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_distribution_line_ids
+msgid "Distribution lines IN"
+msgstr "Distribution des lignes Entrantes"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_distribution_line_ids
+msgid "Distribution lines OUT"
+msgstr "Distribution des lignes Sortantes"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Emission Factor"
+msgstr "Facteur d'émission"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_factor_id
+msgid "Emission Factor Purchases"
+msgstr "Facteur d'émission des achats"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_factor_id
+msgid "Emission Factor Sales"
+msgstr "Facteur d'émission des ventes"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_fallback_reference
+msgid "Fallback record"
+msgstr "Enregistrement de substitution"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_fallback_reference
+msgid "Fallback record "
+msgstr "Enregistrementde substitution "
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__has_computed_carbon_mode
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_users__has_computed_carbon_mode
+msgid "Has Computed Carbon Mode"
+msgstr "A un mode de carbone calculé"
+
+#. module: sustainability_purchase
+#: model:ir.actions.server,name:sustainability_purchase.cron_initial_carbon_compute_res_partner_ir_actions_server
+msgid "Initial carbon compute for res.partner"
+msgstr "Calcul initial du carbone pour res.partner"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_account_move_line__move_partner_id
+msgid "Invoice Partner"
+msgstr "Partenaire de la facture"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "Lock co2"
+msgstr "Verrouiller le CO2"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Mode"
+msgstr "Mode"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__model_name
+msgid "Model Name"
+msgstr "Nom du modèle"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_product_template
+msgid "Product"
+msgstr "Produit"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_carbon_line_origin__purchase_line_id
+msgid "Purchase Line"
+msgstr "Ligne d'achat"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Bon de commande fournisseur"
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de bon de commande"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Purchases"
+msgstr "Achats"
+
+#. module: sustainability_purchase
+#: model:ir.actions.server,name:sustainability_purchase.action_recompute_carbon_purchase_order
+msgid "Re-compute CO2"
+msgstr "Re-calculer le CO2"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "See CO2 value origin"
+msgstr "Voir l'origine de la valeur du CO2"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Set"
+msgstr "Défini"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,help:sustainability_purchase.field_res_partner__carbon_in_use_distribution
+msgid "Todo: add help"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Undefined"
+msgstr "Indéfini"
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "Unlock co2"
+msgstr "Déverrouiller le CO2"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_use_distribution
+msgid "Use Distribution"
+msgstr "Distribution d'utilisation"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_use_distribution
+msgid "Use Distribution "
+msgstr "Distribution d'utilisation "
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_in_value_origin
+msgid "Value origin"
+msgstr "Origine de la valeur"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_res_partner__carbon_out_value_origin
+msgid "Value origin "
+msgstr "Origine de la valeur "
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_carbon_line_origin
+msgid "carbon.line.origin"
+msgstr "carbon.line.origin"
