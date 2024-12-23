@@ -1,0 +1,31 @@
+# Do NOT update manually; changes here will be overwritten by Copier
+_commit: v1.28
+_src_path: https://github.com/OCA/oca-addons-repo-template
+additional_ruff_rules: []
+ci: GitHub
+convert_readme_fragments_to_markdown: false
+enable_checklog_odoo: false
+generate_requirements_txt: true
+github_check_license: true
+github_ci_extra_env:
+    OCA_GIT_USER_EMAIL: info@mycompanyco2.org
+    OCA_GIT_USER_NAME: sustainabilitybot
+github_enable_codecov: false
+github_enable_makepot: true
+github_enable_stale_action: false
+github_enforce_dev_status_compatibility: false
+include_wkhtmltopdf: false
+odoo_test_flavor: Odoo
+odoo_version: 16.0
+org_name: MCO2
+org_slug: sustainability-suite
+rebel_module_groups: []
+repo_description: The Odoo Sustainability Module is designed to seamlessly integrate
+    sustainability management and the carbon CO2 emissions footprint computation into
+    your Odoo ERP system.
+repo_name: Sustainability
+repo_slug: sustainability-odoo
+repo_website: https://github.com/sustainability-suite/sustainability-odoo
+use_pyproject_toml: false
+use_ruff: true
+
