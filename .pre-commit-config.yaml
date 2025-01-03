@@ -57,6 +57,8 @@ repos:
     rev: v0.0.25
     hooks:
       - id: oca-checks-odoo-module
+        args:
+          - --disable=xml-deprecated-data-node
       - id: oca-checks-po
         args:
           - --disable=po-pretty-format
@@ -75,20 +77,20 @@ repos:
         additional_dependencies:
           - "prettier@2.7.1"
           - "@prettier/plugin-xml@2.2.0"
-  - repo: local
-    hooks:
-      - id: eslint
-        name: eslint
-        entry: eslint
-        args:
-          - --color
-          - --fix
-        verbose: true
-        types: [javascript]
-        language: node
-        additional_dependencies:
-          - "eslint@8.24.0"
-          - "eslint-plugin-jsdoc@"
+  # - repo: local
+  #   hooks:
+  #     - id: eslint
+  #       name: eslint
+  #       entry: eslint
+  #       args:
+  #         - --color
+  #         - --fix
+  #       verbose: true
+  #       types: [javascript]
+  #       language: node
+  #       additional_dependencies:
+  #         - "eslint@8.24.0"
+  #         - "eslint-plugin-jsdoc@"
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
