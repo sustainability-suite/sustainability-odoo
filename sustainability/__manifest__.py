@@ -4,11 +4,15 @@
 {
     "name": "Sustainability",
     "version": "16.0.1.5.0",
-    "author": "Open Net Sàrl, Gautier Casabona",
+    "author": "MCO2, Open Net Sàrl",
+    "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
+    "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
-    "summary": "Base module to track CO2 equivalent in accounting",
-    "description": """ """,
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
+    "summary": """Base module to track CO2 equivalent in accounting, Sustainability,
+     GHG Protocol, CSRD Directive, BEGES, ADEME, ISO format, Action Plan, Emission Factors,
+     carbon CO2 footprint computation, Analytical accounting, Decarbonization
+    """,
     "depends": [
         "account",
     ],
@@ -64,6 +68,6 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "sequence": 1,
 }

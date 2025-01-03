@@ -3,9 +3,11 @@
 {
     "name": "CO2 Employee Commuting",
     "version": "16.0.1.0.0",
-    "author": "Open Net Sàrl, Dehlya Herbelin, Adam Bonnet",
+    "author": "MCO2, Open Net Sàrl",
+    "maintainers": ["bonnetadam", "jacopobacci"],
+    "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
     "description": """Module allowing the calculation of CO2 emissions from employee commuting""",
     "depends": [
@@ -22,9 +24,6 @@
         # Security
         "security/ir.model.access.csv",
     ],
-    "images": [
-        "static/description/co2_base_green.png",
-    ],
     "demo": [
         "data/demo.xml",
     ],
@@ -32,5 +31,4 @@
     "application": False,
     "auto_install": False,
     "license": "AGPL-3",
-    "sequence": 1,
 }
