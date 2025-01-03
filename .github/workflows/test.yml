@@ -48,8 +48,8 @@ jobs:
         ports:
           - 5432:5432
     env:
-      OCA_GIT_USER_EMAIL: "info@mycompanyco2.org"
-      OCA_GIT_USER_NAME: "sustainabilitybot"
+      OCA_GIT_USER_EMAIL: info@mycompanyco2.org
+      OCA_GIT_USER_NAME: sustainabilitybot
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,5 +66,5 @@ jobs:
       - name: Run tests
         run: oca_run_tests
       - name: Update .pot files
-        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
+        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'sustainability-suite' }}
