@@ -1,9 +1,11 @@
 {
     "name": "Sustainability Purchase",
     "version": "16.0.1.3.0",
-    "author": "Open Net Sàrl, Gautier Casabona",
+    "author": "MCO2, Open Net Sàrl",
+    "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
+    "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Glue module for sustainability & purchase modules",
     "description": """ This module can be activated from Sustainability settings to add CO2e tracking on purchase orders. """,
     "depends": [
@@ -19,9 +21,6 @@
         "views/carbon_line_origin.xml",
         "views/purchase_order.xml",
         "views/res_partner.xml",
-    ],
-    "images": [
-        "static/description/co2_base_green.png",
     ],
     "demo": [
         "data/demo.xml",
