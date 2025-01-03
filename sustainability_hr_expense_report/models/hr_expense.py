@@ -63,7 +63,9 @@ class HrExpense(models.Model):
 
     def can_use_account_id_carbon_value(self) -> bool:
         self.ensure_one()
-        return self.account_id.can_compute_carbon_value("in")
+        return (
+            self.account_id.can_compute_carbon_value("in") if self.account_id else False
+        )
 
     def get_account_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
