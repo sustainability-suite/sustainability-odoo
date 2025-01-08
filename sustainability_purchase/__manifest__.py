@@ -7,7 +7,6 @@
     "category": "Accounting/Sustainability",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Glue module for sustainability & purchase modules",
-    "description": """ This module can be activated from Sustainability settings to add CO2e tracking on purchase orders. """,
     "depends": [
         "sustainability",
         "purchase",
