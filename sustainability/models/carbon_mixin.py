@@ -1,9 +1,12 @@
+from logging import getLogger
 from typing import Any, Union
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 from .carbon_factor import CarbonFactor
+
+_logger = getLogger(__name__)
 
 # DO NOT DELETE
 # def auto_depends(cls):
@@ -41,6 +44,7 @@ from .carbon_factor import CarbonFactor
 CARBON_MODELS = [
     "carbon.factor",
     "product.category",
+    "",
     "product.product",
     "product.template",
     "res.partner",
@@ -409,9 +413,32 @@ class CarbonMixin(models.AbstractModel):
 
     def has_valid_carbon_fallback(self, carbon_type: str):
         self.ensure_one()
-        return self[f"carbon_{carbon_type}_fallback_reference"] and self[
-            f"carbon_{carbon_type}_fallback_reference"
-        ].has_valid_carbon_value(carbon_type)
+        field_name = f"carbon_{carbon_type}_fallback_reference"
+        need_re_call = False
+        fallback_reference = getattr(self, field_name) or False
+
+        has_valid_carbon_value = False
+        if fallback_reference:
+            has_valid_carbon_value = (
+                fallback_reference.has_valid_carbon_value(carbon_type) or False
+            )
+
+        # Condition explained: if fallback_reference is not set and the current record is not the last one in the list of CARBON_MODELS
+        if (
+            not fallback_reference
+            and self._name not in CARBON_MODELS
+            and self._name != CARBON_MODELS[-1]
+        ):
+            _logger.warning(
+                f"Fallback reference for '{carbon_type}' is not set on {self}. Setting it to the company."
+            )
+            setattr(self, field_name, self.env.company)
+            need_re_call = True
+
+        if need_re_call:
+            return self.has_valid_carbon_fallback(carbon_type)
+
+        return fallback_reference and has_valid_carbon_value
 
     def can_compute_carbon_value(self, carbon_type: str) -> bool:
         self.ensure_one()

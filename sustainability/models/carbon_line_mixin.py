@@ -224,13 +224,17 @@ class CarbonLineMixin(models.AbstractModel):
                 distribution, **kw_arguments
             )
 
-            line.carbon_debt = debt
-            line.carbon_uncertainty_value = uncertainty_value
-            line.carbon_origin_json = {
-                "mode": "auto",
-                "details": details,
-                "model_name": model_name,
-            }
+            line.with_context(sustainability_recreate=False).write(
+                dict(
+                    carbon_debt=debt,
+                    carbon_uncertainty_value=uncertainty_value,
+                    carbon_origin_json={
+                        "mode": "auto",
+                        "details": details,
+                        "model_name": model_name,
+                    },
+                )
+            )
 
         return skipped_lines
 
@@ -291,9 +295,10 @@ class CarbonLineMixin(models.AbstractModel):
     def _create_origin_lines(self):
         origin_vals_list = list()
         lines_to_flush = self.search([("carbon_origin_json", "!=", False)])
+        lines_to_flush.carbon_origin_ids.unlink()
 
         for line in lines_to_flush:
-            line.carbon_origin_ids.unlink()
+            # line.carbon_origin_ids.unlink()
             origin_vals_list.extend(line._get_line_origin_vals_list())
 
         # To avoid empty create calls
@@ -304,13 +309,14 @@ class CarbonLineMixin(models.AbstractModel):
 
     def write(self, vals):
         res = super().write(vals)
-        self._create_origin_lines()
+        if self.env.context.get("sustainability_recreate", True):
+            self._create_origin_lines()
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        res._create_origin_lines()
+        self._create_origin_lines()
         return res
 
     def unlink(self):
