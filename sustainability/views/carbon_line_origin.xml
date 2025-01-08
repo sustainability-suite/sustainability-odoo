@@ -7,28 +7,85 @@
             <field name="arch" type="xml">
                 <tree create="0" delete="0" edit="0">
                     <field name="move_date" string="Invoice Date" />
-                    <field name="move_line_journal_id" optional="hide" string="Journal" />
+                    <field
+                        name="move_line_journal_id"
+                        optional="hide"
+                        string="Journal"
+                    />
                     <field name="move_id" widget="many2one" string="Journal Entry" />
-                    <field name="move_line_account_id" optional="hide" string="Account" />
+                    <field
+                        name="move_line_account_id"
+                        optional="hide"
+                        string="Account"
+                    />
                     <field name="move_line_partner_id" string="Partner" />
                     <field name="move_line_label" string="Label" />
                     <field name="move_line_quantity" string="Quantity" />
                     <field name="move_line_product_uom_id" string="Unit of Measure" />
-                    <field name="carbon_data_uncertainty_percentage" widget="percentage" optional="hide" string="CO2 Uncertainty %" />
+                    <field
+                        name="carbon_data_uncertainty_percentage"
+                        widget="percentage"
+                        optional="hide"
+                        string="CO2 Uncertainty %"
+                    />
                     <field name="move_line_balance" string="Amount" sum="Amount" />
-                    <field name="signed_value" string="Total (kgCO2e)" sum="Total (kgCO2e)" />
-                    <field name="signed_uncertainty_value" string="Uncertainty (kgCO2e)" sum="Uncertainty (kgCO2e)" digits="[13,2]" />
-                    <field name="factor_id" widget="many2one" string="Emission Factor" />
-                    <field name="computation_level" optional="hide" string="Computation Level" />
-                    <field name="uncertainty_percentage" widget="percentage" optional="hide" string="Uncertainty" />
-                    <field name="compute_method" optional="hide" string="Compute Method" />
+                    <field
+                        name="signed_value"
+                        string="Total (kgCO2e)"
+                        sum="Total (kgCO2e)"
+                    />
+                    <field
+                        name="signed_uncertainty_value"
+                        string="Uncertainty (kgCO2e)"
+                        sum="Uncertainty (kgCO2e)"
+                        digits="[13,2]"
+                    />
+                    <field
+                        name="factor_id"
+                        widget="many2one"
+                        string="Emission Factor"
+                    />
+                    <field
+                        name="computation_level"
+                        optional="hide"
+                        string="Computation Level"
+                    />
+                    <field
+                        name="uncertainty_percentage"
+                        widget="percentage"
+                        optional="hide"
+                        string="Uncertainty"
+                    />
+                    <field
+                        name="compute_method"
+                        optional="hide"
+                        string="Compute Method"
+                    />
                     <field name="carbon_value" optional="hide" string="Value" />
-                    <field name="distribution" widget="percentage" optional="hide" string="Distribution" />
+                    <field
+                        name="distribution"
+                        widget="percentage"
+                        optional="hide"
+                        string="Distribution"
+                    />
                     <field name="factor_value_type_id" widget="badge" string="Type" />
                     <field name="factor_category_id" widget="badge" string="Category" />
-                    <field name="factor_database_id" optional="hide" string="Database" />
-                    <field name="factor_contributor_id" optional="hide" string="Contributor" />
-                    <field name="create_date" optional="hide" widget="date" string="Created On" />
+                    <field
+                        name="factor_database_id"
+                        optional="hide"
+                        string="Database"
+                    />
+                    <field
+                        name="factor_contributor_id"
+                        optional="hide"
+                        string="Contributor"
+                    />
+                    <field
+                        name="create_date"
+                        optional="hide"
+                        widget="date"
+                        string="Created On"
+                    />
                     <field
                         name="move_state"
                         widget="badge"
@@ -88,13 +145,29 @@
           <field name="move_line_product_uom_id" string='Unit of Measure' />
           <field name="move_state" string="Status" />
           <field name="move_date" />
-                    <filter string="Physical" name="physical" domain="[('compute_method', '=', 'physical')]" />
-                    <filter string="Monetary" name="monetary" domain="[('compute_method', '=', 'monetary')]" />
+                    <filter
+                        string="Physical"
+                        name="physical"
+                        domain="[('compute_method', '=', 'physical')]"
+                    />
+                    <filter
+                        string="Monetary"
+                        name="monetary"
+                        domain="[('compute_method', '=', 'monetary')]"
+                    />
                     <separator />
                     <filter string="Creation Date" name="date" date="create_date" />
                     <separator />
-                    <filter string="Posted" name="posted" domain="[('move_state', '=', 'posted'), ('res_model', '=', 'account.move.line')]" />
-                    <filter string="Unposted" name="unposted" domain="[('move_state', '!=', 'posted'), ('res_model', '=', 'account.move.line')]" />
+                    <filter
+                        string="Posted"
+                        name="posted"
+                        domain="[('move_state', '=', 'posted'), ('res_model', '=', 'account.move.line')]"
+                    />
+                    <filter
+                        string="Unposted"
+                        name="unposted"
+                        domain="[('move_state', '!=', 'posted'), ('res_model', '=', 'account.move.line')]"
+                    />
                     <filter
                         string="Last Three Years"
                         name="last_three_years"
@@ -110,16 +183,52 @@
                         domain="[('move_line_account_id.account_type', 'in', ['expense', 'expense_depreciation', 'expense_direct_cost'])]"
                     />
                     <group expand="0" string="Group By">
-                        <filter string="Emission Factor" name="by_factor_id" context="{'group_by':'factor_id'}" />
-                        <filter string="Category" name="by_factor_category_id" context="{'group_by':'factor_category_id'}" />
-                        <filter string="Type" name="by_factor_value_type_id" context="{'group_by':'factor_value_type_id'}" />
-                        <filter string="Database" name="by_carbon_database_id" context="{'group_by':'factor_database_id'}" />
-                        <filter string="Contributor" name="by_carbon_contributor_id" context="{'group_by':'factor_contributor_id'}" />
-                        <filter string="Compute Method" name="by_compute_method" context="{'group_by':'compute_method'}" />
-                        <filter string="Creation Date" name="by_create_date" context="{'group_by': 'create_date'}" />
+                        <filter
+                            string="Emission Factor"
+                            name="by_factor_id"
+                            context="{'group_by':'factor_id'}"
+                        />
+                        <filter
+                            string="Category"
+                            name="by_factor_category_id"
+                            context="{'group_by':'factor_category_id'}"
+                        />
+                        <filter
+                            string="Type"
+                            name="by_factor_value_type_id"
+                            context="{'group_by':'factor_value_type_id'}"
+                        />
+                        <filter
+                            string="Database"
+                            name="by_carbon_database_id"
+                            context="{'group_by':'factor_database_id'}"
+                        />
+                        <filter
+                            string="Contributor"
+                            name="by_carbon_contributor_id"
+                            context="{'group_by':'factor_contributor_id'}"
+                        />
+                        <filter
+                            string="Compute Method"
+                            name="by_compute_method"
+                            context="{'group_by':'compute_method'}"
+                        />
+                        <filter
+                            string="Creation Date"
+                            name="by_create_date"
+                            context="{'group_by': 'create_date'}"
+                        />
                         <separator />
-                        <filter string="Partner" name="by_move_line_partner_id" context="{'group_by': 'move_line_partner_id'}" />
-                        <filter string="Invoice Date" name="by_move_date" context="{'group_by': 'move_date'}" />
+                        <filter
+                            string="Partner"
+                            name="by_move_line_partner_id"
+                            context="{'group_by': 'move_line_partner_id'}"
+                        />
+                        <filter
+                            string="Invoice Date"
+                            name="by_move_date"
+                            context="{'group_by': 'move_date'}"
+                        />
                     </group>
                 </search>
             </field>

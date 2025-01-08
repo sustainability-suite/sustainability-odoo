@@ -8,19 +8,19 @@
     <field name="arch" type="xml">
       <xpath expr="//div[hasclass('settings')]" position="inside">
         <div
-          class="app_settings_block"
-          data-string="Sustainability"
-          string="Sustainability"
-          data-key="sustainability"
-        >
+                    class="app_settings_block"
+                    data-string="Sustainability"
+                    string="Sustainability"
+                    data-key="sustainability"
+                >
           <h2>Accounting</h2>
           <div class="row mt16 o_settings_container">
             <field name="carbon_allowed_factor_ids" invisible="1" />
 
             <div
-              class="col-12 col-lg-6 o_setting_box o_carbon_in_value"
-              title="Default CO2e value"
-            >
+                            class="col-12 col-lg-6 o_setting_box o_carbon_in_value"
+                            title="Default CO2e value"
+                        >
               <div class="o_setting_left_pane" />
               <div class="o_setting_right_pane">
                 <span class="o_form_label">
@@ -33,18 +33,18 @@
                 </div>
                 <div>
                   <field
-                    name="carbon_in_factor_id"
-                    class="oe_inline"
-                    options="{'no_create': True}"
-                  />
+                                        name="carbon_in_factor_id"
+                                        class="oe_inline"
+                                        options="{'no_create': True}"
+                                    />
                 </div>
               </div>
             </div>
 
             <div
-              class="col-12 col-lg-6 o_setting_box o_carbon_out_value"
-              title="Default CO2e value for sales"
-            >
+                            class="col-12 col-lg-6 o_setting_box o_carbon_out_value"
+                            title="Default CO2e value for sales"
+                        >
               <div class="o_setting_left_pane" />
               <div class="o_setting_right_pane">
                 <span class="o_form_label">
@@ -57,10 +57,10 @@
                 </div>
                 <div>
                   <field
-                    name="carbon_out_factor_id"
-                    class="oe_inline"
-                    options="{'no_create': True}"
-                  />
+                                        name="carbon_out_factor_id"
+                                        class="oe_inline"
+                                        options="{'no_create': True}"
+                                    />
                 </div>
                 <div invisible="1">
                   <div>
@@ -84,10 +84,10 @@
                 </div>
                 <div>
                   <field
-                    name="carbon_lock_date"
-                    placeholder="Pick a date to lock"
-                    options="{'datepicker': {'warn_future': true}}"
-                  />
+                                        name="carbon_lock_date"
+                                        placeholder="Pick a date to lock"
+                                        options="{'datepicker': {'warn_future': true}}"
+                                    />
                 </div>
               </div>
             </div>
@@ -98,9 +98,9 @@
                 <span class="o_form_label">Default data uncertainty value</span>
                 <div>
                   <field
-                    name="carbon_default_data_uncertainty_percentage"
-                    widget="percentage"
-                  />
+                                        name="carbon_default_data_uncertainty_percentage"
+                                        widget="percentage"
+                                    />
                 </div>
               </div>
             </div>
@@ -122,10 +122,10 @@
           <h2>Extra features</h2>
           <div class="row mt16 o_settings_container">
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'purchase')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Use CO2e in Purchase app"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'purchase')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Use CO2e in Purchase app"
+                        >
               <div class="o_setting_left_pane">
                 <field name="module_sustainability_purchase" />
               </div>
@@ -146,15 +146,15 @@
             </div>
 
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Compute CO2 for your assets"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Compute CO2 for your assets"
+                        >
               <div class="o_setting_left_pane">
                 <field
-                  name="module_sustainability_account_asset"
-                  widget="upgrade_boolean"
-                />
+                                    name="module_sustainability_account_asset"
+                                    widget="upgrade_boolean"
+                                />
               </div>
               <div class="o_setting_right_pane">
                 <span class="o_form_label">
@@ -175,10 +175,10 @@
 
             <!-- OCA -->
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'mis_builder')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Display CO2e in MIS reports"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'mis_builder')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Display CO2e in MIS reports"
+                        >
               <div class="o_setting_left_pane">
                 <field name="module_sustainability_mis_builder" />
               </div>
@@ -194,10 +194,10 @@
               </div>
             </div>
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset_management')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Display CO2e in MIS reports"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset_management')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Display CO2e in MIS reports"
+                        >
               <div class="o_setting_left_pane">
                 <field name="module_sustainability_account_asset_management" />
               </div>
@@ -217,10 +217,10 @@
               </div>
             </div>
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'hr')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Display CO2e in MIS reports"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'hr')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Display CO2e in MIS reports"
+                        >
               <div class="o_setting_left_pane">
                 <field name="module_sustainability_employee_commuting" />
               </div>
@@ -239,10 +239,10 @@
             </div>
 
             <div
-              attrs="{'invisible':['!', ('available_module_names', 'ilike', 'hr_expense')]}"
-              class="col-12 col-lg-6 o_setting_box"
-              title="Display CO2e in expense reports"
-            >
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'hr_expense')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Display CO2e in expense reports"
+                        >
               <div class="o_setting_left_pane">
                 <field name="module_sustainability_hr_expense_report" />
               </div>
@@ -263,10 +263,10 @@
           </div>
 
           <div
-            attrs="{'invisible':[('extra_module_names', '=', False)]}"
-            class="col-6 p-4 center-content center co2_extra_modules"
-            style="margin-left: 3rem"
-          >
+                        attrs="{'invisible':[('extra_module_names', '=', False)]}"
+                        class="col-6 p-4 center-content center co2_extra_modules"
+                        style="margin-left: 3rem"
+                    >
             <h4>
               Use
               <a href="https://open-net.ch" target="_blank">Open-Net</a>
@@ -283,8 +283,8 @@
               <tbody>
                 <!-- Odoo -->
                 <tr
-                  attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset')]}"
-                >
+                                    attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset')]}"
+                                >
                   <td>
                     Assets Management
                     <i class="fa fa-building-o small ml-2" title="Enterprise" />
@@ -300,8 +300,8 @@
                 </tr>
                 <!-- OCA -->
                 <tr
-                  attrs="{'invisible':[('available_module_names', 'ilike', 'mis_builder')]}"
-                >
+                                    attrs="{'invisible':[('available_module_names', 'ilike', 'mis_builder')]}"
+                                >
                   <td>MIS Builder</td>
                   <td>
                     <a href="https://odoo-community.org/" target="_blank">
@@ -310,9 +310,9 @@
                   </td>
                   <td>
                     <a
-                      href="https://apps.odoo.com/apps/modules/16.0/mis_builder"
-                      target="_blank"
-                    >
+                                            href="https://apps.odoo.com/apps/modules/16.0/mis_builder"
+                                            target="_blank"
+                                        >
                       <i class="oi oi-odoo" title="Odoo" />
                     </a>
                     <a href="https://github.com/OCA/mis-builder" target="_blank">
@@ -321,8 +321,8 @@
                   </td>
                 </tr>
                 <tr
-                  attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset_management')]}"
-                >
+                                    attrs="{'invisible':[('available_module_names', 'ilike', 'account_asset_management')]}"
+                                >
                   <td>Assets Management</td>
                   <td>
                     <a href="https://odoo-community.org/" target="_blank">
@@ -331,15 +331,15 @@
                   </td>
                   <td>
                     <a
-                      href="https://odoo-community.org/shop/assets-management-82"
-                      target="_blank"
-                    >
+                                            href="https://odoo-community.org/shop/assets-management-82"
+                                            target="_blank"
+                                        >
                       <i class="oi oi-odoo" title="Odoo" />
                     </a>
                     <a
-                      href="https://github.com/OCA/account-financial-tools"
-                      target="_blank"
-                    >
+                                            href="https://github.com/OCA/account-financial-tools"
+                                            target="_blank"
+                                        >
                       <i class="fa fa-github" title="Github" />
                     </a>
                   </td>

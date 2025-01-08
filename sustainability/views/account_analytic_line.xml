@@ -18,12 +18,12 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='amount']" position="after">
           <field
-            name="carbon_debt"
-            sum="Total CO2"
-            optional="show"
-            string="CO2 value"
-            digits="[13,2]"
-          />
+                        name="carbon_debt"
+                        sum="Total CO2"
+                        optional="show"
+                        string="CO2 value"
+                        digits="[13,2]"
+                    />
         </xpath>
       </field>
     </record>

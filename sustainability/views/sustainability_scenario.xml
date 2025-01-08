@@ -33,46 +33,46 @@
           <sheet>
             <div class="oe_button_box" name="button_box">
               <button
-                type="object"
-                name="action_see_action_plans"
-                class="oe_stat_button"
-                icon="fa-tasks"
-              >
+                                type="object"
+                                name="action_see_action_plans"
+                                class="oe_stat_button"
+                                icon="fa-tasks"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_plan_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('action_plan_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="action_plan_qty" widget="statinfo" nolabel="1" />
                     Action Plans
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_plan_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('action_plan_qty', '&gt;', 1)]}"
+                                    >
                     <field name="action_plan_qty" widget="statinfo" nolabel="1" />
                     Action Plan
                   </span>
                 </div>
               </button>
               <button
-                type="object"
-                name="action_see_actions"
-                class="oe_stat_button"
-                icon="fa-leaf"
-              >
+                                type="object"
+                                name="action_see_actions"
+                                class="oe_stat_button"
+                                icon="fa-leaf"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('action_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="action_qty" widget="statinfo" nolabel="1" />
                     Actions
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('action_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('action_qty', '&gt;', 1)]}"
+                                    >
                     <field name="action_qty" widget="statinfo" nolabel="1" />
                     Action
                   </span>
@@ -80,11 +80,11 @@
               </button>
             </div>
             <widget
-              name="web_ribbon"
-              title="Archived"
-              bg_color="bg-danger"
-              attrs="{'invisible': [('active', '=', True)]}"
-            />
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
             <div class="oe_title">
               <label for="name" />
               <h1>

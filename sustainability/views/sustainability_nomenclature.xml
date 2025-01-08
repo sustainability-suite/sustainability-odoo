@@ -53,9 +53,9 @@
               <label for="name" />
               <h1>
                 <field
-                  name="name"
-                  placeholder="e.g. Direct emissions from fixed combustion sources"
-                />
+                                    name="name"
+                                    placeholder="e.g. Direct emissions from fixed combustion sources"
+                                />
               </h1>
             </div>
             <group>
