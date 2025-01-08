@@ -42,15 +42,12 @@ class MisCarbonAccountMoveLine(models.Model):
         comodel_name="res.partner",
     )
     balance = fields.Monetary(
-        string="Balance",
         currency_field="carbon_currency_id",
     )
     debit = fields.Monetary(
-        string="Debit",
         currency_field="carbon_currency_id",
     )
     credit = fields.Monetary(
-        string="Credit",
         currency_field="carbon_currency_id",
     )
     parent_state = fields.Selection(
