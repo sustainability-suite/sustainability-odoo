@@ -5,7 +5,7 @@ additional_ruff_rules: []
 ci: GitHub
 convert_readme_fragments_to_markdown: false
 enable_checklog_odoo: false
-generate_requirements_txt: false
+generate_requirements_txt: true
 github_check_license: true
 github_ci_extra_env:
     OCA_GIT_USER_EMAIL: info@mycompanyco2.org
@@ -26,6 +26,6 @@ repo_description: The Odoo Sustainability Module is designed to seamlessly integ
 repo_name: Sustainability
 repo_slug: sustainability-odoo
 repo_website: https://github.com/sustainability-suite/sustainability-odoo
-use_pyproject_toml: false
+use_pyproject_toml: true
 use_ruff: true
 
