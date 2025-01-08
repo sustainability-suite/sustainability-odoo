@@ -13,7 +13,10 @@
         </xpath>
     </template>
     <template id="product_extension" inherit_id="website_sale.product">
-        <xpath expr="//div[@t-attf-class[contains(., 'o_wsale_product_images')]]" position="inside">
+        <xpath
+            expr="//div[@t-attf-class[contains(., 'o_wsale_product_images')]]"
+            position="inside"
+        >
             <t t-if="product.carbon_out_factor_id.carbon_value">
                 <div
                     t-attf-class="co2-total-label position-absolute text-black bg-light rounded-pill border"

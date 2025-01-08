@@ -7,7 +7,7 @@
     "maintainers": ["bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
     "description": """Module allowing the calculation of CO2 emissions from employee commuting""",
     "depends": [

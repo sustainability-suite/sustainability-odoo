@@ -9,7 +9,7 @@
     "maintainers": ["jguenat"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["mis_builder", "sustainability"],
     "data": [
         "views/mis_carbon_account_move_line.xml",

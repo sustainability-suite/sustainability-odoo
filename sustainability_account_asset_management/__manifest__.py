@@ -6,7 +6,7 @@
     "maintainers": ["jguenat"],
     "development_status": "Alpha",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["account_asset_management", "sustainability"],
     "installable": True,
     "auto_install": False,

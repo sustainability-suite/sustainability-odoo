@@ -31,7 +31,10 @@
             <field name="view_mode">tree</field>
         </record>
 
-        <record id="approach_characterization_window_action" model="ir.actions.act_window">
+        <record
+            id="approach_characterization_window_action"
+            model="ir.actions.act_window"
+        >
             <field name="name">Approach Characterizations</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sustainability.approach.characterization</field>
