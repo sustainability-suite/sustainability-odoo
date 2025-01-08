@@ -109,7 +109,7 @@ class AccountMoveLine(models.Model):
         "move_id.company_id.carbon_lock_date",
         "carbon_data_uncertainty_percentage",
     )
-    def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
+    def _compute_carbon_debt(self, force_compute=None):
         return super()._compute_carbon_debt(force_compute)
 
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
