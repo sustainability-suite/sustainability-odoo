@@ -262,7 +262,7 @@ class CarbonMixin(models.AbstractModel):
         self.ensure_one()
         return []
 
-    def _search_fallback_record(self, carbon_type: str) -> list[Any] | None:
+    def _search_fallback_record(self, carbon_type: str):
         """
         Build the list of possible fallback records, then search the first valid one
         :return: a list with the path to the first valid record
