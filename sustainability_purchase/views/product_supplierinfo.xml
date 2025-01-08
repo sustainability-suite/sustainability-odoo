@@ -7,7 +7,11 @@
             <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="inside">
-                    <field name="carbon_in_value" readonly="carbon_in_factor_id" force_save="1" />
+                    <field
+                        name="carbon_in_value"
+                        readonly="carbon_in_factor_id"
+                        force_save="1"
+                    />
                     <button
                         type="object"
                         name="action_see_carbon_origin"
