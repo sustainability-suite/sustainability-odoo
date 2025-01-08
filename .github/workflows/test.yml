@@ -49,8 +49,8 @@ jobs:
           - 5432:5432
     env:
       OCA_ENABLE_CHECKLOG_ODOO: "1"
-      OCA_GIT_USER_EMAIL: "info@mycompanyco2.org"
-      OCA_GIT_USER_NAME: "sustainabilitybot"
+      OCA_GIT_USER_EMAIL: info@mycompanyco2.org
+      OCA_GIT_USER_NAME: sustainabilitybot
     steps:
       - uses: actions/checkout@v4
         with:
