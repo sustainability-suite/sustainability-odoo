@@ -10,6 +10,8 @@ def migrate(cr, registry):
     models.remove("res.partner")
 
     for model in models:
+        if model not in env:
+            continue
         for record in env[model].search(
             [
                 "|",

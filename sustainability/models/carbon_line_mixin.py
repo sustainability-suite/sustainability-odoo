@@ -298,7 +298,6 @@ class CarbonLineMixin(models.AbstractModel):
         lines_to_flush.carbon_origin_ids.unlink()
 
         for line in lines_to_flush:
-            # line.carbon_origin_ids.unlink()
             origin_vals_list.extend(line._get_line_origin_vals_list())
 
         # To avoid empty create calls

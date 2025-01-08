@@ -44,7 +44,6 @@ _logger = getLogger(__name__)
 CARBON_MODELS = [
     "carbon.factor",
     "product.category",
-    "",
     "product.product",
     "product.template",
     "res.partner",
