@@ -3,9 +3,9 @@
   <record id="world" model="res.country.group">
     <field name="name">World</field>
     <field
-      name="country_ids"
-      model="res.country"
-      eval="[(6,0, obj().search([]).ids)]"
-    />
+            name="country_ids"
+            model="res.country"
+            eval="[(6,0, obj().search([]).ids)]"
+        />
   </record>
 </odoo>

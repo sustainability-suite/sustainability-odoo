@@ -9,25 +9,25 @@
         <field name="carbon_currency_id" invisible="1" />
         <field name="carbon_is_locked" invisible="1" />
         <field
-          name="carbon_debt"
-          attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
-          digits="[13,2]"
-        />
+                    name="carbon_debt"
+                    attrs="{'readonly': [('carbon_is_locked', '=', True)]}"
+                    digits="[13,2]"
+                />
         <button
-          title="Unlock co2"
-          type="object"
-          name="action_switch_locked"
-          attrs="{'invisible': [('carbon_is_locked', '=', True)]}"
-          icon="fa-unlock"
-          class="opacity-25 "
-        />
+                    title="Unlock co2"
+                    type="object"
+                    name="action_switch_locked"
+                    attrs="{'invisible': [('carbon_is_locked', '=', True)]}"
+                    icon="fa-unlock"
+                    class="opacity-25 "
+                />
         <button
-          title="Lock co2"
-          type="object"
-          name="action_switch_locked"
-          attrs="{'invisible': [('carbon_is_locked', '=', False)]}"
-          icon="fa-lock"
-        />
+                    title="Lock co2"
+                    type="object"
+                    name="action_switch_locked"
+                    attrs="{'invisible': [('carbon_is_locked', '=', False)]}"
+                    icon="fa-lock"
+                />
       </xpath>
     </field>
   </record>

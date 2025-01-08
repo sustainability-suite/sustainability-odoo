@@ -12,18 +12,18 @@
 
           <field name="name" />
           <field
-            name="carbon_value"
-            attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-          />
+                        name="carbon_value"
+                        attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                    />
           <field
-            name="carbon_currency_label"
-            string=" "
-            attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-          />
+                        name="carbon_currency_label"
+                        string=" "
+                        attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                    />
           <field
-            name="unit_label"
-            attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-          />
+                        name="unit_label"
+                        attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                    />
           <field name="uncertainty_percentage" widget="percentage" optional="show" />
           <field name="carbon_database_id" optional="show" />
           <field name="carbon_contributor_id" optional="show" />
@@ -52,84 +52,92 @@
           <field name="country_id" />
           <field name="country_group_id" />
           <filter
-            domain="[('carbon_compute_method', '=', 'monetary')]"
-            name="monetary"
-            string="Monetary"
-          />
+                        domain="[('carbon_compute_method', '=', 'monetary')]"
+                        name="monetary"
+                        string="Monetary"
+                    />
           <filter
-            domain="[('carbon_compute_method', '=', 'physical')]"
-            name="physical"
-            string="Physical"
-          />
+                        domain="[('carbon_compute_method', '=', 'physical')]"
+                        name="physical"
+                        string="Physical"
+                    />
           <separator />
           <filter
-            domain="[('ghg_view_mode', '=', True)]"
-            name="ghg"
-            string="Detailed by gas"
-          />
+                        domain="[('ghg_view_mode', '=', True)]"
+                        name="ghg"
+                        string="Detailed by gas"
+                    />
           <filter
-            domain="[('ghg_view_mode', '=', False)]"
-            name="physical"
-            string="Not detailed by gas"
-          />
+                        domain="[('ghg_view_mode', '=', False)]"
+                        name="physical"
+                        string="Not detailed by gas"
+                    />
           <separator />
           <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
           <group expand="0" string="Group By">
             <filter string="Root" name="by_root" context="{'group_by':'root'}" />
             <filter
-              string="Parent"
-              name="by_parent_id"
-              context="{'group_by':'parent_id'}"
-            />
+                            string="Parent"
+                            name="by_parent_id"
+                            context="{'group_by':'parent_id'}"
+                        />
             <filter
-              string="Category"
-              name="by_category"
-              context="{'group_by':'category'}"
-            />
+                            string="Category"
+                            name="by_category"
+                            context="{'group_by':'category'}"
+                        />
             <separator />
             <filter
-              string="Compute method"
-              name="by_carbon_compute_method"
-              context="{'group_by':'carbon_compute_method'}"
-            />
-            <filter string="Database" name="by_carbon_database_id" context="{'group_by':'carbon_database_id'}" />
-            <filter string="Contributor" name="by_carbon_contributor_id" context="{'group_by':'carbon_contributor_id'}" />
+                            string="Compute method"
+                            name="by_carbon_compute_method"
+                            context="{'group_by':'carbon_compute_method'}"
+                        />
             <filter
-              string="Uncertainty"
-              name="by_uncertainty_percentage"
-              context="{'group_by':'uncertainty_percentage'}"
-            />
+                            string="Database"
+                            name="by_carbon_database_id"
+                            context="{'group_by':'carbon_database_id'}"
+                        />
             <filter
-              string="Type"
-              name="by_factor_value_type_id"
-              context="{'group_by':'factor_value_type_id'}"
-            />
+                            string="Contributor"
+                            name="by_carbon_contributor_id"
+                            context="{'group_by':'carbon_contributor_id'}"
+                        />
             <filter
-              string="Create date"
-              name="by_create_date"
-              context="{'group_by':'create_date'}"
-            />
+                            string="Uncertainty"
+                            name="by_uncertainty_percentage"
+                            context="{'group_by':'uncertainty_percentage'}"
+                        />
             <filter
-              string="Detailed by gas"
-              name="by_ghg_view_mode"
-              context="{'group_by':'ghg_view_mode'}"
-            />
+                            string="Type"
+                            name="by_factor_value_type_id"
+                            context="{'group_by':'factor_value_type_id'}"
+                        />
             <filter
-              string="Unit of measure"
-              name="by_carbon_uom_id"
-              context="{'group_by':'carbon_uom_id'}"
-            />
+                            string="Create date"
+                            name="by_create_date"
+                            context="{'group_by':'create_date'}"
+                        />
+            <filter
+                            string="Detailed by gas"
+                            name="by_ghg_view_mode"
+                            context="{'group_by':'ghg_view_mode'}"
+                        />
+            <filter
+                            string="Unit of measure"
+                            name="by_carbon_uom_id"
+                            context="{'group_by':'carbon_uom_id'}"
+                        />
             <separator />
             <filter
-              string="Country"
-              name="by_country_id"
-              context="{'group_by':'country_id'}"
-            />
+                            string="Country"
+                            name="by_country_id"
+                            context="{'group_by':'country_id'}"
+                        />
             <filter
-              string="Country Group"
-              name="by_country_group_id"
-              context="{'group_by':'country_group_id'}"
-            />
+                            string="Country Group"
+                            name="by_country_group_id"
+                            context="{'group_by':'country_group_id'}"
+                        />
           </group>
         </search>
       </field>
@@ -148,23 +156,23 @@
           <sheet>
             <div class="oe_button_box" name="button_box">
               <button
-                type="object"
-                name="action_see_account_move_ids"
-                class="oe_stat_button"
-                icon="fa-bars"
-              >
+                                type="object"
+                                name="action_see_account_move_ids"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('account_move_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('account_move_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="account_move_qty" widget="statinfo" nolabel="1" />
                     Posted Entries
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('account_move_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('account_move_qty', '&gt;', 1)]}"
+                                    >
                     <field name="account_move_qty" widget="statinfo" nolabel="1" />
                     Posted Entry
                   </span>
@@ -172,23 +180,23 @@
               </button>
 
               <button
-                type="object"
-                name="action_see_child_ids"
-                class="oe_stat_button"
-                icon="fa-sitemap"
-              >
+                                type="object"
+                                name="action_see_child_ids"
+                                class="oe_stat_button"
+                                icon="fa-sitemap"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('child_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('child_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="child_qty" widget="statinfo" nolabel="1" />
                     Children Factors
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('child_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('child_qty', '&gt;', 1)]}"
+                                    >
                     <field name="child_qty" widget="statinfo" nolabel="1" />
                     Child Factor
                   </span>
@@ -196,23 +204,23 @@
               </button>
 
               <button
-                type="object"
-                name="action_see_chart_of_account_ids"
-                class="oe_stat_button"
-                icon="fa-book"
-              >
+                                type="object"
+                                name="action_see_chart_of_account_ids"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('chart_of_account_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('chart_of_account_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="chart_of_account_qty" widget="statinfo" nolabel="1" />
                     Accounts
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('chart_of_account_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('chart_of_account_qty', '&gt;', 1)]}"
+                                    >
                     <field name="chart_of_account_qty" widget="statinfo" nolabel="1" />
                     Account
                   </span>
@@ -220,23 +228,23 @@
               </button>
 
               <button
-                type="object"
-                name="action_see_product_ids"
-                class="oe_stat_button"
-                icon="fa-th-list"
-              >
+                                type="object"
+                                name="action_see_product_ids"
+                                class="oe_stat_button"
+                                icon="fa-th-list"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('product_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('product_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="product_qty" widget="statinfo" nolabel="1" />
                     Products
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('product_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('product_qty', '&gt;', 1)]}"
+                                    >
                     <field name="product_qty" widget="statinfo" nolabel="1" />
                     Product
                   </span>
@@ -244,23 +252,23 @@
               </button>
 
               <button
-                type="object"
-                name="action_see_product_categ_ids"
-                class="oe_stat_button"
-                icon="fa-sort"
-              >
+                                type="object"
+                                name="action_see_product_categ_ids"
+                                class="oe_stat_button"
+                                icon="fa-sort"
+                            >
                 <div class="o_field_widget o_stat_info">
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('product_categ_qty', '&lt;=', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('product_categ_qty', '&lt;=', 1)]}"
+                                    >
                     <field name="product_categ_qty" widget="statinfo" nolabel="1" />
                     Products Categories
                   </span>
                   <span
-                    class="o_stat_value"
-                    attrs="{'invisible': [('product_categ_qty', '&gt;', 1)]}"
-                  >
+                                        class="o_stat_value"
+                                        attrs="{'invisible': [('product_categ_qty', '&gt;', 1)]}"
+                                    >
                     <field name="product_categ_qty" widget="statinfo" nolabel="1" />
                     Product Category
                   </span>
@@ -268,11 +276,11 @@
               </button>
             </div>
             <widget
-              name="web_ribbon"
-              title="Archived"
-              bg_color="bg-danger"
-              attrs="{'invisible': [('active', '=', True)]}"
-            />
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
             <div class="d-flex align-items-center">
               <div class="w-75">
                 <label for="name" />
@@ -282,19 +290,19 @@
               </div>
               <h2 class="ms-auto">
                 <field
-                  name="carbon_value"
-                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-                />
+                                    name="carbon_value"
+                                    attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                                />
                 <field
-                  name="carbon_currency_label"
-                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-                  class="ms-2"
-                />
+                                    name="carbon_currency_label"
+                                    attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                                    class="ms-2"
+                                />
                 <field
-                  name="unit_label"
-                  attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
-                  class="ms-1"
-                />
+                                    name="unit_label"
+                                    attrs="{'invisible': ['|', ('recent_value_id', '=', False), ('carbon_compute_method', '=', False)]}"
+                                    class="ms-1"
+                                />
               </h2>
             </div>
             <group>
@@ -332,11 +340,11 @@
                   <field name="ghg_view_mode" widget="boolean_toggle" />
                 </group>
                 <div
-                  class="alert alert-danger col-6"
-                  role="alert"
-                  attrs="{'invisible': [('has_invalid_value', '=', False)]}"
-                  colspan="2"
-                >
+                                    class="alert alert-danger col-6"
+                                    role="alert"
+                                    attrs="{'invisible': [('has_invalid_value', '=', False)]}"
+                                    colspan="2"
+                                >
                   Some values miss a currency or a unit of measure
                   <br />
                   Please fix them before using this factor.
@@ -347,100 +355,100 @@
                     <field name="type_id" />
                     <field name="is_carbon_value_computed" invisible="1" />
                     <field
-                      name="carbon_value"
-                      force_save="1"
-                      decoration-muted="is_carbon_value_computed"
-                      decoration-it="is_carbon_value_computed"
-                      attrs="{'readonly': [('is_carbon_value_computed', '=', True)]}"
-                    />
+                                            name="carbon_value"
+                                            force_save="1"
+                                            decoration-muted="is_carbon_value_computed"
+                                            decoration-it="is_carbon_value_computed"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '=', True)]}"
+                                        />
                     <field
-                      name="carbon_currency_label"
-                      string=" "
-                      attrs="{'column_invisible': [('parent.ghg_view_mode', '=', True)]}"
-                    />
+                                            name="carbon_currency_label"
+                                            string=" "
+                                            attrs="{'column_invisible': [('parent.ghg_view_mode', '=', True)]}"
+                                        />
 
                     <field name="is_ghg_detailed_value" invisible="1" />
                     <field
-                      name="co2_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="co2_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="ch4_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="ch4_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="n2o_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="n2o_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="sf6_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="sf6_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="hfc_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="hfc_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="pfc_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="pfc_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="nf3_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="nf3_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
                     <field
-                      name="other_ghg_value"
-                      force_save="1"
-                      attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
-                      decoration-muted="is_ghg_detailed_value"
-                      decoration-it="is_ghg_detailed_value"
-                    />
+                                            name="other_ghg_value"
+                                            force_save="1"
+                                            attrs="{'readonly': [('is_carbon_value_computed', '!=', True), ('carbon_value', '!=', 0)], 'column_invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                            decoration-muted="is_ghg_detailed_value"
+                                            decoration-it="is_ghg_detailed_value"
+                                        />
 
                     <field
-                      name="carbon_uom_id"
-                      attrs="{
+                                            name="carbon_uom_id"
+                                            attrs="{
                                             'column_invisible': [('parent.carbon_compute_method', '!=', 'physical')],
                                             'required': [('parent.carbon_compute_method', '=', 'physical')],
                                         }"
-                    />
+                                        />
                     <field
-                      name="carbon_monetary_currency_id"
-                      attrs="{
+                                            name="carbon_monetary_currency_id"
+                                            attrs="{
                                             'column_invisible': [('parent.carbon_compute_method', '!=', 'monetary')],
                                             'required': [('parent.carbon_compute_method', '=', 'monetary')],
                                         }"
-                    />
+                                        />
                     <field name="comment" />
 
                     <button
-                      type="object"
-                      name="action_reset_precision_value"
-                      icon="fa-solid fa-eraser"
-                      title="Erase the precision value"
-                      confirm="Do you really want to erase the precision value?"
-                      attrs="{'invisible': [('parent.ghg_view_mode', '=', False)]}"
-                    />
+                                            type="object"
+                                            name="action_reset_precision_value"
+                                            icon="fa-solid fa-eraser"
+                                            title="Erase the precision value"
+                                            confirm="Do you really want to erase the precision value?"
+                                            attrs="{'invisible': [('parent.ghg_view_mode', '=', False)]}"
+                                        />
                   </tree>
                 </field>
               </page>

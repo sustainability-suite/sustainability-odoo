@@ -5,8 +5,8 @@
       <xpath expr="//span[@t-field='o.narration']/../.." position="after">
         <t t-if="o.carbon_balance">
           <div
-            style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;"
-          >
+                        style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;"
+                    >
             <strong>
               CO
               <sub>2</sub>

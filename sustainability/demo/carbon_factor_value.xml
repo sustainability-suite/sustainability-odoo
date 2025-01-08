@@ -1,20 +1,29 @@
 <odoo>
     <!-- Achat de biens -->
-    <record id="carbon_factor_value_armoire_representative_1" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_armoire_representative_1"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_armoire_representative" />
         <field name="carbon_uom_id" ref="uom.product_uom_unit" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="type_id" ref="carbon_factor_type_energie" />
         <field name="carbon_value">258.180000</field>
     </record>
-    <record id="carbon_factor_value_armoire_representative_2" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_armoire_representative_2"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_armoire_representative" />
         <field name="carbon_uom_id" ref="uom.product_uom_unit" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="type_id" ref="carbon_factor_type_transports" />
         <field name="carbon_value">530.700000</field>
     </record>
-    <record id="carbon_factor_value_armoire_representative_3" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_armoire_representative_3"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_armoire_representative" />
         <field name="carbon_uom_id" ref="uom.product_uom_unit" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
@@ -162,21 +171,30 @@
     </record>
 
     <!-- Electricité -->
-    <record id="carbon_factor_value_electricite_france_transport_distribution" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_electricite_france_transport_distribution"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_electricite_france" />
         <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="type_id" ref="carbon_factor_type_transport_distribution" />
         <field name="carbon_value">0.004740</field>
     </record>
-    <record id="carbon_factor_value_electricite_france_combustion_centrale" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_electricite_france_combustion_centrale"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_electricite_france" />
         <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="type_id" ref="carbon_factor_type_combustion_centrale" />
         <field name="carbon_value">0.033800</field>
     </record>
-    <record id="carbon_factor_value_electricite_france_amont" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_electricite_france_amont"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_electricite_france" />
         <field name="carbon_uom_id" ref="uom_kwh" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
@@ -227,13 +245,22 @@
     </record>
 
     <!-- Achats de services -->
-    <record id="carbon_factor_value_assurance_service_bancaires_conseil_honoraires" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_assurance_service_bancaires_conseil_honoraires" />
+    <record
+        id="carbon_factor_value_assurance_service_bancaires_conseil_honoraires"
+        model="carbon.factor.value"
+    >
+        <field
+            name="factor_id"
+            ref="carbon_factor_assurance_service_bancaires_conseil_honoraires"
+        />
         <field name="carbon_monetary_currency_id" ref="base.CHF" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.110000</field>
     </record>
-    <record id="carbon_factor_value_hebergement_restauration" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_hebergement_restauration"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_hebergement_restauration" />
         <field name="carbon_monetary_currency_id" ref="base.EUR" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
@@ -269,7 +296,10 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.170000</field>
     </record>
-    <record id="carbon_factor_value_meubles_autres_bien_manufactures" model="carbon.factor.value">
+    <record
+        id="carbon_factor_value_meubles_autres_bien_manufactures"
+        model="carbon.factor.value"
+    >
         <field name="factor_id" ref="carbon_factor_meubles_autres_bien_manufactures" />
         <field name="carbon_monetary_currency_id" ref="base.EUR" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
@@ -281,8 +311,14 @@
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">10.000000</field>
     </record>
-    <record id="carbon_factor_value_azure_interior_furniture_eco_conceptor" model="carbon.factor.value">
-        <field name="factor_id" ref="carbon_factor_azure_interior_furniture_eco_conceptor" />
+    <record
+        id="carbon_factor_value_azure_interior_furniture_eco_conceptor"
+        model="carbon.factor.value"
+    >
+        <field
+            name="factor_id"
+            ref="carbon_factor_azure_interior_furniture_eco_conceptor"
+        />
         <field name="carbon_monetary_currency_id" ref="base.EUR" />
         <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
         <field name="carbon_value">0.500000</field>

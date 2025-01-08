@@ -17,9 +17,9 @@
               </div>
               <div>
                 <field
-                  name="employee_commuting_carbon_factor_id"
-                  placeholder="Pick a emission factor"
-                />
+                                    name="employee_commuting_carbon_factor_id"
+                                    placeholder="Pick a emission factor"
+                                />
               </div>
             </div>
           </div>
@@ -33,9 +33,9 @@
               </div>
               <div>
                 <field
-                  name="employee_commuting_journal_id"
-                  placeholder="Pick a journal"
-                />
+                                    name="employee_commuting_journal_id"
+                                    placeholder="Pick a journal"
+                                />
               </div>
             </div>
           </div>
@@ -48,9 +48,9 @@
               </div>
               <div>
                 <field
-                  name="employee_commuting_account_id"
-                  placeholder="Pick an account"
-                />
+                                    name="employee_commuting_account_id"
+                                    placeholder="Pick an account"
+                                />
               </div>
             </div>
           </div>
