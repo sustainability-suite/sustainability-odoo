@@ -9,7 +9,7 @@ class CarbonFactorValueReport(models.Model):
     _order = "date desc"
 
     # ==== Carbon Factor Value fields ====
-    date = fields.Date(string="Date", readonly=True)
+    date = fields.Date(readonly=True)
     type_id = fields.Many2one("carbon.factor.type", string="Type", readonly=True)
     factor_id = fields.Many2one("carbon.factor", string="Factor", readonly=True)
     carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure", readonly=True)
@@ -45,7 +45,7 @@ class CarbonFactorValueReport(models.Model):
 
     @property
     def _table_query(self):
-        return "%s %s %s" % (self._select(), self._from(), self._where())
+        return f"{self._select()} {self._from()} {self._where()}"
 
     @api.model
     def _select(self):
