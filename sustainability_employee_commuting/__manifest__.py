@@ -3,13 +3,12 @@
 {
     "name": "CO2 Employee Commuting",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl",
+    "author": "MCO2, Open Net Sàrl",
     "maintainers": ["bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
-    "description": """Module allowing the calculation of CO2 emissions from employee commuting""",
     "depends": [
         "sustainability",
         "hr_contract",
