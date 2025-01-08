@@ -7,10 +7,18 @@
             <field name="res_model">res.config.settings</field>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
-            <field name="context">{'module' : 'sustainability', 'bin_size': False}</field>
+            <field
+                name="context"
+            >{'module' : 'sustainability', 'bin_size': False}</field>
         </record>
 
-        <menuitem id="sustainability_menu" name="Sustainability" web_icon="sustainability,static/description/icon.png" sequence="60" groups="base.group_user">
+        <menuitem
+            id="sustainability_menu"
+            name="Sustainability"
+            web_icon="sustainability,static/description/icon.png"
+            sequence="60"
+            groups="base.group_user"
+        >
             <menuitem
                 id="carbon_line_origin_menu"
                 name="Carbon Footprint"
@@ -19,7 +27,13 @@
                 action="sustainability.carbon_line_origin_action"
             />
             <menuitem id="menu_emission_factors" name="Emission Factors" sequence="2">
-                <menuitem id="carbon_factor_menu" name="Emission Factors" sequence="1" groups="base.group_user" action="sustainability.carbon_factor_action" />
+                <menuitem
+                    id="carbon_factor_menu"
+                    name="Emission Factors"
+                    sequence="1"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_action"
+                />
                 <menuitem
                     id="carbon_factor_database_menu"
                     name="Emission Factor Databases"
@@ -42,7 +56,12 @@
                     action="sustainability.carbon_factor_type_action"
                 />
             </menuitem>
-            <menuitem id="menu_decarbonisation" groups="base.group_user" name="Decarbonization" sequence="3">
+            <menuitem
+                id="menu_decarbonisation"
+                groups="base.group_user"
+                name="Decarbonization"
+                sequence="3"
+            >
                 <menuitem
                     id="sustainability_scenario_menu"
                     name="Scenarios"
@@ -65,7 +84,12 @@
                     action="sustainability.sustainability_action_window_action"
                 />
             </menuitem>
-            <menuitem id="menu_sustainability_reporting" name="Reporting" groups="base.group_user" sequence="4">
+            <menuitem
+                id="menu_sustainability_reporting"
+                name="Reporting"
+                groups="base.group_user"
+                sequence="4"
+            >
                 <menuitem
                     id="carbon_factor_graph_menu"
                     name="Emission Factors"
@@ -88,10 +112,32 @@
                     action="sustainability.carbon_line_origin_action_reporting"
                 />
             </menuitem>
-            <menuitem id="menu_sustainability_configuration" name="Configuration" groups="base.group_system" sequence="5">
-                <menuitem id="menu_sustainability_config" name="Settings" groups="base.group_system" action="action_sustainability_config" sequence="1" />
-                <menuitem id="menu_nomenclature" name="Nomenclatures" groups="base.group_user" sequence="2">
-                    <menuitem id="menu_nomenclature_overview" name="Overview" action="nomenclature_window_action" groups="base.group_user" sequence="1" />
+            <menuitem
+                id="menu_sustainability_configuration"
+                name="Configuration"
+                groups="base.group_system"
+                sequence="5"
+            >
+                <menuitem
+                    id="menu_sustainability_config"
+                    name="Settings"
+                    groups="base.group_system"
+                    action="action_sustainability_config"
+                    sequence="1"
+                />
+                <menuitem
+                    id="menu_nomenclature"
+                    name="Nomenclatures"
+                    groups="base.group_user"
+                    sequence="2"
+                >
+                    <menuitem
+                        id="menu_nomenclature_overview"
+                        name="Overview"
+                        action="nomenclature_window_action"
+                        groups="base.group_user"
+                        sequence="1"
+                    />
                     <menuitem
                         id="menu_nomenclature_category"
                         name="Categories"
@@ -115,8 +161,19 @@
                     />
                 </menuitem>
 
-                <menuitem id="menu_approach" name="Approaches" groups="base.group_user" sequence="3">
-                    <menuitem id="menu_approach_overview" name="Overview" action="approach_window_action" groups="base.group_user" sequence="1" />
+                <menuitem
+                    id="menu_approach"
+                    name="Approaches"
+                    groups="base.group_user"
+                    sequence="3"
+                >
+                    <menuitem
+                        id="menu_approach_overview"
+                        name="Overview"
+                        action="approach_window_action"
+                        groups="base.group_user"
+                        sequence="1"
+                    />
                     <menuitem
                         id="menu_approach_characterization"
                         name="Characterizations"

@@ -15,7 +15,10 @@ patch(Order.prototype, {
         return result;
     },
     get_total_carbon_value() {
-        const total = this.orderlines.reduce((sum, line) => sum + line.carbon_value * line.quantity, 0);
+        const total = this.orderlines.reduce(
+            (sum, line) => sum + line.carbon_value * line.quantity,
+            0
+        );
         if (total) return total.toFixed(2);
         return 0;
     },
@@ -37,14 +40,22 @@ patch(Orderline.prototype, {
         const productId = this.product.id;
         productQuantities[productId] = (productQuantities[productId] || 0) + 1;
 
-        const productRes = await this.env.services.orm.searchRead("product.product", [["id", "=", productId]], ["carbon_out_factor_id", "product_tmpl_id"]);
+        const productRes = await this.env.services.orm.searchRead(
+            "product.product",
+            [["id", "=", productId]],
+            ["carbon_out_factor_id", "product_tmpl_id"]
+        );
         if (productRes.length === 0) return;
 
         let carbonOutFactor = productRes[0].carbon_out_factor_id;
 
         if (!carbonOutFactor) {
             const productTemplate = productRes[0].product_tmpl_id;
-            const productTemplateRes = await this.env.services.orm.searchRead("product.template", [["id", "=", productTemplate[0]]], ["carbon_out_factor_id"]);
+            const productTemplateRes = await this.env.services.orm.searchRead(
+                "product.template",
+                [["id", "=", productTemplate[0]]],
+                ["carbon_out_factor_id"]
+            );
 
             if (productTemplateRes.length === 0) return;
 
@@ -53,7 +64,11 @@ patch(Orderline.prototype, {
 
         if (!carbonOutFactor) return;
 
-        const carbonFactor = await this.env.services.orm.searchRead("carbon.factor", [["id", "=", carbonOutFactor[0]]], ["carbon_value"]);
+        const carbonFactor = await this.env.services.orm.searchRead(
+            "carbon.factor",
+            [["id", "=", carbonOutFactor[0]]],
+            ["carbon_value"]
+        );
         if (carbonFactor.length === 0) return;
 
         this.carbon_value = parseFloat(carbonFactor[0].carbon_value || 0).toFixed(2);

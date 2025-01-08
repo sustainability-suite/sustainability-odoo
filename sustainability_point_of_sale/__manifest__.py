@@ -9,7 +9,7 @@
     "author": "Open Net Sàrl",
     "maintainers": ["jacopobacci"],
     "development_status": "Production/Stable",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["sustainability", "point_of_sale"],
     "assets": {
         "point_of_sale._assets_pos": [

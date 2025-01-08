@@ -8,7 +8,7 @@
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": """Base module to track CO2 equivalent in accounting, Sustainability,
      GHG Protocol, CSRD Directive, BEGES, ADEME, ISO format, Action Plan, Emission Factors,
      carbon CO2 footprint computation, Analytical accounting, Decarbonization

@@ -9,7 +9,7 @@
     "maintainers": ["bonnetadam"],
     "development_status": "Alpha",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["hr_expense", "sustainability"],
     "data": ["views/hr_expense.xml", "views/hr_expense_sheet.xml"],
     "installable": True,
