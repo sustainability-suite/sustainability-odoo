@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any
 
 from odoo import api, models
 
@@ -39,7 +39,7 @@ class PurchaseOrderLine(models.Model):
         "order_id.date_approve",
         "order_id.currency_id",
     )
-    def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
+    def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
         return super()._compute_carbon_debt(force_compute)
 
     # --- Methods to override ---

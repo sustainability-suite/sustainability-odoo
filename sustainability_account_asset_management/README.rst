@@ -50,6 +50,7 @@ Credits
 Authors
 ~~~~~~~
 
+* MCO2
 * Open Net Sàrl
 
 Contributors
