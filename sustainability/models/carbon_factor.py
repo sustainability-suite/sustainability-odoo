@@ -1,6 +1,5 @@
 from collections import defaultdict
 from datetime import datetime
-from typing import Union
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -398,7 +397,7 @@ class CarbonFactor(models.Model):
         self,
         distribution: dict["CarbonFactor", float] = None,
         **kwargs,
-    ) -> tuple[float, float, dict[int, dict[int, dict[str, Union[str, float, int]]]]]:
+    ) -> tuple[float, float, dict[int, dict[int, dict[str, str | float | int]]]]:
         """
         Return a value computed depending on the calculation method of carbon (qty/price) and the type of operation (credit/debit)
         Used in carbon.line.mixin to compute carbon debt of a line model
@@ -444,7 +443,7 @@ class CarbonFactor(models.Model):
         self,
         distribution: float,
         **kwargs,
-    ) -> tuple[float, float, dict[int, dict[str, Union[str, float, int]]]]:
+    ) -> tuple[float, float, dict[int, dict[str, str | float | int]]]:
         self.ensure_one()
 
         quantity = kwargs.get("quantity")
