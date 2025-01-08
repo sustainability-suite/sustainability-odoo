@@ -11,7 +11,7 @@ class CopyMixin(models.AbstractModel):
         if fname in self._fields:
             new_name = self[fname]
         else:
-            new_name = "%s,%s" % (self._name, self.id)
+            new_name = f"{self._name},{self.id}"
         return _("%s (copy)", new_name)
 
     @api.returns("self", lambda value: value.id)

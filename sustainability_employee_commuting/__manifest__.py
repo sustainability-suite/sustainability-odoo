@@ -9,7 +9,6 @@
     "category": "Accounting/Sustainability",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
-    "description": """Module allowing the calculation of CO2 emissions from employee commuting""",
     "depends": [
         "sustainability",
         "hr_contract",
