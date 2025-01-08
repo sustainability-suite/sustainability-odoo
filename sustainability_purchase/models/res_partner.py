@@ -64,20 +64,19 @@ class ResPartner(models.Model):
             if time.perf_counter() - clock >= 270:
                 break
             try:
-                partner._compute_carbon_in_mode()
-                partner._compute_carbon_out_mode()
-                partner.write({"has_computed_carbon_mode": True})
-                self.env.cr.commit()
-                total += 1
-
+                with self.env.cr.savepoint():
+                    # Create a savepoint and rollback this section if any exception is raised.
+                    partner._compute_carbon_in_mode()
+                    partner._compute_carbon_out_mode()
+                    partner.write({"has_computed_carbon_mode": True})
+                    total += 1
+            # Catch here any exceptions if you need to.
             except Exception as e:
-                self.env.cr.rollback()
                 _logger.error(
                     "Error on cron _cron_initial_carbon_compute_res_partner : Exception: %s"
                     % e
                 )
 
         _logger.info(
-            "_cron_initial_carbon_compute_res_partner finished for %s partners (%s remaining)"
-            % (total, len(partners) - total)
+            f"_cron_initial_carbon_compute_res_partner finished for {total} partners ({len(partners) - total} remaining)"
         )
