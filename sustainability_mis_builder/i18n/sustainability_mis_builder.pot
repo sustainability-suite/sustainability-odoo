@@ -1,0 +1,139 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_mis_builder
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__account_id
+msgid "Account"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__balance
+msgid "Balance"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields.selection,name:sustainability_mis_builder.selection__mis_carbon_account_move_line__parent_state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__carbon_currency_id
+msgid "Carbon Currency"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__company_id
+msgid "Company"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__credit
+msgid "Credit"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__date
+msgid "Date"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__debit
+msgid "Debit"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields.selection,name:sustainability_mis_builder.selection__mis_carbon_account_move_line__parent_state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__move_id
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__move_line_id
+msgid "Journal Items"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__name
+msgid "Label"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model,name:sustainability_mis_builder.model_mis_carbon_account_move_line
+msgid "MIS Carbon Account Line"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields.selection,name:sustainability_mis_builder.selection__mis_carbon_account_move_line__parent_state__posted
+msgid "Posted"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,field_description:sustainability_mis_builder.field_mis_carbon_account_move_line__parent_state
+msgid "Status"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,help:sustainability_mis_builder.field_mis_carbon_account_move_line__move_id
+msgid "The journal entry of this carbon line."
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,help:sustainability_mis_builder.field_mis_carbon_account_move_line__move_line_id
+msgid "The journal item of this carbon line."
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model:ir.model.fields,help:sustainability_mis_builder.field_mis_carbon_account_move_line__journal_id
+msgid "The journal of this carbon line."
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model_terms:ir.ui.view,arch_db:sustainability_mis_builder.mis_co2_account_move_line_tree
+msgid "Total Balance"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model_terms:ir.ui.view,arch_db:sustainability_mis_builder.mis_co2_account_move_line_tree
+msgid "Total Credit"
+msgstr ""
+
+#. module: sustainability_mis_builder
+#: model_terms:ir.ui.view,arch_db:sustainability_mis_builder.mis_co2_account_move_line_tree
+msgid "Total Debit"
+msgstr ""
