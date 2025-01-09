@@ -5,11 +5,11 @@
     "name": "Sustainability MIS Builder",
     "summary": "Provide CO2e accounting lines data for MIS builder reports",
     "version": "17.0.1.0.0",
-    "author": "Open Net Sàrl",
+    "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat"],
     "development_status": "Production/Stable",
     "category": "Accounting/Sustainability",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["mis_builder", "sustainability"],
     "data": [
         "views/mis_carbon_account_move_line.xml",

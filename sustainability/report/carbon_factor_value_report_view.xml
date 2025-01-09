@@ -14,30 +14,106 @@
                     <field name="carbon_uom_id" />
                     <field name="country_id" />
                     <field name="country_group_id" />
-                    <filter domain="[('carbon_compute_method', '=', 'monetary')]" name="monetary" string="Monetary" />
-                    <filter domain="[('carbon_compute_method', '=', 'physical')]" name="physical" string="Physical" />
+                    <filter
+                        domain="[('carbon_compute_method', '=', 'monetary')]"
+                        name="monetary"
+                        string="Monetary"
+                    />
+                    <filter
+                        domain="[('carbon_compute_method', '=', 'physical')]"
+                        name="physical"
+                        string="Physical"
+                    />
                     <separator />
-                    <filter domain="[('ghg_view_mode', '=', True)]" name="ghg" string="Detailed by gas" />
-                    <filter domain="[('ghg_view_mode', '=', False)]" name="physical" string="Not detailed by gas" />
+                    <filter
+                        domain="[('ghg_view_mode', '=', True)]"
+                        name="ghg"
+                        string="Detailed by gas"
+                    />
+                    <filter
+                        domain="[('ghg_view_mode', '=', False)]"
+                        name="physical"
+                        string="Not detailed by gas"
+                    />
                     <separator />
-                    <filter domain="[('active', '=', False)]" name="archived" string="Archived" />
+                    <filter
+                        domain="[('active', '=', False)]"
+                        name="archived"
+                        string="Archived"
+                    />
                     <group expand="0" string="Group By">
-                        <filter string="Name" name="by_factor_id" context="{'group_by':'factor_id'}" />
-                        <filter string="Root" name="by_root" context="{'group_by':'root'}" />
-                        <filter string="Parent" name="by_parent_id" context="{'group_by':'parent_id'}" />
-                        <filter string="Category" name="by_category" context="{'group_by':'category'}" />
+                        <filter
+                            string="Name"
+                            name="by_factor_id"
+                            context="{'group_by':'factor_id'}"
+                        />
+                        <filter
+                            string="Root"
+                            name="by_root"
+                            context="{'group_by':'root'}"
+                        />
+                        <filter
+                            string="Parent"
+                            name="by_parent_id"
+                            context="{'group_by':'parent_id'}"
+                        />
+                        <filter
+                            string="Category"
+                            name="by_category"
+                            context="{'group_by':'category'}"
+                        />
                         <separator />
-                        <filter string="Compute method" name="by_carbon_compute_method" context="{'group_by':'carbon_compute_method'}" />
-                        <filter string="Database" name="by_carbon_database_id" context="{'group_by':'carbon_database_id'}" />
-                        <filter string="Contributor" name="by_carbon_contributor_id" context="{'group_by':'carbon_contributor_id'}" />
-                        <filter string="Uncertainty" name="by_uncertainty_percentage" context="{'group_by':'uncertainty_percentage'}" />
-                        <filter string="Type" name="by_type_id" context="{'group_by':'type_id'}" />
-                        <filter string="Value Date" name="by_date" context="{'group_by':'date'}" />
-                        <filter string="Detailed by gas" name="by_ghg_view_mode" context="{'group_by':'ghg_view_mode'}" />
-                        <filter string="Unit of measure" name="by_carbon_uom_id" context="{'group_by':'carbon_uom_id'}" />
+                        <filter
+                            string="Compute method"
+                            name="by_carbon_compute_method"
+                            context="{'group_by':'carbon_compute_method'}"
+                        />
+                        <filter
+                            string="Database"
+                            name="by_carbon_database_id"
+                            context="{'group_by':'carbon_database_id'}"
+                        />
+                        <filter
+                            string="Contributor"
+                            name="by_carbon_contributor_id"
+                            context="{'group_by':'carbon_contributor_id'}"
+                        />
+                        <filter
+                            string="Uncertainty"
+                            name="by_uncertainty_percentage"
+                            context="{'group_by':'uncertainty_percentage'}"
+                        />
+                        <filter
+                            string="Type"
+                            name="by_type_id"
+                            context="{'group_by':'type_id'}"
+                        />
+                        <filter
+                            string="Value Date"
+                            name="by_date"
+                            context="{'group_by':'date'}"
+                        />
+                        <filter
+                            string="Detailed by gas"
+                            name="by_ghg_view_mode"
+                            context="{'group_by':'ghg_view_mode'}"
+                        />
+                        <filter
+                            string="Unit of measure"
+                            name="by_carbon_uom_id"
+                            context="{'group_by':'carbon_uom_id'}"
+                        />
                         <separator />
-                        <filter string="Country" name="by_country_id" context="{'group_by':'country_id'}" />
-                        <filter string="Country Group" name="by_country_group_id" context="{'group_by':'country_group_id'}" />
+                        <filter
+                            string="Country"
+                            name="by_country_id"
+                            context="{'group_by':'country_id'}"
+                        />
+                        <filter
+                            string="Country Group"
+                            name="by_country_group_id"
+                            context="{'group_by':'country_group_id'}"
+                        />
                     </group>
                 </search>
             </field>

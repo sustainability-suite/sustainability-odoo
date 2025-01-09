@@ -1,5 +1,3 @@
-from typing import Union
-
 from odoo import api, models
 
 
@@ -31,7 +29,7 @@ class HrExpense(models.Model):
         "total_amount",
         "date",
     )
-    def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
+    def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
         return super()._compute_carbon_debt(force_compute)
 
     @api.model

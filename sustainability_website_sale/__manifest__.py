@@ -6,10 +6,10 @@
     "application": False,
     "auto_install": False,
     "license": "LGPL-3",
-    "author": "Open Net Sàrl",
+    "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jacopobacci"],
     "development_status": "Production/Stable",
-    "website": "https://www.open-net.ch",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["sustainability", "website_sale"],
     "data": [
         "views/templates.xml",

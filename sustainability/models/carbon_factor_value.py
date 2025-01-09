@@ -118,10 +118,10 @@ class CarbonFactorValue(models.Model):
     @api.depends("factor_id.name", "type_id.name", "date", "comment")
     def _compute_display_name(self):
         for value in self:
-            value.display_name = "%s%s (%s)" % (
-                value.factor_id.name,
-                f" - {value.type_id.name}" if value.type_id else "",
-                value.date,
+            value.display_name = (
+                f"{value.factor_id.name}"
+                + (f" - {value.type_id.name}" if value.type_id else "")
+                + f" ({value.date})"
             )
 
     def get_infos(self) -> tuple[str, float, UoM, Currency]:

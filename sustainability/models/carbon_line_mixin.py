@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Union
+from typing import Any
 
 from odoo import _, api, fields, models
 
@@ -165,9 +165,7 @@ class CarbonLineMixin(models.AbstractModel):
             domain.append(("carbon_is_locked", "=", False))
         return domain
 
-    def _filter_lines_to_compute(
-        self, force_compute: Union[bool, str, list[str]] = None
-    ):
+    def _filter_lines_to_compute(self, force_compute: bool | str | list[str] = None):
         """Used in _compute_carbon_debt to filter lines that need to be recomputed"""
         if force_compute is None:
             force_compute = []
@@ -182,7 +180,7 @@ class CarbonLineMixin(models.AbstractModel):
     """ depends need to be overriden to trigger the compute method at the right time """
 
     @api.depends("carbon_data_uncertainty_percentage")
-    def _compute_carbon_debt(self, force_compute: Union[bool, str, list[str]] = None):
+    def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
         """
         Choose the right factor(s) to compute carbon value, store it with the details of the computation
         """

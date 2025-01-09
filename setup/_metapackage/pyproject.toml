@@ -1,0 +1,19 @@
+[project]
+name = "odoo-addons-sustainability-suite-sustainability-odoo"
+version = "17.0.20250109.0"
+dependencies = [
+    "odoo-addon-sustainability>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_account_asset_management>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_employee_commuting>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_hr_expense_report>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_mis_builder>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_point_of_sale>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_product_label_print>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_purchase>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_website_sale>=17.0dev,<17.1dev",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 17.0",
+]
