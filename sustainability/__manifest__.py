@@ -54,6 +54,9 @@
             "sustainability/static/src/owl/**/*",
         ],
     },
+    "external_dependencies": {
+        "python": ["openupgradelib"],
+    },
     "images": [
         "static/description/co2_base_green.png",
     ],
