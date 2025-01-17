@@ -33,11 +33,17 @@ class ResCompany(models.Model):
     employee_remote_work_carbon_cronjob_active = fields.Boolean(
         string="Remote Work Cronjob Active", default=False
     )
+    employee_commuting_post_account_move_active = fields.Boolean(
+        string="Post account move when cron is finished", default=False
+    )
 
     def _cron_carbon_account_move_create(self, mode, to_post=False):
         valid_modes = ["commuting", "remote_work"]
         if mode not in valid_modes:
             raise ValueError(f"Invalid mode: {mode}. Expected one of {valid_modes}.")
+
+        if not to_post:
+            to_post = self.employee_commuting_post_account_move_active
 
         active_field = f"employee_{mode}_carbon_cronjob_active"
         journal_field = f"employee_{mode}_journal_id"
