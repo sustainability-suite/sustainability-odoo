@@ -16,6 +16,8 @@
                             <field name="carbon_factor_id" widget="many2one" />
                             <field name="allowed_carbon_factor_ids" invisible="1" />
                             <field name="distance_km" />
+                            <field name="start_date" />
+                            <field name="end_date" />
                         </tree>
                     </field>
                 </page>
