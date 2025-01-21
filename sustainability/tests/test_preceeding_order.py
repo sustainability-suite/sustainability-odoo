@@ -28,9 +28,7 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.product.id,
                             "quantity": 1,
@@ -43,7 +41,7 @@ class TestPreceedingOrder(CarbonCommon):
                                 "mode": "manual",
                                 "model_name": "account.move.line",
                             },
-                        },
+                        }
                     )
                 ],
             }
@@ -76,14 +74,12 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
-                        },
+                        }
                     )
                 ],
             }
@@ -132,14 +128,12 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
-                        },
+                        }
                     )
                 ],
             }
@@ -213,14 +207,12 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
-                        },
+                        }
                     )
                 ],
             }
@@ -273,15 +265,13 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
                             "account_id": account.id,
-                        },
+                        }
                     )
                 ],
             }
@@ -322,14 +312,12 @@ class TestPreceedingOrder(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
-                        },
+                        }
                     )
                 ],
             }
