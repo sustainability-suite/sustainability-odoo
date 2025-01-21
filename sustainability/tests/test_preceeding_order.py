@@ -82,10 +82,6 @@ class TestPreceedingOrder(CarbonCommon):
                             "product_id": self.product.id,
                             "quantity": 1,
                             "price_unit": 40.00,
-                            "carbon_origin_json": {
-                                "mode": "manual",
-                                "model_name": "product.product",
-                            },
                         },
                     )
                 ],
