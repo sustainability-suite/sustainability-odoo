@@ -1,7 +1,53 @@
+from datetime import datetime
+
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
 class TestCarbonUom(CarbonCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        (
+            cls.carbon_factor_monetary,
+            cls.carbon_factor_physical,
+        ) = cls.env["carbon.factor"].create(
+            [
+                {"name": "Test monetary", "carbon_compute_method": "monetary"},
+                {"name": "Test physical", "carbon_compute_method": "physical"},
+            ]
+        )
+
+        carbon_values = [
+            {
+                "factor_id": cls.carbon_factor_default_fallback.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 10.0,
+            },
+            {
+                "factor_id": cls.carbon_factor_monetary.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.025,
+            },
+            {
+                "factor_id": cls.carbon_factor_physical.id,
+                "carbon_uom_id": cls.uom_hour.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.022,
+            },
+        ]
+        cls.env["carbon.factor.value"].create(carbon_values)
+
+        cls.product_category = cls.env["product.category"].create(
+            {
+                "name": "Test Product Category",
+                "carbon_in_is_manual": True,
+                "carbon_in_factor_id": cls.carbon_factor_monetary.id,
+            }
+        )
+
     def test_10_uom(self):
         product_consulting_uom = self.env["product.product"].create(
             {
@@ -79,7 +125,7 @@ class TestCarbonUom(CarbonCommon):
                 "lst_price": 10.0,
                 "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_monetary.id,
-                "currency_id": self.env.ref("base.USD"),
+                "currency_id": self.currency_usd.id,
             }
         )
 
