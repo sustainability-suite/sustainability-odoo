@@ -20,12 +20,6 @@ class TestCarbonUom(CarbonCommon):
 
         carbon_values = [
             {
-                "factor_id": cls.carbon_factor_default_fallback.id,
-                "carbon_monetary_currency_id": cls.currency_eur.id,
-                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
-                "carbon_value": 10.0,
-            },
-            {
                 "factor_id": cls.carbon_factor_monetary.id,
                 "carbon_monetary_currency_id": cls.currency_eur.id,
                 "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
@@ -40,20 +34,11 @@ class TestCarbonUom(CarbonCommon):
         ]
         cls.env["carbon.factor.value"].create(carbon_values)
 
-        cls.product_category = cls.env["product.category"].create(
-            {
-                "name": "Test Product Category",
-                "carbon_in_is_manual": True,
-                "carbon_in_factor_id": cls.carbon_factor_monetary.id,
-            }
-        )
-
     def test_10_uom(self):
         product_consulting_uom = self.env["product.product"].create(
             {
                 "name": "Consulting uom test",
                 "type": "service",
-                "categ_id": self.product_category.id,
                 "uom_id": self.uom_hour.id,
                 "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
@@ -121,7 +106,6 @@ class TestCarbonUom(CarbonCommon):
             {
                 "name": "Consulting currency test",
                 "type": "service",
-                "categ_id": self.product_category.id,
                 "lst_price": 10.0,
                 "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_monetary.id,
