@@ -104,3 +104,61 @@ class TestPreceedingOrder(CarbonCommon):
             expected_result,
             f"Expected a signed value of {expected_result} for the product level carbon line origin.",
         )
+
+    def test_carbon_on_product_category(self):
+        """Verify carbon line origin values are correctly computed at the product category level for invoices."""
+
+        product_category = self.env["product.category"].create(
+            {
+                "name": "Test Product Category",
+                "carbon_in_is_manual": True,
+                "carbon_in_factor_id": self.carbon_factor_physical.id,
+            }
+        )
+        product = self.env["product.product"].create(
+            {
+                "name": "Product",
+                "list_price": 50.00,
+                "standard_price": 40.00,
+                "uom_id": self.uom_hour.id,
+                "categ_id": product_category.id,
+            }
+        )
+
+        invoice = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "invoice_date": "2025-01-01",
+                "currency_id": self.currency_usd.id,
+                "move_type": "in_invoice",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": product.id,
+                            "quantity": 1,
+                            "price_unit": 40.00,
+                        },
+                    )
+                ],
+            }
+        )
+        invoice.action_post()
+        invoice.action_recompute_carbon()
+
+        carbon_line_origin = self.env["carbon.line.origin"].search(
+            [
+                ("move_id", "=", invoice.id),
+                ("computation_level", "=", "Product category"),
+            ],
+            limit=1,
+        )
+
+        expected_result = 0.02
+
+        self.assertEqual(
+            round(carbon_line_origin.signed_value, 2),
+            expected_result,
+            f"Expected a signed value of {expected_result} for the product category level carbon line origin.",
+        )
