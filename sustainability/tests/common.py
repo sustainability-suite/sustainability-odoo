@@ -19,21 +19,45 @@ class CarbonCommon(TransactionCase):
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_usd = cls.env.ref("base.USD")
 
-        # Global Carbon Factor
-        cls.carbon_factor_default_fallback = cls.env["carbon.factor"].create(
-            {
-                "name": "Global Emission Factor Fallback",
-                "carbon_compute_method": "monetary",
-            }
+        # Carbon Factors
+        (
+            cls.carbon_factor_default_fallback,
+            cls.carbon_factor_monetary,
+            cls.carbon_factor_physical,
+        ) = cls.env["carbon.factor"].create(
+            [
+                {
+                    "name": "Global Emission Factor Fallback",
+                    "carbon_compute_method": "monetary",
+                },
+                {"name": "Test monetary", "carbon_compute_method": "monetary"},
+                {"name": "Test physical", "carbon_compute_method": "physical"},
+            ]
         )
+
         cls.env["carbon.factor.value"].create(
-            {
-                "factor_id": cls.carbon_factor_default_fallback.id,
-                "carbon_monetary_currency_id": cls.currency_eur.id,
-                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
-                "carbon_value": 10,
-            }
+            [
+                {
+                    "factor_id": cls.carbon_factor_default_fallback.id,
+                    "carbon_monetary_currency_id": cls.currency_eur.id,
+                    "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                    "carbon_value": 10,
+                },
+                {
+                    "factor_id": cls.carbon_factor_monetary.id,
+                    "carbon_monetary_currency_id": cls.currency_eur.id,
+                    "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                    "carbon_value": 0.025,
+                },
+                {
+                    "factor_id": cls.carbon_factor_physical.id,
+                    "carbon_uom_id": cls.uom_hour.id,
+                    "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                    "carbon_value": 0.022,
+                },
+            ]
         )
+
         # Currency Rates
         cls.env["res.currency.rate"].search([]).unlink()
         cls.env["res.currency.rate"].create(
