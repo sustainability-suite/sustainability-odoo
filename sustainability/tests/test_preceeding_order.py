@@ -39,6 +39,7 @@ class TestPreceedingOrder(CarbonCommon):
                             "carbon_data_uncertainty_percentage": 0,
                             "carbon_origin_json": {
                                 "mode": "manual",
+                                "model_name": "account.move.line",
                             },
                         },
                     )
@@ -48,7 +49,12 @@ class TestPreceedingOrder(CarbonCommon):
         invoice.action_post()
 
         carbon_line_origin = self.env["carbon.line.origin"].search(
-            [("factor_id", "=", None), ("move_id", "=", invoice.id)], limit=1
+            [
+                ("factor_id", "=", None),
+                ("move_id", "=", invoice.id),
+                ("computation_level", "=", "Carbon on invoice"),
+            ],
+            limit=1,
         )
 
         expected_result = 15.0
@@ -56,5 +62,49 @@ class TestPreceedingOrder(CarbonCommon):
         self.assertEqual(
             carbon_line_origin.signed_value,
             expected_result,
-            f"Expected a signed value of {expected_result} for the carbon line origin, but the computed value is incorrect.",
+            f"Expected a signed value of {expected_result} for the carbon line origin.",
+        )
+
+    def test_carbon_on_product(self):
+        """Verify carbon line origin values are correctly computed at the product level for invoices."""
+
+        invoice = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "invoice_date": "2025-01-01",
+                "currency_id": self.currency_usd.id,
+                "move_type": "in_invoice",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.product.id,
+                            "quantity": 1,
+                            "price_unit": 40.00,
+                            "carbon_origin_json": {
+                                "mode": "manual",
+                                "model_name": "product.product",
+                            },
+                        },
+                    )
+                ],
+            }
+        )
+        invoice.action_post()
+
+        carbon_line_origin = self.env["carbon.line.origin"].search(
+            [
+                ("move_id", "=", invoice.id),
+                ("computation_level", "=", "Product"),
+            ],
+            limit=1,
+        )
+
+        expected_result = 0.02
+
+        self.assertEqual(
+            round(carbon_line_origin.signed_value, 2),
+            expected_result,
+            f"Expected a signed value of {expected_result} for the product level carbon line origin.",
         )
