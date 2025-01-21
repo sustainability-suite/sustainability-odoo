@@ -61,7 +61,7 @@ class TestPreceedingOrder(CarbonCommon):
         self.assertEqual(
             carbon_line_origin.signed_value,
             expected_result,
-            f"Expected a signed value of {expected_result} for the carbon line origin.",
+            f"Expected a value of {expected_result} for the carbon line origin.",
         )
 
     def test_carbon_on_product(self):
@@ -100,7 +100,7 @@ class TestPreceedingOrder(CarbonCommon):
         self.assertEqual(
             round(carbon_line_origin.signed_value, 2),
             expected_result,
-            f"Expected a signed value of {expected_result} for the product level carbon line origin.",
+            f"Expected a value of {expected_result} for the product level carbon line origin.",
         )
 
     def test_carbon_on_product_category(self):
@@ -157,7 +157,7 @@ class TestPreceedingOrder(CarbonCommon):
         self.assertEqual(
             round(carbon_line_origin.signed_value, 2),
             expected_result,
-            f"Expected a signed value of {expected_result} for the product category level carbon line origin.",
+            f"Expected a value of {expected_result} for the product category level carbon line origin.",
         )
 
     def test_carbon_on_account(self):
@@ -217,5 +217,52 @@ class TestPreceedingOrder(CarbonCommon):
         self.assertEqual(
             round(carbon_line_origin.signed_value, 2),
             expected_result,
-            f"Expected a signed value of {expected_result} for the account level carbon line origin.",
+            f"Expected a value of {expected_result} for the account level carbon line origin.",
+        )
+
+    def test_carbon_on_company_fallback(self):
+        """Verify carbon line origin values are correctly computed at the company level for invoices."""
+
+        product = self.env["product.product"].create(
+            {
+                "name": "Product",
+                "list_price": 50.00,
+                "standard_price": 40.00,
+                "uom_id": self.uom_hour.id,
+            }
+        )
+
+        invoice = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "invoice_date": "2025-01-01",
+                "currency_id": self.currency_usd.id,
+                "move_type": "in_invoice",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": product.id,
+                            "quantity": 1,
+                            "price_unit": 40.00,
+                        },
+                    )
+                ],
+            }
+        )
+        carbon_line_origins = self.env["carbon.line.origin"].search(
+            [
+                ("move_id", "=", invoice.id),
+                ("computation_level", "=", "Company fallback"),
+            ],
+        )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
+
+        expected_result = 876.2
+
+        self.assertEqual(
+            round(total_value, 2),
+            expected_result,
+            f"Expected a total value of {expected_result} for the company level carbon line origin.",
         )
