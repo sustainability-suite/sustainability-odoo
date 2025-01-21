@@ -46,7 +46,6 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
-        invoice.action_recompute_carbon()
 
         carbon_line_origin = self.env["carbon.line.origin"].search(
             [
@@ -87,7 +86,6 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
-        invoice.action_recompute_carbon()
 
         carbon_line_origin = self.env["carbon.line.origin"].search(
             [
@@ -205,7 +203,6 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
-        invoice.action_recompute_carbon()
 
         carbon_line_origin = self.env["carbon.line.origin"].search(
             [
