@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo.tests import TransactionCase
 
 
@@ -17,14 +19,21 @@ class CarbonCommon(TransactionCase):
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_usd = cls.env.ref("base.USD")
 
-        # Carbon Factors and Values
+        # Global Carbon Factor
         cls.carbon_factor_default_fallback = cls.env["carbon.factor"].create(
             {
                 "name": "Global Emission Factor Fallback",
                 "carbon_compute_method": "monetary",
             }
         )
-
+        cls.env["carbon.factor.value"].create(
+            {
+                "factor_id": cls.carbon_factor_default_fallback.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 10,
+            }
+        )
         # Currency Rates
         cls.env["res.currency.rate"].search([]).unlink()
         cls.env["res.currency.rate"].create(
