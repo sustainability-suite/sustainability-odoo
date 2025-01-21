@@ -1,3 +1,5 @@
+from odoo.fields import Command
+
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
@@ -19,23 +21,19 @@ class TestCarbonUom(CarbonCommon):
         )
 
         invoice_out = self.env["account.move"].create(
-            [
-                {
-                    "move_type": "out_invoice",
-                    "partner_id": self.partner.id,
-                    "invoice_line_ids": [
-                        (
-                            0,
-                            0,
-                            {
-                                "product_id": product_consulting_uom.id,
-                                "quantity": 1.0,
-                                "product_uom_id": self.uom_day.id,
-                            },
-                        ),
-                    ],
-                }
-            ]
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": product_consulting_uom.id,
+                            "quantity": 1.0,
+                            "product_uom_id": self.uom_day.id,
+                        }
+                    ),
+                ],
+            }
         )
         self.assertEqual(
             round(invoice_out.carbon_balance, 2),
@@ -44,23 +42,19 @@ class TestCarbonUom(CarbonCommon):
         )
 
         invoice_in = self.env["account.move"].create(
-            [
-                {
-                    "move_type": "in_invoice",
-                    "partner_id": self.partner.id,
-                    "invoice_line_ids": [
-                        (
-                            0,
-                            0,
-                            {
-                                "product_id": product_consulting_uom.id,
-                                "quantity": 1.0,
-                                "product_uom_id": self.uom_day.id,
-                            },
-                        ),
-                    ],
-                }
-            ]
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.partner.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": product_consulting_uom.id,
+                            "quantity": 1.0,
+                            "product_uom_id": self.uom_day.id,
+                        }
+                    ),
+                ],
+            }
         )
         self.assertEqual(
             round(invoice_in.carbon_balance, 2),
@@ -82,23 +76,19 @@ class TestCarbonUom(CarbonCommon):
         )
 
         invoice_out = self.env["account.move"].create(
-            [
-                {
-                    "move_type": "out_invoice",
-                    "partner_id": self.partner.id,
-                    "invoice_date": "2023-01-01",
-                    "invoice_line_ids": [
-                        (
-                            0,
-                            0,
-                            {
-                                "product_id": product_consulting_currency.id,
-                                "quantity": 10.0,
-                            },
-                        ),
-                    ],
-                }
-            ]
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner.id,
+                "invoice_date": "2023-01-01",
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": product_consulting_currency.id,
+                            "quantity": 10.0,
+                        }
+                    ),
+                ],
+            }
         )
 
         self.assertEqual(

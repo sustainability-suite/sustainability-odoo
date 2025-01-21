@@ -1,3 +1,5 @@
+from odoo.fields import Command
+
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
@@ -73,16 +75,14 @@ class TestCarbonComputation(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.office_chair_product.id,
                             "quantity": 1.0,
                             "price_unit": 55.0,
                             "name": self.office_chair_product.name,
-                        },
-                    )
+                        }
+                    ),
                 ],
             }
         )
@@ -111,16 +111,14 @@ class TestCarbonComputation(CarbonCommon):
                 "currency_id": self.currency_usd.id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.office_chair_product.id,
                             "quantity": 1.0,
                             "price_unit": 55.0,
                             "name": self.office_chair_product.name,
-                        },
-                    )
+                        }
+                    ),
                 ],
             }
         )
