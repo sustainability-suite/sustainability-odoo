@@ -46,8 +46,9 @@
             <field name="employee_id" ref="hr.employee_fme" />
         </record>
 
-        <function model="res.company" name="_cron_carbon_commuting_account_move_create">
+        <function model="res.company" name="_cron_carbon_account_move_create">
             <value eval="[ref('base.main_company')]" />
+            <value>commuting</value>
         </function>
         <function model="account.move" name="action_post">
             <value
