@@ -1,7 +1,7 @@
 # © 2023 Open Net Sarl
 
 {
-    "name": "CO2 Employee Commuting",
+    "name": "Sustainability Employee Commuting",
     "version": "17.0.1.0.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["bonnetadam", "jacopobacci"],
@@ -9,10 +9,7 @@
     "category": "Accounting/Sustainability",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
-    "depends": [
-        "sustainability",
-        "hr_contract",
-    ],
+    "depends": ["sustainability", "hr_contract", "hr_homeworking"],
     "data": [
         # Data
         "data/ir_cron.xml",
