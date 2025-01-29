@@ -47,19 +47,19 @@ class TestPreceedingOrder(CarbonCommon):
             }
         )
 
-        carbon_line_origin = self.env["carbon.line.origin"].search(
+        carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("factor_id", "=", None),
                 ("move_id", "=", invoice.id),
                 ("computation_level", "=", "Carbon on invoice"),
             ],
-            limit=1,
         )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         expected_result = 15.0
 
         self.assertEqual(
-            carbon_line_origin.signed_value,
+            total_value,
             expected_result,
             f"Expected a value of {expected_result} for the carbon line origin.",
         )
@@ -85,18 +85,18 @@ class TestPreceedingOrder(CarbonCommon):
             }
         )
 
-        carbon_line_origin = self.env["carbon.line.origin"].search(
+        carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", invoice.id),
                 ("computation_level", "=", "Product"),
             ],
-            limit=1,
         )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         expected_result = 0.02
 
         self.assertEqual(
-            round(carbon_line_origin.signed_value, 2),
+            round(total_value, 2),
             expected_result,
             f"Expected a value of {expected_result} for the product level carbon line origin.",
         )
@@ -140,18 +140,19 @@ class TestPreceedingOrder(CarbonCommon):
         )
         invoice.action_recompute_carbon()
 
-        carbon_line_origin = self.env["carbon.line.origin"].search(
+        carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", invoice.id),
                 ("computation_level", "=", "Product category"),
             ],
             limit=1,
         )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         expected_result = 0.02
 
         self.assertEqual(
-            round(carbon_line_origin.signed_value, 2),
+            round(total_value, 2),
             expected_result,
             f"Expected a value of {expected_result} for the product category level carbon line origin.",
         )
@@ -219,18 +220,18 @@ class TestPreceedingOrder(CarbonCommon):
         )
         invoice.action_recompute_carbon()
 
-        carbon_line_origin = self.env["carbon.line.origin"].search(
+        carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", invoice.id),
                 ("computation_level", "=", "Product template"),
             ],
-            limit=1,
         )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         expected_result = 0.02
 
         self.assertEqual(
-            round(carbon_line_origin.signed_value, 2),
+            round(total_value, 2),
             expected_result,
             f"Expected a value of {expected_result} for the product template level carbon line origin.",
         )
@@ -277,18 +278,18 @@ class TestPreceedingOrder(CarbonCommon):
             }
         )
 
-        carbon_line_origin = self.env["carbon.line.origin"].search(
+        carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", invoice.id),
                 ("computation_level", "=", "Account"),
             ],
-            limit=1,
         )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         expected_result = 0.95
 
         self.assertEqual(
-            round(carbon_line_origin.signed_value, 2),
+            round(total_value, 2),
             expected_result,
             f"Expected a value of {expected_result} for the account level carbon line origin.",
         )
