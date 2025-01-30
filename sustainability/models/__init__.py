@@ -7,6 +7,7 @@ from . import carbon_line_mixin
 
 from . import res_company
 from . import res_config_settings
+from . import res_partner
 
 from . import account_account
 from . import account_analytic_line
@@ -18,6 +19,7 @@ from . import carbon_factor_value
 from . import product_category
 from . import product_product
 from . import product_template
+from . import product_supplierinfo
 from . import res_country
 from . import carbon_factor_database
 from . import carbon_factor_contributor
