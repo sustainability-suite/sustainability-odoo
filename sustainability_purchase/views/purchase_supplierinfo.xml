@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 	<data>
 		<record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
@@ -12,7 +12,12 @@
 			<field name="arch" type="xml">
 				<xpath expr="//tree" position="inside">
 					<field column_invisible="1" name="carbon_allowed_factor_ids" />
-					<field name="carbon_in_factor_id" string="Emission Factor" optional="show" widget="many2one" />
+					<field
+                        name="carbon_in_factor_id"
+                        string="Emission Factor"
+                        optional="show"
+                        widget="many2one"
+                    />
 				</xpath>
 			</field>
 		</record>
