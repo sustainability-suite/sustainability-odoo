@@ -27,6 +27,7 @@ msgid "CO2"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "CO2 Settings"
 msgstr ""
@@ -73,6 +74,8 @@ msgid "Contacts"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.sustainability_product_supplierinfo_tree_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "Emission Factor"
 msgstr ""
@@ -88,6 +91,7 @@ msgid "Lock co2"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "Mode"
 msgstr ""
@@ -113,6 +117,7 @@ msgid "Purchase Order Line"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "Purchases"
 msgstr ""
@@ -128,6 +133,7 @@ msgid "See CO2 value origin"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "Set"
 msgstr ""
@@ -144,6 +150,7 @@ msgid "Suppliers Info"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "Undefined"
 msgstr ""
