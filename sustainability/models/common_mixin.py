@@ -73,9 +73,7 @@ class CommonMixin(models.AbstractModel):
         res = super().write(vals)
         carbon_fields = self._get_carbon_fields_name()
         carbon_groups = self._get_carbon_fields_groups()
-        if self.env.context.get(
-            "install_mode", False
-        ):  # or self.env.is_system(): # TODO: Determine if this is necessary
+        if self.env.context.get("install_mode", False) or self.env.is_system():
             return res
         for field in vals.keys():
             if field in carbon_fields:
