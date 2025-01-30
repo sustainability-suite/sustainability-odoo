@@ -30,6 +30,29 @@
               </span>
             </div>
           </button>
+            <button
+                        type="object"
+                        name="action_see_supplierinfo_ids"
+                        class="oe_stat_button"
+                        icon="fa-info"
+                    >
+                <div class="o_field_widget o_stat_info">
+                    <span
+                                class="o_stat_value"
+                                attrs="{'invisible': [('supplierinfo_qty', '&lt;=', 1)]}"
+                            >
+                        <field name="supplierinfo_qty" widget="statinfo" nolabel="1" />
+                        Supplier Info
+                    </span>
+                    <span
+                                class="o_stat_value"
+                                attrs="{'invisible': [('supplierinfo_qty', '&gt;', 1)]}"
+                            >
+                        <field name="supplierinfo_qty" widget="statinfo" nolabel="1" />
+                        Suppliers Info
+                    </span>
+                </div>
+            </button>
         </xpath>
       </field>
     </record>
