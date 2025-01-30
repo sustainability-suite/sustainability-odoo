@@ -2,6 +2,10 @@ from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
 class TestCarbonPurchaseAction(CarbonCommon):
+    """
+    Here we are testing the actions of the carbon factor from the smart buttons. We only check the res_model, name, and domain of the actions. We've encountered problem in the past so we are testing it.
+    """
+
     def test_contact_action(self):
         # Contact Action
         contact_action = self.carbon_factor_default_fallback.action_see_contact_ids()
