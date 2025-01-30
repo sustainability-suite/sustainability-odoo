@@ -3,7 +3,7 @@ from datetime import datetime, time
 
 from dateutil.rrule import MONTHLY, rrule, rruleset
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 from .hr_employee import WEEKS_PER_MONTH
 
@@ -23,6 +23,18 @@ class ResCompany(models.Model):
     employee_commuting_carbon_cronjob_active = fields.Boolean(
         string="Cronjob active", default=False
     )
+
+    @api.model
+    def _get_carbon_fields_name(cls, fields=None):
+        if fields is None:
+            fields = []
+        fields.append(
+            "employee_commuting_carbon_factor_id"
+        )  # Do not start with carbon so it's not consider as carbon field so we manually add it
+        fields.append("employee_commuting_journal_id")  # ||
+        fields.append("employee_commuting_account_id")  # ||
+        fields.append("employee_commuting_carbon_cronjob_active")  # ||
+        return super()._get_carbon_fields_name(fields)
 
     def _cron_carbon_commuting_account_move_create(self, to_post=False):
         for company in self.env["res.company"].search(

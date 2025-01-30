@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountAnalyticLine(models.Model):
@@ -12,3 +12,7 @@ class AccountAnalyticLine(models.Model):
         string="CO2",
         currency_field="carbon_currency_id",
     )
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "account.group_account_invoice"

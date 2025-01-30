@@ -22,6 +22,15 @@ class ResCompany(models.Model):
         help="",
     )
 
+    @api.model
+    def _get_carbon_fields_name(cls, fields=None):
+        if fields is None:
+            fields = []
+        fields.append(
+            "invoice_report_footer"
+        )  # Do not start with carbon so it's not consider as carbon field so we manually add it
+        return super()._get_carbon_fields_name(fields=fields)
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

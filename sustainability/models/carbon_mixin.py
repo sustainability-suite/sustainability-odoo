@@ -52,6 +52,7 @@ CARBON_MODELS = [
 class CarbonMixin(models.AbstractModel):
     _name = "carbon.mixin"
     _description = "A mixin used to add carbon values on any model"
+    _inherit = ["common.mixin"]
     _carbon_types = ["in", "out"]
     _fallback_records = []
 

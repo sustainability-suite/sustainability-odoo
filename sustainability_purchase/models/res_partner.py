@@ -20,6 +20,15 @@ class ResPartner(models.Model):
     carbon_out_mode = fields.Selection(recursive=True)
     has_computed_carbon_mode = fields.Boolean(default=False)
 
+    @api.model
+    def _get_carbon_fields_name(cls, fields=None):
+        if fields is None:
+            fields = []
+        fields.append(
+            "has_computed_carbon_mode"
+        )  # Do not start with carbon so it's not consider as carbon field so we manually add it
+        return super()._get_carbon_fields_name(fields)
+
     def _get_carbon_in_fallback_records(self) -> list:
         self.ensure_one()
         res = super()._get_carbon_in_fallback_records()

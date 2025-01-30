@@ -34,5 +34,11 @@ class ProductProduct(models.Model):
     def _compute_carbon_out_mode(self):
         return super()._compute_carbon_out_mode()
 
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return (
+            "sales_team.group_sale_manager"
+        )  # TODO: Change this when the OR is available
+
 
 # ProductProduct = auto_depends(ProductProduct)

@@ -32,6 +32,19 @@ class AccountMoveLine(models.Model):
         compute="_compute_is_carbon_positive", store=False, readonly=True
     )
 
+    @api.model
+    def _get_carbon_fields_name(cls, fields=None):
+        if fields is None:
+            fields = []
+        fields.append(
+            "is_carbon_positive"
+        )  # Do not start with carbon so it's not consider as carbon field so we manually add it
+        return super()._get_carbon_fields_name(fields)
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "account.group_account_invoice"
+
     def _prepare_analytic_distribution_line(
         self, distribution, account_id, distribution_on_each_plan
     ) -> dict:

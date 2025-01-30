@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class CarbonLineMixin(models.AbstractModel):
     _name = "carbon.line.mixin"
+    _inherit = ["common.mixin"]
     _description = "carbon.line.mixin"
 
     carbon_currency_id = fields.Many2one(
@@ -291,14 +292,14 @@ class CarbonLineMixin(models.AbstractModel):
         lines_to_flush = self.search([("carbon_origin_json", "!=", False)])
 
         for line in lines_to_flush:
-            line.carbon_origin_ids.unlink()
+            line.carbon_origin_ids.sudo().unlink()
             origin_vals_list.extend(line._get_line_origin_vals_list())
 
         # To avoid empty create calls
         if origin_vals_list:
-            self.env["carbon.line.origin"].create(origin_vals_list)
+            self.env["carbon.line.origin"].sudo().create(origin_vals_list)
 
-        lines_to_flush.carbon_origin_json = False
+        lines_to_flush.sudo().carbon_origin_json = False
 
     def write(self, vals):
         res = super().write(vals)

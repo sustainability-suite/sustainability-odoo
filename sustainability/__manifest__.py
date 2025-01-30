@@ -19,7 +19,7 @@
     ],
     "data": [
         # Security
-        "security/sustainability_security.xml", # Categories and groups for security
+        "security/sustainability_security.xml",  # Categories and groups for security
         "security/ir.model.access.csv",
         # Views
         "views/account_account.xml",

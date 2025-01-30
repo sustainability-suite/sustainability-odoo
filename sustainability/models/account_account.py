@@ -15,3 +15,7 @@ class AccountAccount(models.Model):
     carbon_in_factor_id = fields.Many2one(
         string="Emission Factor Purchases", tracking=True
     )
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "account.group_account_invoice"

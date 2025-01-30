@@ -32,3 +32,7 @@ class PurchaseOrder(models.Model):
         for order in self:
             order.order_line.action_recompute_carbon()
         return {}
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "purchase.group_purchase_user"
