@@ -116,6 +116,12 @@
                     />
                     <separator />
                     <filter
+                        domain="[('carbon_line_origin_ids', '!=', False)]"
+                        name="used_in_computation"
+                        string="Used in computation"
+                    />
+                    <separator />
+                    <filter
                         domain="[('active', '=', False)]"
                         name="archived"
                         string="Archived"
@@ -218,9 +224,7 @@
                                             name="account_move_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Posted Entries
-                                    </span>
+                                        /> Posted Entries </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="account_move_qty > 1"
@@ -229,9 +233,7 @@
                                             name="account_move_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Posted Entry
-                                    </span>
+                                        /> Posted Entry </span>
                                 </div>
                             </button>
                             <button
@@ -249,9 +251,7 @@
                                             name="child_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Children Factors
-                                    </span>
+                                        /> Children Factors </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="child_qty > 1"
@@ -260,9 +260,7 @@
                                             name="child_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Child Factor
-                                    </span>
+                                        /> Child Factor </span>
                                 </div>
                             </button>
                             <button
@@ -280,9 +278,7 @@
                                             name="chart_of_account_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Accounts
-                                    </span>
+                                        /> Accounts </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="chart_of_account_qty > 1"
@@ -291,9 +287,7 @@
                                             name="chart_of_account_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Account
-                                    </span>
+                                        /> Account </span>
                                 </div>
                             </button>
                             <button
@@ -311,9 +305,7 @@
                                             name="product_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Products
-                                    </span>
+                                        /> Products </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="product_qty > 1"
@@ -322,9 +314,7 @@
                                             name="product_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Product
-                                    </span>
+                                        /> Product </span>
                                 </div>
                             </button>
                             <button
@@ -342,9 +332,7 @@
                                             name="product_categ_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Products Categories
-                                    </span>
+                                        /> Products Categories </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="product_categ_qty > 1"
@@ -353,9 +341,7 @@
                                             name="product_categ_qty"
                                             nolabel="1"
                                             widget="statinfo"
-                                        />
-                                        Product Category
-                                    </span>
+                                        /> Product Category </span>
                                 </div>
                             </button>
                         </div>
@@ -440,12 +426,8 @@
                                     colspan="2"
                                     invisible="has_invalid_value == False"
                                     role="alert"
-                                >
-                                    Some values miss a
-                                    currency or a unit of measure
-                                    <br />
-                                    Please fix them before using this factor.
-                                </div>
+                                > Some values miss a currency or a unit of measure <br
+                                    /> Please fix them before using this factor. </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="date" />
