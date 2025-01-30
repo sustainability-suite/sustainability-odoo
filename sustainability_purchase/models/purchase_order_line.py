@@ -95,3 +95,7 @@ class PurchaseOrderLine(models.Model):
         lines = super().create(vals)
         lines.action_recompute_carbon()
         return lines
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "purchase.group_purchase_user"

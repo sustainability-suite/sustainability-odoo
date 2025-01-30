@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import api, models
 
 
 class AccountAssetLine(models.Model):
@@ -10,3 +10,7 @@ class AccountAssetLine(models.Model):
             force_compute="all_states"
         )
         return res
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "account.group_account_invoice"

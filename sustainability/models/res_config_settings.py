@@ -43,6 +43,15 @@ class ResConfigSettings(models.TransientModel):
     module_sustainability_point_of_sale = fields.Boolean()
     module_sustainability_product_label_print = fields.Boolean()
 
+    @api.model
+    def _get_carbon_fields_name(cls, fields=None):
+        if fields is None:
+            fields = []
+        fields.append(
+            "invoice_report_footer"
+        )  # Do not start with carbon so it's not consider as carbon field so we manually add it
+        return super()._get_carbon_fields_name(fields=fields)
+
     @api.depends("company_id")
     def _compute_available_modules(self):
         """

@@ -44,3 +44,7 @@ class AccountMove(models.Model):
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines"""
         return self.line_ids.action_recompute_carbon()
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "account.group_account_invoice"

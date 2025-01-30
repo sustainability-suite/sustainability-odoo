@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -70,3 +70,7 @@ class HrEmployee(models.Model):
             total_uncertainty_value,
             total_carbon_details,
         )
+
+    @api.model
+    def _get_carbon_fields_custom_group(self):
+        return "hr.group_hr_user"
