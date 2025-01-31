@@ -111,12 +111,14 @@ class CarbonLineMixin(models.AbstractModel):
         """
         return 1
 
+    @api.model
     def _get_computation_levels_mapping(self) -> dict:
         return {
             "account.move.line": _("Carbon on invoice"),
             "product.product": _("Product"),
             "product.category": _("Product category"),
             "product.template": _("Product template"),
+            "product.supplierinfo": _("Supplier info"),
             "res.partner": _("Partner"),
             "account.account": _("Account"),
             "res.company": _("Company fallback"),
