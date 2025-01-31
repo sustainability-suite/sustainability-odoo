@@ -22,11 +22,15 @@ class HrExpense(models.Model):
         for line in self:
             line.carbon_balance = line.carbon_debit - line.carbon_credit
 
+    # FIX quantity (and total_amount) is writen in hr.expense _compute_product_has_cost
+    # which triggers _compute_carbon_debt which unlink a carbon.line.origin which flush
+    # the cache and invalidate _compute_product_has_cost (CacheMiss)
+    # REFACTOR of core sustainability needed
     @api.depends(
         "account_id.carbon_in_factor_id",
         "product_id.carbon_in_factor_id",
-        "quantity",
-        "total_amount",
+        # "quantity",
+        # "total_amount",
         "date",
     )
     def _compute_carbon_debt(self, force_compute=None):
