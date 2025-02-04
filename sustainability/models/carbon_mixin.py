@@ -38,15 +38,6 @@ from .carbon_factor import CarbonFactor
 
 
 # Todo: make this extendable from sub modules
-CARBON_MODELS = [
-    "carbon.factor",
-    "product.category",
-    "product.product",
-    "product.template",
-    "res.partner",
-    "res.company",
-    "res.country",
-]
 
 
 class CarbonMixin(models.AbstractModel):
@@ -54,6 +45,20 @@ class CarbonMixin(models.AbstractModel):
     _description = "A mixin used to add carbon values on any model"
     _carbon_types = ["in", "out"]
     _fallback_records = []
+
+    # TODO: Thinks about compute this from env['carbon.line.mixin']._get_computation_levels_mapping()
+    @api.model
+    def _CARBON_MODELS(cls):
+        return [
+            "carbon.factor",
+            "product.category",
+            "product.product",
+            "product.supplierinfo",
+            "product.template",
+            "res.partner",
+            "res.company",
+            "res.country",
+        ]
 
     @api.constrains("carbon_in_use_distribution", "carbon_in_distribution_line_ids")
     def _check_carbon_in_distribution(self):
@@ -75,7 +80,9 @@ class CarbonMixin(models.AbstractModel):
     @api.model
     def _selection_fallback_model(self):
         return [
-            (x, _(self.env[x]._description)) for x in CARBON_MODELS if x in self.env
+            (x, _(self.env[x]._description))
+            for x in self._CARBON_MODELS()
+            if x in self.env
         ]
 
     def get_allowed_factors(self):
@@ -270,6 +277,9 @@ class CarbonMixin(models.AbstractModel):
         self.ensure_one()
         fallback_path = []
         for rec in self._build_fallback_records_list(carbon_type):
+            # skip unsaved records with temporary IDs
+            if not rec.id or isinstance(rec.id, str) and rec.id.startswith("NewId"):
+                continue
             fallback_path.append(rec)
             if rec.has_valid_carbon_value(carbon_type):
                 return fallback_path

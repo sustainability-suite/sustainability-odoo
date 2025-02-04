@@ -1,4 +1,4 @@
-from odoo.fields import Command
+from odoo import Command
 
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
