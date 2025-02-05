@@ -1,13 +1,44 @@
+from datetime import datetime
+
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
 class TestCarbonUom(CarbonCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        (
+            cls.carbon_factor_monetary,
+            cls.carbon_factor_physical,
+        ) = cls.env["carbon.factor"].create(
+            [
+                {"name": "Test monetary", "carbon_compute_method": "monetary"},
+                {"name": "Test physical", "carbon_compute_method": "physical"},
+            ]
+        )
+
+        carbon_values = [
+            {
+                "factor_id": cls.carbon_factor_monetary.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.025,
+            },
+            {
+                "factor_id": cls.carbon_factor_physical.id,
+                "carbon_uom_id": cls.uom_hour.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.022,
+            },
+        ]
+        cls.env["carbon.factor.value"].create(carbon_values)
+
     def test_10_uom(self):
         product_consulting_uom = self.env["product.product"].create(
             {
                 "name": "Consulting uom test",
                 "type": "service",
-                "categ_id": self.product_category.id,
                 "uom_id": self.uom_hour.id,
                 "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
@@ -75,11 +106,10 @@ class TestCarbonUom(CarbonCommon):
             {
                 "name": "Consulting currency test",
                 "type": "service",
-                "categ_id": self.product_category.id,
                 "lst_price": 10.0,
                 "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_monetary.id,
-                "currency_id": self.env.ref("base.USD"),
+                "currency_id": self.currency_usd.id,
             }
         )
 
