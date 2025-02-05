@@ -243,7 +243,11 @@ class AccountMoveLine(models.Model):
 
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
-        return {"quantity": self.quantity, "from_uom_id": self.product_uom_id}
+        return {
+            "quantity": self.quantity,
+            "from_uom_id": self.product_uom_id,
+            "product_id": self.product_id,
+        }
 
     def action_recompute_carbon(self) -> dict:
         res = super().action_recompute_carbon()
