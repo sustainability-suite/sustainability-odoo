@@ -67,6 +67,15 @@ class TestPreceedingOrder(CarbonCommon):
     def test_carbon_on_product(self):
         """Verify carbon line origin values are correctly computed at the product level for invoices."""
 
+        # Add higher computation level to strengthen the test.
+        self.env["product.category"].create(
+            {
+                "name": "Test Product Category",
+                "carbon_in_is_manual": True,
+                "carbon_in_factor_id": self.carbon_factor_physical.id,
+            }
+        )
+
         invoice = self.env["account.move"].create(
             {
                 "partner_id": self.partner.id,
