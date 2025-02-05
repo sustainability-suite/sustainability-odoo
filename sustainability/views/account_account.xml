@@ -62,7 +62,7 @@
                                 nolabel="1"
                                 required="carbon_in_use_distribution"
                             >
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="factor_id" />
                                     <field name="percentage" widget="percentage" />
                                     <field column_invisible="1" name="carbon_type" />
@@ -71,7 +71,7 @@
                                         column_invisible="1"
                                         name="res_model"
                                     />
-                                </tree>
+                                </list>
                             </field>
                         </group>
                     </group>

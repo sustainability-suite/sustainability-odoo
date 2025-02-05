@@ -17,10 +17,12 @@ class ProductSupplierInfo(models.Model):
             vals["carbon_in_mode"] = "auto"
         return vals
 
-    @api.model
-    def create(self, vals):
-        vals = self._update_carbon_in_fields(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        suppliers = super().create(
+            [self._update_carbon_in_fields(vals) for vals in vals_list]
+        )
+        return suppliers
 
     def write(self, vals):
         if "carbon_in_factor_id" in vals:

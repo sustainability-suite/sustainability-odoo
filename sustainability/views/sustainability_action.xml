@@ -5,7 +5,7 @@
             <field name="name">sustainability.action.tree</field>
             <field name="model">sustainability.action</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name" />
                     <field name="description" />
                     <field name="complexity" />
@@ -17,7 +17,7 @@
                         string="Image"
                         widget="image"
                     />
-                </tree>
+                </list>
             </field>
         </record>
         <record id="sustainability_action_filter" model="ir.ui.view">
@@ -133,11 +133,7 @@
                             widget="image"
                         />
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" />
-                        <field name="activity_ids" />
-                        <field name="message_ids" />
-                    </div>
+                    <chatter />
                 </form>
             </field>
         </record>
@@ -145,7 +141,7 @@
             <field name="name">Actions</field>
             <field name="res_model">sustainability.action</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">No actions yet !</p>
             </field>

@@ -253,7 +253,7 @@ class TestPreceedingOrder(CarbonCommon):
                 "name": "Account",
                 "code": "TESTREV1234",
                 "account_type": "income",
-                "company_id": self.env.company.id,
+                "company_ids": [(6, 0, [self.env.company.id])],
                 "carbon_in_factor_id": self.carbon_factor_monetary.id,
                 "carbon_in_is_manual": True,
             }

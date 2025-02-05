@@ -24,7 +24,7 @@ class CommonMixin(models.AbstractModel):
             "name": _("%s %s", title, self.name),
             "type": "ir.actions.act_window",
             "res_model": model,
-            "views": [(False, "tree"), (False, "form")],
+            "views": [(False, "list"), (False, "form")],
             "domain": [("id", "in", ids)],
             "target": "current",
             "context": {
