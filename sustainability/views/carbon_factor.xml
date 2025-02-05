@@ -221,19 +221,19 @@
                                         invisible="account_move_qty &lt;= 1"
                                     >
                                         <field
-                                            name="account_move_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Posted Entries </span>
+                                        name="account_move_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Posted Entries </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="account_move_qty > 1"
                                     >
                                         <field
-                                            name="account_move_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Posted Entry </span>
+                                        name="account_move_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Posted Entry </span>
                                 </div>
                             </button>
                             <button
@@ -248,19 +248,19 @@
                                         invisible="child_qty &lt;= 1"
                                     >
                                         <field
-                                            name="child_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Children Factors </span>
+                                        name="child_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Children Factors </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="child_qty > 1"
                                     >
                                         <field
-                                            name="child_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Child Factor </span>
+                                        name="child_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Child Factor </span>
                                 </div>
                             </button>
                             <button
@@ -275,19 +275,19 @@
                                         invisible="chart_of_account_qty &lt;= 1"
                                     >
                                         <field
-                                            name="chart_of_account_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Accounts </span>
+                                        name="chart_of_account_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Accounts </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="chart_of_account_qty > 1"
                                     >
                                         <field
-                                            name="chart_of_account_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Account </span>
+                                        name="chart_of_account_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Account </span>
                                 </div>
                             </button>
                             <button
@@ -302,19 +302,19 @@
                                         invisible="product_qty &lt;= 1"
                                     >
                                         <field
-                                            name="product_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Products </span>
+                                        name="product_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Products </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="product_qty > 1"
                                     >
                                         <field
-                                            name="product_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Product </span>
+                                        name="product_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Product </span>
                                 </div>
                             </button>
                             <button
@@ -329,19 +329,19 @@
                                         invisible="product_categ_qty &lt;= 1"
                                     >
                                         <field
-                                            name="product_categ_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Products Categories </span>
+                                        name="product_categ_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Products Categories </span>
                                     <span
                                         class="o_stat_value"
                                         invisible="product_categ_qty > 1"
                                     >
                                         <field
-                                            name="product_categ_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        /> Product Category </span>
+                                        name="product_categ_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    /> Product Category </span>
                                 </div>
                             </button>
                         </div>
@@ -427,7 +427,7 @@
                                     invisible="has_invalid_value == False"
                                     role="alert"
                                 > Some values miss a currency or a unit of measure <br
-                                    /> Please fix them before using this factor. </div>
+                                /> Please fix them before using this factor. </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="date" />
