@@ -469,6 +469,7 @@ class CarbonFactor(models.Model):
 
         quantity = kwargs.get("quantity")
         from_uom_id = kwargs.get("from_uom_id")
+        product_id = kwargs.get("product_id")
         amount = kwargs.get("amount")
         from_currency_id = kwargs.get("from_currency_id")
         data_uncertainty_percentage = kwargs.get("data_uncertainty_percentage")
@@ -493,12 +494,34 @@ class CarbonFactor(models.Model):
                 monetary_currency_id,
             ) = factor_value.get_infos()
 
+            weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
+
             if compute_method == "monetary" and amount is not None and from_currency_id:
                 # We convert the amount to the currency used in the factor value
                 partial_value_result = carbon_value * from_currency_id._convert(
                     amount, monetary_currency_id, self.env.company, date
                 )
-
+            elif (
+                compute_method == "physical"
+                and quantity is not None
+                and self.carbon_uom_id.category_id == weight_uom_category
+            ):
+                if not product_id.weight or product_id.weight <= 0:
+                    raise ValidationError(
+                        _(
+                            "The weight may not be defined or is zero for the associated product (%s). "
+                            "Please ensure the weight is properly set to compute the carbon value.",
+                            product_id.display_name,
+                        )
+                    )
+                default_weight_uom = self.env[
+                    "product.template"
+                ]._get_weight_uom_id_from_ir_config_parameter()
+                # Convert the product weight from kilograms to the carbon factor's UoM
+                converted_weight = default_weight_uom._compute_quantity(
+                    product_id.weight, self.carbon_uom_id, round=False
+                )
+                partial_value_result = carbon_value * converted_weight * quantity
             elif compute_method == "physical" and quantity is not None and from_uom_id:
                 # Units of measure can't be converted if they are not in the same category
                 if from_uom_id.category_id != uom_id.category_id:
