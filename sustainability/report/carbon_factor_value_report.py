@@ -14,7 +14,7 @@ class CarbonFactorValueReport(models.Model):
     factor_id = fields.Many2one("carbon.factor", string="Factor", readonly=True)
     carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure", readonly=True)
     carbon_value = fields.Float(
-        string="Average CO2 (kg)", readonly=True, group_operator="avg"
+        string="Average CO2 (kg)", readonly=True, aggregator="avg"
     )
 
     # ==== Carbon Factor fields ====

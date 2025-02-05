@@ -58,7 +58,7 @@ class TestCarbonComputation(CarbonCommon):
                 "name": "Office chair",
                 "list_price": 70.00,
                 "standard_price": 55.00,
-                "detailed_type": "consu",
+                "type": "consu",
                 "uom_id": cls.uom_unit.id,
                 "carbon_in_factor_id": cls.carbon_factor_plastic_chair.id,
                 "carbon_in_is_manual": True,
