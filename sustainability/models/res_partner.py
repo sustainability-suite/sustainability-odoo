@@ -48,16 +48,14 @@ class ResPartner(models.Model):
                 "sustainability_purchase.cron_initial_carbon_compute_res_partner"
             )
             _logger.warning(
-                "Please deactivate cron '%s' as it is not needed anymore."
-                % cron_id.name
+                f"Please deactivate cron '{cron_id.name}' as it is not needed anymore."
             )
             return
 
         clock = time.perf_counter()
         total = 0
         _logger.info(
-            "Running _cron_initial_carbon_compute_res_partner on %s records"
-            % len(partners)
+            f"Running _cron_initial_carbon_compute_res_partner on {len(partners)} records"
         )
 
         for partner in partners:
@@ -73,8 +71,7 @@ class ResPartner(models.Model):
             # Catch here any exceptions if you need to.
             except Exception as e:
                 _logger.error(
-                    "Error on cron _cron_initial_carbon_compute_res_partner : Exception: %s"
-                    % e
+                    f"Error on cron _cron_initial_carbon_compute_res_partner : Exception: {e}"
                 )
 
         _logger.info(

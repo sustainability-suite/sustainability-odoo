@@ -98,6 +98,8 @@ class CarbonFactor(models.Model):
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
+    contact_qty = fields.Integer(compute="_compute_contact_qty")
+    supplierinfo_qty = fields.Integer(compute="_compute_supplierinfo_qty")
 
     # --------------------------------------------
 
@@ -184,6 +186,16 @@ class CarbonFactor(models.Model):
         count_data = self._get_count_by_model(model="product.category")
         for factor in self:
             factor.product_categ_qty = count_data.get(factor.id, 0)
+
+    def _compute_contact_qty(self):
+        count_data = self._get_count_by_model(model="res.partner")
+        for factor in self:
+            factor.contact_qty = count_data.get(factor.id, 0)
+
+    def _compute_supplierinfo_qty(self):
+        count_data = self._get_count_by_model(model="product.supplierinfo")
+        for factor in self:
+            factor.supplierinfo_qty = count_data.get(factor.id, 0)
 
     def _compute_carbon_currency_id(self):
         for factor in self:
@@ -576,11 +588,25 @@ class CarbonFactor(models.Model):
         return self._generate_action(
             title=_("Product Category for"),
             model="product.category",
-            ids=self._get_distribution_lines_res_ids("product.template"),
+            ids=self._get_distribution_lines_res_ids("product.category"),
         )
 
     def action_see_account_move_ids(self):
         origins = self.env["carbon.line.origin"].search([("factor_id", "in", self.ids)])
         return self._generate_action(
             title=_("Journal Entries"), model="account.move", ids=origins.move_id.ids
+        )
+
+    def action_see_contact_ids(self):
+        return self._generate_action(
+            title="Contact",
+            model="res.partner",
+            ids=self._get_distribution_lines_res_ids("res.partner"),
+        )
+
+    def action_see_supplierinfo_ids(self):
+        return self._generate_action(
+            title="Supplier Info",
+            model="product.supplierinfo",
+            ids=self._get_distribution_lines_res_ids("product.supplierinfo"),
         )
