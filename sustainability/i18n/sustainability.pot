@@ -2219,6 +2219,11 @@ msgid "Open-Net"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_line_origin_ids
+msgid "Origins"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__other_ghg_value
 msgid "Other GHG (kgCO2e)"
 msgstr ""
@@ -2969,6 +2974,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Used as a fallback value for sales"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_filter
+msgid "Used in computation"
 msgstr ""
 
 #. module: sustainability
