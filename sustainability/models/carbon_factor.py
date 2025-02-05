@@ -39,6 +39,9 @@ class CarbonFactor(models.Model):
     country_group_id = fields.Many2one(
         "res.country.group", string="Country Group", tracking=True
     )
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin", inverse_name="factor_id", string="Origins"
+    )
 
     # Categories fields
     parent_id = fields.Many2one(
