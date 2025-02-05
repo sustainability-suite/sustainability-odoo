@@ -81,12 +81,11 @@ class TestCarbonComputation(CarbonCommon):
                             "quantity": 1.0,
                             "price_unit": 55.0,
                             "name": self.office_chair_product.name,
-                        },
-                    )
+                        }
+                    ),
                 ],
             }
         )
-        invoice.action_post()
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -94,10 +93,10 @@ class TestCarbonComputation(CarbonCommon):
                 ("factor_id", "=", self.carbon_factor_plastic_chair.id),
             ]
         )
-        total_signed_value = sum(origin.signed_value for origin in carbon_line_origins)
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         self.assertEqual(
-            total_signed_value,
+            total_value,
             40.0,
             "The carbon factor values matching the invoice date were not applied correctly.",
         )
@@ -118,12 +117,11 @@ class TestCarbonComputation(CarbonCommon):
                             "quantity": 1.0,
                             "price_unit": 55.0,
                             "name": self.office_chair_product.name,
-                        },
-                    )
+                        }
+                    ),
                 ],
             }
         )
-        invoice.action_post()
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -131,10 +129,10 @@ class TestCarbonComputation(CarbonCommon):
                 ("factor_id", "=", self.carbon_factor_plastic_chair.id),
             ]
         )
-        total_signed_value = sum(origin.signed_value for origin in carbon_line_origins)
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
         self.assertEqual(
-            total_signed_value,
+            total_value,
             20.0,
             "The computed total signed value for an invoice dated before "
             "the earliest carbon factor value is incorrect.",
