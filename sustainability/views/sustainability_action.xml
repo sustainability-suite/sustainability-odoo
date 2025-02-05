@@ -54,10 +54,10 @@
                                         invisible="scenario_qty &lt;= 1"
                                     >
                                         <field
-                                            name="scenario_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="scenario_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Scenarios
                                     </span>
                                     <span
@@ -65,10 +65,10 @@
                                         invisible="scenario_qty > 1"
                                     >
                                         <field
-                                            name="scenario_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="scenario_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Scenario
                                     </span>
                                 </div>
@@ -85,10 +85,10 @@
                                         invisible="action_plan_qty &lt;= 1"
                                     >
                                         <field
-                                            name="action_plan_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="action_plan_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Action Plans
                                     </span>
                                     <span
@@ -96,10 +96,10 @@
                                         invisible="action_plan_qty > 1"
                                     >
                                         <field
-                                            name="action_plan_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="action_plan_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Action Plan
                                     </span>
                                 </div>

@@ -48,10 +48,10 @@
                                         invisible="action_qty &lt;= 1"
                                     >
                                         <field
-                                            name="action_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="action_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Actions
                                     </span>
                                     <span
@@ -59,10 +59,10 @@
                                         invisible="action_qty > 1"
                                     >
                                         <field
-                                            name="action_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
+                                        name="action_qty"
+                                        nolabel="1"
+                                        widget="statinfo"
+                                    />
                                         Action
                                     </span>
                                 </div>
