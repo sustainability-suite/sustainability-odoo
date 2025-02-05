@@ -1,9 +1,41 @@
+from datetime import datetime
+
 from odoo.fields import Command
 
 from odoo.addons.sustainability.tests.common import CarbonCommon
 
 
 class TestCarbonUom(CarbonCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        (
+            cls.carbon_factor_monetary,
+            cls.carbon_factor_physical,
+        ) = cls.env["carbon.factor"].create(
+            [
+                {"name": "Test monetary", "carbon_compute_method": "monetary"},
+                {"name": "Test physical", "carbon_compute_method": "physical"},
+            ]
+        )
+
+        carbon_values = [
+            {
+                "factor_id": cls.carbon_factor_monetary.id,
+                "carbon_monetary_currency_id": cls.currency_eur.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.025,
+            },
+            {
+                "factor_id": cls.carbon_factor_physical.id,
+                "carbon_uom_id": cls.uom_hour.id,
+                "date": datetime.today().strftime("%Y-%m-%d %H:%M"),
+                "carbon_value": 0.022,
+            },
+        ]
+        cls.env["carbon.factor.value"].create(carbon_values)
+
     def test_10_uom(self):
         product_consulting_uom = self.env["product.product"].create(
             {
