@@ -251,7 +251,7 @@ class TestPreceedingOrder(CarbonCommon):
         account = self.env["account.account"].create(
             {
                 "name": "Account",
-                "code": "REV1234",
+                "code": "TESTREV1234",
                 "account_type": "income",
                 "company_id": self.env.company.id,
                 "carbon_in_factor_id": self.carbon_factor_monetary.id,
