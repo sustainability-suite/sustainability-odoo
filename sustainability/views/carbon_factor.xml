@@ -73,6 +73,12 @@
                         string="Not detailed by gas"
                     />
           <separator />
+          <filter
+                        domain="[('carbon_line_origin_ids', '!=', False)]"
+                        name="used_in_computation"
+                        string="Used in computation"
+                    />
+          <separator />
           <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
           <group expand="0" string="Group By">
             <filter string="Root" name="by_root" context="{'group_by':'root'}" />
