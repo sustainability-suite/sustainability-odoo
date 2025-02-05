@@ -1857,6 +1857,18 @@ msgid "Name"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__activity_date_deadline
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__activity_date_deadline
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__activity_date_deadline
