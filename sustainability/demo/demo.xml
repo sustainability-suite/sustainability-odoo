@@ -5,7 +5,7 @@
             <field name="name">Expenses Demo</field>
             <field name="code">600001</field>
             <field name="account_type">expense</field>
-            <field name="company_id" ref="base.main_company" />
+            <field name="company_ids" eval="[Command.link(ref('base.main_company'))]" />
             <field name="carbon_in_is_manual">True</field>
             <field
                 name="carbon_in_factor_id"
@@ -60,10 +60,10 @@
             <field name="carbon_in_factor_id" ref="carbon_factor_global_fallback" />
         </record>
 
-        <!-- edit partner of a demo invoice to have an example of product.template computation.level -->
+        <!-- edit partner of a demo invoice to have an example of product.template computation.level
         <record id="account.1_demo_invoice_5" model="account.move">
             <field name="partner_id" ref="base.res_partner_2" />
-        </record>
+        </record> -->
 
         <record id="demo_invoice_carbon_on_invoice" model="account.move">
             <field name="move_type">in_invoice</field>
