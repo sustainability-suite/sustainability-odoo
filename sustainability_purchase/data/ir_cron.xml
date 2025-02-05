@@ -9,8 +9,6 @@
             <field name="code">model._cron_initial_carbon_compute_res_partner()</field>
             <field name="interval_type">minutes</field>
             <field name="interval_number">5</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
             <field
                 name="nextcall"
                 eval="DateTime.now().strftime('%Y-%m-%d %H:%M:%S')"
