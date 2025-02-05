@@ -15,6 +15,7 @@
                 ref="sustainability.account_account_carbon"
             />
             <field name="employee_commuting_carbon_cronjob_active" eval="True" />
+            <field name="employee_commuting_post_account_move_active" eval="True" />
         </record>
 
         <record id="demo_carbon_commuting_admin" model="carbon.hr.commuting">
