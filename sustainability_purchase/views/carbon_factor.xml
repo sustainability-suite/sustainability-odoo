@@ -16,18 +16,18 @@
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_value" invisible="contact_qty &lt;= 1">
                                 <field
-                                    name="contact_qty"
-                                    widget="statinfo"
-                                    nolabel="1"
-                                />
+                                name="contact_qty"
+                                widget="statinfo"
+                                nolabel="1"
+                            />
                                 Contacts
                             </span>
                             <span class="o_stat_value" invisible="contact_qty &gt;= 1">
                                 <field
-                                    name="contact_qty"
-                                    widget="statinfo"
-                                    nolabel="1"
-                                />
+                                name="contact_qty"
+                                widget="statinfo"
+                                nolabel="1"
+                            />
                                 Contact
                             </span>
                         </div>
@@ -44,10 +44,10 @@
                                 invisible="supplierinfo_qty &lt;= 1"
                             >
                                 <field
-                                    name="supplierinfo_qty"
-                                    widget="statinfo"
-                                    nolabel="1"
-                                />
+                                name="supplierinfo_qty"
+                                widget="statinfo"
+                                nolabel="1"
+                            />
                                 Supplier Info
                             </span>
                             <span
@@ -55,10 +55,10 @@
                                 invisible="supplierinfo_qty &gt;= 1"
                             >
                                 <field
-                                    name="supplierinfo_qty"
-                                    widget="statinfo"
-                                    nolabel="1"
-                                />
+                                name="supplierinfo_qty"
+                                widget="statinfo"
+                                nolabel="1"
+                            />
                                 Suppliers Info
                             </span>
                         </div>
