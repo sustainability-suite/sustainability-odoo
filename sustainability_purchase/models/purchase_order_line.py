@@ -115,7 +115,11 @@ class PurchaseOrderLine(models.Model):
 
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
-        return {"quantity": self.product_qty, "from_uom_id": self.product_uom}
+        return {
+            "quantity": self.product_qty,
+            "from_uom_id": self.product_uom,
+            "product_id": self.product_id,
+        }
 
     def can_use_carbon_supplier_id_carbon_value(self) -> bool:
         self.ensure_one()
