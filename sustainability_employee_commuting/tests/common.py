@@ -69,7 +69,7 @@ class CarbonCommon(TransactionCase):
                 "name": "Carbon extra-accounting",
                 "code": "10001",
                 "account_type": "expense",
-                "company_id": cls.env.company.id,
+                "company_ids": [(6, 0, [cls.env.company.id])],
             }
         )
 
