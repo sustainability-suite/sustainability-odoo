@@ -454,6 +454,15 @@ class CarbonFactor(models.Model):
 
         return total_value, total_uncertainty_value, factor_to_details
 
+    @classmethod
+    def _get_uncertainty_value(
+        cls, uncertainty_percentage: float, data_uncertainty_percentage: float
+    ) -> float:
+        """
+        Return the uncertainty value of a given value depending on the uncertainty percentage. The float is a percentage, 1 = 100%, 0.5 = 50%, etc.
+        """
+        return (uncertainty_percentage**2 + data_uncertainty_percentage**2) ** 0.5
+
     def _get_carbon_value(
         self,
         distribution: float,
@@ -470,9 +479,9 @@ class CarbonFactor(models.Model):
         date = kwargs.get("date", fields.Date.today())
 
         # --- The uncertainty percentage is common to all factor values
-        uncertainty_percentage = (
-            self.uncertainty_percentage**2 + data_uncertainty_percentage**2
-        ) ** 0.5
+        uncertainty_percentage = self._get_uncertainty_value(
+            self.uncertainty_percentage, data_uncertainty_percentage
+        )
 
         # --- These are the infos that will be returned
         result_value = 0.0

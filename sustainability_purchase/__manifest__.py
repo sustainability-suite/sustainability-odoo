@@ -19,6 +19,7 @@
         "views/carbon_line_origin.xml",
         "views/purchase_order.xml",
         "views/res_partner.xml",
+        "views/product_supplierinfo.xml",
     ],
     "demo": [
         "data/demo.xml",
