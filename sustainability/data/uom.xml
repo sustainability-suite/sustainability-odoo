@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="uom_categ_energy" model="uom.category">
+        <field name="name">Energy</field>
+    </record>
+    <record id="uom_categ_weight_per_km" model="uom.category">
+        <field name="name">Weight per kilometer</field>
+    </record>
+    <record id="uom_categ_passenger_per_km" model="uom.category">
+        <field name="name">Passenger per kilometer</field>
+    </record>
+
+    <record id="uom_t_km" model="uom.uom">
+        <field name="name">t.km</field>
+        <field name="category_id" ref="uom_categ_weight_per_km" />
+        <field name="uom_type">reference</field>
+        <field name="factor">1.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+    <record id="uom_pax_km" model="uom.uom">
+        <field name="name">pax.km</field>
+        <field name="category_id" ref="uom_categ_passenger_per_km" />
+        <field name="uom_type">reference</field>
+        <field name="factor">1.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_joule" model="uom.uom">
+        <field name="name">Joule</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">reference</field>
+        <field name="factor">1.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kj" model="uom.uom">
+        <field name="name">kJ</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">1000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_btu" model="uom.uom">
+        <field name="name">BTU</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">1055.05585</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_mj" model="uom.uom">
+        <field name="name">MJ</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">1000000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kwh" model="uom.uom">
+        <field name="name">kWh</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">3600000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_cubic_meter_of_natural_gas" model="uom.uom">
+        <field name="name">m³ of natural gas</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">34883333.33333</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_gj" model="uom.uom">
+        <field name="name">GJ</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">1000000000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tec" model="uom.uom">
+        <field name="name">tec</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">29288000000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tep" model="uom.uom">
+        <field name="name">tep</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv">41860000000.0</field>
+        <field name="rounding">0.01</field>
+    </record>
+</odoo>

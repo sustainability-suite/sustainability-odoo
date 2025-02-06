@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="carbon_factor_value_report_search" model="ir.ui.view">
+            <field name="name">carbon.factor.value.report.search</field>
+            <field name="model">carbon.factor.value.report</field>
+            <field name="arch" type="xml">
+                <search string="Search Carbon Factor Value">
+                    <field name="name" />
+                    <field name="category" />
+                    <field name="carbon_database_id" />
+                    <field name="carbon_contributor_id" />
+                    <field name="type_id" string="Type" />
+                    <field name="carbon_uom_id" />
+                    <field name="country_id" />
+                    <field name="country_group_id" />
+                    <filter
+                        domain="[('carbon_compute_method', '=', 'monetary')]"
+                        name="monetary"
+                        string="Monetary"
+                    />
+                    <filter
+                        domain="[('carbon_compute_method', '=', 'physical')]"
+                        name="physical"
+                        string="Physical"
+                    />
+                    <separator />
+                    <filter
+                        domain="[('ghg_view_mode', '=', True)]"
+                        name="ghg"
+                        string="Detailed by gas"
+                    />
+                    <filter
+                        domain="[('ghg_view_mode', '=', False)]"
+                        name="physical"
+                        string="Not detailed by gas"
+                    />
+                    <separator />
+                    <filter
+                        domain="[('active', '=', False)]"
+                        name="archived"
+                        string="Archived"
+                    />
+                    <group expand="0" string="Group By">
+                        <filter
+                            string="Name"
+                            name="by_factor_id"
+                            context="{'group_by':'factor_id'}"
+                        />
+                        <filter
+                            string="Root"
+                            name="by_root"
+                            context="{'group_by':'root'}"
+                        />
+                        <filter
+                            string="Parent"
+                            name="by_parent_id"
+                            context="{'group_by':'parent_id'}"
+                        />
+                        <filter
+                            string="Category"
+                            name="by_category"
+                            context="{'group_by':'category'}"
+                        />
+                        <separator />
+                        <filter
+                            string="Compute method"
+                            name="by_carbon_compute_method"
+                            context="{'group_by':'carbon_compute_method'}"
+                        />
+                        <filter
+                            string="Database"
+                            name="by_carbon_database_id"
+                            context="{'group_by':'carbon_database_id'}"
+                        />
+                        <filter
+                            string="Contributor"
+                            name="by_carbon_contributor_id"
+                            context="{'group_by':'carbon_contributor_id'}"
+                        />
+                        <filter
+                            string="Uncertainty"
+                            name="by_uncertainty_percentage"
+                            context="{'group_by':'uncertainty_percentage'}"
+                        />
+                        <filter
+                            string="Type"
+                            name="by_type_id"
+                            context="{'group_by':'type_id'}"
+                        />
+                        <filter
+                            string="Value Date"
+                            name="by_date"
+                            context="{'group_by':'date'}"
+                        />
+                        <filter
+                            string="Detailed by gas"
+                            name="by_ghg_view_mode"
+                            context="{'group_by':'ghg_view_mode'}"
+                        />
+                        <filter
+                            string="Unit of measure"
+                            name="by_carbon_uom_id"
+                            context="{'group_by':'carbon_uom_id'}"
+                        />
+                        <separator />
+                        <filter
+                            string="Country"
+                            name="by_country_id"
+                            context="{'group_by':'country_id'}"
+                        />
+                        <filter
+                            string="Country Group"
+                            name="by_country_group_id"
+                            context="{'group_by':'country_group_id'}"
+                        />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_carbon_factor_value_report_graph" model="ir.ui.view">
+            <field name="name">carbon.factor.value.report.graph.view</field>
+            <field name="model">carbon.factor.value.report</field>
+            <field name="arch" type="xml">
+                <graph sample="1" string="Emission Factors By Vintage" type="bar">
+                    <field name="carbon_value" type="measure" />
+                    <field name="date" type="col" interval="year" />
+                </graph>
+            </field>
+        </record>
+
+        <record id="carbon_factor_value_report_action" model="ir.actions.act_window">
+            <field name="name">Emission Factors By Vintage Analysis</field>
+            <field name="res_model">carbon.factor.value.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">graph</field>
+        </record>
+    </data>
+</odoo>

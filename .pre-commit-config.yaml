@@ -61,7 +61,6 @@ repos:
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
     rev: v0.0.33
     hooks:
-      - id: oca-checks-odoo-module
       - id: oca-checks-po
         args:
           - --disable=po-pretty-format

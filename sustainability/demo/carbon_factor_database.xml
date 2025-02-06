@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="carbon_factor_database_ademe" model="carbon.factor.database">
+        <field name="name">Ademe - Base Carbone®</field>
+        <field
+            name="url"
+        >https://base-empreinte.ademe.fr/documentation/base-carbone</field>
+    </record>
+    <record id="carbon_factor_database_other" model="carbon.factor.database">
+        <field name="name">Other</field>
+        <field name="url">n/a</field>
+    </record>
+</odoo>

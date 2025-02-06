@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_sustainability_config" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field
+                name="context"
+            >{'module' : 'sustainability', 'bin_size': False}</field>
+        </record>
+
+        <menuitem
+            id="sustainability_menu"
+            name="Sustainability"
+            web_icon="sustainability,static/description/icon.png"
+            sequence="60"
+            groups="base.group_user"
+        >
+            <menuitem
+                id="carbon_line_origin_menu"
+                name="Carbon Footprint"
+                sequence="1"
+                groups="base.group_user"
+                action="sustainability.carbon_line_origin_action"
+            />
+            <menuitem id="menu_emission_factors" name="Emission Factors" sequence="2">
+                <menuitem
+                    id="carbon_factor_menu"
+                    name="Emission Factors"
+                    sequence="1"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_action"
+                />
+                <menuitem
+                    id="carbon_factor_database_menu"
+                    name="Emission Factor Databases"
+                    sequence="2"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_database_action"
+                />
+                <menuitem
+                    id="carbon_factor_contributor_menu"
+                    name="Emission Factor Contributors"
+                    sequence="3"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_contributor_action"
+                />
+                <menuitem
+                    id="carbon_factor_type_menu"
+                    name="Emission Factor Types"
+                    sequence="4"
+                    groups="base.group_user"
+                    action="sustainability.carbon_factor_type_action"
+                />
+            </menuitem>
+            <menuitem
+                id="menu_decarbonisation"
+                groups="base.group_user"
+                name="Decarbonization"
+                sequence="3"
+            >
+                <menuitem
+                    id="sustainability_scenario_menu"
+                    name="Scenarios"
+                    sequence="1"
+                    groups="base.group_user"
+                    action="sustainability.sustainability_scenario_window_action"
+                />
+                <menuitem
+                    id="sustainability_action_plan_menu"
+                    name="Action Plans"
+                    sequence="2"
+                    groups="base.group_user"
+                    action="sustainability.sustainability_action_plan_window_action"
+                />
+                <menuitem
+                    id="sustainability_action_menu"
+                    name="Actions"
+                    sequence="3"
+                    groups="base.group_user"
+                    action="sustainability.sustainability_action_window_action"
+                />
+            </menuitem>
+            <menuitem
+                id="menu_sustainability_reporting"
+                name="Reporting"
+                groups="base.group_user"
+                sequence="4"
+            >
+                <menuitem
+                    id="carbon_factor_graph_menu"
+                    name="Emission Factors"
+                    groups="base.group_user"
+                    sequence="1"
+                    action="sustainability.carbon_factor_action_reporting"
+                />
+                <menuitem
+                    id="carbon_factor_value_report_menu"
+                    name="Emission Factors By Vintage"
+                    groups="base.group_user"
+                    sequence="2"
+                    action="sustainability.carbon_factor_value_report_action"
+                />
+                <menuitem
+                    id="carbon_line_origin_graph_menu"
+                    name="Carbon Footprint"
+                    groups="base.group_user"
+                    sequence="3"
+                    action="sustainability.carbon_line_origin_action_reporting"
+                />
+            </menuitem>
+            <menuitem
+                id="menu_sustainability_configuration"
+                name="Configuration"
+                groups="base.group_system"
+                sequence="5"
+            >
+                <menuitem
+                    id="menu_sustainability_config"
+                    name="Settings"
+                    groups="base.group_system"
+                    action="action_sustainability_config"
+                    sequence="1"
+                />
+                <menuitem
+                    id="menu_nomenclature"
+                    name="Nomenclatures"
+                    groups="base.group_user"
+                    sequence="2"
+                >
+                    <menuitem
+                        id="menu_nomenclature_overview"
+                        name="Overview"
+                        action="nomenclature_window_action"
+                        groups="base.group_user"
+                        sequence="1"
+                    />
+                    <menuitem
+                        id="menu_nomenclature_category"
+                        name="Categories"
+                        action="nomenclature_category_window_action"
+                        groups="base.group_user"
+                        sequence="2"
+                    />
+                    <menuitem
+                        id="menu_nomenclature_sub_category"
+                        name="Sub Categories"
+                        action="nomenclature_sub_category_window_action"
+                        groups="base.group_user"
+                        sequence="3"
+                    />
+                    <menuitem
+                        id="menu_nomenclature_reporting"
+                        name="Reporting"
+                        action="nomenclature_reporting_window_action"
+                        groups="base.group_user"
+                        sequence="4"
+                    />
+                </menuitem>
+
+                <menuitem
+                    id="menu_approach"
+                    name="Approaches"
+                    groups="base.group_user"
+                    sequence="3"
+                >
+                    <menuitem
+                        id="menu_approach_overview"
+                        name="Overview"
+                        action="approach_window_action"
+                        groups="base.group_user"
+                        sequence="1"
+                    />
+                    <menuitem
+                        id="menu_approach_characterization"
+                        name="Characterizations"
+                        action="approach_characterization_window_action"
+                        groups="base.group_user"
+                        sequence="2"
+                    />
+                </menuitem>
+            </menuitem>
+        </menuitem>
+    </data>
+</odoo>

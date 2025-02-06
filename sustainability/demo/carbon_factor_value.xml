@@ -1,0 +1,358 @@
+<odoo>
+    <!-- Achat de biens -->
+    <record
+        id="carbon_factor_value_armoire_representative_1"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_armoire_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">258.180000</field>
+    </record>
+    <record
+        id="carbon_factor_value_armoire_representative_2"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_armoire_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">530.700000</field>
+    </record>
+    <record
+        id="carbon_factor_value_armoire_representative_3"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_armoire_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">118.000000</field>
+    </record>
+
+    <record id="carbon_factor_value_chaise_bois_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">5.050000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_bois_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">8.660000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_bois_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">4.920000</field>
+    </record>
+
+    <record id="carbon_factor_value_chaise_bois_textile_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">5.900000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_bois_textile_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">9.390000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_bois_textile_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_bois_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">9.480000</field>
+    </record>
+
+    <record id="carbon_factor_value_chaise_plastique_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_plastique" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">10.330000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_plastique_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_plastique" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">5.360000</field>
+    </record>
+    <record id="carbon_factor_value_chaise_plastique_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_chaise_plastique" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">18.700000</field>
+    </record>
+
+    <record id="carbon_factor_value_mobilier_fabrication_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_mobilier_fabrication" />
+        <field name="carbon_uom_id" ref="uom.product_uom_ton" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">1833.000000</field>
+    </record>
+
+    <record id="carbon_factor_value_table_bois_massif_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_bois_massif" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">16.230000</field>
+    </record>
+    <record id="carbon_factor_value_table_bois_massif_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_bois_massif" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">40.390000</field>
+    </record>
+    <record id="carbon_factor_value_table_bois_massif_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_bois_massif" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">23.600000</field>
+    </record>
+
+    <record id="carbon_factor_value_table_representative_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">16.680000</field>
+    </record>
+    <record id="carbon_factor_value_table_representative_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">27.340000</field>
+    </record>
+    <record id="carbon_factor_value_table_representative_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_table_representative" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">16.100000</field>
+    </record>
+
+    <record id="carbon_factor_value_canape_textile_1" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_energie" />
+        <field name="carbon_value">26.600000</field>
+    </record>
+    <record id="carbon_factor_value_canape_textile_2" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transports" />
+        <field name="carbon_value">53.000000</field>
+    </record>
+    <record id="carbon_factor_value_canape_textile_3" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_canape_textile" />
+        <field name="carbon_uom_id" ref="uom.product_uom_unit" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_intrants" />
+        <field name="carbon_value">99.500000</field>
+    </record>
+
+    <!-- Electricité -->
+    <record
+        id="carbon_factor_value_electricite_france_transport_distribution"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_electricite_france" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_transport_distribution" />
+        <field name="carbon_value">0.004740</field>
+    </record>
+    <record
+        id="carbon_factor_value_electricite_france_combustion_centrale"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_electricite_france" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_combustion_centrale" />
+        <field name="carbon_value">0.033800</field>
+    </record>
+    <record
+        id="carbon_factor_value_electricite_france_amont"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_electricite_france" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="type_id" ref="carbon_factor_type_amont" />
+        <field name="carbon_value">0.013500</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_belgique" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_belgique" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.220000</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_suisse" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_suisse" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.027300</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_allemagne" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_allemagne" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.461000</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_espagne" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_espagne" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.238000</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_royame_uni" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_royame_uni" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.457000</field>
+    </record>
+
+    <record id="carbon_factor_value_electricite_norvege" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electricite_norvege" />
+        <field name="carbon_uom_id" ref="uom_kwh" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.016700</field>
+    </record>
+
+    <!-- Achats de services -->
+    <record
+        id="carbon_factor_value_assurance_service_bancaires_conseil_honoraires"
+        model="carbon.factor.value"
+    >
+        <field
+            name="factor_id"
+            ref="carbon_factor_assurance_service_bancaires_conseil_honoraires"
+        />
+        <field name="carbon_monetary_currency_id" ref="base.CHF" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.110000</field>
+    </record>
+    <record
+        id="carbon_factor_value_hebergement_restauration"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_hebergement_restauration" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.320000</field>
+    </record>
+    <record id="carbon_factor_value_construction" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_construction" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.360000</field>
+    </record>
+    <record id="carbon_factor_value_courrier" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_courrier" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.130000</field>
+    </record>
+    <record id="carbon_factor_value_enseignement" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_enseignement" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.120000</field>
+    </record>
+    <record id="carbon_factor_value_papier_carton" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_papier_carton" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.900000</field>
+    </record>
+    <record id="carbon_factor_value_telecommunications" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_telecommunications" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.170000</field>
+    </record>
+    <record
+        id="carbon_factor_value_meubles_autres_bien_manufactures"
+        model="carbon.factor.value"
+    >
+        <field name="factor_id" ref="carbon_factor_meubles_autres_bien_manufactures" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.600000</field>
+    </record>
+    <record id="carbon_factor_value_global_fallback" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_global_fallback" />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">10.000000</field>
+    </record>
+    <record
+        id="carbon_factor_value_azure_interior_furniture_eco_conceptor"
+        model="carbon.factor.value"
+    >
+        <field
+            name="factor_id"
+            ref="carbon_factor_azure_interior_furniture_eco_conceptor"
+        />
+        <field name="carbon_monetary_currency_id" ref="base.EUR" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.500000</field>
+    </record>
+
+    <!-- Transportation -->
+    <record id="carbon_factor_value_electric_bicycle" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_electric_bicycle" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.020000</field>
+    </record>
+    <record id="carbon_factor_value_bicycle" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_bicycle" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.009000</field>
+    </record>
+    <record id="carbon_factor_value_bus" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_bus" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.202000</field>
+    </record>
+    <record id="carbon_factor_value_metro" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_metro" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.002700</field>
+    </record>
+    <record id="carbon_factor_value_walking" model="carbon.factor.value">
+        <field name="factor_id" ref="carbon_factor_walking" />
+        <field name="carbon_uom_id" ref="uom.product_uom_km" />
+        <field name="date" eval="DateTime.today().strftime('%Y-%m-%d %H:%M')" />
+        <field name="carbon_value">0.000000</field>
+    </record>
+</odoo>

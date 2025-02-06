@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="carbon_factor_type_amont" model="carbon.factor.type">
+        <field name="code">AMONT</field>
+        <field name="name">Amont</field>
+    </record>
+    <record id="carbon_factor_type_energie" model="carbon.factor.type">
+        <field name="code">ENERGIE</field>
+        <field name="name">Energie</field>
+    </record>
+    <record id="carbon_factor_type_transports" model="carbon.factor.type">
+        <field name="code">TRANSPORTS</field>
+        <field name="name">Transports</field>
+    </record>
+    <record id="carbon_factor_type_intrants" model="carbon.factor.type">
+        <field name="code">INTRANTS</field>
+        <field name="name">Intrants</field>
+    </record>
+    <record id="carbon_factor_type_transport_distribution" model="carbon.factor.type">
+        <field name="code">TRANSPORT ET DISTRIBUTION</field>
+        <field name="name">Transport et distribution</field>
+    </record>
+    <record id="carbon_factor_type_combustion_centrale" model="carbon.factor.type">
+        <field name="code">COMBUSTION À LA CENTRALE</field>
+        <field name="name">Combustion à la centrale</field>
+    </record>
+</odoo>

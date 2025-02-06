@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record forcecreate="True" id="decimal_carbon" model="decimal.precision">
+            <field name="name">Carbon value</field>
+            <field name="digits">4</field>
+        </record>
+
+        <record
+            forcecreate="True"
+            id="decimal_factor_carbon_value"
+            model="decimal.precision"
+        >
+            <field name="name">Carbon Factor value</field>
+            <field name="digits">6</field>
+        </record>
+    </data>
+</odoo>

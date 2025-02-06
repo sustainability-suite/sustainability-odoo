@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template
+            id="report_invoice_document"
+            inherit_id="account.report_invoice_document"
+        >
+            <xpath expr="//div[@id='payment_term']" position="after">
+                <t t-if="o.carbon_balance">
+                    <div
+                        style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;"
+                    >
+                        <strong>
+                            CO
+                            <sub>2</sub>
+                            Equivalent:
+                        </strong>
+                        <span t-out="round(-o.carbon_balance)" />
+                        <span t-out="o.carbon_currency_id.currency_unit_label" />
+                        <div t-out="o.company_id.invoice_report_footer" />
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>
