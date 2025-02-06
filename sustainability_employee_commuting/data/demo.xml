@@ -54,7 +54,7 @@
         <function model="account.move" name="action_post">
             <value
                 model="account.move"
-                eval="obj().search([('journal_id', '=', ref('sustainability.account_journal_carbon'))]).ids"
+                eval="obj().search([('journal_id', '=', ref('sustainability.account_journal_carbon')), ('state', '=', 'draft')]).ids"
             />
         </function>
         <function model="account.move" name="action_recompute_carbon">
