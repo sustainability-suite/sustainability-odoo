@@ -527,7 +527,6 @@ msgid "CO2 Equivalent"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
@@ -1257,9 +1256,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__factor_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_product_supplierinfo_tree_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_country_form
@@ -1931,7 +1928,6 @@ msgid "Missing carbon factor for %s (carbon type: %s)"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
@@ -2402,7 +2398,6 @@ msgid "Products Categories"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_country_form
@@ -2580,7 +2575,6 @@ msgid "See CO2 value origin"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
@@ -2873,7 +2867,6 @@ msgid "Uncertainty Value"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_supplierinfo_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
