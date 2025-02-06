@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="50" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//page[@name='sales_purchases']//group[@name='container_row_2']"
+                    position="after"
+                >
+                    <group string="CO2 Settings" name="group_carbon_settings">
+                        <field name="carbon_allowed_factor_ids" invisible="1" />
+
+                        <group string="Purchases">
+                            <label for="carbon_in_is_manual" string="Mode" />
+                            <div class="gap-1 d-inline-flex ml-3">
+                                <div
+                                    class="opacity-50 mr-2"
+                                    invisible="not carbon_in_is_manual"
+                                >Undefined</div>
+                                <div
+                                    style="font-weight: bold;"
+                                    invisible="carbon_in_is_manual"
+                                >Undefined</div>
+
+                                <field
+                                    name="carbon_in_is_manual"
+                                    nolabel="1"
+                                    widget="boolean_toggle"
+                                    class=""
+                                    style="margin-left: 8px;"
+                                />
+                                <field name="carbon_in_mode" invisible="1" />
+
+                                <div
+                                    class="opacity-50"
+                                    invisible="carbon_in_is_manual"
+                                >Set</div>
+                                <div
+                                    style="font-weight: bold;"
+                                    invisible="not carbon_in_is_manual"
+                                >Set</div>
+                            </div>
+                            <field
+                                name="carbon_in_fallback_reference"
+                                widget="reference"
+                                invisible="carbon_in_is_manual"
+                            />
+                            <field
+                                name="carbon_in_factor_id"
+                                string="Emission Factor"
+                                invisible="not carbon_in_is_manual"
+                                required="carbon_in_is_manual"
+                            />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
