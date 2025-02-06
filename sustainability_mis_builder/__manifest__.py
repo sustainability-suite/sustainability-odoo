@@ -4,7 +4,7 @@
 {
     "name": "Sustainability MIS Builder",
     "summary": "Provide CO2e accounting lines data for MIS builder reports",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat"],
     "development_status": "Production/Stable",
