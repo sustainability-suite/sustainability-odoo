@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -196,7 +196,6 @@ msgstr ""
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_bank_statement_line__employee_remote_work_carbon_date
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_move__employee_remote_work_carbon_date
-#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_payment__employee_remote_work_carbon_date
 msgid "Employee Remote Work Carbon Date"
 msgstr ""
 
@@ -215,7 +214,6 @@ msgstr ""
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_bank_statement_line__employee_commuting_carbon_date
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_move__employee_commuting_carbon_date
-#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_payment__employee_commuting_carbon_date
 msgid "Employee commuting date"
 msgstr ""
 
@@ -227,7 +225,6 @@ msgstr ""
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_bank_statement_line__is_employee_commuting_carbon
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_move__is_employee_commuting_carbon
-#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_payment__is_employee_commuting_carbon
 msgid "Employees' commuting carbon emissions"
 msgstr ""
 
@@ -249,7 +246,6 @@ msgstr ""
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_bank_statement_line__is_employee_remote_work_carbon
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_move__is_employee_remote_work_carbon
-#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_account_payment__is_employee_remote_work_carbon
 msgid "Is Employee Remote Work Carbon"
 msgstr ""
 
