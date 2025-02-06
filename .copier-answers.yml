@@ -11,7 +11,7 @@ github_ci_extra_env:
     OCA_GIT_USER_EMAIL: info@mycompanyco2.org
     OCA_GIT_USER_NAME: sustainabilitybot
 github_enable_codecov: false
-github_enable_makepot: false
+github_enable_makepot: true
 github_enable_stale_action: false
 github_enforce_dev_status_compatibility: false
 include_wkhtmltopdf: false
