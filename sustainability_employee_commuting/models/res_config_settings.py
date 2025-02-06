@@ -24,7 +24,7 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.employee_commuting_carbon_cronjob_active",
         readonly=False,
     )
-    
+
     employee_commuting_post_account_move_active = fields.Boolean(
         string="Post account move when cron is finished",
         related="company_id.employee_commuting_post_account_move_active",
