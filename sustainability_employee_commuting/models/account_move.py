@@ -15,6 +15,6 @@ class AccountMove(models.Model):
 
     def _sustainability_empty_carbon_fields(self):
         self.is_employee_commuting_carbon = self.employee_commuting_carbon_date = False
-        self.is_employee_remote_work_carbon = (
-            self.employee_remote_work_carbon_date
-        ) = False
+        self.is_employee_remote_work_carbon = self.employee_remote_work_carbon_date = (
+            False
+        )
