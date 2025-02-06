@@ -31,7 +31,7 @@
         <field name="name">MIS Carbon Account Move Line Tree</field>
         <field name="model">mis.carbon.account.move.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="carbon_currency_id" invisible="1" />
                 <field name="date" />
                 <field name="journal_id" />
@@ -42,7 +42,7 @@
                 <field name="debit" sum="Total Debit" />
                 <field name="credit" sum="Total Credit" />
                 <field name="balance" sum="Total Balance" />
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>
