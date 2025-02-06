@@ -30,6 +30,9 @@ jobs:
       OCA_GIT_USER_EMAIL: info@mycompanyco2.org
       OCA_GIT_USER_NAME: sustainabilitybot
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Update .pot files
         run: oca_export_and_push_pot https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'sustainability-suite' }}
