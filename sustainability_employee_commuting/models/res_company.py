@@ -23,8 +23,13 @@ class ResCompany(models.Model):
     employee_commuting_carbon_cronjob_active = fields.Boolean(
         string="Cronjob active", default=False
     )
+    employee_commuting_post_account_move_active = fields.Boolean(
+        string="Post account move when cron is finished", default=False
+    )
 
     def _cron_carbon_commuting_account_move_create(self, to_post=False):
+        if not to_post:
+            to_post = self.employee_commuting_post_account_move_active
         for company in self.env["res.company"].search(
             [("employee_commuting_carbon_cronjob_active", "=", True)]
         ):

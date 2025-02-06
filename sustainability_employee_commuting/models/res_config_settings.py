@@ -24,6 +24,12 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.employee_commuting_carbon_cronjob_active",
         readonly=False,
     )
+    
+    employee_commuting_post_account_move_active = fields.Boolean(
+        string="Post account move when cron is finished",
+        related="company_id.employee_commuting_post_account_move_active",
+        readonly=False,
+    )
 
     def set_values(self):
         res = super().set_values()
