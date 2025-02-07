@@ -1,0 +1,15 @@
+{
+  "pull_requests": {
+    "orphaned_commits": "CI stuff",
+    "sustainability-suite/sustainability-odoo#104": "old stuff",
+    "sustainability-suite/sustainability-odoo#179": "CI stuff",
+    "sustainability-suite/sustainability-odoo#180": "not relevant",
+    "sustainability-suite/sustainability-odoo#190": "not relevant",
+    "sustainability-suite/sustainability-odoo#195": "not relevant",
+    "sustainability-suite/sustainability-odoo#268": "not relevant",
+    "sustainability-suite/sustainability-odoo#274": "no hr_homeworking in 16.0",
+    "sustainability-suite/sustainability-odoo#270": "already backported",
+    "sustainability-suite/sustainability-odoo#276": "already backported",
+    "sustainability-suite/sustainability-odoo#305": "(auto) Nothing to port from PR #305"
+  }
+}
