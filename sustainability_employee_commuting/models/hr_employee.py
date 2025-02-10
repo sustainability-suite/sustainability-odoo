@@ -1,11 +1,9 @@
-import logging
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
-_logger = logging.getLogger(__name__)
-
+from odoo.addons.hr_homeworking.models.hr_homeworking import DAYS
 
 WEEKS_PER_MONTH = 4
 # 4 weeks / months for a ratio of 48 weeks / year (5 weeks holiday)
@@ -17,6 +15,16 @@ class HrEmployee(models.Model):
 
     carbon_commuting_ids = fields.One2many(
         "carbon.hr.commuting", "employee_id", string="Employee commuting records"
+    )
+    work_days_home = fields.Integer(
+        string="Work Days at Home",
+        compute="_compute_work_days_home",
+        store=True,
+        help="Number of days per week the employee works from home.",
+    )
+    has_location = fields.Boolean(
+        default=False,
+        store=True,
     )
 
     def _get_carbon_commuting_line_vals(self, date) -> dict:
@@ -78,3 +86,21 @@ class HrEmployee(models.Model):
             total_uncertainty_value,
             total_carbon_details,
         )
+
+    @api.depends(
+        *DAYS,
+        "exceptional_location_id",
+    )
+    def _compute_work_days_home(self):
+        for employee in self:
+            home_days = 0
+
+            for day in DAYS:
+                location = employee[day] or employee.exceptional_location_id
+
+                if location and location.location_type == "home":
+                    home_days += 1
+                if location and location.location_type:
+                    employee.has_location = True
+
+            employee.work_days_home = home_days

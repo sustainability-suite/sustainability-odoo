@@ -1,6 +1,6 @@
 {
     "name": "Sustainability Purchase",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -15,11 +15,11 @@
         # Data
         "data/ir_cron.xml",
         # Views
-        # "views/product_supplierinfo.xml",
         "views/carbon_factor.xml",
         "views/carbon_line_origin.xml",
         "views/purchase_order.xml",
         "views/res_partner.xml",
+        "views/purchase_supplierinfo.xml",
     ],
     "demo": [
         "data/demo.xml",

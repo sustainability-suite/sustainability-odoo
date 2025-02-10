@@ -39,6 +39,9 @@ class CarbonFactor(models.Model):
     country_group_id = fields.Many2one(
         "res.country.group", string="Country Group", tracking=True
     )
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin", inverse_name="factor_id", string="Origins"
+    )
 
     # Categories fields
     parent_id = fields.Many2one(
@@ -98,6 +101,8 @@ class CarbonFactor(models.Model):
     product_qty = fields.Integer(compute="_compute_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
+    contact_qty = fields.Integer(compute="_compute_contact_qty")
+    supplierinfo_qty = fields.Integer(compute="_compute_supplierinfo_qty")
 
     # --------------------------------------------
 
@@ -184,6 +189,16 @@ class CarbonFactor(models.Model):
         count_data = self._get_count_by_model(model="product.category")
         for factor in self:
             factor.product_categ_qty = count_data.get(factor.id, 0)
+
+    def _compute_contact_qty(self):
+        count_data = self._get_count_by_model(model="res.partner")
+        for factor in self:
+            factor.contact_qty = count_data.get(factor.id, 0)
+
+    def _compute_supplierinfo_qty(self):
+        count_data = self._get_count_by_model(model="product.supplierinfo")
+        for factor in self:
+            factor.supplierinfo_qty = count_data.get(factor.id, 0)
 
     def _compute_carbon_currency_id(self):
         for factor in self:
@@ -439,6 +454,15 @@ class CarbonFactor(models.Model):
 
         return total_value, total_uncertainty_value, factor_to_details
 
+    @classmethod
+    def _get_uncertainty_value(
+        cls, uncertainty_percentage: float, data_uncertainty_percentage: float
+    ) -> float:
+        """
+        Return the uncertainty value of a given value depending on the uncertainty percentage. The float is a percentage, 1 = 100%, 0.5 = 50%, etc.
+        """
+        return (uncertainty_percentage**2 + data_uncertainty_percentage**2) ** 0.5
+
     def _get_carbon_value(
         self,
         distribution: float,
@@ -448,6 +472,7 @@ class CarbonFactor(models.Model):
 
         quantity = kwargs.get("quantity")
         from_uom_id = kwargs.get("from_uom_id")
+        product_id = kwargs.get("product_id")
         amount = kwargs.get("amount")
         from_currency_id = kwargs.get("from_currency_id")
         data_uncertainty_percentage = kwargs.get("data_uncertainty_percentage")
@@ -455,9 +480,9 @@ class CarbonFactor(models.Model):
         date = kwargs.get("date", fields.Date.today())
 
         # --- The uncertainty percentage is common to all factor values
-        uncertainty_percentage = (
-            self.uncertainty_percentage**2 + data_uncertainty_percentage**2
-        ) ** 0.5
+        uncertainty_percentage = self._get_uncertainty_value(
+            self.uncertainty_percentage, data_uncertainty_percentage
+        )
 
         # --- These are the infos that will be returned
         result_value = 0.0
@@ -472,12 +497,34 @@ class CarbonFactor(models.Model):
                 monetary_currency_id,
             ) = factor_value.get_infos()
 
+            weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
+
             if compute_method == "monetary" and amount is not None and from_currency_id:
                 # We convert the amount to the currency used in the factor value
                 partial_value_result = carbon_value * from_currency_id._convert(
                     amount, monetary_currency_id, self.env.company, date
                 )
-
+            elif (
+                compute_method == "physical"
+                and quantity is not None
+                and self.carbon_uom_id.category_id == weight_uom_category
+            ):
+                if not product_id.weight or product_id.weight <= 0:
+                    raise ValidationError(
+                        _(
+                            "The weight may not be defined or is zero for the associated product (%s). "
+                            "Please ensure the weight is properly set to compute the carbon value.",
+                            product_id.display_name,
+                        )
+                    )
+                default_weight_uom = self.env[
+                    "product.template"
+                ]._get_weight_uom_id_from_ir_config_parameter()
+                # Convert the product weight from kilograms to the carbon factor's UoM
+                converted_weight = default_weight_uom._compute_quantity(
+                    product_id.weight, self.carbon_uom_id, round=False
+                )
+                partial_value_result = carbon_value * converted_weight * quantity
             elif compute_method == "physical" and quantity is not None and from_uom_id:
                 # Units of measure can't be converted if they are not in the same category
                 if from_uom_id.category_id != uom_id.category_id:
@@ -567,11 +614,25 @@ class CarbonFactor(models.Model):
         return self._generate_action(
             title=_("Product Category for"),
             model="product.category",
-            ids=self._get_distribution_lines_res_ids("product.template"),
+            ids=self._get_distribution_lines_res_ids("product.category"),
         )
 
     def action_see_account_move_ids(self):
         origins = self.env["carbon.line.origin"].search([("factor_id", "in", self.ids)])
         return self._generate_action(
             title=_("Journal Entries"), model="account.move", ids=origins.move_id.ids
+        )
+
+    def action_see_contact_ids(self):
+        return self._generate_action(
+            title="Contact",
+            model="res.partner",
+            ids=self._get_distribution_lines_res_ids("res.partner"),
+        )
+
+    def action_see_supplierinfo_ids(self):
+        return self._generate_action(
+            title="Supplier Info",
+            model="product.supplierinfo",
+            ids=self._get_distribution_lines_res_ids("product.supplierinfo"),
         )

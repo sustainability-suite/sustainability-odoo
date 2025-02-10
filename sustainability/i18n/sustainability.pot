@@ -323,6 +323,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sustainability.selection__product_category__carbon_out_mode__auto
 #: model:ir.model.fields.selection,name:sustainability.selection__product_product__carbon_in_mode__auto
 #: model:ir.model.fields.selection,name:sustainability.selection__product_product__carbon_out_mode__auto
+#: model:ir.model.fields.selection,name:sustainability.selection__product_supplierinfo__carbon_in_mode__auto
+#: model:ir.model.fields.selection,name:sustainability.selection__product_supplierinfo__carbon_out_mode__auto
 #: model:ir.model.fields.selection,name:sustainability.selection__product_template__carbon_in_mode__auto
 #: model:ir.model.fields.selection,name:sustainability.selection__product_template__carbon_out_mode__auto
 #: model:ir.model.fields.selection,name:sustainability.selection__res_company__carbon_in_mode__auto
@@ -452,10 +454,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_allowed_factor_ids
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_config_settings__carbon_allowed_factor_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_allowed_factor_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_allowed_factor_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_allowed_factor_ids
 msgid "Carbon Allowed Factor"
 msgstr ""
 
@@ -526,9 +531,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_has_valid_distribution
 msgid "Carbon In Has Valid Distribution"
 msgstr ""
 
@@ -537,9 +545,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_is_manual
 msgid "Carbon In Is Manual"
 msgstr ""
 
@@ -548,9 +559,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_mode
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_mode
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_mode
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_mode
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_mode
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_mode
 msgid "Carbon In Mode"
 msgstr ""
 
@@ -576,9 +590,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_has_valid_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_has_valid_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_has_valid_distribution
 msgid "Carbon Out Has Valid Distribution"
 msgstr ""
 
@@ -587,9 +604,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_is_manual
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_is_manual
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_is_manual
 msgid "Carbon Out Is Manual"
 msgstr ""
 
@@ -598,9 +618,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_mode
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_mode
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_mode
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_mode
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_mode
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_mode
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_mode
 msgid "Carbon Out Mode"
 msgstr ""
 
@@ -796,6 +819,16 @@ msgstr ""
 #. module: sustainability
 #: model:ir.ui.menu,name:sustainability.menu_sustainability_configuration
 msgid "Configuration"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__contact_qty
+msgid "Contact Qty"
 msgstr ""
 
 #. module: sustainability
@@ -1004,9 +1037,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_distribution_line_ids
 msgid "Distribution lines IN"
 msgstr ""
 
@@ -1015,9 +1051,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_distribution_line_ids
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_distribution_line_ids
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_distribution_line_ids
 msgid "Distribution lines OUT"
 msgstr ""
 
@@ -1078,10 +1117,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_config_settings__carbon_in_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_factor_id
 msgid "Emission Factor Purchases"
 msgstr ""
 
@@ -1090,10 +1132,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_config_settings__carbon_out_factor_id
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_factor_id
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_factor_id
 msgid "Emission Factor Sales"
 msgstr ""
 
@@ -1244,9 +1289,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_fallback_reference
 msgid "Fallback record"
 msgstr ""
 
@@ -1255,9 +1303,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_fallback_reference
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_fallback_reference
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_fallback_reference
 msgid "Fallback record "
 msgstr ""
 
@@ -1312,6 +1363,12 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__hfc_value
 msgid "HFC (kgCO2e)"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__has_computed_carbon_mode
+#: model:ir.model.fields,field_description:sustainability.field_res_users__has_computed_carbon_mode
+msgid "Has Computed Carbon Mode"
 msgstr ""
 
 #. module: sustainability
@@ -1609,6 +1666,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sustainability.selection__product_category__carbon_out_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__product_product__carbon_in_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__product_product__carbon_out_mode__manual
+#: model:ir.model.fields.selection,name:sustainability.selection__product_supplierinfo__carbon_in_mode__manual
+#: model:ir.model.fields.selection,name:sustainability.selection__product_supplierinfo__carbon_out_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__product_template__carbon_in_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__product_template__carbon_out_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__res_company__carbon_in_mode__manual
@@ -1685,9 +1744,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__model_name
 #: model:ir.model.fields,field_description:sustainability.field_product_category__model_name
 #: model:ir.model.fields,field_description:sustainability.field_product_product__model_name
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__model_name
 #: model:ir.model.fields,field_description:sustainability.field_product_template__model_name
 #: model:ir.model.fields,field_description:sustainability.field_res_company__model_name
 #: model:ir.model.fields,field_description:sustainability.field_res_country__model_name
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__model_name
+#: model:ir.model.fields,field_description:sustainability.field_res_users__model_name
 msgid "Model Name"
 msgstr ""
 
@@ -1792,6 +1854,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__name
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_value_report_search
 msgid "Name"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__activity_calendar_event_id
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
 msgstr ""
 
 #. module: sustainability
@@ -1958,6 +2032,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Odoo S.A"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_line_origin_ids
+msgid "Origins"
 msgstr ""
 
 #. module: sustainability
@@ -2392,10 +2471,8 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
 msgid ""
-"Some values miss a\n"
-"                                    currency or a unit of measure\n"
-"                                    <br/>\n"
-"                                    Please fix them before using this factor."
+"Some values miss a currency or a unit of measure <br/> Please fix them "
+"before using this factor."
 msgstr ""
 
 #. module: sustainability
@@ -2429,6 +2506,28 @@ msgstr ""
 #. module: sustainability
 #: model:ir.ui.menu,name:sustainability.menu_nomenclature_sub_category
 msgid "Sub Categories"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_account_move_line__carbon_supplier_id
+msgid "Supplier Info"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_line_mixin.py:0
+#, python-format
+msgid "Supplier info"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__supplierinfo_qty
+msgid "Supplierinfo Qty"
 msgstr ""
 
 #. module: sustainability
@@ -2486,6 +2585,15 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_factor.py:0
 #, python-format
 msgid ""
+"The weight may not be defined or is zero for the associated product (%s). "
+"Please ensure the weight is properly set to compute the carbon value."
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_factor.py:0
+#, python-format
+msgid ""
 "To compute a carbon cost, you must pass:\n"
 "- either a quantity and a unit of measure\n"
 "- or a price and a currency (+ an optional date)\n"
@@ -2509,9 +2617,12 @@ msgstr ""
 #: model:ir.model.fields,help:sustainability.field_carbon_mixin__carbon_in_use_distribution
 #: model:ir.model.fields,help:sustainability.field_product_category__carbon_in_use_distribution
 #: model:ir.model.fields,help:sustainability.field_product_product__carbon_in_use_distribution
+#: model:ir.model.fields,help:sustainability.field_product_supplierinfo__carbon_in_use_distribution
 #: model:ir.model.fields,help:sustainability.field_product_template__carbon_in_use_distribution
 #: model:ir.model.fields,help:sustainability.field_res_company__carbon_in_use_distribution
 #: model:ir.model.fields,help:sustainability.field_res_country__carbon_in_use_distribution
+#: model:ir.model.fields,help:sustainability.field_res_partner__carbon_in_use_distribution
+#: model:ir.model.fields,help:sustainability.field_res_users__carbon_in_use_distribution
 msgid "Todo: add help"
 msgstr ""
 
@@ -2663,9 +2774,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_use_distribution
 msgid "Use Distribution"
 msgstr ""
 
@@ -2674,9 +2788,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_use_distribution
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_use_distribution
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_use_distribution
 msgid "Use Distribution "
 msgstr ""
 
@@ -2701,6 +2818,11 @@ msgid "Used as a fallback value for sales"
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_filter
+msgid "Used in computation"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_value
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__value_ids
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__carbon_value
@@ -2718,9 +2840,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_in_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_in_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_in_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_in_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_in_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_in_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_in_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_in_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_in_value_origin
 msgid "Value origin"
 msgstr ""
 
@@ -2729,9 +2854,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_out_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_out_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_out_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_out_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_out_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_out_value_origin
 #: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_out_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_out_value_origin
+#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_out_value_origin
 msgid "Value origin "
 msgstr ""
 

@@ -32,6 +32,27 @@ class AccountMoveLine(models.Model):
         compute="_compute_is_carbon_positive", store=False, readonly=True
     )
 
+    carbon_supplier_id = fields.Many2one(
+        comodel_name="product.supplierinfo",
+        string="Supplier Info",
+        compute="_compute_carbon_supplier_id",
+    )
+
+    def _compute_carbon_supplier_id(self):
+        """
+        Compute the carbon_supplier_id field.
+        Note that since the same seller can be added multiple times to the same product,
+        we need to filter the sellers by the partner_id of the order.
+        If there are multiple matches,
+        we'll take the most recent one.
+        """
+
+        for line in self:
+            seller = line.product_id.seller_ids.filtered(
+                lambda s: s.partner_id.id == line.move_id.partner_id.id  # noqa: B023
+            )
+            line.carbon_supplier_id = seller[-1] if len(seller) > 1 else seller
+
     def _prepare_analytic_distribution_line(
         self, distribution, account_id, distribution_on_each_plan
     ) -> dict:
@@ -98,6 +119,14 @@ class AccountMoveLine(models.Model):
     # --------------------------------------------
 
     @api.depends(
+        # Seller
+        "product_id.seller_ids",
+        "product_id.seller_ids.carbon_in_factor_id",
+        "move_id.partner_id",
+        # Partner
+        "partner_id",
+        "partner_id.carbon_in_factor_id",
+        # Other
         "account_id.carbon_in_factor_id",
         "product_id.carbon_in_factor_id",
         "product_id.carbon_out_factor_id",
@@ -130,7 +159,25 @@ class AccountMoveLine(models.Model):
 
     @api.model
     def _get_carbon_compute_possible_fields(self) -> list[str]:
-        return ["product_id", "account_id"]
+        return ["carbon_supplier_id", "product_id", "partner_id", "account_id"]
+
+    # --- Partner ---
+    def can_use_partner_id_carbon_value(self) -> bool:
+        self.ensure_one()
+        return self.move_id.is_outbound(include_receipts=True) and (
+            self.partner_id and self.partner_id.can_compute_carbon_value("in")
+        )
+
+    # --- Supplier ---
+    def can_use_carbon_supplier_id_carbon_value(self) -> bool:
+        self.ensure_one()
+        return bool(
+            self.carbon_supplier_id
+        ) and self.carbon_supplier_id.can_compute_carbon_value("in")
+
+    def get_carbon_supplier_id_carbon_compute_values(self) -> dict:
+        self.ensure_one()
+        return self.get_product_id_carbon_compute_values()
 
     def _get_carbon_compute_kwargs(self) -> dict:
         res = super()._get_carbon_compute_kwargs()
@@ -196,7 +243,11 @@ class AccountMoveLine(models.Model):
 
     def get_product_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
-        return {"quantity": self.quantity, "from_uom_id": self.product_uom_id}
+        return {
+            "quantity": self.quantity,
+            "from_uom_id": self.product_uom_id,
+            "product_id": self.product_id,
+        }
 
     def action_recompute_carbon(self) -> dict:
         res = super().action_recompute_carbon()
