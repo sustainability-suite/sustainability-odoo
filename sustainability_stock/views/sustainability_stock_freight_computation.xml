@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="sustainability_stock_freight_computation_tree" model="ir.ui.view">
+            <field name="name">sustainability.stock.freight.computation.tree</field>
+            <field name="model">sustainability.stock.freight.computation</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0">
+                    <field name="origin" />
+                    <field name="destination" />
+                    <field name="transport_mode" />
+                    <field name="co2_display" />
+                    <field name="api_response" widget="text" optional="show" />
+                </tree>
+            </field>
+        </record>
+        <record id="sustainability_stock_freight_computation_filter" model="ir.ui.view">
+            <field name="name">sustainability.stock.freight.computation.search</field>
+            <field name="model">sustainability.stock.freight.computation</field>
+            <field name="arch" type="xml">
+                <search string="Search Freight Computations">
+                    <field name="origin" />
+                    <field name="destination" />
+                    <field name="transport_mode" />
+                </search>
+            </field>
+        </record>
+        <record
+            id="freight_route_computations_window_action"
+            model="ir.actions.act_window"
+        >
+            <field name="name">Freight Route Computations</field>
+            <field name="res_model">sustainability.stock.freight.computation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No computations yet !</p>
+            </field>
+        </record>
+    </data>
+</odoo>

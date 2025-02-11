@@ -61,3 +61,8 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.carbon_freight_uncertainty_percentage",
         readonly=False,
     )
+    carbon_freight_tolerance = fields.Integer(
+        string="Tolerance",
+        related="company_id.carbon_freight_tolerance",
+        readonly=False,
+    )
