@@ -183,9 +183,8 @@ class AccountMoveLine(models.Model):
         res = super()._get_carbon_compute_kwargs()
         res.update(
             {
-                "carbon_type": (
-                    "out" if self.move_id.is_inbound(include_receipts=True) else "in"
-                ),
+                # We want to get the first part of the move_type like 'in_invoice' -> 'in'. In order to get 'in_refund' -> 'in'.
+                "carbon_type": self.move_id.move_type.split("_")[0],
                 "date": self.move_id.date or self.move_id.invoice_date,
                 # We take the company currency because credit/debit are expressed in that currency
                 "from_currency_id": (
@@ -231,13 +230,21 @@ class AccountMoveLine(models.Model):
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
         return bool(self.product_id) and (
-            (
-                self.move_id.is_outbound(include_receipts=True)
+            (  # Customer Invoice
+                self.move_id.move_type in ["in_invoice", "in_receipt"]
                 and self.product_id.can_compute_carbon_value("in")
             )
-            or (
-                self.move_id.is_inbound(include_receipts=True)
+            or (  # Customer Credit Note
+                self.move_id.move_type in ["out_refund"]
                 and self.product_id.can_compute_carbon_value("out")
+            )
+            or (  # Vendor Bill
+                self.move_id.move_type in ["out_invoice", "out_receipt"]
+                and self.product_id.can_compute_carbon_value("out")
+            )
+            or (  # Vendor Credit Note
+                self.move_id.move_type in ["in_refund"]
+                and self.product_id.can_compute_carbon_value("in")
             )
         )
 
