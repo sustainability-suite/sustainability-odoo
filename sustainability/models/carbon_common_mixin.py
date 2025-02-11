@@ -5,27 +5,28 @@ class CarbonCommonMixin(models.AbstractModel):
     _name = "carbon.common.mixin"
     _description = "Common Mixin for Shared Methods and Utils Fields"
 
-    def _generate_action(self, model: str, title: str, ids: list[int]) -> dict:
-        """
-        Generate an action dictionary for the specified model and title.
-
-        This function creates an action dictionary that can be used to open a new window in the Odoo UI. The new window will display the specified model's data, filtered by the carbon domain.
-
-        Args:
-            model (str): The name of the model to display in the new window.
-            title (str): The title to display in the new window.
-            ids (list[int]): A list of integer IDs representing the records to be displayed in the new window.
-
-        Returns:
-            dict: An action dictionary that can be used to open a new window in the Odoo UI.
-        """
+    def _generate_action(
+        self,
+        model: str,
+        title: str,
+        ids: list[int] | None = None,
+        domain: list | None = None,
+    ) -> dict:
+        """Generate an action dictionary for opening a new window in the Odoo UI."""
         self.ensure_one()
+
+        ids = ids or []
+        domain = domain or []
+
+        if ids:
+            domain = [("id", "in", ids)]
+
         return {
-            "name": _("%s %s", title, self.name),
+            "name": f"{title} {self.name}",
             "type": "ir.actions.act_window",
             "res_model": model,
             "views": [(False, "tree"), (False, "form")],
-            "domain": [("id", "in", ids)],
+            "domain": domain,
             "target": "current",
             "context": {
                 **self.env.context,
@@ -74,7 +75,7 @@ class CarbonCommonMixin(models.AbstractModel):
         Open a new window to display the carbon.line.origin records from the child field for smart button.
         """
         return self._generate_action(
-            title=_("Carbon Footprint"),
+            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             ids=self.carbon_origin_child_ids.ids,
         )
