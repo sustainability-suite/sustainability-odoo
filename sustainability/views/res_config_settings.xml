@@ -146,6 +146,30 @@
             </div>
 
             <div
+                            attrs="{'invisible':['!', ('available_module_names', 'ilike', 'stock')]}"
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Use CO2e in Stock app"
+                        >
+              <div class="o_setting_left_pane">
+                <field name="module_sustainability_stock" />
+              </div>
+              <div class="o_setting_right_pane">
+                <span class="o_form_label">
+                  Show CO
+                  <sub>2</sub>
+                  in Inventory
+                </span>
+                <div class="text-muted">
+                  <p>
+                    Compute and display CO
+                    <sub>2</sub>
+                    in inventory
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
                             attrs="{'invisible':['!', ('available_module_names', 'ilike', 'account_asset')]}"
                             class="col-12 col-lg-6 o_setting_box"
                             title="Compute CO2 for your assets"
