@@ -16,13 +16,14 @@ class StockPicking(models.Model):
         compute="_compute_carbon_debt",
         store=True,
     )
-
+    carbon_freight_move_ids = fields.One2many(
+        inverse_name="carbon_freight_picking_id", comodel_name="account.move"
+    )
     carbon_currency_id = fields.Many2one(
         "res.currency",
         string="Carbon Currency",
         default=lambda self: self.env.ref("sustainability.carbon_kilo").id,
     )
-
     carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
 
     def _carbon_display_notification(self, message, sticky=False) -> dict:
@@ -43,7 +44,6 @@ class StockPicking(models.Model):
         in the company configuration and the picking record.
         """
         missing_fields = []
-
         origin = picking.picking_type_id.warehouse_id.partner_id
         destination = picking.partner_id
 
@@ -91,14 +91,11 @@ class StockPicking(models.Model):
         if not picking.shipping_weight:
             return 0, None
 
-        headers = {"Authorization": f"Bearer {company.carbon_freight_climatiq_api_key}"}
-        url = company.carbon_freight_climatiq_api_url
-
         units = ("kg", "lb")
         unit_select_id = int(
             self.env["ir.config_parameter"].sudo().get_param("product.weight_in_lbs")
         )
-        unit_name = units[unit_select_id]
+        weight_unit = units[unit_select_id]
 
         origin = self._get_address_inline(
             picking.picking_type_id.warehouse_id.partner_id._display_address(
@@ -108,18 +105,57 @@ class StockPicking(models.Model):
         destination = self._get_address_inline(
             picking.partner_id._display_address(without_company=True)
         )
+        weight = picking.shipping_weight
+        transport_mode = (
+            picking.partner_id.carbon_freight_transport_mode
+            if picking.partner_id.carbon_freight_transport_mode
+            else company.carbon_freight_transport_mode
+        )
+        carbon_freight_tolerance = company.carbon_freight_tolerance
+
+        existing_computation = self.env[
+            "sustainability.stock.freight.computation"
+        ].search(
+            [
+                ("origin", "=", origin),
+                ("destination", "=", destination),
+                ("weight_unit", "=", weight_unit),
+                ("transport_mode", "=", transport_mode),
+            ],
+            limit=1,
+        )
+
+        if existing_computation:
+            co2 = existing_computation.co2_ratio * weight
+            return co2, None
 
         data = {
             "route": [
-                {"location": {"query": origin}},
-                {"transport_mode": company.carbon_freight_transport_mode},
-                {"location": {"query": destination}},
+                {
+                    "location": {"query": origin},
+                    "location_options": {"tolerance_km": carbon_freight_tolerance},
+                },
+                *(
+                    [
+                        {"transport_mode": "road"},
+                        {"transport_mode": company.carbon_freight_transport_mode},
+                        {"transport_mode": "road"},
+                    ]
+                    if company.carbon_freight_transport_mode != "road"
+                    else [{"transport_mode": "road"}]
+                ),
+                {
+                    "location": {"query": destination},
+                    "location_options": {"tolerance_km": carbon_freight_tolerance},
+                },
             ],
             "cargo": {
                 "weight": picking.shipping_weight,
-                "weight_unit": unit_name,
+                "weight_unit": weight_unit,
             },
         }
+        headers = {"Authorization": f"Bearer {company.carbon_freight_climatiq_api_key}"}
+        url = company.carbon_freight_climatiq_api_url
 
         error_message = _(
             "An error occurred while retrieving carbon emissions data. If the issue persists, contact support."
@@ -127,7 +163,6 @@ class StockPicking(models.Model):
 
         try:
             response = requests.post(url, json=data, headers=headers, timeout=30)
-
             if response.status_code >= 400:
                 response_data = response.json()
                 logging.error(f"HTTP {response.status_code} {response.text}")
@@ -136,7 +171,18 @@ class StockPicking(models.Model):
                     detailed_error, sticky=True
                 )
 
-            return response.json().get("co2e", 0), None
+            co2 = response.json().get("co2e", 0)
+            self.env["sustainability.stock.freight.computation"].create(
+                {
+                    "origin": origin,
+                    "destination": destination,
+                    "weight_unit": weight_unit,
+                    "transport_mode": transport_mode,
+                    "co2_ratio": co2 / weight,
+                    "api_response": response.json(),
+                }
+            )
+            return co2, None
 
         except requests.exceptions.RequestException as err:
             logging.error(f"Request error: {err}")
@@ -167,8 +213,9 @@ class StockPicking(models.Model):
         pickings_to_process = self.filtered(lambda p: p.state == "done")
 
         for picking in pickings_to_process:
-            if missing_fields_notification := self._carbon_validate_missing_required_fields(
-                company, picking
+            if (
+                missing_fields_notification
+                := self._carbon_validate_missing_required_fields(company, picking)
             ):
                 return missing_fields_notification
 
@@ -185,19 +232,19 @@ class StockPicking(models.Model):
                 else carbon_freight_product_downstream
             )
 
-            existing_move = self.env["account.move"].search(
-                [("carbon_freight_picking_id", "=", picking.id)], limit=1
-            )
             carbon_freight_uncertainty_ratio = (
                 company.carbon_freight_uncertainty_percentage / 100
             )
 
+            existing_move = picking.carbon_freight_move_ids[
+                :1
+            ]  # should be one2one relation
             if existing_move:
                 existing_move.button_draft()
 
                 for line in existing_move.line_ids:
                     if line.product_id:
-                        line.write(
+                        line.sudo().write(
                             {
                                 "carbon_debt": picking.carbon_debt,
                                 "quantity": picking.shipping_weight,
@@ -218,41 +265,45 @@ class StockPicking(models.Model):
             else:
                 today = datetime.today().date().strftime("%Y-%m-%d")
                 flow = "Upstream" if is_inbound_receipt else "Downstream"
-                move = self.env["account.move"].create(
-                    {
-                        "ref": f"Freight_Carbon_{flow}_{today}",
-                        "journal_id": carbon_freight_journal_id.id,
-                        "invoice_date": today,
-                        "date": today,
-                        "partner_id": picking.partner_id.id,
-                        "company_id": company.id,
-                        "move_type": "in_invoice",
-                        "carbon_freight_picking_id": picking.id,
-                        "line_ids": [
-                            Command.create(
-                                {
-                                    "carbon_debt": picking.carbon_debt,
-                                    "carbon_uncertainty_value": carbon_freight_uncertainty_ratio
-                                    * picking.carbon_debt,
-                                    "carbon_data_uncertainty_percentage": carbon_freight_uncertainty_ratio,
-                                    "account_id": carbon_freight_account_id.id,
-                                    "product_id": product_id.id,
-                                    "debit": 0,
-                                    "credit": 0,
-                                    "carbon_is_locked": True,
-                                    "quantity": picking.shipping_weight,
-                                    "carbon_origin_json": {
-                                        "mode": "manual",
-                                        "details": {
-                                            "uid": self.env.uid,
-                                            "username": self.env.user.name,
+                move = (
+                    self.env["account.move"]
+                    .sudo()
+                    .create(
+                        {
+                            "ref": f"Freight_Carbon_{flow}_{today}",
+                            "journal_id": carbon_freight_journal_id.id,
+                            "invoice_date": today,
+                            "date": today,
+                            "partner_id": picking.partner_id.id,
+                            "company_id": company.id,
+                            "move_type": "in_invoice",
+                            "carbon_freight_picking_id": picking.id,
+                            "line_ids": [
+                                Command.create(
+                                    {
+                                        "carbon_debt": picking.carbon_debt,
+                                        "carbon_uncertainty_value": carbon_freight_uncertainty_ratio
+                                        * picking.carbon_debt,
+                                        "carbon_data_uncertainty_percentage": carbon_freight_uncertainty_ratio,
+                                        "account_id": carbon_freight_account_id.id,
+                                        "product_id": product_id.id,
+                                        "debit": 0,
+                                        "credit": 0,
+                                        "carbon_is_locked": True,
+                                        "quantity": picking.shipping_weight,
+                                        "carbon_origin_json": {
+                                            "mode": "manual",
+                                            "details": {
+                                                "uid": self.env.uid,
+                                                "username": self.env.user.name,
+                                            },
+                                            "model_name": self._name,
                                         },
-                                        "model_name": self._name,
                                     },
-                                },
-                            ),
-                        ],
-                    }
+                                ),
+                            ],
+                        }
+                    )
                 )
                 move.action_post()
 
