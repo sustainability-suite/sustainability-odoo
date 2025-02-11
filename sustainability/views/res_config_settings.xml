@@ -51,7 +51,6 @@
                     </block>
                     <block title="Documents">
                         <setting string="Invoice document footer">
-                            <!-- Translatable ?? -->
                             <field name="invoice_report_footer" />
                         </setting>
                     </block>
@@ -62,6 +61,13 @@
                             help="Compute and display CO2e values directly in purchase orders"
                         >
                             <field name="module_sustainability_purchase" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in Inventory"
+                            invisible="(not ('stock' in available_module_names))"
+                            help="Compute and display CO2e in inventory"
+                        >
+                            <field name="module_sustainability_stock" />
                         </setting>
                         <setting
                             string="Show assets CO2e"
@@ -137,9 +143,7 @@
                                 <tr
                                     invisible="'account_asset' in available_module_names"
                                 >
-                                    <td>
-                                        Assets Management
-                                        <i
+                                    <td> Assets Management <i
                                             class="fa fa-building-o small ml-2"
                                             title="Enterprise"
                                         />
