@@ -160,3 +160,40 @@ class TestStockFreightPickingTypes(CarbonCommon):
             is_inbound_receipt_outgoing,
             "Outgoing picking should not be detected as inbound receipt",
         )
+
+    def test_freight_computation(self):
+        """Test the creation of freight computation instance serving as a cache to avoid re-calling the API"""
+        picking = self.incoming_picking
+        origin = picking._get_address_inline(
+            picking.picking_type_id.warehouse_id.partner_id._display_address(
+                without_company=True
+            )
+        )
+        destination = picking._get_address_inline(
+            picking.partner_id._display_address(without_company=True)
+        )
+        weight = picking.shipping_weight
+        transport_mode = self.env.company.carbon_freight_transport_mode
+        units = ("kg", "lb")
+        unit_select_id = int(
+            self.env["ir.config_parameter"].sudo().get_param("product.weight_in_lbs")
+        )
+        weight_unit = units[unit_select_id]
+
+        existing_computation = self.env[
+            "sustainability.stock.freight.computation"
+        ].search(
+            [
+                ("origin", "=", origin),
+                ("destination", "=", destination),
+                ("weight_unit", "=", weight_unit),
+                ("transport_mode", "=", transport_mode),
+                (
+                    "co2_ratio",
+                    "=",
+                    self.incoming_picking.carbon_debt / weight if weight else 0,
+                ),
+            ],
+            limit=1,
+        )
+        self.assertTrue(existing_computation)
