@@ -44,3 +44,4 @@ class ResCompany(models.Model):
     carbon_freight_uncertainty_percentage = fields.Float(
         default=0.0, string="Uncertainty"
     )
+    carbon_freight_tolerance = fields.Integer(default=10, string="Tolerance")

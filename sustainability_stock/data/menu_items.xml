@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem
+            id="menu_climatiq_api"
+            name="Climatiq API"
+            groups="base.group_system"
+            parent="sustainability.menu_sustainability_configuration"
+            sequence="15"
+        >
+            <menuitem
+                id="menu_freight_route_computations"
+                name="Freight Route Computations"
+                sequence="10"
+                action="freight_route_computations_window_action"
+                groups="base.group_user"
+            />
+        </menuitem>
+    </data>
+</odoo>
