@@ -10,6 +10,23 @@ class TestCarbonUom(CarbonCommon):
     def setUpClass(cls):
         super().setUpClass()
 
+        # cls.env["res.currency.rate"].create(
+        #     [
+        #         {
+        #             "name": "2010-01-01",
+        #             "company_rate": 1,
+        #             "inverse_company_rate": 1,
+        #             "rate": 1,
+        #             "currency_id": cls.currency_usd.id,
+        #         },
+        #         {
+        #             "name": "2023-01-01",
+        #             "company_rate": 1,
+        #             "currency_id": cls.currency_eur.id,
+        #         },
+        #     ]
+        # )
+
         (
             cls.carbon_factor_monetary,
             cls.carbon_factor_physical,
