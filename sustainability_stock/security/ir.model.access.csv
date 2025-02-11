@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sustainability_stock_freight_computation_rule_access,sustainability_stock_freight_computation_rule_access,model_sustainability_stock_freight_computation,base.group_user,1,1,1,1

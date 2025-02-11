@@ -43,6 +43,12 @@
                         />
                     </setting>
                     <setting
+                        string="Tolerance (km)"
+                        help="Maximum distance corrected to match a mixed transition point."
+                    >
+                        <field name="carbon_freight_tolerance" />
+                    </setting>
+                    <setting
                         string="Product for Upstream Freight"
                         help="Select the product for upstream freight transport."
                     >
