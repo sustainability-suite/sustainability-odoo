@@ -39,30 +39,17 @@
                                 icon="fa-tasks"
                                 name="action_see_action_plans"
                                 type="object"
+                                invisible="action_plan_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_plan_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
                                             name="action_plan_qty"
                                             nolabel="1"
                                             widget="statinfo"
                                         />
-                                        Action Plans
                                     </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_plan_qty > 1"
-                                    >
-                                        <field
-                                            name="action_plan_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                        Action Plan
-                                    </span>
+                                    <span class="o_stat_text">Action Plans</span>
                                 </div>
                             </button>
                             <button
@@ -70,30 +57,17 @@
                                 icon="fa-leaf"
                                 name="action_see_actions"
                                 type="object"
+                                invisible="action_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
                                             name="action_qty"
                                             nolabel="1"
                                             widget="statinfo"
                                         />
-                                        Actions
                                     </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_qty > 1"
-                                    >
-                                        <field
-                                            name="action_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                        Action
-                                    </span>
+                                    <span class="o_stat_text">Actions</span>
                                 </div>
                             </button>
                         </div>

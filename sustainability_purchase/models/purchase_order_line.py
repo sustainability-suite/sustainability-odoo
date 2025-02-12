@@ -95,6 +95,7 @@ class PurchaseOrderLine(models.Model):
                 "carbon_type": "in",
                 "date": self.date_approve or self.date_order,
                 "from_currency_id": self.currency_id,
+                "reference": self.order_id.mapped("name"),
             }
         )
         return res
