@@ -134,6 +134,12 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
+    move_line_product_id = fields.Many2one(
+        related="move_line_id.product_id",
+        string="Product",
+        store=True,
+        readonly=True,
+    )
 
     @api.model
     def _get_model_to_field_name(self) -> dict[str, str]:
