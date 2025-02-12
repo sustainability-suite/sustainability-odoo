@@ -119,23 +119,13 @@ class AccountMoveLine(models.Model):
     # --------------------------------------------
 
     @api.depends(
-        # Seller
-        "product_id.seller_ids",
-        "product_id.seller_ids.carbon_in_factor_id",
-        "move_id.partner_id",
-        # Partner
+        "product_id",
         "partner_id",
-        "partner_id.carbon_in_factor_id",
-        # Other
-        "account_id.carbon_in_factor_id",
-        "product_id.carbon_in_factor_id",
-        "product_id.carbon_out_factor_id",
         "quantity",
         "credit",
         "debit",
         "move_type",
-        "move_id.invoice_date",
-        "move_id.company_id.carbon_lock_date",
+        "invoice_date",
         "carbon_data_uncertainty_percentage",
     )
     def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):

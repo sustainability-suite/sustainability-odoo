@@ -53,13 +53,8 @@ class PurchaseOrderLine(models.Model):
     # --------------------------------------------
 
     @api.depends(
-        # Seller
-        "product_id.seller_ids",
-        "product_id.seller_ids.carbon_in_factor_id",
-        "order_id.partner_id",
         "partner_id",
-        # Product
-        "product_id.carbon_in_factor_id",
+        "product_id",
         "product_qty",
         "product_uom",
         "price_subtotal",
@@ -130,9 +125,3 @@ class PurchaseOrderLine(models.Model):
     def get_carbon_supplier_id_carbon_compute_values(self) -> dict:
         self.ensure_one()
         return self.get_product_id_carbon_compute_values()
-
-    @api.model
-    def create(self, vals):
-        lines = super().create(vals)
-        lines.action_recompute_carbon()
-        return lines
