@@ -190,11 +190,10 @@ class CarbonLineOrigin(models.Model):
             return self.env[self.res_model].browse(self.res_id).exists()
         raise ValueError(f"Model {self.res_model} not found")
 
-    @api.model
+    @api.autovacuum
     def _clean_orphan_lines(self):
         """
-        Extra-cleaning method to remove lines that have no origin
-        Mid-term goal is to deprecate it/remove it. The logger is here to help us doing this decision.
+        Cleaning method to remove lines that have no origin
         """
         lines_to_remove = self.search([("res_id", "in", [0, False])])
         if lines_to_remove:
@@ -203,12 +202,6 @@ class CarbonLineOrigin(models.Model):
                 len(lines_to_remove),
             )
             lines_to_remove.unlink()
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        res = super().create(vals_list)
-        self._clean_orphan_lines()
-        return res
 
     # --------------------------------------------
     #                   ACTIONS
