@@ -11,7 +11,7 @@ class CarbonFactor(models.Model):
         "mail.thread",
         "mail.activity.mixin",
         "carbon.copy.mixin",
-        "common.mixin",
+        "carbon.common.mixin",
     ]
     _description = "Carbon Emission Factor"
     _order = "name"
@@ -42,6 +42,7 @@ class CarbonFactor(models.Model):
     carbon_line_origin_ids = fields.One2many(
         comodel_name="carbon.line.origin", inverse_name="factor_id", string="Origins"
     )
+    comment = fields.Html()
 
     # Categories fields
     parent_id = fields.Many2one(
@@ -102,7 +103,14 @@ class CarbonFactor(models.Model):
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
     contact_qty = fields.Integer(compute="_compute_contact_qty")
+    product_supplierinfo_qty = fields.Integer(
+        compute="_compute_product_supplierinfo_qty"
+    )
+    product_supplierinfo_ids = fields.One2many(
+        comodel_name="product.product", compute="_compute_product_supplierinfo_ids"
+    )
     supplierinfo_qty = fields.Integer(compute="_compute_supplierinfo_qty")
+    carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
 
     # --------------------------------------------
 
@@ -199,6 +207,28 @@ class CarbonFactor(models.Model):
         count_data = self._get_count_by_model(model="product.supplierinfo")
         for factor in self:
             factor.supplierinfo_qty = count_data.get(factor.id, 0)
+
+    def _compute_product_supplierinfo_ids(self):
+        for factor in self:
+            suppliers_ids = self._get_distribution_lines_res_ids("product.supplierinfo")
+            supplierinfo_ids = self.env["product.supplierinfo"].browse(suppliers_ids)
+            factor.product_supplierinfo_ids = self.env["product.product"].search(
+                [
+                    (
+                        "product_tmpl_id",
+                        "in",
+                        supplierinfo_ids.mapped("product_tmpl_id").ids,
+                    )
+                ]
+            )
+
+    def _compute_product_supplierinfo_qty(self):
+        for factor in self:
+            factor.product_supplierinfo_qty = len(factor.product_supplierinfo_ids)
+
+    def _compute_carbon_line_origin_qty(self):
+        for factor in self:
+            factor.carbon_line_origin_qty = len(self.carbon_line_origin_ids)
 
     def _compute_carbon_currency_id(self):
         for factor in self:
@@ -528,14 +558,20 @@ class CarbonFactor(models.Model):
             elif compute_method == "physical" and quantity is not None and from_uom_id:
                 # Units of measure can't be converted if they are not in the same category
                 if from_uom_id.category_id != uom_id.category_id:
+                    reference = ""
+                    if kwargs.get("reference"):
+                        reference = "Record Reference:" + "\n- ".join(
+                            kwargs.get("reference")
+                        )
                     raise ValidationError(
                         _(
-                            "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.",
+                            "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.\n\n%s",
                             self.name,
                             from_uom_id.name,
                             from_uom_id.category_id.name,
                             uom_id.name,
                             uom_id.category_id.name,
+                            reference,
                         )
                     )
                 partial_value_result = carbon_value * from_uom_id._compute_quantity(
@@ -551,13 +587,17 @@ class CarbonFactor(models.Model):
                         "\n\nPassed value: "
                         "\n- Record: %s (compute method: %s)"
                         "\n- Quantity: %s, UOM: %s"
-                        "\n- Amount: %s, Currency: %s",
+                        "\n- Amount: %s, Currency: %s"
+                        "%s",
                         self,
                         compute_method,
                         quantity,
                         from_uom_id,
                         amount,
                         from_currency_id,
+                        "\n- Reference: " + "\n  - ".join(kwargs.get("reference"))
+                        if kwargs.get("reference")
+                        else "",
                     )
                 )
 
@@ -625,14 +665,30 @@ class CarbonFactor(models.Model):
 
     def action_see_contact_ids(self):
         return self._generate_action(
-            title="Contact",
+            title=_("Contact"),
             model="res.partner",
             ids=self._get_distribution_lines_res_ids("res.partner"),
         )
 
-    def action_see_supplierinfo_ids(self):
+    def action_see_product_supplier_ids(self):
         return self._generate_action(
-            title="Supplier Info",
-            model="product.supplierinfo",
-            ids=self._get_distribution_lines_res_ids("product.supplierinfo"),
+            title=_("Product Supplier Info"),
+            model="product.product",
+            ids=self.product_supplierinfo_ids.ids,
         )
+
+    def action_see_carbon_line_origin_ids(self):
+        return self._generate_action(
+            title=_("Carbon Footprint"),
+            model="carbon.line.origin",
+            ids=self.carbon_line_origin_ids.ids,
+        )
+
+    def action_carbon_recompute_entries(self):
+        model_to_ids = defaultdict(list)
+        for origin in self.carbon_line_origin_ids:
+            model_to_ids[origin.res_model].append(origin.res_id)
+
+        for model, ids in model_to_ids.items():
+            records = self.env[model].browse(ids)
+            records.action_recompute_carbon()

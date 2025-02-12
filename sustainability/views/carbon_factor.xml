@@ -211,29 +211,38 @@
                         <div class="oe_button_box" name="button_box">
                             <button
                                 class="oe_stat_button"
+                                icon="fa-leaf"
+                                name="action_see_carbon_line_origin_ids"
+                                type="object"
+                                invisible="carbon_line_origin_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="carbon_line_origin_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Carbon Footprint</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
                                 icon="fa-bars"
                                 name="action_see_account_move_ids"
                                 type="object"
+                                invisible="account_move_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="account_move_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="account_move_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Posted Entries </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="account_move_qty > 1"
-                                    >
-                                        <field
-                                        name="account_move_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Posted Entry </span>
+                                            name="account_move_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Account Move</span>
                                 </div>
                             </button>
                             <button
@@ -241,26 +250,17 @@
                                 icon="fa-sitemap"
                                 name="action_see_child_ids"
                                 type="object"
+                                invisible="child_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="child_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="child_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Children Factors </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="child_qty > 1"
-                                    >
-                                        <field
-                                        name="child_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Child Factor </span>
+                                            name="child_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Children Factors</span>
                                 </div>
                             </button>
                             <button
@@ -268,26 +268,17 @@
                                 icon="fa-book"
                                 name="action_see_chart_of_account_ids"
                                 type="object"
+                                invisible="chart_of_account_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="chart_of_account_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="chart_of_account_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Accounts </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="chart_of_account_qty > 1"
-                                    >
-                                        <field
-                                        name="chart_of_account_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Account </span>
+                                            name="chart_of_account_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Accounts</span>
                                 </div>
                             </button>
                             <button
@@ -295,26 +286,17 @@
                                 icon="fa-th-list"
                                 name="action_see_product_ids"
                                 type="object"
+                                invisible="product_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="product_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="product_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Products </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="product_qty > 1"
-                                    >
-                                        <field
-                                        name="product_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Product </span>
+                                            name="product_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Products</span>
                                 </div>
                             </button>
                             <button
@@ -322,26 +304,37 @@
                                 icon="fa-sort"
                                 name="action_see_product_categ_ids"
                                 type="object"
+                                invisible="product_categ_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="product_categ_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="product_categ_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Products Categories </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="product_categ_qty > 1"
-                                    >
+                                            name="product_categ_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Products Categories</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-list"
+                                name="action_see_product_supplier_ids"
+                                type="object"
+                                invisible="product_supplierinfo_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
                                         <field
-                                        name="product_categ_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    /> Product Category </span>
+                                            name="product_supplierinfo_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span
+                                        class="o_stat_text"
+                                    >Product Suppliers Infos</span>
                                 </div>
                             </button>
                         </div>
@@ -411,6 +404,7 @@
                             </group>
                             <group>
                                 <field name="country_group_id" />
+                                <field name="comment" placeholder="Extra Comments..." />
                             </group>
                         </group>
                         <notebook invisible="carbon_compute_method == False">
@@ -577,6 +571,16 @@
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">list,hierarchy,form</field>
+        </record>
+
+        <record id="action_recompute_carbon_carbon_factor" model="ir.actions.server">
+            <field name="name">Re-compute CO2</field>
+            <field name="model_id" ref="sustainability.model_carbon_factor" />
+            <field name="binding_model_id" ref="sustainability.model_carbon_factor" />
+            <field name="state">code</field>
+            <field
+                name="code"
+            >action = records.action_carbon_recompute_entries()</field>
         </record>
     </data>
 </odoo>
