@@ -2525,6 +2525,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
 msgid ""
+"The weight may not be defined or is zero for the associated product (%s). "
+"Please ensure the weight is properly set to compute the carbon value."
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_factor.py:0
+msgid ""
 "To compute a carbon cost, you must pass:\n"
 "- either a quantity and a unit of measure\n"
 "- or a price and a currency (+ an optional date)\n"
