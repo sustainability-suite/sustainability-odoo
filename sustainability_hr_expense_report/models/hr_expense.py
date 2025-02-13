@@ -23,8 +23,8 @@ class HrExpense(models.Model):
             line.carbon_balance = line.carbon_debit - line.carbon_credit
 
     @api.depends(
-        "account_id.carbon_in_factor_id",
-        "product_id.carbon_in_factor_id",
+        "account_id",
+        "product_id",
         "quantity",
         "total_amount",
         "date",
