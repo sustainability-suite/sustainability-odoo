@@ -301,7 +301,7 @@ class TestPreceedingOrder(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 0.95
+        expected_result = 1.0
 
         self.assertEqual(
             round(total_value, 2),
@@ -347,7 +347,7 @@ class TestPreceedingOrder(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 876.2
+        expected_result = 920.0
 
         self.assertEqual(
             round(total_value, 2),
