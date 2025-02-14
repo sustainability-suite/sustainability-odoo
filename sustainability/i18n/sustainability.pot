@@ -2333,7 +2333,10 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
 #: model:ir.model,name:sustainability.model_product_template
+#: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_product_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 #, python-format
 msgid "Product"
 msgstr ""
@@ -2378,6 +2381,11 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_factor.py:0
 #, python-format
 msgid "Product for"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+msgid "Product is set"
 msgstr ""
 
 #. module: sustainability
