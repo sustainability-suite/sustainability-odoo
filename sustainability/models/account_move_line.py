@@ -173,8 +173,12 @@ class AccountMoveLine(models.Model):
         res = super()._get_carbon_compute_kwargs()
         res.update(
             {
-                # We want to get the first part of the move_type like 'in_invoice' -> 'in'. In order to get 'in_refund' -> 'in'.
-                "carbon_type": self.move_id.move_type.split("_")[0],
+                "carbon_type": (
+                    "out"
+                    if self.move_id.move_type
+                    in ["out_invoice", "out_refund", "out_receipt"]
+                    else "in"
+                ),
                 "date": self.move_id.date or self.move_id.invoice_date,
                 # We take the company currency because credit/debit are expressed in that currency
                 "from_currency_id": (
