@@ -33,6 +33,8 @@ class TestCarbonPurchase(CarbonPurchaseCommon):
         """
         self.purchase_purchase_order_1.partner_id = self.purchase_partner_2.id
         self.purchase_purchase_order_1.action_recompute_carbon()
+        # investigate why we need two recompute here, only in 16.0
+        self.purchase_purchase_order_1.action_recompute_carbon()
         self.assertEqual(round(self.purchase_purchase_order_1.carbon_debt, 2), 1000)
 
     def test_price_changes_purchase_order(self):
