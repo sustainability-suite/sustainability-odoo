@@ -154,7 +154,7 @@ class CarbonLineMixin(models.AbstractModel):
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
         """Build a domain to filter lines that need to be recomputed"""
         # Todo: check if tmp or fine
-        domain = [("carbon_origin_json", "=", False)]
+        domain = []
         if "all_states" not in force_compute:
             domain.append(
                 (
@@ -290,10 +290,12 @@ class CarbonLineMixin(models.AbstractModel):
     @api.model
     def _create_origin_lines(self):
         origin_vals_list = list()
-        lines_to_flush = self.search([("carbon_origin_json", "!=", False)])
+        lines_to_flush = self.filtered(
+            lambda line: line.carbon_origin_json is not False
+        )
 
         for line in lines_to_flush:
-            line.carbon_origin_ids.unlink()
+            line.carbon_origin_ids.write({"res_id": False})
             origin_vals_list.extend(line._get_line_origin_vals_list())
 
         # To avoid empty create calls
@@ -338,6 +340,9 @@ class CarbonLineMixin(models.AbstractModel):
 
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines"""
+        # maybe move clean_orphan_lines away once action_recompute_carbon
+        # is removed from tests. (why is it needed there?)
+        self.env["carbon.line.origin"]._clean_orphan_lines()
         skipped_lines = self._compute_carbon_debt(force_compute="all_states")
         if skipped_lines:
             return {

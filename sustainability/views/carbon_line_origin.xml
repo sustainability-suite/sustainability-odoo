@@ -21,6 +21,11 @@
                     <field name="move_line_partner_id" string="Partner" />
                     <field name="move_line_label" string="Label" />
                     <field name="move_line_quantity" string="Quantity" />
+                    <field
+                        name="move_line_product_id"
+                        string="Product"
+                        optional="show"
+                    />
                     <field name="move_line_product_uom_id" string="Unit of Measure" />
                     <field
                         name="carbon_data_uncertainty_percentage"
@@ -142,6 +147,7 @@
           <field name="factor_id" string="Emission Factor" />
           <field name="factor_value_type_id" string="Type" />
           <field name="factor_category_id" string="Category" />
+          <field name="move_line_product_id" string="Product" />
           <field name="move_line_product_uom_id" string='Unit of Measure' />
           <field name="move_state" string="Status" />
           <field name="move_date" />
@@ -181,6 +187,12 @@
                         string="Expense"
                         name="expense"
                         domain="[('move_line_account_id.account_type', 'in', ['expense', 'expense_depreciation', 'expense_direct_cost'])]"
+                    />
+                    <separator />
+                    <filter
+                        string="Product is set"
+                        name="product_id"
+                        domain="[('move_line_product_id', '!=', False)]"
                     />
                     <group expand="0" string="Group By">
                         <filter
@@ -228,6 +240,11 @@
                             string="Invoice Date"
                             name="by_move_date"
                             context="{'group_by': 'move_date'}"
+                        />
+                        <filter
+                            string="Product"
+                            name="by_move_line_product_id"
+                            context="{'group_by': 'move_line_product_id'}"
                         />
                     </group>
                 </search>
