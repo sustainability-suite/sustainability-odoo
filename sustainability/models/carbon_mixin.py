@@ -451,14 +451,6 @@ class CarbonMixin(models.AbstractModel):
     #                   ACTIONS
     # --------------------------------------------
 
-    def action_recompute_carbon(self, carbon_type: str = None):
-        carbon_type = carbon_type or self.env.context.get("carbon_type", "carbon_in")
-        if not hasattr(self, f"{carbon_type}_value"):
-            return False
-
-        getattr(self, f"_compute_{carbon_type}_mode")()
-        return True
-
     # def action_see_carbon_origin(self):
     #     """
     #     Pass `carbon_type` in context to ask for a value origin (e.g. 'carbon_value' will show 'carbon_value_origin' to user)

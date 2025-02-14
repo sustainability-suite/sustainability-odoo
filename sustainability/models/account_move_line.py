@@ -119,23 +119,13 @@ class AccountMoveLine(models.Model):
     # --------------------------------------------
 
     @api.depends(
-        # Seller
-        "product_id.seller_ids",
-        "product_id.seller_ids.carbon_in_factor_id",
-        "move_id.partner_id",
-        # Partner
+        "product_id",
         "partner_id",
-        "partner_id.carbon_in_factor_id",
-        # Other
-        "account_id.carbon_in_factor_id",
-        "product_id.carbon_in_factor_id",
-        "product_id.carbon_out_factor_id",
         "quantity",
         "credit",
         "debit",
         "move_type",
-        "move_id.invoice_date",
-        "move_id.company_id.carbon_lock_date",
+        "invoice_date",
         "carbon_data_uncertainty_percentage",
     )
     def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
@@ -184,7 +174,10 @@ class AccountMoveLine(models.Model):
         res.update(
             {
                 "carbon_type": (
-                    "out" if self.move_id.is_inbound(include_receipts=True) else "in"
+                    "out"
+                    if self.move_id.move_type
+                    in ["out_invoice", "out_refund", "out_receipt"]
+                    else "in"
                 ),
                 "date": self.move_id.date or self.move_id.invoice_date,
                 # We take the company currency because credit/debit are expressed in that currency
@@ -231,13 +224,21 @@ class AccountMoveLine(models.Model):
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
         return bool(self.product_id) and (
-            (
-                self.move_id.is_outbound(include_receipts=True)
+            (  # Customer Invoice
+                self.move_id.move_type in ["in_invoice", "in_receipt"]
                 and self.product_id.can_compute_carbon_value("in")
             )
-            or (
-                self.move_id.is_inbound(include_receipts=True)
+            or (  # Customer Credit Note
+                self.move_id.move_type in ["out_refund"]
                 and self.product_id.can_compute_carbon_value("out")
+            )
+            or (  # Vendor Bill
+                self.move_id.move_type in ["out_invoice", "out_receipt"]
+                and self.product_id.can_compute_carbon_value("out")
+            )
+            or (  # Vendor Credit Note
+                self.move_id.move_type in ["in_refund"]
+                and self.product_id.can_compute_carbon_value("in")
             )
         )
 

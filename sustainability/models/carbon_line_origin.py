@@ -134,6 +134,12 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
+    move_line_product_id = fields.Many2one(
+        related="move_line_id.product_id",
+        string="Product",
+        store=True,
+        readonly=True,
+    )
 
     @api.model
     def _get_model_to_field_name(self) -> dict[str, str]:
@@ -190,22 +196,12 @@ class CarbonLineOrigin(models.Model):
             return self.env[self.res_model].browse(self.res_id).exists()
         raise ValueError(f"Model {self.res_model} not found")
 
-    @api.model
+    @api.autovacuum
     def _clean_orphan_lines(self):
         """
-        Extra-cleaning method to remove lines that have no origin
-        Mid-term goal is to deprecate it/remove it. The logger is here to help us doing this decision.
+        Cleaning method to remove lines that have no origin
         """
-        lines_to_remove = self.search([("res_id", "in", [0, False])])
-        if lines_to_remove:
-            _logger.warning(
-                "CarbonLineOrigin: %s lines will be removed because they have no origin",
-                len(lines_to_remove),
-            )
-            lines_to_remove.unlink()
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        res = super().create(vals_list)
-        self._clean_orphan_lines()
-        return res
+        lines_to_remove = self.env["carbon.line.origin"].search(
+            [("res_id", "in", [0, False])]
+        )
+        lines_to_remove.unlink()
