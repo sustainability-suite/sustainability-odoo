@@ -26,6 +26,7 @@
                                     nolabel="1"
                                     style="margin-left: 8px;"
                                     widget="boolean_toggle"
+                                    options="{'autosave': False}"
                                 />
                                 <field invisible="1" name="carbon_in_mode" />
                                 <div
@@ -66,6 +67,7 @@
                                     nolabel="1"
                                     style="margin-left: 8px;"
                                     widget="boolean_toggle"
+                                    options="{'autosave': False}"
                                 />
                                 <field invisible="1" name="carbon_out_mode" />
                                 <div
