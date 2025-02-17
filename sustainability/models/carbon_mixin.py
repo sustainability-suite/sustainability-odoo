@@ -424,6 +424,9 @@ class CarbonMixin(models.AbstractModel):
         ].has_valid_carbon_value(carbon_type)
 
     def can_compute_carbon_value(self, carbon_type: str) -> bool:
+        if not self:
+            return False
+
         self.ensure_one()
         return self.has_valid_carbon_value(
             carbon_type
