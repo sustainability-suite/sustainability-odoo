@@ -262,10 +262,14 @@ class CarbonMixin(models.AbstractModel):
     """
 
     def _get_carbon_in_fallback_records(self) -> list[Any]:
+        if not self:
+            return []
         self.ensure_one()
         return []
 
     def _get_carbon_out_fallback_records(self) -> list[Any]:
+        if not self:
+            return []
         self.ensure_one()
         return []
 
@@ -274,6 +278,8 @@ class CarbonMixin(models.AbstractModel):
         Build the list of possible fallback records, then search the first valid one
         :return: a list with the path to the first valid record
         """
+        if not self:
+            return []
         self.ensure_one()
         fallback_path = []
         for rec in self._build_fallback_records_list(carbon_type):
@@ -331,6 +337,8 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
 
     def _get_record_description(self) -> str:
+        if not self:
+            return ""
         self.ensure_one()
         return self._description + (f": {self.name}" if hasattr(self, "name") else "")
 
@@ -405,12 +413,16 @@ class CarbonMixin(models.AbstractModel):
         )
 
     def has_valid_carbon_value(self, carbon_type: str):
+        if not self:
+            return False
         self.ensure_one()
         return self[
             f"carbon_{carbon_type}_is_manual"
         ] and self.has_valid_carbon_distribution(carbon_type)
 
     def has_valid_carbon_distribution(self, carbon_type: str):
+        if not self:
+            return False
         self.ensure_one()
         total_percentage = sum(
             [line.percentage for line in self._get_distribution_lines(carbon_type)]
@@ -418,12 +430,16 @@ class CarbonMixin(models.AbstractModel):
         return total_percentage == 1
 
     def has_valid_carbon_fallback(self, carbon_type: str):
+        if not self:
+            return False
         self.ensure_one()
         return self[f"carbon_{carbon_type}_fallback_reference"] and self[
             f"carbon_{carbon_type}_fallback_reference"
         ].has_valid_carbon_value(carbon_type)
 
     def can_compute_carbon_value(self, carbon_type: str) -> bool:
+        if not self:
+            return False
         self.ensure_one()
         return self.has_valid_carbon_value(
             carbon_type
@@ -433,6 +449,8 @@ class CarbonMixin(models.AbstractModel):
         self, carbon_type: str
     ) -> tuple[CarbonFactor, dict[CarbonFactor, float], str]:
         """Return factors and their distributions for a given carbon type"""
+        if not self:
+            return ()
         self.ensure_one()
         lines = self[f"carbon_{carbon_type}_distribution_line_ids"]
         return (
