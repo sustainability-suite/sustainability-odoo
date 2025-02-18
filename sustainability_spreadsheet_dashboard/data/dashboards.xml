@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record
+        id="spreadsheet_dashboard_group_sustainability"
+        model="spreadsheet.dashboard.group"
+    >
+        <field name="name">Sustainability</field>
+        <field name="sequence">100</field>
+    </record>
+
+
+    <record id="dashboard_co2" model="spreadsheet.dashboard">
+        <field name="name">CO2</field>
+        <field
+            name="spreadsheet_binary_data"
+            type="base64"
+            file="sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json"
+        />
+        <field
+            name="dashboard_group_id"
+            ref="sustainability_spreadsheet_dashboard.spreadsheet_dashboard_group_sustainability"
+        />
+        <field
+            name="group_ids"
+            eval="[Command.link(ref('base.group_user')), Command.link(ref('base.group_user'))]"
+        />
+        <field name="sequence">20</field>
+    </record>
+
+</odoo>

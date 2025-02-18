@@ -1,0 +1,145 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_spreadsheet_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-02 15:28+0000\n"
+"PO-Revision-Date: 2025-04-02 15:28+0000\n"
+"Last-Translator: Nico (Evoeron)\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_spreadsheet_dashboard
+#: model:spreadsheet.dashboard,name:sustainability_spreadsheet_dashboard.dashboard_co2
+msgid "CO2"
+msgstr ""
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Carbon Emission Factor"
+msgstr "Facteur d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Carbon footprint analysis"
+msgstr "Analyse d'empreinte carbone"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Carbon footprint analysis by emission factor"
+msgstr "Analyse d'empreinte carbone par facteur d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Carbon footprint analysis by partner"
+msgstr "Analyse d'empreinte carbone par partenaire"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Contact"
+msgstr ""
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Emission by Partner"
+msgstr "Emission par partenaire"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Emission factors repartition"
+msgstr "Répartition des facteurs d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Emissions by Emission Factor"
+msgstr "Emissions par facteur d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Journal"
+msgstr ""
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Monthly evolution by category"
+msgstr "Evolution mensuelle par catégorie"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Supplier repartitions"
+msgstr "Répartition des fournisseurs"
+
+#. module: sustainability_spreadsheet_dashboard
+#: model:spreadsheet.dashboard.group,name:sustainability_spreadsheet_dashboard.spreadsheet_dashboard_group_sustainability
+msgid "Sustainability"
+msgstr "Durabilité"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Total CO2 Emission"
+msgstr "Total des Emissions de CO2"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Top 10 Suppliers"
+msgstr "Top 10 Fournisseurs"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Top-10 Emission Factors"
+msgstr "Top-10 Facteurs d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Suppliers"
+msgstr "Fournisseurs"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Emission Factors"
+msgstr "Facteurs d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+#, python-format
+msgid "Others"
+msgstr "Autres"
