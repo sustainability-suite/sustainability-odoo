@@ -360,6 +360,10 @@ class ResCompany(models.Model):
             if to_post:
                 account_move.action_post()
 
+            self.env["carbon.line.origin"].search(
+                [("move_id", "=", account_move.id)]
+            ).write({"factor_id": self.employee_remote_work_carbon_factor_id.id})
+
             _logger.info(f"Created account move: {account_move}")
             return True
 
