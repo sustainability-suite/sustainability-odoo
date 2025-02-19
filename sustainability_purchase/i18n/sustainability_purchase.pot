@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "<span class=\"o_stat_text\">Carbon Footprint</span>"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
+msgid "<span class=\"o_stat_text\">Contacts</span>"
+msgstr ""
+
+#. module: sustainability_purchase
 #: model:ir.model.fields,help:sustainability_purchase.field_purchase_order_line__carbon_debt
 msgid ""
 "A positive value means that your system's debt grows, a negative value means"
@@ -54,6 +64,16 @@ msgid "Carbon Is Locked"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_origin_child_ids
+msgid "Carbon Origin Child"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_origin_child_qty
+msgid "Carbon Origin Child Qty"
+msgstr ""
+
+#. module: sustainability_purchase
 #: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_json
 msgid "Carbon Origin Json"
 msgstr ""
@@ -61,16 +81,6 @@ msgstr ""
 #. module: sustainability_purchase
 #: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_ids
 msgid "Carbon value origin details"
-msgstr ""
-
-#. module: sustainability_purchase
-#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
-msgid "Contact"
-msgstr ""
-
-#. module: sustainability_purchase
-#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
-msgid "Contacts"
 msgstr ""
 
 #. module: sustainability_purchase
@@ -140,13 +150,7 @@ msgstr ""
 
 #. module: sustainability_purchase
 #: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_supplier_id
-#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
 msgid "Supplier Info"
-msgstr ""
-
-#. module: sustainability_purchase
-#: model_terms:ir.ui.view,arch_db:sustainability_purchase.carbon_factor_form_inherit
-msgid "Suppliers Info"
 msgstr ""
 
 #. module: sustainability_purchase
