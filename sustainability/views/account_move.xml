@@ -105,7 +105,12 @@
                     expr="//field[@name='line_ids']//form//field[@name='credit']"
                     position="after"
                 >
-                    <field digits="[13,2]" name="carbon_debit" sum="Total CO2 Debit" optional="hide"/>
+                    <field
+                        digits="[13,2]"
+                        name="carbon_debit"
+                        sum="Total CO2 Debit"
+                        optional="hide"
+                    />
                     <field
                         digits="[13,2]"
                         name="carbon_credit"
