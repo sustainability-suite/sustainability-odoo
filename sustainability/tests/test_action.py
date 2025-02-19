@@ -27,29 +27,6 @@ class TestCarbonPurchaseAction(CarbonCommon):
             ],
         )
 
-    def test_supplierinfo_action(self):
-        # Supplier Info Action
-        supplierinfo_action = (
-            self.carbon_factor_default_fallback.action_see_supplierinfo_ids()
-        )
-        self.assertEqual(supplierinfo_action["res_model"], "product.supplierinfo")
-        self.assertEqual(
-            supplierinfo_action["name"],
-            f"Supplier Info {self.carbon_factor_default_fallback.name}",
-        )
-        self.assertEqual(
-            supplierinfo_action["domain"],
-            [
-                (
-                    "id",
-                    "in",
-                    self.carbon_factor_default_fallback._get_distribution_lines_res_ids(
-                        "product.supplierinfo"
-                    ),
-                )
-            ],
-        )
-
     def test_child_action(self):
         # Child Action
         child_action = self.carbon_factor_default_fallback.action_see_child_ids()
@@ -136,6 +113,40 @@ class TestCarbonPurchaseAction(CarbonCommon):
                     "id",
                     "in",
                     origins.move_id.ids,
+                )
+            ],
+        )
+
+    def test_carbon_line_origin_action(self):
+        # Carbon Line Origin Action
+        carbon_line_origin_action = (
+            self.carbon_factor_default_fallback.action_see_carbon_line_origin_ids()
+        )
+        self.assertEqual(carbon_line_origin_action["res_model"], "carbon.line.origin")
+        self.assertEqual(
+            carbon_line_origin_action["domain"],
+            [
+                (
+                    "id",
+                    "in",
+                    self.carbon_factor_default_fallback.carbon_line_origin_ids.ids,
+                )
+            ],
+        )
+
+    def test_product_supplier_action(self):
+        # Product Supplier Action
+        product_supplier_action = (
+            self.carbon_factor_default_fallback.action_see_product_supplier_ids()
+        )
+        self.assertEqual(product_supplier_action["res_model"], "product.product")
+        self.assertEqual(
+            product_supplier_action["domain"],
+            [
+                (
+                    "id",
+                    "in",
+                    self.carbon_factor_default_fallback.product_supplierinfo_ids.ids,
                 )
             ],
         )

@@ -20,7 +20,7 @@
           <field
                         name="carbon_debt"
                         sum="Total CO2"
-                        optional="show"
+                        optional="hide"
                         string="CO2 value"
                         digits="[13,2]"
                     />

@@ -45,49 +45,39 @@
                                 name="action_see_scenarios"
                                 class="oe_stat_button"
                                 icon="fa-pie-chart"
+                                attrs="{'invisible': [('scenario_qty', '&lt;', 1)]}"
                             >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('scenario_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="scenario_qty" widget="statinfo" nolabel="1" />
-                    Scenarios
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('scenario_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="scenario_qty" widget="statinfo" nolabel="1" />
-                    Scenario
-                  </span>
-                </div>
-              </button>
-              <button
-                                type="object"
-                                name="action_see_action_plans"
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="scenario_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Scenarios</span>
+                                </div>
+                            </button>
+                            <button
                                 class="oe_stat_button"
                                 icon="fa-tasks"
+                                name="action_see_action_plans"
+                                type="object"
+                                attrs="{'invisible': [('action_plan_qty', '&lt;', 1)]}"
                             >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('action_plan_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="action_plan_qty" widget="statinfo" nolabel="1" />
-                    Action Plans
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('action_plan_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="action_plan_qty" widget="statinfo" nolabel="1" />
-                    Action Plan
-                  </span>
-                </div>
-              </button>
-            </div>
-            <widget
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="action_plan_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Action Plans</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget
                             name="web_ribbon"
                             title="Archived"
                             bg_color="bg-danger"

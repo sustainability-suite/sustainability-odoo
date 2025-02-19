@@ -165,123 +165,132 @@
                                 type="object"
                                 name="action_see_account_move_ids"
                                 class="oe_stat_button"
-                                icon="fa-bars"
+                                icon="fa-leaf"
+                                attrs="{'invisible': [('carbon_line_origin_qty', '&lt;', 1)]}"
                             >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('account_move_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="account_move_qty" widget="statinfo" nolabel="1" />
-                    Posted Entries
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('account_move_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="account_move_qty" widget="statinfo" nolabel="1" />
-                    Posted Entry
-                  </span>
-                </div>
-              </button>
-
-              <button
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="carbon_line_origin_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Carbon Footprint</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                name="action_see_account_move_ids"
                                 type="object"
-                                name="action_see_child_ids"
+                                attrs="{'invisible': [('account_move_qty', '&lt;', 1)]}"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="account_move_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Account Move</span>
+                                </div>
+                            </button>
+                            <button
                                 class="oe_stat_button"
                                 icon="fa-sitemap"
-                            >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('child_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="child_qty" widget="statinfo" nolabel="1" />
-                    Children Factors
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('child_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="child_qty" widget="statinfo" nolabel="1" />
-                    Child Factor
-                  </span>
-                </div>
-              </button>
-
-              <button
+                                name="action_see_child_ids"
                                 type="object"
-                                name="action_see_chart_of_account_ids"
+                                attrs="{'invisible': [('child_qty', '&lt;', 1)]}"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="child_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Children Factors</span>
+                                </div>
+                            </button>
+                            <button
                                 class="oe_stat_button"
                                 icon="fa-book"
-                            >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('chart_of_account_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="chart_of_account_qty" widget="statinfo" nolabel="1" />
-                    Accounts
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('chart_of_account_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="chart_of_account_qty" widget="statinfo" nolabel="1" />
-                    Account
-                  </span>
-                </div>
-              </button>
-
-              <button
+                                name="action_see_chart_of_account_ids"
                                 type="object"
-                                name="action_see_product_ids"
+                                attrs="{'invisible': [('chart_of_account_qty', '&lt;', 1)]}"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="chart_of_account_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Accounts</span>
+                                </div>
+                            </button>
+                            <button
                                 class="oe_stat_button"
                                 icon="fa-th-list"
-                            >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('product_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="product_qty" widget="statinfo" nolabel="1" />
-                    Products
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('product_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="product_qty" widget="statinfo" nolabel="1" />
-                    Product
-                  </span>
-                </div>
-              </button>
-
-              <button
+                                name="action_see_product_ids"
                                 type="object"
-                                name="action_see_product_categ_ids"
+                                attrs="{'invisible': [('product_qty', '&lt;', 1)]}"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Products</span>
+                                </div>
+                            </button>
+                            <button
                                 class="oe_stat_button"
                                 icon="fa-sort"
+                                name="action_see_product_categ_ids"
+                                type="object"
+                                attrs="{'invisible': [('product_categ_qty', '&lt;', 1)]}"
                             >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('product_categ_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="product_categ_qty" widget="statinfo" nolabel="1" />
-                    Products Categories
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('product_categ_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="product_categ_qty" widget="statinfo" nolabel="1" />
-                    Product Category
-                  </span>
-                </div>
-              </button>
-            </div>
-            <widget
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_categ_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Products Categories</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-list"
+                                name="action_see_product_supplier_ids"
+                                type="object"
+                                attrs="{'invisible': [('product_supplierinfo_qty', '&lt;', 1)]}"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_supplierinfo_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span
+                                        class="o_stat_text"
+                                    >Product Suppliers Infos</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget
                             name="web_ribbon"
                             title="Archived"
                             bg_color="bg-danger"
@@ -337,6 +346,7 @@
               </group>
               <group>
                 <field name="country_group_id" />
+                <field name="comment" placeholder="Extra Comments..." />
               </group>
             </group>
 
@@ -506,5 +516,14 @@
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree,form</field>
     </record>
-  </data>
+    <record id="action_recompute_carbon_carbon_factor" model="ir.actions.server">
+        <field name="name">Re-compute CO2</field>
+        <field name="model_id" ref="sustainability.model_carbon_factor" />
+        <field name="binding_model_id" ref="sustainability.model_carbon_factor" />
+        <field name="state">code</field>
+        <field
+            name="code"
+        >action = records.action_carbon_recompute_entries()</field>
+    </record>
+    </data>
 </odoo>

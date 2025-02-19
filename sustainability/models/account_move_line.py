@@ -184,6 +184,7 @@ class AccountMoveLine(models.Model):
                 "from_currency_id": (
                     self.move_id.company_id or self.env.company
                 ).currency_id,
+                "reference": self.move_id.mapped("name"),
             }
         )
         return res

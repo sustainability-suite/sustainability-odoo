@@ -2,7 +2,8 @@ from odoo import api, fields, models
 
 
 class PurchaseOrder(models.Model):
-    _inherit = "purchase.order"
+    _name = "purchase.order"
+    _inherit = ["purchase.order", "carbon.common.mixin"]
 
     carbon_currency_id = fields.Many2one(
         "res.currency",
@@ -32,3 +33,8 @@ class PurchaseOrder(models.Model):
         for order in self:
             order.order_line.action_recompute_carbon()
         return {}
+
+    # Carbon Line Origin Smart Button
+    @api.model
+    def _carbon_get_line_field(cls):
+        return "order_line"
