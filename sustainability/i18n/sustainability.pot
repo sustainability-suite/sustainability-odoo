@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: sustainability
 #. odoo-python
-#: code:addons/sustainability/models/common_mixin.py:0
+#: code:addons/sustainability/models/carbon_common_mixin.py:0
 #, python-format
 msgid "%s %s"
 msgstr ""
@@ -141,6 +141,59 @@ msgid "<span class=\"o_form_label\">Use in MIS reports (OCA)</span>"
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Account Move</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Accounts</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
+#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
+msgid "<span class=\"o_stat_text\">Action Plans</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_plan_form
+#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
+msgid "<span class=\"o_stat_text\">Actions</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+#: model_terms:ir.ui.view,arch_db:sustainability.view_move_form
+msgid "<span class=\"o_stat_text\">Carbon Footprint</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Children Factors</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Product Suppliers Infos</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Products Categories</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "<span class=\"o_stat_text\">Products</span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
+msgid "<span class=\"o_stat_text\">Scenarios</span>"
+msgstr ""
+
+#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.report_invoice_document
 msgid ""
 "<strong>\n"
@@ -168,7 +221,6 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
 #: model:ir.model,name:sustainability.model_account_account
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_account_id
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 #, python-format
 msgid "Account"
@@ -182,17 +234,6 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Accounting"
-msgstr ""
-
-#. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Accounts"
-msgstr ""
-
-#. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_plan_form
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
-msgid "Action"
 msgstr ""
 
 #. module: sustainability
@@ -211,8 +252,6 @@ msgstr ""
 #: model:ir.model,name:sustainability.model_sustainability_action_plan
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action__action_plan_ids
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__action_plan_ids
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
 msgid "Action Plan"
 msgstr ""
 
@@ -225,7 +264,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.actions.act_window,name:sustainability.sustainability_action_plan_window_action
 #: model:ir.ui.menu,name:sustainability.sustainability_action_plan_menu
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
 #: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
 msgid "Action Plans"
 msgstr ""
@@ -249,7 +287,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__action_ids
 #: model:ir.ui.menu,name:sustainability.sustainability_action_menu
 #: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_plan_form
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_scenario_form
 msgid "Actions"
 msgstr ""
 
@@ -646,9 +683,13 @@ msgid "Carbon Factor Type"
 msgstr ""
 
 #. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_common_mixin.py:0
+#: code:addons/sustainability/models/carbon_factor.py:0
 #: model:ir.actions.act_window,name:sustainability.carbon_line_origin_action
 #: model:ir.ui.menu,name:sustainability.carbon_line_origin_graph_menu
 #: model:ir.ui.menu,name:sustainability.carbon_line_origin_menu
+#, python-format
 msgid "Carbon Footprint"
 msgstr ""
 
@@ -710,6 +751,37 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_account_move_line__carbon_is_locked
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_mixin__carbon_is_locked
 msgid "Carbon Is Locked"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_line_origin_qty
+msgid "Carbon Line Origin Qty"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_carbon_common_mixin__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__carbon_origin_child_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__carbon_origin_child_ids
+msgid "Carbon Origin Child"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_carbon_common_mixin__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__carbon_origin_child_qty
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__carbon_origin_child_qty
+msgid "Carbon Origin Child Qty"
 msgstr ""
 
 #. module: sustainability
@@ -875,11 +947,6 @@ msgid "Child"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Child Factor"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__child_qty
 msgid "Child Qty"
 msgstr ""
@@ -892,24 +959,20 @@ msgid "Child factors for"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Children Factors"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_type__code
 msgid "Code"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__comment
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__comment
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__comment
 msgid "Comment"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model,name:sustainability.model_common_mixin
-msgid "Common Mixin for Shared Methods"
+#: model:ir.model,name:sustainability.model_carbon_common_mixin
+msgid "Common Mixin for Shared Methods and Utils Fields"
 msgstr ""
 
 #. module: sustainability
@@ -1003,7 +1066,10 @@ msgid "Configuration"
 msgstr ""
 
 #. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_factor.py:0
 #: model:ir.model,name:sustainability.model_res_partner
+#, python-format
 msgid "Contact"
 msgstr ""
 
@@ -1422,6 +1488,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 msgid "Expense"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
+msgid "Extra Comments..."
 msgstr ""
 
 #. module: sustainability
@@ -2315,16 +2386,6 @@ msgid "Posted"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Posted Entries"
-msgstr ""
-
-#. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Posted Entry"
-msgstr ""
-
-#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Prevent co2 computation for journal entries"
 msgstr ""
@@ -2334,7 +2395,6 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
 #: model:ir.model,name:sustainability.model_product_template
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_product_id
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 #, python-format
@@ -2348,7 +2408,6 @@ msgstr ""
 
 #. module: sustainability
 #: model:ir.model,name:sustainability.model_product_category
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
 msgid "Product Category"
 msgstr ""
 
@@ -2362,6 +2421,23 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__product_qty
 msgid "Product Qty"
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_factor.py:0
+#, python-format
+msgid "Product Supplier Info"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__product_supplierinfo_ids
+msgid "Product Supplierinfo"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__product_supplierinfo_qty
+msgid "Product Supplierinfo Qty"
 msgstr ""
 
 #. module: sustainability
@@ -2396,16 +2472,6 @@ msgid "Product template"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Products"
-msgstr ""
-
-#. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
-msgid "Products Categories"
-msgstr ""
-
-#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_country_form
@@ -2421,6 +2487,7 @@ msgstr ""
 #. module: sustainability
 #: model:ir.actions.server,name:sustainability.action_recompute_carbon_account_move
 #: model:ir.actions.server,name:sustainability.action_recompute_carbon_account_move_line
+#: model:ir.actions.server,name:sustainability.action_recompute_carbon_carbon_factor
 msgid "Re-compute CO2"
 msgstr ""
 
@@ -2523,7 +2590,6 @@ msgstr ""
 
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__scenario_id
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
 msgid "Scenario"
 msgstr ""
 
@@ -2542,7 +2608,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.actions.act_window,name:sustainability.sustainability_scenario_window_action
 #: model:ir.ui.menu,name:sustainability.sustainability_scenario_menu
-#: model_terms:ir.ui.view,arch_db:sustainability.sustainability_action_form
 msgid "Scenarios"
 msgstr ""
 
@@ -2736,7 +2801,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\n"
-"Please check the carbon settings."
+"Please check the carbon settings.\n"
+"\n"
+"%s"
 msgstr ""
 
 #. module: sustainability
@@ -2760,7 +2827,7 @@ msgid ""
 "Passed value: \n"
 "- Record: %s (compute method: %s)\n"
 "- Quantity: %s, UOM: %s\n"
-"- Amount: %s, Currency: %s"
+"- Amount: %s, Currency: %s%s"
 msgstr ""
 
 #. module: sustainability
