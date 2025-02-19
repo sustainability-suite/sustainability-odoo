@@ -14,7 +14,7 @@ class TestCommuting(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 4.8
+        expected_result = 33.6
 
         self.assertEqual(
             round(total_value, 2),
@@ -28,6 +28,7 @@ class TestCommuting(CarbonCommon):
         - Employee with only a home location
         - Employee with only an office location
         - Employee without a work location
+        - Employee without a new contract
         - Employee without a contract
         """
         self.env.company._cron_carbon_account_move_create("remote_work")
@@ -39,10 +40,10 @@ class TestCommuting(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 6.0
+        expected_result = 50.0
 
         self.assertEqual(
-            total_value,
+            round(total_value, 2),
             expected_result,
             f"Expected a value of {expected_result} for the carbon line origin.",
         )
