@@ -39,26 +39,21 @@
                                 name="action_see_actions"
                                 class="oe_stat_button"
                                 icon="fa-leaf"
+                                attrs="{'invisible': [('action_qty', '&lt;', 1)]}"
                             >
-                <div class="o_field_widget o_stat_info">
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('action_qty', '&lt;=', 1)]}"
-                                    >
-                    <field name="action_qty" widget="statinfo" nolabel="1" />
-                    Actions
-                  </span>
-                  <span
-                                        class="o_stat_value"
-                                        attrs="{'invisible': [('action_qty', '&gt;', 1)]}"
-                                    >
-                    <field name="action_qty" widget="statinfo" nolabel="1" />
-                    Action
-                  </span>
-                </div>
-              </button>
-            </div>
-            <widget
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="action_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Actions</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget
                             name="web_ribbon"
                             title="Archived"
                             bg_color="bg-danger"

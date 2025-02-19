@@ -4,7 +4,7 @@ from odoo import _, fields, models
 class SustainabilityScenario(models.Model):
     _name = "sustainability.scenario"
     _description = "Sustainability Scenario"
-    _inherit = ["mail.thread", "mail.activity.mixin", "common.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "carbon.common.mixin"]
 
     name = fields.Char(required=True, tracking=True)
     description = fields.Text(required=True, tracking=True)
