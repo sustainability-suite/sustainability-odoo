@@ -2,7 +2,8 @@ from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _name = "account.move"
+    _inherit = ["account.move", "carbon.common.mixin"]
 
     carbon_currency_id = fields.Many2one(
         "res.currency",
@@ -44,3 +45,8 @@ class AccountMove(models.Model):
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines"""
         return self.line_ids.action_recompute_carbon()
+
+    # Carbon Line Origin Smart Button
+    @api.model
+    def _carbon_get_line_field(cls):
+        return "line_ids"
