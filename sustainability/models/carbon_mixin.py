@@ -384,7 +384,22 @@ class CarbonMixin(models.AbstractModel):
     #                   CRUD
     # --------------------------------------------
 
+    def _carbon_check_is_manual(self, val: dict) -> dict:
+        for type in self._carbon_types:
+            factor_field_name = f"carbon_{type}_factor_id"
+            is_manual_field_name = f"carbon_{type}_is_manual"
+            mode_field_name = f"carbon_{type}_mode"
+
+            if factor_field_name in val:
+                if not val.get(factor_field_name):
+                    val[is_manual_field_name] = False
+                    val[mode_field_name] = "auto"
+                else:
+                    val[is_manual_field_name] = True
+                    val[mode_field_name] = "manual"
+
     def write(self, vals):
+        self._carbon_check_is_manual(vals)
         res = super().write(vals)
         # We only recompute values for carbon types that have been modified
         carbon_types = [
@@ -395,7 +410,10 @@ class CarbonMixin(models.AbstractModel):
         self.auto_carbon_distribution(carbon_types=carbon_types)
         return res
 
+    @api.model_create_multi
     def create(self, vals):
+        for val in vals:
+            self._carbon_check_is_manual(val)
         res = super().create(vals)
         res.auto_carbon_distribution()
         return res
