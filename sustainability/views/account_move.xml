@@ -105,8 +105,12 @@
                         title="See CO2 value origin"
                         type="object"
                     />
-                    <field force_save="1" invisible="1" name="carbon_origin_json" />
-                    <field invisible="1" name="carbon_currency_id" />
+                    <field
+                        force_save="1"
+                        column_invisible="1"
+                        name="carbon_origin_json"
+                    />
+                    <field column_invisible="1" name="carbon_currency_id" />
                 </xpath>
                 <xpath
                     expr="//field[@name='line_ids']//form//field[@name='credit']"
