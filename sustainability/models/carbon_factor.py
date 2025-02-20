@@ -551,7 +551,12 @@ class CarbonFactor(models.Model):
                     "product.template"
                 ]._get_weight_uom_id_from_ir_config_parameter()
                 # Convert the product weight from kilograms to the carbon factor's UoM
-                converted_weight = default_weight_uom._compute_quantity(
+                uom_computation_id = default_weight_uom
+                # Convert the product weight from the product's UoM to the carbon factor's UoM
+                if from_uom_id and from_uom_id.category_id == weight_uom_category:
+                    uom_computation_id = from_uom_id
+
+                converted_weight = uom_computation_id._compute_quantity(
                     product_id.weight, self.carbon_uom_id, round=False
                 )
                 partial_value_result = carbon_value * converted_weight * quantity
