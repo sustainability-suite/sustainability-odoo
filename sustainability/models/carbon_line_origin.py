@@ -140,6 +140,11 @@ class CarbonLineOrigin(models.Model):
         store=True,
         readonly=True,
     )
+    move_line_is_invoice_line = fields.Boolean(
+        related="move_line_id.is_invoice_line",
+        store=True,
+        readonly=True,
+    )
 
     @api.model
     def _get_model_to_field_name(self) -> dict[str, str]:
