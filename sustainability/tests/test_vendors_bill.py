@@ -11,6 +11,7 @@ class TestCarbonVendorsBill(CarbonCommon):
         self.assertEqual(
             round(self.vendor_account_move_1.carbon_balance, 2), 10 * 100 * 10
         )
+        self.check_sign(self.vendor_account_move_1)
 
     def test_vendor_action_post(self):
         for move in self.vendor_account_move:
