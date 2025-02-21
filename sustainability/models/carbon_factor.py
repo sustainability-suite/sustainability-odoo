@@ -75,7 +75,10 @@ class CarbonFactor(models.Model):
         compute="_compute_carbon_currency_id", default="kgCO2e"
     )
     value_ids = fields.One2many(
-        comodel_name="carbon.factor.value", inverse_name="factor_id", tracking=True
+        comodel_name="carbon.factor.value",
+        inverse_name="factor_id",
+        tracking=True,
+        string="Value List",
     )
     recent_value_id = fields.Many2one(
         comodel_name="carbon.factor.value", compute="_compute_recent_value", store=True
