@@ -2828,8 +2828,9 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_factor.py:0
 #, python-format
 msgid ""
-"The weight may not be defined or is zero for the associated product (%s). "
-"Please ensure the weight is properly set to compute the carbon value."
+"The weight may not be defined or is zero for the associated product (%s). Please ensure the weight is properly set to compute the carbon value.\n"
+"\n"
+"%s"
 msgstr ""
 
 #. module: sustainability
