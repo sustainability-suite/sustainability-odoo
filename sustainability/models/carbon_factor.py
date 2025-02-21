@@ -535,28 +535,33 @@ class CarbonFactor(models.Model):
                     amount, monetary_currency_id, self.env.company, date
                 )
             elif (
-                compute_method == "physical"
-                and quantity is not None
-                and self.carbon_uom_id.category_id == weight_uom_category
+                compute_method == "physical"  # The emission factor is a physical
+                and quantity is not None  # We have a quantity at line level
+                and self.carbon_uom_id.category_id
+                == weight_uom_category  # The carbon factor's unit of measure is in the weight category
+                and product_id.uom_id.category_id
+                != weight_uom_category  # The product's unit of measure is not in the weight category
             ):
                 if not product_id.weight or product_id.weight <= 0:
+                    reference = ""
+                    if kwargs.get("reference"):
+                        reference = "Record Reference:" + "\n- ".join(
+                            kwargs.get("reference")
+                        )
                     raise ValidationError(
                         _(
                             "The weight may not be defined or is zero for the associated product (%s). "
-                            "Please ensure the weight is properly set to compute the carbon value.",
+                            "Please ensure the weight is properly set to compute the carbon value."
+                            "\n\n%s",
                             product_id.display_name,
+                            reference,
                         )
                     )
                 default_weight_uom = self.env[
                     "product.template"
                 ]._get_weight_uom_id_from_ir_config_parameter()
                 # Convert the product weight from kilograms to the carbon factor's UoM
-                uom_computation_id = default_weight_uom
-                # Convert the product weight from the product's UoM to the carbon factor's UoM
-                if from_uom_id and from_uom_id.category_id == weight_uom_category:
-                    uom_computation_id = from_uom_id
-
-                converted_weight = uom_computation_id._compute_quantity(
+                converted_weight = default_weight_uom._compute_quantity(
                     product_id.weight, self.carbon_uom_id, round=False
                 )
                 partial_value_result = carbon_value * converted_weight * quantity

@@ -84,6 +84,7 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_out)
         self.assertEqual(
             round(invoice_out.carbon_balance, 2),
             -0.18,
@@ -105,6 +106,7 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_in)
         self.assertEqual(
             round(invoice_in.carbon_balance, 2),
             0.18,
@@ -139,6 +141,7 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_out)
 
         self.assertEqual(
             round(invoice_out.carbon_balance, 2),

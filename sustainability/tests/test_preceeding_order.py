@@ -47,6 +47,7 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -94,6 +95,7 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -150,6 +152,7 @@ class TestPreceedingOrder(CarbonCommon):
             }
         )
         invoice.action_recompute_carbon()
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -233,6 +236,7 @@ class TestPreceedingOrder(CarbonCommon):
             }
         )
         invoice.action_recompute_carbon()
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -292,6 +296,7 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -339,6 +344,8 @@ class TestPreceedingOrder(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
+
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", invoice.id),
