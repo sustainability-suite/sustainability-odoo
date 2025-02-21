@@ -86,6 +86,7 @@ class TestCarbonComputation(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -122,6 +123,7 @@ class TestCarbonComputation(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
