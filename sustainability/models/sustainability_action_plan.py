@@ -3,7 +3,7 @@ from odoo import _, fields, models
 
 class SustainabilityActionPlan(models.Model):
     _name = "sustainability.action.plan"
-    _description = "Action Plan"
+    _description = "Sustainability Action Plan"
     _inherit = ["mail.thread", "mail.activity.mixin", "carbon.common.mixin"]
 
     name = fields.Char(required=True, tracking=True)

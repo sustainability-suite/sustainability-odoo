@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class CarbonLineMixin(models.AbstractModel):
     _name = "carbon.line.mixin"
-    _description = "carbon.line.mixin"
+    _description = "Carbon Line Mixin"
 
     carbon_currency_id = fields.Many2one(
         "res.currency",
