@@ -14,6 +14,7 @@ class TestEFByWeight(CarbonCommon):
         the unit of measure as kg correctly uses weight calculation.
         """
 
+        self.check_sign(self.ef_by_weight_invoice)
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
                 ("move_id", "=", self.ef_by_weight_invoice.id),
@@ -45,6 +46,7 @@ class TestEFByWeight(CarbonCommon):
                 ]
             }
         )
+        self.check_sign(self.ef_by_weight_invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [
@@ -72,6 +74,7 @@ class TestEFByWeight(CarbonCommon):
         )
 
         self.ef_by_weight_invoice.action_recompute_carbon()
+        self.check_sign(self.ef_by_weight_invoice)
 
         carbon_line_origins = self.env["carbon.line.origin"].search(
             [

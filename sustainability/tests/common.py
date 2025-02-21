@@ -1,9 +1,43 @@
+import logging
 from datetime import datetime
 
 from odoo.tests import TransactionCase
 
+_logger = logging.getLogger(__name__)
+
+ALLOWED_MODELS_CHECK_SIGN = ["account.move", "account.move.line"]
+
 
 class CarbonCommon(TransactionCase):
+    @classmethod
+    def _get_sign(cls, value: float) -> int:
+        """Return the sign of a value"""
+        return -1 if value < 0 else 1
+
+    def check_sign(self, record):
+        """Check if the sign of the two records is the same"""
+        record.ensure_one()
+        if (
+            record._name not in ALLOWED_MODELS_CHECK_SIGN
+            or not hasattr(record, "carbon_balance")
+            or not hasattr(record, "carbon_uncertainty_value")
+        ):
+            _logger.warning(f"Cannot check the sign of {record}")
+            return
+        if record.carbon_balance == 0 or record.carbon_uncertainty_value == 0:
+            _logger.warning(
+                f"Cannot check the sign of {record}. One of the values is 0"
+            )
+            return
+        self.assertEqual(
+            self._get_sign(record.carbon_balance),
+            self._get_sign(record.carbon_uncertainty_value),
+            f"""The sign of the balance and uncertainty should be the same on {record}.
+            Balance: {record.carbon_balance}
+            Uncertainty: {record.carbon_uncertainty_value}
+            Move Type: {record.move_type}""",
+        )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
