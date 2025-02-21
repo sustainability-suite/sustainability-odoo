@@ -11,6 +11,7 @@
     "sustainability-suite/sustainability-odoo#270": "already backported",
     "sustainability-suite/sustainability-odoo#276": "already backported",
     "sustainability-suite/sustainability-odoo#305": "(auto) Nothing to port from PR #305",
-    "sustainability-suite/sustainability-odoo#343": "column invisible not exist in 16.0"
+    "sustainability-suite/sustainability-odoo#343": "column invisible not exist in 16.0",
+    "sustainability-suite/sustainability-odoo#340": "Already backported"
   }
 }
