@@ -1611,6 +1611,18 @@ msgid "Is Ghg Detailed Value"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_account_move_line__is_invoice_line
+#: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_is_invoice_line
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+msgid "Is Invoice Line"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+msgid "Is Not Invoice Line"
+msgstr ""
+
+#. module: sustainability
 #: model:uom.uom,name:sustainability.uom_joule
 msgid "Joule"
 msgstr ""
@@ -2277,6 +2289,11 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_factor.py:0
 #, python-format
 msgid "Product for"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+msgid "Product is not set"
 msgstr ""
 
 #. module: sustainability
