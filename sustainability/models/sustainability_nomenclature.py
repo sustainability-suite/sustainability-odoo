@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class Nomenclature(models.Model):
     _name = "sustainability.nomenclature"
-    _description = "Nomenclature"
+    _description = "Sustainability Nomenclature"
 
     name = fields.Char(
         required=True,
