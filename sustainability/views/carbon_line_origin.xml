@@ -102,6 +102,7 @@
                     <field name="comment" optional="hide" />
 
                     <field name="move_company_currency_id" column_invisible="1" />
+                    <field name="move_line_is_invoice_line" optional="hide" />
                 </tree>
             </field>
         </record>
@@ -198,6 +199,22 @@
                         name="product_id"
                         domain="[('move_line_product_id', '!=', False)]"
                     />
+                    <filter
+                        string="Product is not set"
+                        name="not_product_id"
+                        domain="[('move_line_product_id', '=', False)]"
+                    />
+                    <separator />
+                    <filter
+                        string="Is Invoice Line"
+                        name="is_invoice_line"
+                        domain="[('move_line_is_invoice_line', '=', True)]"
+                    />
+                    <filter
+                        string="Is Not Invoice Line"
+                        name="is_not_invoice_line"
+                        domain="[('move_line_is_invoice_line', '=', False)]"
+                    />
                     <group expand="0" string="Group By">
                         <filter
                             string="Emission Factor"
@@ -249,6 +266,11 @@
                             string="Product"
                             name="by_move_line_product_id"
                             context="{'group_by': 'move_line_product_id'}"
+                        />
+                        <filter
+                            string="Is Invoice Line"
+                            name="by_move_line_is_invoice_line"
+                            context="{'group_by': 'move_line_is_invoice_line'}"
                         />
                     </group>
                 </search>

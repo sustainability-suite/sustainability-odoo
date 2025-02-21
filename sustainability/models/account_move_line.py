@@ -38,6 +38,12 @@ class AccountMoveLine(models.Model):
         compute="_compute_carbon_supplier_id",
     )
 
+    is_invoice_line = fields.Boolean(default=False, compute="_compute_is_invoice_line")
+
+    def _compute_is_invoice_line(self):
+        for line in self:
+            line.is_invoice_line = line.id in line.move_id.invoice_line_ids.ids
+
     def _compute_carbon_supplier_id(self):
         """
         Compute the carbon_supplier_id field.
