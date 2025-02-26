@@ -99,6 +99,20 @@ class CarbonMixin(models.AbstractModel):
             ("recent_value_id", "!=", False),
         ]
 
+    def _get_uom_filtered_factors_domain(self, uom_id):
+        """Filter physical EF on product uom & weight + include monetary ones."""
+
+        weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
+        return [
+            "|",
+            ("carbon_compute_method", "=", "monetary"),
+            "&",
+            ("carbon_compute_method", "=", "physical"),
+            "|",
+            ("carbon_uom_id", "=", uom_id),
+            ("carbon_uom_id.category_id", "=", weight_uom_category.id),
+        ]
+
     # --------------------------------------------
     #               SHARED INFOS
     # --------------------------------------------
