@@ -34,5 +34,12 @@ class ProductProduct(models.Model):
     def _compute_carbon_out_mode(self):
         return super()._compute_carbon_out_mode()
 
+    @api.depends("uom_id")
+    def _get_allowed_factors_domain(self):
+        return (
+            super()._get_allowed_factors_domain()
+            + self._get_uom_filtered_factors_domain(self.uom_id.id)
+        )
+
 
 # ProductProduct = auto_depends(ProductProduct)
