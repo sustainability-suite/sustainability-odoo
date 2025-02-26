@@ -128,7 +128,6 @@ class TestEFByWeight(CarbonCommon):
 
         cls.ef_by_weight_product_product_1.update(
             dict(
-                carbon_in_is_manual=True,
                 carbon_in_factor_id=cls.ef_by_weight_carbon_factor.id,
                 weight=1,
             )

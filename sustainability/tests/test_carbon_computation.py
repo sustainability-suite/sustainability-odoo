@@ -61,7 +61,6 @@ class TestCarbonComputation(CarbonCommon):
                 "detailed_type": "consu",
                 "uom_id": cls.uom_unit.id,
                 "carbon_in_factor_id": cls.carbon_factor_plastic_chair.id,
-                "carbon_in_is_manual": True,
             }
         )
 

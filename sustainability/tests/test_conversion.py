@@ -62,9 +62,7 @@ class TestCarbonUom(CarbonCommon):
                 "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
                 "standard_price": 50.0,
-                "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_physical.id,
-                "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
             }
         )
@@ -118,7 +116,6 @@ class TestCarbonUom(CarbonCommon):
                 "name": "Consulting currency test",
                 "type": "service",
                 "lst_price": 10.0,
-                "carbon_out_is_manual": True,
                 "carbon_out_factor_id": self.carbon_factor_monetary.id,
                 "currency_id": self.currency_usd.id,
             }

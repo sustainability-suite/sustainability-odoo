@@ -137,9 +137,7 @@ class CarbonPurchaseCommon(CarbonCommon):
             )
         )
         cls.kg_uom_id = cls.env.ref("uom.product_uom_kgm")
-        cls.purchase_product_template_1 = cls.env[
-            "product.template"
-        ].create(
+        cls.purchase_product_template_1 = cls.env["product.template"].create(
             dict(
                 categ_id=cls.purchase_product_category_1.id,
                 name="Wooden Chair",
@@ -147,8 +145,6 @@ class CarbonPurchaseCommon(CarbonCommon):
                 uom_po_id=cls.kg_uom_id.id,
                 list_price=100,
                 carbon_in_factor_id=cls.purchase_carbon_factor_monetary_product_1.id,
-                carbon_in_is_manual=True,  # TODO: Should not be there... Fix in carbon_mixin.py
-                carbon_in_mode="manual",  # TODO: Should not be there... Fix in carbon_mixin.py
                 seller_ids=[
                     Command.create(
                         dict(
@@ -188,8 +184,6 @@ class CarbonPurchaseCommon(CarbonCommon):
                 name="Wooden Table",
                 seller_ids=[],
                 carbon_in_factor_id=cls.purchase_carbon_factor_monetary_2.id,
-                carbon_in_is_manual=True,
-                carbon_in_mode="manual",
             )
         )
         cls.purchase_product_template_3 = cls.purchase_product_template_1.copy()
@@ -198,8 +192,6 @@ class CarbonPurchaseCommon(CarbonCommon):
                 name="Wooden Fork",
                 seller_ids=[],
                 carbon_in_factor_id=cls.purchase_carbon_factor_monetary_3.id,
-                carbon_in_is_manual=True,
-                carbon_in_mode="manual",
             )
         )
         cls.purchase_product_template_4 = cls.purchase_product_template_1.copy()
@@ -208,8 +200,6 @@ class CarbonPurchaseCommon(CarbonCommon):
                 name="Wooden Spoon",
                 seller_ids=[],
                 carbon_in_factor_id=cls.purchase_carbon_factor_monetary_4.id,
-                carbon_in_is_manual=True,
-                carbon_in_mode="manual",
             )
         )
 

@@ -15,7 +15,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "uom_id": cls.uom_hour.id,
                 "uom_po_id": cls.uom_hour.id,  # Ensures UoM categories match
                 "carbon_in_factor_id": cls.carbon_factor_physical.id,
-                "carbon_in_is_manual": True,
             }
         )
 
@@ -72,7 +71,6 @@ class TestPreceedingOrder(CarbonCommon):
         self.env["product.category"].create(
             {
                 "name": "Test Product Category",
-                "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
             }
         )
@@ -117,7 +115,6 @@ class TestPreceedingOrder(CarbonCommon):
         product_category = self.env["product.category"].create(
             {
                 "name": "Test Product Category",
-                "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
             }
         )
@@ -184,7 +181,6 @@ class TestPreceedingOrder(CarbonCommon):
         product_template = self.env["product.template"].create(
             {
                 "name": "Test Product Template",
-                "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
                 "uom_id": self.uom_hour.id,
                 "uom_po_id": self.uom_hour.id,
@@ -260,7 +256,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "account_type": "income",
                 "company_id": self.env.company.id,
                 "carbon_in_factor_id": self.carbon_factor_monetary.id,
-                "carbon_in_is_manual": True,
             }
         )
 
