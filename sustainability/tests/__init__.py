@@ -5,3 +5,4 @@ from . import test_preceeding_order
 from . import test_vendors_bill
 from . import test_action
 from . import test_ef_by_weight
+from . import test_account_move
