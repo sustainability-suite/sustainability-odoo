@@ -175,16 +175,19 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
         return self.get_product_id_carbon_compute_values()
 
+    def _get_carbon_move_type(self) -> str:
+        self.ensure_one()
+        return (
+            "out"
+            if self.move_id.move_type in ["out_invoice", "out_refund", "out_receipt"]
+            else "in"
+        )
+
     def _get_carbon_compute_kwargs(self) -> dict:
         res = super()._get_carbon_compute_kwargs()
         res.update(
             {
-                "carbon_type": (
-                    "out"
-                    if self.move_id.move_type
-                    in ["out_invoice", "out_refund", "out_receipt"]
-                    else "in"
-                ),
+                "carbon_type": self._get_carbon_move_type(),
                 "date": self.move_id.date or self.move_id.invoice_date,
                 # We take the company currency because credit/debit are expressed in that currency
                 "from_currency_id": (
