@@ -20,7 +20,11 @@
                     />
                     <field name="move_line_partner_id" string="Partner" />
                     <field name="move_line_label" string="Label" />
-                    <field name="move_line_quantity" string="Quantity" />
+                    <field
+                        name="move_line_quantity"
+                        string="Quantity"
+                        sum="Total Quantity"
+                    />
                     <field
                         name="move_line_product_id"
                         string="Product"
