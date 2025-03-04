@@ -249,7 +249,6 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model,name:sustainability.model_sustainability_action_plan
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action__action_plan_ids
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__action_plan_ids
 msgid "Action Plan"
@@ -393,7 +392,6 @@ msgid "Analytic Line"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model,name:sustainability.model_sustainability_approach
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_approach_characterization__approach_id
 msgid "Approach"
 msgstr ""
@@ -658,6 +656,11 @@ msgid "Carbon Default Data Uncertainty Percentage"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model,name:sustainability.model_carbon_distribution_line
+msgid "Carbon Distribution Line"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model,name:sustainability.model_carbon_factor
 msgid "Carbon Emission Factor"
 msgstr ""
@@ -680,6 +683,11 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model,name:sustainability.model_carbon_factor_type
 msgid "Carbon Factor Type"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_carbon_factor_value
+msgid "Carbon Factor Value"
 msgstr ""
 
 #. module: sustainability
@@ -751,6 +759,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_account_move_line__carbon_is_locked
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_mixin__carbon_is_locked
 msgid "Carbon Is Locked"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_carbon_line_mixin
+msgid "Carbon Line Mixin"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_carbon_line_origin
+msgid "Carbon Line Origin"
 msgstr ""
 
 #. module: sustainability
@@ -2011,6 +2029,11 @@ msgid "Missing carbon factor for %s (carbon type: %s)"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model,name:sustainability.model_carbon_copy_mixin
+msgid "Mixin that allow to copy records with a new name"
+msgstr ""
+
+#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
@@ -2190,7 +2213,6 @@ msgid "No sources of emission yet !"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model,name:sustainability.model_sustainability_nomenclature
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_category__nomenclature_id
 msgid "Nomenclature"
 msgstr ""
@@ -2783,6 +2805,21 @@ msgid "Sustainability Action"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model,name:sustainability.model_sustainability_action_plan
+msgid "Sustainability Action Plan"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_sustainability_approach
+msgid "Sustainability Approach"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model,name:sustainability.model_sustainability_nomenclature
+msgid "Sustainability Nomenclature"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model,name:sustainability.model_sustainability_scenario
 msgid "Sustainability Scenario"
 msgstr ""
@@ -2914,6 +2951,16 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.view_move_line_tree
 msgid "Total CO2 Uncertainty"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
+msgid "Total Quantity"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.view_move_tree
+msgid "Total kgCo2/kg"
 msgstr ""
 
 #. module: sustainability
@@ -3078,7 +3125,6 @@ msgstr ""
 
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_value
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__value_ids
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__carbon_value
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 msgid "Value"
@@ -3087,6 +3133,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_value_report_search
 msgid "Value Date"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__value_ids
+msgid "Value List"
 msgstr ""
 
 #. module: sustainability
@@ -3180,31 +3231,6 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_factor.py:0
 #, python-format
 msgid "_get_values_at_date: No value found for the following factor: %s"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model,name:sustainability.model_carbon_copy_mixin
-msgid "carbon.copy.mixin"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model,name:sustainability.model_carbon_distribution_line
-msgid "carbon.distribution.line"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model,name:sustainability.model_carbon_factor_value
-msgid "carbon.factor.value"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model,name:sustainability.model_carbon_line_mixin
-msgid "carbon.line.mixin"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model,name:sustainability.model_carbon_line_origin
-msgid "carbon.line.origin"
 msgstr ""
 
 #. module: sustainability
