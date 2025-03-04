@@ -2954,7 +2954,6 @@ msgstr ""
 
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_value
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__value_ids
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__carbon_value
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 msgid "Value"
@@ -2963,6 +2962,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_value_report_search
 msgid "Value Date"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__value_ids
+msgid "Value List"
 msgstr ""
 
 #. module: sustainability
