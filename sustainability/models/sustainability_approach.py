@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class Approach(models.Model):
     _name = "sustainability.approach"
-    _description = "Approach"
+    _description = "Sustainability Approach"
 
     name = fields.Char(
         required=True,
