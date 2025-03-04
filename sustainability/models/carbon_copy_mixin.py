@@ -3,7 +3,7 @@ from odoo import _, api, models
 
 class CopyMixin(models.AbstractModel):
     _name = "carbon.copy.mixin"
-    _description = "carbon.copy.mixin"
+    _description = "Mixin that allow to copy records with a new name"
 
     def _get_copy_name(self):
         self.ensure_one()
