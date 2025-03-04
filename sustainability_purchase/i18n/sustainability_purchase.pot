@@ -64,6 +64,11 @@ msgid "Carbon Is Locked"
 msgstr ""
 
 #. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_carbon_line_origin
+msgid "Carbon Line Origin"
+msgstr ""
+
+#. module: sustainability_purchase
 #: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_origin_child_ids
 msgid "Carbon Origin Child"
 msgstr ""
@@ -162,9 +167,4 @@ msgstr ""
 #. module: sustainability_purchase
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
 msgid "Unlock co2"
-msgstr ""
-
-#. module: sustainability_purchase
-#: model:ir.model,name:sustainability_purchase.model_carbon_line_origin
-msgid "carbon.line.origin"
 msgstr ""
