@@ -2803,6 +2803,16 @@ msgid "Total CO2 Uncertainty"
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
+msgid "Total Quantity"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.view_move_tree
+msgid "Total kgCo2/kg"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__carbon_value
 msgid "Total not broken down (kgCO2)"
 msgstr ""
