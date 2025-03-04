@@ -150,7 +150,12 @@
             <field name="inherit_id" ref="account.view_move_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="inside">
-                    <field digits="[13,2]" name="carbon_balance" optional="hide" sum="Total kgCo2/kg" />
+                    <field
+                        digits="[13,2]"
+                        name="carbon_balance"
+                        optional="hide"
+                        sum="Total kgCo2/kg"
+                    />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
             </field>
