@@ -1,6 +1,6 @@
 {
     "name": "Sustainability Purchase",
-    "version": "17.0.1.2.1",
+    "version": "17.0.1.2.2",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",

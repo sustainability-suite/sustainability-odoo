@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [sustainability_mis_builder](sustainability_mis_builder/) | 17.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Provide CO2e accounting lines data for MIS builder reports
 [sustainability_point_of_sale](sustainability_point_of_sale/) | 17.0.1.0.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Point of Sale
 [sustainability_product_label_print](sustainability_product_label_print/) | 17.0.1.0.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Product Label Print
-[sustainability_purchase](sustainability_purchase/) | 17.0.1.2.1 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
+[sustainability_purchase](sustainability_purchase/) | 17.0.1.2.2 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
 [sustainability_website_sale](sustainability_website_sale/) | 17.0.1.0.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability eCommerce
 
 [//]: # (end addons)
