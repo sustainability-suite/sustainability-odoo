@@ -52,6 +52,7 @@
         "web.assets_backend": [
             "sustainability/static/src/css/*.scss",
             "sustainability/static/src/owl/**/*",
+            "sustainability/static/src/js/tours/*.js",
         ],
     },
     "external_dependencies": {
@@ -68,11 +69,6 @@
         "demo/carbon_factor_value.xml",
         # "demo/demo.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "sustainability/static/src/js/tours/*.js",
-        ],
-    },
     "installable": True,
     "application": True,
     "auto_install": False,
