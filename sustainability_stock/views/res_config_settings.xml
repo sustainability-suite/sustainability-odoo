@@ -7,84 +7,189 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="sustainability.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//app[@name='sustainability']/block[1]" position="after">
-                <block title="Inventory">
-                    <setting
-                        string="Climatiq API URL"
-                        help="API URL for accessing Climatiq services."
+            <xpath expr="//div[@data-key='sustainability']/div" position="after">
+                <h2>Inventory</h2>
+                <div class="row mt16 o_settings_container">
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_climatiq_api_url"
                     >
-                        <field name="carbon_freight_climatiq_api_url" />
-                    </setting>
-                    <setting
-                        string="Climatiq API Key"
-                        help="API key for accessing Climatiq services."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Climatiq API URL</span>
+                          <div class="text-muted">
+                            <p>API URL for accessing Climatiq services.</p>
+                          </div>
+                          <div>
+                            <field name="carbon_freight_climatiq_api_url" />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_climatiq_api_key"
                     >
-                        <field name="carbon_freight_climatiq_api_key" password="True" />
-                    </setting>
-                    <setting
-                        string="Max deliveries to process"
-                        help="Specify the maximum number of deliveries to process at once."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Climatiq API Key</span>
+                          <div class="text-muted">
+                            <p>API key for accessing Climatiq services.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_climatiq_api_key"
+                                    password="True"
+                                />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_max_delivery_count"
                     >
-                        <field name="carbon_freight_max_delivery_count" />
-                    </setting>
-                    <setting
-                        string="Default transport mode"
-                        help="Select the default mode of transportation for freight orders."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Max deliveries to process</span>
+                          <div class="text-muted">
+                            <p
+                                >Specify the maximum number of deliveries to process at once.</p>
+                          </div>
+                          <div>
+                            <field name="carbon_freight_max_delivery_count" />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_transport_mode"
                     >
-                        <field name="carbon_freight_transport_mode" />
-                    </setting>
-                    <setting
-                        string="Carbon Uncertainty Percentage"
-                        help="Insert the uncertainty percentage related to freight emissions."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Default transport mode</span>
+                          <div class="text-muted">
+                            <p
+                                >Select the default mode of transportation for freight orders.</p>
+                          </div>
+                          <div>
+                            <field name="carbon_freight_transport_mode" />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_uncertainty_percentage"
                     >
-                        <field
-                            name="carbon_freight_uncertainty_percentage"
-                            widget="percentage"
-                        />
-                    </setting>
-                    <setting
-                        string="Tolerance (km)"
-                        help="Maximum distance corrected to match a mixed transition point."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span
+                                class="o_form_label"
+                            >Carbon Uncertainty Percentage</span>
+                          <div class="text-muted">
+                            <p
+                                >Insert the uncertainty percentage related to freight emissions.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_uncertainty_percentage"
+                                    widget="percentage"
+                                />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_tolerance"
                     >
-                        <field name="carbon_freight_tolerance" />
-                    </setting>
-                    <setting
-                        string="Product for Upstream Freight"
-                        help="Select the product for upstream freight transport."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Tolerance (km)</span>
+                          <div class="text-muted">
+                            <p
+                                >Maximum distance corrected to match a mixed transition point.</p>
+                          </div>
+                          <div>
+                            <field name="carbon_freight_tolerance" />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_product_upstream"
                     >
-                        <field
-                            name="carbon_freight_product_upstream"
-                            options="{'no_create': True}"
-                        />
-                    </setting>
-                    <setting
-                        string="Product for Downstream Freight"
-                        help="Select the product for downstream freight transport."
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Product for Upstream Freight</span>
+                          <div class="text-muted">
+                            <p>Select the product for upstream freight transport.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_product_upstream"
+                                    options="{'no_create': True}"
+                                />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_product_downstream"
                     >
-                        <field
-                            name="carbon_freight_product_downstream"
-                            options="{'no_create': True}"
-                        />
-                    </setting>
-                    <setting
-                        string="Carbon freight journal"
-                        help="Freight journal applicable to employee remote work"
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span
+                                class="o_form_label"
+                            >Product for Downstream Freight</span>
+                          <div class="text-muted">
+                            <p>Select the product for downstream freight transport.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_product_downstream"
+                                    options="{'no_create': True}"
+                                />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_journal_id"
                     >
-                        <field
-                            name="carbon_freight_journal_id"
-                            options="{'no_create': True}"
-                        />
-                    </setting>
-                    <setting
-                        string="Carbon freight account"
-                        help="Freight account applicable to employee remote work"
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Carbon freight journal</span>
+                          <div class="text-muted">
+                            <p
+                                >Freight journal used for the generated invoice containing carbon equivalent data.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_journal_id"
+                                    options="{'no_create': True}"
+                                />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="carbon_freight_account_id"
                     >
-                        <field
-                            name="carbon_freight_account_id"
-                            options="{'no_create': True}"
-                        />
-                    </setting>
-                </block>
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                          <span class="o_form_label">Carbon freight account</span>
+                          <div class="text-muted">
+                            <p>Freight account used in the invoice line.</p>
+                          </div>
+                          <div>
+                            <field
+                                    name="carbon_freight_account_id"
+                                    options="{'no_create': True}"
+                                />
+                          </div>
+                        </div>
+                      </div>
+                </div>
             </xpath>
         </field>
     </record>

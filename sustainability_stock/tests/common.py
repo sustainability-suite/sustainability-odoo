@@ -34,7 +34,7 @@ class CarbonCommon(TransactionCase):
 
         carbon_journal = cls.env["account.journal"].create(
             {
-                "name": "Carbon",
+                "name": "TestCarbon",
                 "code": "CO2TEST",
                 "type": "purchase",
                 "company_id": cls.env.company.id,
@@ -116,7 +116,7 @@ class CarbonCommon(TransactionCase):
         delivery_wizard.save().button_confirm()
         so.action_confirm()
         cls.outgoing_picking = so.picking_ids[0]
-        cls.outgoing_picking.shipping_weight = 10.0
+        cls.outgoing_picking.move_ids_without_package.write({"quantity_done": 10})
         cls.outgoing_picking.write({"state": "done"})
 
         po = cls.env["purchase.order"].create(
@@ -136,5 +136,5 @@ class CarbonCommon(TransactionCase):
         )
         po.button_confirm()
         cls.incoming_picking = po.picking_ids[0]
-        cls.incoming_picking.shipping_weight = 10.0
+        cls.incoming_picking.move_ids_without_package.write({"quantity_done": 5})
         cls.incoming_picking.write({"state": "done"})

@@ -16,7 +16,7 @@
                         icon="fa-leaf"
                         name="action_see_carbon_origins"
                         type="object"
-                        invisible="carbon_line_origin_qty &lt; 1"
+                        attrs="{'invisible': [('carbon_line_origin_qty', '&lt;', 1)]}"
                     >
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_text">
@@ -36,7 +36,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='state']" position="before">
                     <field name="carbon_debt" digits="[13,2]" optional="show" />
-                    <field name="carbon_currency_id" column_invisible="1" />
+                    <field name="carbon_currency_id" invisible="1" />
                 </xpath>
             </field>
         </record>
