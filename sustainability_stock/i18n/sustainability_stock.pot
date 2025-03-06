@@ -1,0 +1,436 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_stock
+#: model:ir.model.fields,help:sustainability_stock.field_res_company__carbon_freight_climatiq_api_url
+#: model:ir.model.fields,help:sustainability_stock.field_res_config_settings__carbon_freight_climatiq_api_url
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "API URL for accessing Climatiq services."
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,help:sustainability_stock.field_res_company__carbon_freight_climatiq_api_key
+#: model:ir.model.fields,help:sustainability_stock.field_res_config_settings__carbon_freight_climatiq_api_key
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "API key for accessing Climatiq services."
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_company__carbon_freight_transport_mode__air
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_partner__carbon_freight_transport_mode__air
+msgid "Air"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__api_response
+msgid "Api Response"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.view_partner_form_freight
+msgid "CLimatiq API"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_debt
+msgid "CO2"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__co2_display
+msgid "CO2 ratio"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#, python-format
+msgid "Carbon Computation Error"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_currency_id
+msgid "Carbon Currency"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.view_picking_form_inherit
+msgid "Carbon Footprint"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_account_id
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_account_id
+msgid "Carbon Freight Account"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_climatiq_api_key
+msgid "Carbon Freight Climatiq Api Key"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_climatiq_api_url
+msgid "Carbon Freight Climatiq Api Url"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_journal_id
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_journal_id
+msgid "Carbon Freight Journal"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_freight_move_ids
+msgid "Carbon Freight Move"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_carbon_line_mixin
+msgid "Carbon Line Mixin"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_carbon_line_origin
+msgid "Carbon Line Origin"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_line_origin_qty
+msgid "Carbon Line Origin Qty"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_origin_child_ids
+msgid "Carbon Origin Child"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_origin_child_qty
+msgid "Carbon Origin Child Qty"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_uncertainty_percentage
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Carbon Uncertainty Percentage"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Carbon freight account"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Carbon freight journal"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.ui.menu,name:sustainability_stock.menu_climatiq_api
+msgid "Climatiq API"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_climatiq_api_key
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Climatiq API Key"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_climatiq_api_url
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+#, python-format
+msgid "Climatiq API URL"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#, python-format
+msgid "Climatiq API key"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__co2_ratio
+msgid "Co2 Ratio"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_transport_mode
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_transport_mode
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_partner__carbon_freight_transport_mode
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_users__carbon_freight_transport_mode
+msgid "Default Transport Mode"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Default transport mode"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__destination
+#, python-format
+msgid "Destination"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_sustainability_stock_freight_computation
+msgid "Freight Computation"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.actions.act_window,name:sustainability_stock.freight_route_computations_window_action
+#: model:ir.ui.menu,name:sustainability_stock.menu_freight_route_computations
+msgid "Freight Route Computations"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Freight account applicable to employee remote work"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Freight journal applicable to employee remote work"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/carbon_line_mixin.py:0
+#, python-format
+msgid "Freight transport"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__id
+msgid "ID"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Insert the uncertainty percentage related to freight emissions."
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Inventory"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_max_delivery_count
+msgid "Max Deliveries to Process"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_max_delivery_count
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Max deliveries to process"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Maximum distance corrected to match a mixed transition point."
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.actions.act_window,help:sustainability_stock.freight_route_computations_window_action
+msgid "No computations yet !"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__origin
+#, python-format
+msgid "Origin"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_product_downstream
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_product_downstream
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+#, python-format
+msgid "Product for Downstream Freight"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_product_upstream
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_product_upstream
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+#, python-format
+msgid "Product for Upstream Freight"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_company__carbon_freight_transport_mode__rail
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_partner__carbon_freight_transport_mode__rail
+msgid "Rail"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.actions.server,name:sustainability_stock.action_recompute_carbon_freight_picking
+msgid "Re-compute CO2"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_company__carbon_freight_transport_mode__road
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_partner__carbon_freight_transport_mode__road
+msgid "Road"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_company__carbon_freight_transport_mode__sea
+#: model:ir.model.fields.selection,name:sustainability_stock.selection__res_partner__carbon_freight_transport_mode__sea
+msgid "Sea"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.sustainability_stock_freight_computation_filter
+msgid "Search Freight Computations"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,help:sustainability_stock.field_res_company__carbon_freight_transport_mode
+#: model:ir.model.fields,help:sustainability_stock.field_res_config_settings__carbon_freight_transport_mode
+#: model:ir.model.fields,help:sustainability_stock.field_res_partner__carbon_freight_transport_mode
+#: model:ir.model.fields,help:sustainability_stock.field_res_users__carbon_freight_transport_mode
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Select the default mode of transportation for freight orders."
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Select the product for downstream freight transport."
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Select the product for upstream freight transport."
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,help:sustainability_stock.field_res_config_settings__carbon_freight_max_delivery_count
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Specify the maximum number of deliveries to process at once."
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,help:sustainability_stock.field_res_company__carbon_freight_max_delivery_count
+msgid "Specify the maximum number of deliveries to process."
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_account_bank_statement_line__carbon_freight_picking_id
+#: model:ir.model.fields,field_description:sustainability_stock.field_account_move__carbon_freight_picking_id
+#: model:ir.model.fields,field_description:sustainability_stock.field_account_payment__carbon_freight_picking_id
+#: model:ir.model.fields,field_description:sustainability_stock.field_carbon_line_origin__move_carbon_freight_picking_id
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.carbon_line_origin_filter_inherit
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.carbon_line_origin_tree_inherit
+msgid "Stock Transfer"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_tolerance
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_config_settings__carbon_freight_tolerance
+msgid "Tolerance"
+msgstr ""
+
+#. module: sustainability_stock
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.res_config_settings_view_form
+msgid "Tolerance (km)"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model,name:sustainability_stock.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__transport_mode
+msgid "Transport Mode"
+msgstr ""
+
+#. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/stock_picking.py:0
+#: model_terms:ir.ui.view,arch_db:sustainability_stock.view_partner_form_freight
+#, python-format
+msgid "Transport mode"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_res_company__carbon_freight_uncertainty_percentage
+msgid "Uncertainty"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__weight_unit
+msgid "Unit"
+msgstr ""
