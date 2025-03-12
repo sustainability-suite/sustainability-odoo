@@ -30,7 +30,7 @@
                                     name="carbon_in_is_manual"
                                     nolabel="1"
                                     widget="boolean_toggle"
-                                    class=""
+                                    options="{'autosave': False}"
                                     style="margin-left: 8px;"
                                 />
                                 <field name="carbon_in_mode" invisible="1" />

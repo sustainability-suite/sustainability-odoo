@@ -10,22 +10,22 @@ class TestCarbonUom(CarbonCommon):
     def setUpClass(cls):
         super().setUpClass()
 
-        # cls.env["res.currency.rate"].create(
-        #     [
-        #         {
-        #             "name": "2010-01-01",
-        #             "company_rate": 1,
-        #             "inverse_company_rate": 1,
-        #             "rate": 1,
-        #             "currency_id": cls.currency_usd.id,
-        #         },
-        #         {
-        #             "name": "2023-01-01",
-        #             "company_rate": 1,
-        #             "currency_id": cls.currency_eur.id,
-        #         },
-        #     ]
-        # )
+        cls.env["res.currency.rate"].create(
+            [
+                {
+                    "name": "2010-01-01",
+                    "company_rate": 1,
+                    "inverse_company_rate": 1,
+                    "rate": 1,
+                    "currency_id": cls.currency_usd.id,
+                },
+                {
+                    "name": "2023-01-01",
+                    "company_rate": 0.99,  # Fake rate in order to test the conversion
+                    "currency_id": cls.currency_eur.id,
+                },
+            ]
+        )
 
         (
             cls.carbon_factor_monetary,
@@ -84,6 +84,7 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_out)
         self.assertEqual(
             round(invoice_out.carbon_balance, 2),
             -0.18,
@@ -105,6 +106,7 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_in)
         self.assertEqual(
             round(invoice_in.carbon_balance, 2),
             0.18,
@@ -139,9 +141,10 @@ class TestCarbonUom(CarbonCommon):
                 ],
             }
         )
+        self.check_sign(invoice_out)
 
         self.assertEqual(
             round(invoice_out.carbon_balance, 2),
-            -2.38,
+            -2.48,
             "Converted quantity for customer invoice does not correspond.",
         )
