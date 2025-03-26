@@ -567,7 +567,12 @@ class CarbonFactor(models.Model):
                 converted_weight = default_weight_uom._compute_quantity(
                     product_id.weight, self.carbon_uom_id, round=False
                 )
-                partial_value_result = carbon_value * converted_weight * quantity
+                converted_quantity = from_uom_id._compute_quantity(
+                    quantity, product_id.uom_id
+                )
+                partial_value_result = (
+                    carbon_value * converted_weight * converted_quantity
+                )
             elif compute_method == "physical" and quantity is not None and from_uom_id:
                 # Units of measure can't be converted if they are not in the same category
                 if from_uom_id.category_id != uom_id.category_id:
@@ -608,9 +613,11 @@ class CarbonFactor(models.Model):
                         from_uom_id,
                         amount,
                         from_currency_id,
-                        "\n- Reference: " + "\n  - ".join(kwargs.get("reference"))
-                        if kwargs.get("reference")
-                        else "",
+                        (
+                            "\n- Reference: " + "\n  - ".join(kwargs.get("reference"))
+                            if kwargs.get("reference")
+                            else ""
+                        ),
                     )
                 )
 
