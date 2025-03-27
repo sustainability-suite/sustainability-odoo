@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo-addon-sustainability_hr_expense_report>=16.0dev,<16.1dev',
         'odoo-addon-sustainability_mis_builder>=16.0dev,<16.1dev',
         'odoo-addon-sustainability_purchase>=16.0dev,<16.1dev',
+        'odoo-addon-sustainability_stock>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
