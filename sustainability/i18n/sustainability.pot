@@ -15,13 +15,6 @@ msgstr ""
 
 #. module: sustainability
 #. odoo-python
-#: code:addons/sustainability/models/carbon_common_mixin.py:0
-#, python-format
-msgid "%s %s"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
 #: code:addons/sustainability/models/carbon_copy_mixin.py:0
 #, python-format
 msgid "%s (copy)"
@@ -68,6 +61,16 @@ msgid ""
 "                  Default CO\n"
 "                  <sub>2</sub>\n"
 "                  e outbound factor\n"
+"                </span>"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                  Show CO\n"
+"                  <sub>2</sub>\n"
+"                  in Inventory\n"
 "                </span>"
 msgstr ""
 
@@ -592,13 +595,6 @@ msgid "CO2 lock date"
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
-msgid "CO2 origin details for %s"
-msgstr ""
-
-#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_analytic_line_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_analytic_line_tree
 msgid "CO2 value"
@@ -691,13 +687,9 @@ msgid "Carbon Factor Value"
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_common_mixin.py:0
-#: code:addons/sustainability/models/carbon_factor.py:0
 #: model:ir.actions.act_window,name:sustainability.carbon_line_origin_action
 #: model:ir.ui.menu,name:sustainability.carbon_line_origin_graph_menu
 #: model:ir.ui.menu,name:sustainability.carbon_line_origin_menu
-#, python-format
 msgid "Carbon Footprint"
 msgstr ""
 
@@ -706,6 +698,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_view_graph
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_view_pivot
 msgid "Carbon Footprint Analysis"
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_common_mixin.py:0
+#: code:addons/sustainability/models/carbon_factor.py:0
+#, python-format
+msgid "Carbon Footprint for"
+msgstr ""
+
+#. module: sustainability
+#. odoo-python
+#: code:addons/sustainability/models/carbon_line_mixin.py:0
+#, python-format
+msgid "Carbon Footprint for %s"
 msgstr ""
 
 #. module: sustainability
@@ -1055,6 +1062,14 @@ msgid ""
 "Compute and display CO\n"
 "                    <sub>2</sub>\n"
 "                    for your expense reports"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+msgid ""
+"Compute and display CO\n"
+"                    <sub>2</sub>\n"
+"                    in inventory"
 msgstr ""
 
 #. module: sustainability
@@ -2097,6 +2112,11 @@ msgid "Module Sustainability Purchase"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_res_config_settings__module_sustainability_stock
+msgid "Module Sustainability Stock"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.model.fields.selection,name:sustainability.selection__carbon_factor__carbon_compute_method__monetary
 #: model:ir.model.fields.selection,name:sustainability.selection__carbon_factor_value_report__carbon_compute_method__monetary
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_filter
@@ -3068,6 +3088,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Use CO2e in Purchase app"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+msgid "Use CO2e in Stock app"
 msgstr ""
 
 #. module: sustainability
