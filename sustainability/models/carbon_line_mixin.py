@@ -327,7 +327,7 @@ class CarbonLineMixin(models.AbstractModel):
     def action_see_carbon_origin(self):
         self.ensure_one()
         return {
-            "name": _("CO2 origin details for %s", self.display_name),
+            "name": _("Carbon Footprint for %s", self.display_name),
             "type": "ir.actions.act_window",
             "res_model": "carbon.line.origin",
             "views": [[False, "tree"]],
