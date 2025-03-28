@@ -13,8 +13,6 @@
             >model._cron_carbon_account_move_create('commuting')</field>
             <field name="interval_type">months</field>
             <field name="interval_number">1</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
             <field name="active" eval="False" />
             <field
                 name="nextcall"
@@ -36,8 +34,6 @@
             >model._cron_carbon_account_move_create('remote_work')</field>
             <field name="interval_type">months</field>
             <field name="interval_number">1</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
             <field name="active" eval="False" />
             <field
                 name="nextcall"
