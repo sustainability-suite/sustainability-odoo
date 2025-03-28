@@ -57,11 +57,11 @@
     </record>
 
     <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
-        <field name="name">sustainability.product.supplierinfo.tree.view</field>
+        <field name="name">sustainability.product.supplierinfo.list.view</field>
         <field name="model">product.supplierinfo</field>
         <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <field column_invisible="1" name="carbon_allowed_factor_ids" />
                 <field
                         name="carbon_in_factor_id"
