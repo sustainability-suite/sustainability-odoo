@@ -1,7 +1,7 @@
 {
     "name": "Sustainability: Account Asset Management OCA",
     "summary": "Glue module to make co2 module compatible with assets management from OCA",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat"],
     "development_status": "Alpha",
