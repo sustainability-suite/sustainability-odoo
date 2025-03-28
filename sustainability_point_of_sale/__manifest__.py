@@ -1,7 +1,7 @@
 {
     "name": "Sustainability Point of Sale",
     "category": "Sales/Point of Sale",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "installable": True,
     "application": False,
     "auto_install": False,
