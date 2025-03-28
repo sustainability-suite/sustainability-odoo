@@ -2,10 +2,10 @@
 <odoo>
     <data>
         <record id="carbon_factor_tree" model="ir.ui.view">
-            <field name="name">carbon.factor.tree</field>
+            <field name="name">carbon.factor.list</field>
             <field name="model">carbon.factor</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field column_invisible="1" name="carbon_currency_id" />
                     <field column_invisible="1" name="carbon_compute_method" />
                     <field column_invisible="1" name="recent_value_id" />
@@ -37,7 +37,7 @@
                     <field name="category" optional="show" />
                     <field name="carbon_date" optional="hide" />
                     <field name="carbon_compute_method" optional="hide" />
-                </tree>
+                </list>
             </field>
         </record>
         <record id="carbon_factor_hierarchy" model="ir.ui.view">
@@ -423,7 +423,7 @@
                                 > Some values miss a currency or a unit of measure <br
                                     /> Please fix them before using this factor. </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="date" />
                                         <field name="type_id" />
                                         <field
@@ -529,16 +529,12 @@
                                             title="Erase the precision value"
                                             type="object"
                                         />
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" />
-                        <field name="activity_ids" />
-                        <field name="message_ids" />
-                    </div>
+                    <chatter />
                 </form>
             </field>
         </record>
@@ -574,7 +570,7 @@
             <field name="name">Emission Factors</field>
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,hierarchy,form</field>
+            <field name="view_mode">list,hierarchy,form</field>
         </record>
 
         <record id="action_recompute_carbon_carbon_factor" model="ir.actions.server">

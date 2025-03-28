@@ -330,7 +330,7 @@ class CarbonLineMixin(models.AbstractModel):
             "name": _("Carbon Footprint for %s", self.display_name),
             "type": "ir.actions.act_window",
             "res_model": "carbon.line.origin",
-            "views": [[False, "tree"]],
+            "views": [[False, "list"]],
             "domain": [("id", "in", self.carbon_origin_ids.ids)],
             "target": "current",
             "context": {

@@ -25,7 +25,7 @@ class CarbonCommonMixin(models.AbstractModel):
             "name": f"{title} {self.name}",
             "type": "ir.actions.act_window",
             "res_model": model,
-            "views": [(False, "tree"), (False, "form")],
+            "views": [(False, "list"), (False, "form")],
             "domain": domain,
             "target": "current",
             "context": {

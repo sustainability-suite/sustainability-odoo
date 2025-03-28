@@ -72,7 +72,7 @@
                     <field invisible="1" name="carbon_currency_id" />
                 </xpath>
                 <xpath
-                    expr="//field[@name='line_ids']//tree//field[@name='credit']"
+                    expr="//field[@name='line_ids']//list//field[@name='credit']"
                     position="after"
                 >
                     <field
@@ -155,7 +155,7 @@
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_tree" />
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="inside">
+                <xpath expr="//list" position="inside">
                     <field
                         digits="[13,2]"
                         name="carbon_balance"

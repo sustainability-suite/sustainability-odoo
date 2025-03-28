@@ -2,14 +2,14 @@
 <odoo>
     <data>
         <record id="sustainability_scenario_tree" model="ir.ui.view">
-            <field name="name">sustainability.scenario.tree</field>
+            <field name="name">sustainability.scenario.list</field>
             <field name="model">sustainability.scenario</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name" />
                     <field name="description" />
                     <field name="end_date" />
-                </tree>
+                </list>
             </field>
         </record>
         <record id="sustainability_scenario_filter" model="ir.ui.view">
@@ -90,16 +90,12 @@
                         <notebook>
                             <page name="page_action_plans" string="Action Plans">
                                 <field colspan="2" name="action_plan_ids" nolabel="1">
-                                    <tree editable="bottom" />
+                                    <list editable="bottom" />
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" />
-                        <field name="activity_ids" />
-                        <field name="message_ids" />
-                    </div>
+                    <chatter />
                 </form>
             </field>
         </record>
@@ -110,7 +106,7 @@
             <field name="name">Scenarios</field>
             <field name="res_model">sustainability.scenario</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">No scenarios yet !</p>
             </field>

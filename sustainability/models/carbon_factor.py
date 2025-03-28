@@ -32,7 +32,7 @@ class CarbonFactor(models.Model):
         tracking=True,
     )
     uncertainty_percentage = fields.Float(
-        string="Uncertainty (%)", default=0.0, tracking=True, group_operator=False
+        string="Uncertainty (%)", default=0.0, tracking=True, aggregator=False
     )
     active = fields.Boolean(default=True, tracking=True)
     country_id = fields.Many2one("res.country", string="Country", tracking=True)
@@ -55,7 +55,7 @@ class CarbonFactor(models.Model):
     hierarchy = fields.Char(compute="_compute_hierarchy", recursive=True)
     category = fields.Char(compute="_compute_category", store=True)
     root = fields.Char(compute="_compute_root", store=True)
-    parent_path = fields.Char(index=True, unaccent=False)
+    parent_path = fields.Char(index=True)
     child_ids = fields.One2many(comodel_name="carbon.factor", inverse_name="parent_id")
     child_qty = fields.Integer(compute="_compute_child_qty")
     descendant_ids = fields.Many2many(
