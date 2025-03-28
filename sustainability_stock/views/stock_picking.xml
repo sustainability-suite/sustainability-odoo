@@ -30,7 +30,7 @@
             </field>
         </record>
         <record id="vpicktree_inherit" model="ir.ui.view">
-            <field name="name">stock.picking.tree.inherit</field>
+            <field name="name">stock.picking.list.inherit</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.vpicktree" />
             <field name="arch" type="xml">
