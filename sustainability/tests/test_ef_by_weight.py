@@ -62,6 +62,45 @@ class TestEFByWeight(CarbonCommon):
             "The carbon factor was not correctly applied for quantity 2.",
         )
 
+    def test_ef_by_weight_uom_change(self):
+        """
+        Verify that an invoice line with a product that has a carbon factor with
+        the unit of measure changed to kilometers (km) correctly applies the weight calculation.
+        """
+
+        self.ef_by_weight_product_product_1.write(
+            {"uom_id": self.uom_meter.id, "categ_id": self.uom_meter.category_id.id}
+        )
+
+        self.ef_by_weight_invoice.write(
+            {
+                "invoice_line_ids": [
+                    (
+                        1,
+                        self.ef_by_weight_invoice.invoice_line_ids[0].id,
+                        {
+                            "product_uom_id": self.uom_km.id,
+                        },
+                    )
+                ],
+            }
+        )
+        self.check_sign(self.ef_by_weight_invoice)
+
+        carbon_line_origins = self.env["carbon.line.origin"].search(
+            [
+                ("move_id", "=", self.ef_by_weight_invoice.id),
+                ("factor_id", "=", self.ef_by_weight_carbon_factor.id),
+            ]
+        )
+        total_value = sum(origin.signed_value for origin in carbon_line_origins)
+
+        self.assertEqual(
+            total_value,
+            10000.0,
+            "The carbon factor was not correctly applied.",
+        )
+
     def test_ef_by_weight_conversion(self):
         """
         Verify that an invoice line with a product that has a carbon factor using grams
@@ -95,6 +134,8 @@ class TestEFByWeight(CarbonCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.uom_kgm = cls.env.ref("uom.product_uom_kgm")
+        cls.uom_km = cls.env.ref("uom.product_uom_km")
+        cls.uom_meter = cls.env.ref("uom.product_uom_meter")
 
         cls.ef_by_weight_carbon_factor = cls.env["carbon.factor"].create(
             dict(
@@ -129,7 +170,7 @@ class TestEFByWeight(CarbonCommon):
             [("product_tmpl_id", "=", cls.ef_by_weight_product_template_1.id)], limit=1
         )
 
-        cls.ef_by_weight_product_product_1.update(
+        cls.ef_by_weight_product_product_1.write(
             dict(
                 carbon_in_is_manual=True,
                 carbon_in_factor_id=cls.ef_by_weight_carbon_factor.id,
