@@ -421,7 +421,7 @@
                                     invisible="has_invalid_value == False"
                                     role="alert"
                                 > Some values miss a currency or a unit of measure <br
-                                    /> Please fix them before using this factor. </div>
+                                /> Please fix them before using this factor. </div>
                                 <field colspan="2" name="value_ids" nolabel="1">
                                     <list editable="bottom">
                                         <field name="date" />

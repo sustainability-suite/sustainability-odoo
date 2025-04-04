@@ -21,9 +21,9 @@
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_text">
                                 <field
-                                    name="carbon_line_origin_qty"
-                                    nolabel="1"
-                                /> Carbon Footprint </span>
+                                name="carbon_line_origin_qty"
+                                nolabel="1"
+                            /> Carbon Footprint </span>
                         </div>
                     </button>
                 </xpath>

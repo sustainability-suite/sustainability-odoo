@@ -1,77 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<data>
-    <record id="product_supplierinfo_form_view" model="ir.ui.view">
-        <field name="name">product_supplierinfo_form_view</field>
-        <field name="model">product.supplierinfo</field>
-        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
-        <field name="arch" type="xml">
-            <xpath expr="//group[@name='vendor']" position="after">
-                <group string="CO2 Settings" name="group_carbon_settings">
-                    <field name="carbon_allowed_factor_ids" invisible="1" />
-                    <group string="Purchases">
-                        <label for="carbon_in_is_manual" string="Mode" />
-                        <div class="gap-1 d-inline-flex ml-3">
-                            <div
+    <data>
+        <record id="product_supplierinfo_form_view" model="ir.ui.view">
+            <field name="name">product_supplierinfo_form_view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='vendor']" position="after">
+                    <group string="CO2 Settings" name="group_carbon_settings">
+                        <field name="carbon_allowed_factor_ids" invisible="1" />
+                        <group string="Purchases">
+                            <label for="carbon_in_is_manual" string="Mode" />
+                            <div class="gap-1 d-inline-flex ml-3">
+                                <div
                                     class="opacity-50 mr-2"
                                     invisible="not carbon_in_is_manual"
                                 >Undefined</div>
-                            <div
+                                <div
                                     style="font-weight: bold;"
                                     invisible="carbon_in_is_manual"
                                 >Undefined</div>
 
-                            <field
+                                <field
                                     name="carbon_in_is_manual"
                                     nolabel="1"
                                     widget="boolean_toggle"
                                     options="{'autosave': False}"
                                     style="margin-left: 8px;"
                                 />
-                            <field name="carbon_in_mode" invisible="1" />
+                                <field name="carbon_in_mode" invisible="1" />
 
-                            <div
+                                <div
                                     class="opacity-50"
                                     invisible="carbon_in_is_manual"
                                 >Set</div>
-                            <div
+                                <div
                                     style="font-weight: bold;"
                                     invisible="not carbon_in_is_manual"
                                 >Set</div>
-                        </div>
-                        <field
+                            </div>
+                            <field
                                 name="carbon_in_fallback_reference"
                                 widget="reference"
                                 invisible="carbon_in_is_manual"
                             />
-                        <field
+                            <field
                                 name="carbon_in_factor_id"
                                 string="Emission Factor"
                                 invisible="not carbon_in_is_manual"
                                 required="carbon_in_is_manual"
                             />
+                        </group>
                     </group>
-                </group>
-            </xpath>
-        </field>
-    </record>
+                </xpath>
+            </field>
+        </record>
 
-    <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
-        <field name="name">sustainability.product.supplierinfo.list.view</field>
-        <field name="model">product.supplierinfo</field>
-        <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
-        <field name="arch" type="xml">
-            <xpath expr="//list" position="inside">
-                <field column_invisible="1" name="carbon_allowed_factor_ids" />
-                <field
+        <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
+            <field name="name">sustainability.product.supplierinfo.list.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="inside">
+                    <field column_invisible="1" name="carbon_allowed_factor_ids" />
+                    <field
                         name="carbon_in_factor_id"
                         string="Emission Factor"
                         optional="hide"
                         widget="many2one"
                     />
-            </xpath>
-        </field>
-    </record>
-
-</data>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
