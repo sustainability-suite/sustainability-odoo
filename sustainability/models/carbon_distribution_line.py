@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class CarbonDistributionLine(models.Model):
     _name = "carbon.distribution.line"
-    _description = "carbon.distribution.line"
+    _description = "Carbon Distribution Line"
 
     _sql_constraints = [
         (

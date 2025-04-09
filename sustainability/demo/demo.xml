@@ -61,6 +61,7 @@
         </record>
 
         <!-- edit partner of a demo invoice to have an example of product.template computation.level
+        MIG18 FIXME
         <record id="account.1_demo_invoice_5" model="account.move">
             <field name="partner_id" ref="base.res_partner_2" />
         </record> -->

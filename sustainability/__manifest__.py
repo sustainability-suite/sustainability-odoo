@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "18.0.1.1.1",
+    "version": "18.0.1.0.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -60,6 +60,11 @@
         "demo/carbon_factor_value.xml",
         "demo/demo.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "sustainability/static/src/js/tours/*.js",
+        ],
+    },
     "installable": True,
     "application": True,
     "auto_install": False,

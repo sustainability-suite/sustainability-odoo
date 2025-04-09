@@ -2,7 +2,8 @@ from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _name = "account.move"
+    _inherit = ["account.move", "carbon.common.mixin"]
 
     carbon_currency_id = fields.Many2one(
         "res.currency",
@@ -37,10 +38,18 @@ class AccountMove(models.Model):
     @api.depends("invoice_line_ids.carbon_uncertainty_value")
     def _compute_carbon_uncertainty_value(self):
         for move in self:
-            move.carbon_uncertainty_value = abs(
-                sum(move.invoice_line_ids.mapped("carbon_uncertainty_value"))
+            sum_uncertainty = sum(
+                move.invoice_line_ids.mapped("carbon_uncertainty_value")
+            )
+            move.carbon_uncertainty_value = (
+                -sum_uncertainty if move.carbon_balance < 0 else sum_uncertainty
             )
 
     def action_recompute_carbon(self) -> dict:
         """Force re-computation of carbon values for lines"""
         return self.line_ids.action_recompute_carbon()
+
+    # Carbon Line Origin Smart Button
+    @api.model
+    def _carbon_get_line_field(cls):
+        return "line_ids"

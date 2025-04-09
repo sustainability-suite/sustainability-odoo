@@ -20,6 +20,9 @@
         # Security
         "security/ir.model.access.csv",
     ],
+    "images": [
+        "static/description/co2_base_green.png",
+    ],
     "demo": [
         "data/demo.xml",
     ],

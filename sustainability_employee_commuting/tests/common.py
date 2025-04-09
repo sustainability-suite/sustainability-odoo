@@ -1,4 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
 
 from odoo.tests import TransactionCase
 
@@ -84,10 +86,8 @@ class CarbonCommon(TransactionCase):
                 "employee_remote_work_account_id": cls.carbon_account.id,
                 "employee_remote_work_carbon_cronjob_active": True,
                 "carbon_lock_date": (
-                    datetime.today().replace(day=1) - timedelta(days=1)
-                )
-                .replace(day=1)
-                .strftime("%Y-%m-%d"),  # First day of last month
+                    datetime.today() - relativedelta(months=6)
+                ).strftime("%Y-%m-%d"),
             }
         )
 
@@ -114,6 +114,7 @@ class CarbonCommon(TransactionCase):
             cls.employee_home,
             cls.employee_office,
             cls.employee_no_location,
+            cls.employee_new_contract,
             cls.employee_no_contract,
         ) = cls.env["hr.employee"].create(
             [
@@ -128,6 +129,12 @@ class CarbonCommon(TransactionCase):
                     "tuesday_location_id": cls.office_location.id,
                 },
                 {"name": "Test Employee No Location", "company_id": cls.env.company.id},
+                {
+                    "name": "Test Employee New Contract",
+                    "company_id": cls.env.company.id,
+                    "monday_location_id": cls.home_location.id,
+                    "tuesday_location_id": cls.office_location.id,
+                },
                 {
                     "name": "Test Employee No Contract",
                     "company_id": cls.env.company.id,
@@ -152,6 +159,18 @@ class CarbonCommon(TransactionCase):
                     cls.employee_no_location,
                 )
             ]
+        )
+        cls.env["hr.contract"].create(
+            {
+                "name": "Test Contract 3 months ago",
+                "employee_id": cls.employee_new_contract.id,
+                "date_start": (datetime.today() - relativedelta(months=3)).strftime(
+                    "%Y-%m-%d"
+                ),
+                "state": "open",
+                "wage": 3000,
+                "company_id": cls.env.company.id,
+            }
         )
 
         cls.env["carbon.hr.commuting"].create(
