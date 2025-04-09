@@ -128,7 +128,7 @@ class ResCompany(models.Model):
         )
         account_moves.unlink()
 
-    def get_employees_with_contracts(self, employees_domain=None):
+    def get_employees_with_contracts(self, account_move_date, employees_domain=None):
         """
         Retrieves employees with active contracts in the company.
         """
@@ -140,6 +140,10 @@ class ResCompany(models.Model):
             [
                 ("employee_id", "in", employees.ids),
                 ("state", "in", ["open", "close"]),
+                ("date_start", "<=", account_move_date),
+                "|",
+                ("date_end", "=", False),
+                ("date_end", ">=", account_move_date),
             ]
         )
         return contracts.mapped("employee_id")
@@ -204,7 +208,7 @@ class ResCompany(models.Model):
         self.ensure_one()
         try:
             # Fetch employees with contracts
-            employees = self.get_employees_with_contracts()
+            employees = self.get_employees_with_contracts(account_move_date)
             if not employees:
                 return False
 
@@ -292,7 +296,9 @@ class ResCompany(models.Model):
         self.ensure_one()
 
         try:
-            employees = self.get_employees_with_contracts([("has_location", "=", True)])
+            employees = self.get_employees_with_contracts(
+                account_move_date, [("has_location", "=", True)]
+            )
             if not employees:
                 _logger.info(
                     f"No employees found working from home for company {self.name}."
@@ -324,10 +330,11 @@ class ResCompany(models.Model):
 
             # Handle average
             for employee in self.get_employees_with_contracts(
+                account_move_date,
                 [
                     ("work_days_home", "=", 0),
                     ("has_location", "=", False),
-                ]
+                ],
             ):
                 remote_work_carbon = (
                     average_remote_work_days * carbon_factor * WEEKS_PER_MONTH
@@ -352,6 +359,10 @@ class ResCompany(models.Model):
 
             if to_post:
                 account_move.action_post()
+
+            self.env["carbon.line.origin"].search(
+                [("move_id", "=", account_move.id)]
+            ).write({"factor_id": self.employee_remote_work_carbon_factor_id.id})
 
             _logger.info(f"Created account move: {account_move}")
             return True

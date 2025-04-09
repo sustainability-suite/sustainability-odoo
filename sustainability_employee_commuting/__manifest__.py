@@ -2,7 +2,7 @@
 
 {
     "name": "Sustainability Employee Commuting",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -19,6 +19,9 @@
         "views/hr_employee_commuting.xml",
         # Security
         "security/ir.model.access.csv",
+    ],
+    "images": [
+        "static/description/co2_base_green.png",
     ],
     "demo": [
         "data/demo.xml",
