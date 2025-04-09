@@ -14,6 +14,7 @@
     "sustainability-suite/sustainability-odoo#343": "column invisible not exist in 16.0",
     "sustainability-suite/sustainability-odoo#340": "Already backported",
     "sustainability-suite/sustainability-odoo#304": "not relevant",
-    "sustainability-suite/sustainability-odoo#369": "no test_tour in 16.0"
+    "sustainability-suite/sustainability-odoo#369": "no test_tour in 16.0",
+    "sustainability-suite/sustainability-odoo#216": "will be migrated later maybe"
   }
 }
