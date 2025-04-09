@@ -70,4 +70,8 @@
     "auto_install": False,
     "license": "LGPL-3",
     "sequence": 1,
+    "pre_init_hook": "_pre_init_carbon",
+    "external_dependencies": {
+        "python": ["openupgradelib"],
+    },
 }
