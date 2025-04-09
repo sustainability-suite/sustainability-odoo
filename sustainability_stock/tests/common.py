@@ -23,11 +23,13 @@ class CarbonCommon(TransactionCase):
             [
                 {
                     "name": "Upstream Product",
-                    "type": "product",
+                    "type": "consu",
+                    "is_storable": True,
                 },
                 {
                     "name": "Downstream Product",
-                    "type": "product",
+                    "type": "consu",
+                    "is_storable": True,
                 },
             ]
         )
@@ -46,7 +48,7 @@ class CarbonCommon(TransactionCase):
                 "name": "Carbon extra-accounting",
                 "code": "10001",
                 "account_type": "expense",
-                "company_id": cls.env.company.id,
+                "company_ids": [(6, 0, [cls.env.company.id])],
             }
         )
 
@@ -66,10 +68,20 @@ class CarbonCommon(TransactionCase):
         cls.vendor = cls.env["res.partner"].create({"name": "Test Vendor"})
 
         cls.product_to_sell = cls.env["product.product"].create(
-            {"name": "Product to Sell", "type": "product", "weight": 1.0}
+            {
+                "name": "Product to Sell",
+                "type": "consu",
+                "weight": 1.0,
+                "is_storable": True,
+            }
         )
         cls.product_to_purchase = cls.env["product.product"].create(
-            {"name": "Product to Purchase", "type": "product", "weight": 2.0}
+            {
+                "name": "Product to Purchase",
+                "type": "consu",
+                "weight": 2.0,
+                "is_storable": True,
+            }
         )
 
         product_delivery = cls.env["product.product"].create(
