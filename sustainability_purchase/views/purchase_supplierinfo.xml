@@ -25,7 +25,7 @@
                                     name="carbon_in_is_manual"
                                     nolabel="1"
                                     widget="boolean_toggle"
-                                    class=""
+                                    options="{'autosave': False}"
                                     style="margin-left: 8px;"
                                 />
                                 <field name="carbon_in_mode" invisible="1" />
@@ -57,7 +57,7 @@
         </record>
 
         <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
-            <field name="name">sustainability.product.supplierinfo.tree.view</field>
+            <field name="name">sustainability.product.supplierinfo.list.view</field>
             <field name="model">product.supplierinfo</field>
             <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
             <field name="arch" type="xml">
@@ -66,7 +66,7 @@
                     <field
                         name="carbon_in_factor_id"
                         string="Emission Factor"
-                        optional="show"
+                        optional="hide"
                         widget="many2one"
                     />
                 </xpath>

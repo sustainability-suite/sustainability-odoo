@@ -22,6 +22,7 @@
                         name="carbon_debt"
                         digits="[13,2]"
                         readonly="carbon_is_locked"
+                        optional="hide"
                     />
                     <button
                         title="Unlock co2"
@@ -63,6 +64,26 @@
                 <xpath expr="//field[@name='tax_totals']" position="after">
                     <field name="carbon_debt" digits="[13,2]" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button
+                        class="oe_stat_button"
+                        icon="fa-leaf"
+                        name="action_see_clo_child_ids"
+                        type="object"
+                        invisible="carbon_origin_child_qty &lt; 1"
+                    >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field
+                                    name="carbon_origin_child_qty"
+                                    nolabel="1"
+                                    widget="statinfo"
+                                />
+                            </span>
+                            <span class="o_stat_text">Carbon Footprint</span>
+                        </div>
+                    </button>
                 </xpath>
             </field>
         </record>

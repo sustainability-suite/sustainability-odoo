@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="sustainability_action_plan_tree" model="ir.ui.view">
-            <field name="name">sustainability.action.plan.tree</field>
+            <field name="name">sustainability.action.plan.list</field>
             <field name="model">sustainability.action.plan</field>
             <field name="arch" type="xml">
                 <list>
@@ -41,30 +41,17 @@
                                 icon="fa-leaf"
                                 name="action_see_actions"
                                 type="object"
+                                invisible="action_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_qty &lt;= 1"
-                                    >
+                                    <span class="o_stat_value">
                                         <field
-                                        name="action_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    />
-                                        Actions
+                                            name="action_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
                                     </span>
-                                    <span
-                                        class="o_stat_value"
-                                        invisible="action_qty > 1"
-                                    >
-                                        <field
-                                        name="action_qty"
-                                        nolabel="1"
-                                        widget="statinfo"
-                                    />
-                                        Action
-                                    </span>
+                                    <span class="o_stat_text">Actions</span>
                                 </div>
                             </button>
                         </div>

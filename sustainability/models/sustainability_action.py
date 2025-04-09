@@ -10,7 +10,7 @@ _levels = [
 class SustainabilityAction(models.Model):
     _name = "sustainability.action"
     _description = "Sustainability Action"
-    _inherit = ["mail.thread", "mail.activity.mixin", "common.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "carbon.common.mixin"]
 
     name = fields.Char(required=True, tracking=True)
     description = fields.Text(required=True, tracking=True)
