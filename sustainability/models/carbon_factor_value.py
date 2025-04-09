@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class CarbonFactorValue(models.Model):
     _name = "carbon.factor.value"
     _inherit = ["mail.thread", "mail.activity.mixin"]
-    _description = "carbon.factor.value"
+    _description = "Carbon Factor Value"
     _order = "date desc"
 
     _sql_constraints = [

@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class Nomenclature(models.Model):
     _name = "sustainability.nomenclature"
-    _description = "Nomenclature"
+    _description = "Sustainability Nomenclature"
 
     name = fields.Char(
         required=True,
@@ -35,7 +35,7 @@ class NomenclatureSubCategory(models.Model):
     _name = "sustainability.nomenclature.sub_category"
     _description = "Nomenclature Sub Category"
 
-    _inherit = ["mail.thread", "mail.activity.mixin", "common.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "carbon.common.mixin"]
 
     name = fields.Char(
         required=True,
