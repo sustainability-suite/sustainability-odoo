@@ -105,9 +105,9 @@ class TestCarbonPurchase(CarbonPurchaseCommon):
         self.purchase_purchase_order_3.action_recompute_carbon()
         self.assertEqual(round(self.purchase_purchase_order_3.carbon_debt, 2), 500)
 
-    #     self.purchase_product_template_3.seller_ids[0].carbon_in_factor_id = False
-    #     self.purchase_purchase_order_3.action_recompute_carbon()
-    #     self.assertEqual(round(self.purchase_purchase_order_3.carbon_debt, 2), 1500) # TODO: Make sure this test pass as soon as possible
+        self.purchase_product_template_3.seller_ids[0].carbon_in_factor_id = False
+        self.purchase_purchase_order_3.action_recompute_carbon()
+        self.assertEqual(round(self.purchase_purchase_order_3.carbon_debt, 2), 1500)
 
     def test_validate_purchase_order(self):
         """
