@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="carbon_factor_type_tree" model="ir.ui.view">
-            <field name="name">carbon.factor.type.tree</field>
+            <field name="name">carbon.factor.type.list</field>
             <field name="model">carbon.factor.type</field>
             <field name="arch" type="xml">
                 <list editable="bottom">
