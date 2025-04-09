@@ -16,14 +16,12 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_copy_mixin.py:0
-#, python-format
 msgid "%s (copy)"
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "%s lines couldn't be recomputed"
 msgstr ""
 
@@ -119,7 +117,6 @@ msgstr ""
 #: model:ir.model,name:sustainability.model_account_account
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_account_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
-#, python-format
 msgid "Account"
 msgstr ""
 
@@ -168,7 +165,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/sustainability_action.py:0
 #: code:addons/sustainability/models/sustainability_scenario.py:0
-#, python-format
 msgid "Action Plans for"
 msgstr ""
 
@@ -190,7 +186,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/sustainability_action_plan.py:0
 #: code:addons/sustainability/models/sustainability_scenario.py:0
-#, python-format
 msgid "Actions for"
 msgstr ""
 
@@ -424,7 +419,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_balance
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_balance
-#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_balance
 msgid "CO2 Equivalent"
 msgstr ""
 
@@ -440,7 +434,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_uncertainty_value
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_uncertainty_value
 #: model:ir.model.fields,field_description:sustainability.field_account_move_line__carbon_uncertainty_value
-#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_uncertainty_value
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_mixin__carbon_uncertainty_value
 msgid "CO2 Uncertainty"
 msgstr ""
@@ -490,7 +483,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_account_move_line__carbon_currency_id
-#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_mixin__carbon_currency_id
 msgid "Carbon Currency"
@@ -561,14 +553,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/carbon_common_mixin.py:0
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Carbon Footprint for"
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Carbon Footprint for %s"
 msgstr ""
 
@@ -643,7 +633,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_origin_child_ids
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_origin_child_ids
-#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_origin_child_ids
 #: model:ir.model.fields,field_description:sustainability.field_carbon_common_mixin__carbon_origin_child_ids
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_origin_child_ids
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action__carbon_origin_child_ids
@@ -656,7 +645,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_origin_child_qty
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_origin_child_qty
-#: model:ir.model.fields,field_description:sustainability.field_account_payment__carbon_origin_child_qty
 #: model:ir.model.fields,field_description:sustainability.field_carbon_common_mixin__carbon_origin_child_qty
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__carbon_origin_child_qty
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_action__carbon_origin_child_qty
@@ -728,7 +716,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Carbon on invoice"
 msgstr ""
 
@@ -767,14 +754,12 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Chart of Account for"
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Check server logs for more details"
 msgstr ""
 
@@ -791,7 +776,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Child factors for"
 msgstr ""
 
@@ -825,7 +809,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Company fallback"
 msgstr ""
 
@@ -843,7 +826,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Computation made on %s"
 msgstr ""
 
@@ -908,7 +890,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
 #: model:ir.model,name:sustainability.model_res_partner
-#, python-format
 msgid "Contact"
 msgstr ""
 
@@ -1149,7 +1130,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Distribution values must sum up to 1 (current value: %s)"
 msgstr ""
 
@@ -1656,7 +1636,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Journal Entries"
 msgstr ""
 
@@ -1779,14 +1758,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sustainability.selection__res_country__carbon_out_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__res_partner__carbon_in_mode__manual
 #: model:ir.model.fields.selection,name:sustainability.selection__res_partner__carbon_out_mode__manual
-#, python-format
 msgid "Manual"
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Manually set on %s by %s"
 msgstr ""
 
@@ -1824,7 +1801,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_mixin.py:0
-#, python-format
 msgid "Missing carbon factor for %s (carbon type: %s)"
 msgstr ""
 
@@ -1970,18 +1946,6 @@ msgid "Name"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__activity_calendar_event_id
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__activity_date_deadline
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__activity_date_deadline
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__activity_date_deadline
@@ -2030,7 +1994,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_mixin.py:0
-#, python-format
 msgid "No fallback found for this record (company value will be used instead)"
 msgstr ""
 
@@ -2196,7 +2159,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_partner_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
-#, python-format
 msgid "Partner"
 msgstr ""
 
@@ -2237,7 +2199,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Please enter all the required type for the following date (%s)"
 msgstr ""
 
@@ -2258,7 +2219,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_product_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
-#, python-format
 msgid "Product"
 msgstr ""
 
@@ -2275,7 +2235,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Product Category for"
 msgstr ""
 
@@ -2287,7 +2246,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Product Supplier Info"
 msgstr ""
 
@@ -2309,14 +2267,12 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Product category"
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Product for"
 msgstr ""
 
@@ -2333,7 +2289,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Product template"
 msgstr ""
 
@@ -2348,18 +2303,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_quantity
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 msgid "Quantity"
-msgstr ""
-
-#. module: sustainability
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__rating_ids
-#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__rating_ids
-msgid "Ratings"
 msgstr ""
 
 #. module: sustainability
@@ -2479,7 +2422,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/sustainability_action.py:0
-#, python-format
 msgid "Scenario for"
 msgstr ""
 
@@ -2588,7 +2530,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "Some factors are missing in distribution (ids: %s)"
 msgstr ""
 
@@ -2645,7 +2586,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
-#, python-format
 msgid "Supplier info"
 msgstr ""
 
@@ -2688,7 +2628,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid ""
 "The factor count is different from the distribution keys count (factor "
 "count: %s, keys count: %s)"
@@ -2704,7 +2643,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_mixin.py:0
-#, python-format
 msgid ""
 "The total percentage of distribution lines must be equal to 100% (for carbon"
 " `in`)"
@@ -2713,7 +2651,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid ""
 "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\n"
 "Please check the carbon settings.\n"
@@ -2724,7 +2661,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid ""
 "The weight may not be defined or is zero for the associated product (%s). Please ensure the weight is properly set to compute the carbon value.\n"
 "\n"
@@ -2734,7 +2670,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid ""
 "To compute a carbon cost, you must pass:\n"
 "- either a quantity and a unit of measure\n"
@@ -3061,7 +2996,6 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid ""
 "You can not change the compute method if some values miss currency/unit of "
 "measure"
@@ -3070,14 +3004,12 @@ msgstr ""
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "You can only select either a Country or a Country Group, not both."
 msgstr ""
 
 #. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
 msgid "_get_values_at_date: No value found for the following factor: %s"
 msgstr ""
 
@@ -3099,6 +3031,11 @@ msgstr ""
 #. module: sustainability
 #: model:uom.uom,name:sustainability.uom_kwh
 msgid "kWh"
+msgstr ""
+
+#. module: sustainability
+#: model:res.currency,currency_unit_label:sustainability.carbon_kilo
+msgid "kgCO2e"
 msgstr ""
 
 #. module: sustainability
