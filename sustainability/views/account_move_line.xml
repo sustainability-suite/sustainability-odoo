@@ -9,7 +9,7 @@
                 <field
                     name="carbon_balance"
                     sum="Total CO2 Balance"
-                    optional="show"
+                    optional="hide"
                     readonly="1"
                     digits="[13,2]"
                 />

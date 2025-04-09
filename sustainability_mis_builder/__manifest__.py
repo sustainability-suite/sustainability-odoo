@@ -15,6 +15,6 @@
         "views/mis_carbon_account_move_line.xml",
         "security/ir.model.access.csv",
     ],
-    "installable": True,
+    "installable": False,
     "license": "AGPL-3",
 }

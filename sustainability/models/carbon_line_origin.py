@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class CarbonLineOrigin(models.Model):
     _name = "carbon.line.origin"
-    _description = "carbon.line.origin"
+    _description = "Carbon Line Origin"
 
     # Fake Many2one that is used in the One2many field in `carbon.line.mixin`
     res_model_id = fields.Many2one(
@@ -137,6 +137,11 @@ class CarbonLineOrigin(models.Model):
     move_line_product_id = fields.Many2one(
         related="move_line_id.product_id",
         string="Product",
+        store=True,
+        readonly=True,
+    )
+    move_line_is_invoice_line = fields.Boolean(
+        related="move_line_id.is_invoice_line",
         store=True,
         readonly=True,
     )
