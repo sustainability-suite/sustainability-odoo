@@ -1,0 +1,9 @@
+{
+  "pull_requests": {
+    "orphaned_commits": "not relevant",
+    "sustainability-suite/sustainability-odoo#274": "remote work is not present in v16",
+    "sustainability-suite/sustainability-odoo#278": "already ported",
+    "sustainability-suite/sustainability-odoo#334": "this was a bug fix related to refactor of commuting made in remote work PR",
+    "sustainability-suite/sustainability-odoo#338": "related to blacklisted remote work PR"
+  }
+}
