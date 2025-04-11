@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="carbon_debt" readonly="1" digits="[13,2]" />
+                    <field name="carbon_currency_id" invisible="1" />
+                </xpath>
+                <xpath expr="//sheet//div[hasclass('oe_button_box')]" position="inside">
+                    <button
+                        class="oe_stat_button"
+                        icon="fa-leaf"
+                        name="action_see_carbon_origins"
+                        type="object"
+                        invisible="carbon_line_origin_qty &lt; 1"
+                    >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">
+                                <field
+                                name="carbon_line_origin_qty"
+                                nolabel="1"
+                            /> Carbon Footprint </span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+        <record id="vpicktree_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.list.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="carbon_debt" digits="[13,2]" optional="show" />
+                    <field name="carbon_currency_id" column_invisible="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id="action_recompute_carbon_freight_picking" model="ir.actions.server">
+            <field name="name">Re-compute CO2</field>
+            <field name="model_id" ref="stock.model_stock_picking" />
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="state">code</field>
+            <field name="code">action = records._compute_carbon_debt()</field>
+        </record>
+    </data>
+</odoo>
