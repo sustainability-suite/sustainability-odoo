@@ -8,7 +8,6 @@
         <field name="sequence">100</field>
     </record>
 
-
     <record id="dashboard_co2" model="spreadsheet.dashboard">
         <field name="name">CO2</field>
         <field
@@ -26,5 +25,4 @@
         />
         <field name="sequence">20</field>
     </record>
-
 </odoo>
