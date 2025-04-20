@@ -32,5 +32,5 @@ In the Sustainability setup screen define the url API https://api.climatiq.io/fr
 
 - [Climatiq freight and shipping website](https://www.climatiq.io/transportation-carbon-emissions)
 - [Interactive demo](https://intermodal.climatiq.io/v2)
-- [API demo](https://www.climatiq.io/docs/api-reference/intermodal-freight)
+- [API documentation](https://www.climatiq.io/docs/api-reference/intermodal-freight)
 - [Documentation officielle Climatiq](https://docs.climatiq.io/)
