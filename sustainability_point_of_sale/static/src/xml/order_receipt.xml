@@ -9,8 +9,8 @@
             <div t-if="line.carbon_value" class="text-end" style="font-size: 90%;">
                 Ͼ
                 <span>
-                    <t t-out="line.carbon_value" class="ms-1" />
-                </span>
+                <t t-out="line.carbon_value" class="ms-1" />
+            </span>
             </div>
         </xpath>
     </t>
