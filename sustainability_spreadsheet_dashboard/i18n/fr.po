@@ -117,22 +117,38 @@ msgstr "Total des Emissions de CO2"
 msgid "YEAR"
 msgstr ""
 
-#, python-format
-#~ msgid "Top 10 Suppliers"
-#~ msgstr "Top 10 Fournisseurs"
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Carbon footprint dashboard (kgCO2e)"
+msgstr "Tableau de bord d'empreinte carbone (kgCO2e)"
 
-#, python-format
-#~ msgid "Top-10 Emission Factors"
-#~ msgstr "Top-10 Facteurs d'émission"
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Top 10 Suppliers"
+msgstr "Top 10 Fournisseurs"
 
-#, python-format
-#~ msgid "Suppliers"
-#~ msgstr "Fournisseurs"
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Top-10 Emission Factors"
+msgstr "Top-10 Facteurs d'émission"
 
-#, python-format
-#~ msgid "Emission Factors"
-#~ msgstr "Facteurs d'émission"
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Suppliers"
+msgstr "Fournisseurs"
 
-#, python-format
-#~ msgid "Others"
-#~ msgstr "Autres"
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Emission Factors"
+msgstr "Facteurs d'émission"
+
+#. module: sustainability_spreadsheet_dashboard
+#. odoo-javascript
+#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
+msgid "Others"
+msgstr "Autres"
