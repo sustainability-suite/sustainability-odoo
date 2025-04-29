@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import datetime
+from random import randint
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -17,7 +18,14 @@ class CarbonFactor(models.Model):
     _order = "name"
     _parent_store = True
 
+    @api.model
+    def _get_default_color(self):
+        return randint(1, 11)
+
     # Core and utils fields
+    color = fields.Integer(export_string_translation=False, default=_get_default_color)
+    sequence = fields.Integer()
+
     name = fields.Char(required=True, tracking=True)
     carbon_database_id = fields.Many2one(
         comodel_name="carbon.factor.database", tracking=True, string="Database"
