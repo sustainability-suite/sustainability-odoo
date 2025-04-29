@@ -564,6 +564,40 @@
                 </pivot>
             </field>
         </record>
+
+        <record id="carbon_factor_view_kanban" model="ir.ui.view">
+            <field name="name">carbon.factor.kanban.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <kanban
+                    create="true"
+                    can_open="1"
+                    highlight_color="color"
+                    default_group_by="carbon_uom_id"
+                    default_order="sequence, id desc"
+                    group_create="false"
+                >
+                    <templates>
+                        <t t-name="menu" t-if="!selection_mode">
+                            <div role="separator" class="dropdown-divider" />
+                            <field name="color" widget="kanban_color_picker" />
+                        </t>
+                        <t t-name="card">
+                            <main>
+                                <field name="name" class="fw-bold fs-5" />
+                                <div class="text-muted d-flex flex-column">
+                                    <field name="parent_id" />
+                                    <span t-if="record.carbon_database_id">
+                                        DB: <field name="carbon_database_id" />
+                                    </span>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
             <field name="name">Emission Factors Analysis</field>
             <field name="res_model">carbon.factor</field>
@@ -574,7 +608,15 @@
             <field name="name">Emission Factors</field>
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,hierarchy,form</field>
+            <field name="view_mode">tree,kaban,hierarchy,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    This is the emission factor dashboard
+                </p>
+                <p>
+                    You can now create you're first emission factor<br />
+                </p>
+            </field>
         </record>
 
         <record id="action_recompute_carbon_carbon_factor" model="ir.actions.server">
