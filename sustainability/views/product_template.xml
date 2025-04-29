@@ -27,7 +27,7 @@
                     </button>
                 </xpath>
                 <xpath expr="//notebook" position="inside">
-                    <page name="page_carbon_settings" string="CO2">
+                    <page name="page_carbon_settings" string="Sustainability">
                         <group>
                             <field invisible="1" name="carbon_allowed_factor_ids" />
                             <group string="Purchases">
