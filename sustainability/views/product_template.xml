@@ -26,113 +26,101 @@
                         </div>
                     </button>
                 </xpath>
-        <xpath expr="//page[@name='general_information']//group[1]" position="after">
-          <group string="CO2 Settings" name="group_carbon_settings">
-            <field name="carbon_allowed_factor_ids" invisible="1" />
-            <group string="Purchases">
-              <label for="carbon_in_is_manual" string="Mode" />
-              <div class="gap-1 d-inline-flex ml-3">
-                <div
-                                    class="opacity-50 mr-2"
-                                    attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
-                                >
-                  Undefined
-                </div>
-                <div
-                                    style="font-weight: bold;"
+                <xpath expr="//notebook" position="inside">
+                    <page name="page_carbon_settings" string="CO2">
+                        <group>
+                            <field invisible="1" name="carbon_allowed_factor_ids" />
+                            <group string="Purchases">
+                                <label for="carbon_in_is_manual" string="Mode" />
+                                <div class="gap-1 d-inline-flex ml-3">
+                                    <div
+                                        class="opacity-50 mr-2"
+                                        attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
+                                    >Undefined</div>
+                                    <div
+                                        attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
+                                        style="font-weight: bold;"
+                                    >Undefined</div>
+                                    <field
+                                        class=""
+                                        name="carbon_in_is_manual"
+                                        nolabel="1"
+                                        style="margin-left: 8px;"
+                                        widget="boolean_toggle"
+                                        options="{'autosave': False}"
+                                    />
+                                    <field
+                                        attrs="{'invisible': True}"
+                                        name="carbon_in_mode"
+                                    />
+                                    <div
+                                        class="opacity-50"
+                                        attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
+                                    >Set</div>
+                                    <div
+                                        attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
+                                        style="font-weight: bold;"
+                                    >Set</div>
+                                </div>
+                                <field
                                     attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
-                                >
-                  Undefined
-                </div>
-
-                <field
-                                    name="carbon_in_is_manual"
-                                    nolabel="1"
-                                    widget="boolean_toggle"
-                                    class=""
-                                    style="margin-left: 8px;"
-                                    options="{'autosave': False}"
+                                    name="carbon_in_fallback_reference"
+                                    widget="reference"
                                 />
-                <field name="carbon_in_mode" invisible="1" />
-
-                <div
-                                    class="opacity-50"
-                                    attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
-                                >
-                  Set
-                </div>
-                <div
-                                    style="font-weight: bold;"
+                                <field
                                     attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
-                                >
-                  Set
-                </div>
-              </div>
-              <field
-                                name="carbon_in_fallback_reference"
-                                widget="reference"
-                                attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
-                            />
-              <field
-                                name="carbon_in_factor_id"
-                                string="Emission Factor"
-                                attrs="{'invisible': [('carbon_in_is_manual', '=', False)], 'required': [('carbon_in_is_manual', '=', True)]}"
-                            />
-            </group>
-
-            <group string="Sales">
-              <label for="carbon_out_is_manual" string="Mode" />
-              <div class="gap-1 d-inline-flex ">
-                <div
-                                    class="opacity-50 mr-2"
-                                    attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}"
-                                >
-                  Undefined
-                </div>
-                <div
-                                    style="font-weight: bold;"
-                                    attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}"
-                                >
-                  Undefined
-                </div>
-
-                <field
-                                    name="carbon_out_is_manual"
-                                    nolabel="1"
-                                    widget="boolean_toggle"
-                                    class=""
-                                    style="margin-left: 8px;"
-                                    options="{'autosave': False}"
+                                    name="carbon_in_factor_id"
+                                    string="Emission Factor"
+                                    required="carbon_in_is_manual"
                                 />
-                <field name="carbon_out_mode" invisible="1" />
-
-                <div
-                                    class="opacity-50"
+                            </group>
+                            <group string="Sales">
+                                <label for="carbon_out_is_manual" string="Mode" />
+                                <div class="gap-1 d-inline-flex">
+                                    <div
+                                        class="opacity-50 mr-2"
+                                        attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}"
+                                    >Undefined</div>
+                                    <div
+                                        attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}"
+                                        style="font-weight: bold;"
+                                    >Undefined</div>
+                                    <field
+                                        class=""
+                                        name="carbon_out_is_manual"
+                                        nolabel="1"
+                                        style="margin-left: 8px;"
+                                        widget="boolean_toggle"
+                                        options="{'autosave': False}"
+                                    />
+                                    <field
+                                        attrs="{'invisible': True}"
+                                        name="carbon_out_mode"
+                                    />
+                                    <div
+                                        class="opacity-50"
+                                        attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}"
+                                    >Set</div>
+                                    <div
+                                        attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}"
+                                        style="font-weight: bold;"
+                                    >Set</div>
+                                </div>
+                                <field
                                     attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}"
-                                >
-                  Set
-                </div>
-                <div
-                                    style="font-weight: bold;"
-                                    attrs="{'invisible': [('carbon_out_is_manual', '!=', True)]}"
-                                >
-                  Set
-                </div>
-              </div>
-              <field
-                                name="carbon_out_fallback_reference"
-                                widget="reference"
-                                attrs="{'invisible': [('carbon_out_is_manual', '=', True)]}"
-                            />
-              <field
-                                name="carbon_out_factor_id"
-                                string="Emission Factor"
-                                attrs="{'invisible': [('carbon_out_is_manual', '=', False)], 'required': [('carbon_out_is_manual', '=', True)]}"
-                            />
-            </group>
-          </group>
-        </xpath>
-      </field>
-    </record>
-  </data>
+                                    name="carbon_out_fallback_reference"
+                                    widget="reference"
+                                />
+                                <field
+                                    attrs="{'invisible': [('carbon_out_is_manual', '!=', True)], 'required': [('carbon_out_is_manual', '=', True)]}"
+                                    name="carbon_out_factor_id"
+                                    string="Emission Factor"
+                                />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
