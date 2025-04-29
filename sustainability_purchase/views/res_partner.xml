@@ -8,7 +8,7 @@
       <field name="priority" eval="50" />
       <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page name="page_carbon_settings" string="CO2">
+                    <page name="page_carbon_settings" string="Sustainability">
                         <group name="group_carbon_settings">
                             <field name="carbon_allowed_factor_ids" invisible="1" />
 
