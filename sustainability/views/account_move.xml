@@ -176,7 +176,7 @@
             <field name="amount_total_in_currency_signed" position="after">
                 <field
                     name="carbon_balance"
-                    optional="hide"
+                    optional="show"
                     sum="Total CO2 Balance"
                     digits="[13,2]"
                 />
@@ -192,7 +192,7 @@
             <field name="amount_total_in_currency_signed" position="after">
                 <field
                     name="carbon_balance"
-                    optional="hide"
+                    optional="show"
                     sum="Total CO2 Balance"
                     digits="[13,2]"
                 />
