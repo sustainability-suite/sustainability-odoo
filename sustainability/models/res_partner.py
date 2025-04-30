@@ -1,14 +1,14 @@
 import logging
 import time
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
     _name = "res.partner"
-    _inherit = ["res.partner", "carbon.mixin"]
+    _inherit = ["res.partner", "carbon.mixin", "carbon.common.mixin"]
 
     @api.model
     def _get_available_carbon_compute_methods(self):
@@ -19,6 +19,12 @@ class ResPartner(models.Model):
     carbon_in_mode = fields.Selection(recursive=True)
     carbon_out_mode = fields.Selection(recursive=True)
     has_computed_carbon_mode = fields.Boolean(default=False)
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin",
+        inverse_name="move_line_partner_id",
+        string="Origins",
+    )
+    carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
 
     def _get_carbon_in_fallback_records(self) -> list:
         self.ensure_one()
@@ -77,3 +83,14 @@ class ResPartner(models.Model):
         _logger.info(
             f"_cron_initial_carbon_compute_res_partner finished for {total} partners ({len(partners) - total} remaining)"
         )
+
+    def action_see_carbon_line_origin_ids(self):
+        return self._generate_action(
+            title=_("Carbon Footprint for"),
+            model="carbon.line.origin",
+            ids=self.carbon_line_origin_ids.ids,
+        )
+
+    def _compute_carbon_line_origin_qty(self):
+        for factor in self:
+            factor.carbon_line_origin_qty = len(self.carbon_line_origin_ids)
