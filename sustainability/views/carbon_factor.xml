@@ -611,7 +611,7 @@
             <field name="view_mode">tree,kaban,hierarchy,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_neutral_face">
-                    This is the emission factor dashboard
+                    This is the emission factors dashboard
                 </p>
                 <p>
                     You can now create your first emission factor<br />
