@@ -1,7 +1,7 @@
 import logging
 import time
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -86,7 +86,6 @@ class ResPartner(models.Model):
 
     def action_see_carbon_line_origin_ids(self):
         return self._generate_action(
-            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             ids=self.carbon_line_origin_ids.ids,
         )
