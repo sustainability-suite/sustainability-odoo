@@ -43,14 +43,13 @@ class CarbonCommonMixin(models.AbstractModel):
     def _carbon_get_line_field(cls):
         """
         This field is used to display the carbon.line.origin from the child field smart button.
-        If you don't want the feature don't override this method, so it will raise an error if you try to use it.
+        If you don't want the feature don't override this method, so it will do nothing if you try to use it.
+        If method do not return string, it will ignore the field.
 
         Returns:
             str: The name of the field that contains the carbon.line.origin records.
         """
-        raise NotImplementedError(
-            f"Method _carbon_get_line_field not implemented in {cls._name}"
-        )
+        return False
 
     def _compute_carbon_origin_child_ids(self):
         """
@@ -58,6 +57,9 @@ class CarbonCommonMixin(models.AbstractModel):
         """
         line_field = self._carbon_get_line_field()
         for record in self:
+            if not isinstance(line_field, str) or not line_field:
+                record.carbon_origin_child_ids = self.env["carbon.line.origin"]
+                continue
             record.carbon_origin_child_ids = record[line_field].mapped(
                 "carbon_origin_ids"
             )
