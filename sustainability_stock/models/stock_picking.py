@@ -334,7 +334,6 @@ class StockPicking(models.Model):
     def action_see_carbon_origins(self) -> dict:
         self.ensure_one()
         return self._generate_action(
-            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             domain=[("move_carbon_freight_picking_id", "=", self.id)],
         )
