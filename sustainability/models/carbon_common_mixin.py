@@ -8,7 +8,7 @@ class CarbonCommonMixin(models.AbstractModel):
     def _generate_action(
         self,
         model: str,
-        title: str,
+        title: str = _("Carbon Footprint for"),
         ids: list[int] | None = None,
         domain: list | None = None,
     ) -> dict:
@@ -75,7 +75,6 @@ class CarbonCommonMixin(models.AbstractModel):
         Open a new window to display the carbon.line.origin records from the child field for smart button.
         """
         return self._generate_action(
-            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             ids=self.carbon_origin_child_ids.ids,
         )
