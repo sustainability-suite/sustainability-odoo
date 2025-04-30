@@ -699,7 +699,6 @@ class CarbonFactor(models.Model):
 
     def action_see_carbon_line_origin_ids(self):
         return self._generate_action(
-            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             ids=self.carbon_line_origin_ids.ids,
         )
