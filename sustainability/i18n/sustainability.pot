@@ -426,8 +426,6 @@ msgid "CO2 Equivalent"
 msgstr ""
 
 #. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
-#: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_country_form
 msgid "CO2 Settings"
@@ -1003,6 +1001,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__carbon_monetary_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__monetary_currency_id
 msgid "Currency"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_view_kanban
+msgid "DB:"
 msgstr ""
 
 #. module: sustainability
@@ -2490,6 +2493,11 @@ msgid "See CO2 value origin"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_category_property_form
@@ -2618,7 +2626,9 @@ msgstr ""
 
 #. module: sustainability
 #: model:ir.ui.menu,name:sustainability.sustainability_menu
+#: model_terms:ir.ui.view,arch_db:sustainability.product_template_only_form_view
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sustainability.view_account_form
 msgid "Sustainability"
 msgstr ""
 
@@ -2690,6 +2700,11 @@ msgid ""
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.actions.act_window,help:sustainability.carbon_factor_action
+msgid "This is the emission factors dashboard"
+msgstr ""
+
+#. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_factor.py:0
 msgid ""
@@ -2749,8 +2764,11 @@ msgid "Total CO2"
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.view_in_invoice_bill_tree_inherit
+#: model_terms:ir.ui.view,arch_db:sustainability.view_invoice_tree_inherit
 #: model_terms:ir.ui.view,arch_db:sustainability.view_move_form
 #: model_terms:ir.ui.view,arch_db:sustainability.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:sustainability.view_out_invoice_tree_inherit
 msgid "Total CO2 Balance"
 msgstr ""
 
@@ -3021,6 +3039,11 @@ msgstr ""
 msgid ""
 "You can not change the compute method if some values miss currency/unit of "
 "measure"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.actions.act_window,help:sustainability.carbon_factor_action
+msgid "You can now create your first emission factor<br>"
 msgstr ""
 
 #. module: sustainability
