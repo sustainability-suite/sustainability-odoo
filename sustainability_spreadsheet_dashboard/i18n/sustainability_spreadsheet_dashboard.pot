@@ -19,54 +19,6 @@ msgid "CO2"
 msgstr ""
 
 #. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Carbon Emission Factor"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Contact"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Emission factors repartition"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Journal"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Monthly evolution by category"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Supplier repartitions"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
 #: model:spreadsheet.dashboard.group,name:sustainability_spreadsheet_dashboard.spreadsheet_dashboard_group_sustainability
 msgid "Sustainability"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "Total CO2 Emission"
-msgstr ""
-
-#. module: sustainability_spreadsheet_dashboard
-#. odoo-javascript
-#: code:addons/sustainability_spreadsheet_dashboard/data/files/co2_dashboard.json:0
-msgid "YEAR"
 msgstr ""
