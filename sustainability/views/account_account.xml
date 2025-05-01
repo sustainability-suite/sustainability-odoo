@@ -26,8 +26,8 @@
                         </div>
                     </button>
                 </xpath>
-                <xpath expr="//page[@name='accounting']" position="inside">
-                    <group name="group_carbon_settings" string="CO2 Settings">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Sustainability" name="page_carbon_settings">
                         <group>
                             <field invisible="1" name="carbon_allowed_factor_ids" />
                             <label for="carbon_in_is_manual" string="Mode" />
@@ -95,7 +95,7 @@
                                 </list>
                             </field>
                         </group>
-                    </group>
+                    </page>
                 </xpath>
             </field>
         </record>
