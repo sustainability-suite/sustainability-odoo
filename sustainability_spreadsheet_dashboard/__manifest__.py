@@ -1,7 +1,7 @@
 {
     "name": "Sustainability Spreadsheet Dashboard",
     "category": "Hidden",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "installable": True,
     "application": False,
     "auto_install": True,
