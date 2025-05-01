@@ -1,12 +1,17 @@
 # 🌱 Configuring the Climatiq API for the `sustainability_stock` Module
 
-This guide explains how to configure and use the Climatiq API in the context of the `sustainability_stock` module from MyCompanyCO2.
+This guide explains how to configure and use the Climatiq API in the context of the
+`sustainability_stock` module from MyCompanyCO2.
 
 ---
 
 ## 📌 Purpose
 
-The `sustainability_stock` module enriches Odoo logistics workflows with carbon emissions automatic computation using the [Climatiq](https://www.climatiq.io/transportation-carbon-emissions) API. It allows you to calculate emissions related to the transportation of goods automatically every time a reception or a delivery is being performed by the logistic team.
+The `sustainability_stock` module enriches Odoo logistics workflows with carbon
+emissions automatic computation using the
+[Climatiq](https://www.climatiq.io/transportation-carbon-emissions) API. It allows you
+to calculate emissions related to the transportation of goods automatically every time a
+reception or a delivery is being performed by the logistic team.
 
 ---
 
@@ -26,7 +31,10 @@ Make sure the `sustainability_stock` module is installed in your Odoo instance.
 
 ### 2. Configure the Module
 
-In the Sustainability setup screen define the url API https://api.climatiq.io/freight/v2/intermodal and your key. The additional setups may differ depending on your context but here's an example of configuration ![{BF83471A-564A-4FC0-ADB8-0E407B424202}](https://github.com/user-attachments/assets/1c34ef9b-605f-4012-9646-f6dcf5a242f1)
+In the Sustainability setup screen define the url API
+https://api.climatiq.io/freight/v2/intermodal and your key. The additional setups may
+differ depending on your context but here's an example of configuration
+![{BF83471A-564A-4FC0-ADB8-0E407B424202}](https://github.com/user-attachments/assets/1c34ef9b-605f-4012-9646-f6dcf5a242f1)
 
 ## 🔗 Useful resources
 
