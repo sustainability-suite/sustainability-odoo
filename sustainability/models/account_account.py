@@ -31,4 +31,4 @@ class AccountAccount(models.Model):
 
     def _compute_carbon_line_origin_qty(self):
         for factor in self:
-            factor.carbon_line_origin_qty = len(self.carbon_line_origin_ids)
+            factor.carbon_line_origin_qty = len(factor.carbon_line_origin_ids)
