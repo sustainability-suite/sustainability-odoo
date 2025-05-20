@@ -17,7 +17,7 @@
                                 <div class="gap-1 d-inline-flex ml-3">
                                     <div
                                         class="opacity-50 mr-2"
-                                    attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
+                                        attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
                                     >Undefined</div>
 
                                     <field
@@ -30,7 +30,7 @@
                                     <field name="carbon_in_mode" invisible="1" />
 
                                     <div
-                                attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
+                                        attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
                                     >Set</div>
                                     <div
                                         style="font-weight: bold;"
