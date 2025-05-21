@@ -74,5 +74,5 @@
     "auto_install": False,
     "license": "LGPL-3",
     "sequence": 1,
-    "pre_init_hook": "_pre_init_carbon",
+    # "pre_init_hook": "_pre_init_carbon", #TODO: Fix this pre_init_hook (not working only in 16.0)
 }
