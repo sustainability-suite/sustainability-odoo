@@ -68,10 +68,9 @@
                                     widget="reference"
                                 />
                                 <field
-                                    attrs="{'invisible': [('carbon_in_is_manual', '!=', True)]}"
+                                    attrs="{'invisible': [('carbon_in_is_manual', '!=', True)], 'required': [('carbon_in_is_manual', '=', True)]}"
                                     name="carbon_in_factor_id"
                                     string="Emission Factor"
-                                    required="carbon_in_is_manual"
                                 />
                             </group>
                             <group string="Sales">
