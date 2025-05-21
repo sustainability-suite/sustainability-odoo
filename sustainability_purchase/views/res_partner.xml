@@ -40,7 +40,7 @@
                                 <field
                                     name="carbon_in_fallback_reference"
                                     widget="reference"
-                                    invisible="carbon_in_is_manual"
+                                    attrs="{'invisible': [('carbon_in_is_manual', '=', True)]}"
                                 />
                                 <field
                                     name="carbon_in_factor_id"

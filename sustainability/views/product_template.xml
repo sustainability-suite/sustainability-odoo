@@ -12,7 +12,7 @@
                         icon="fa-leaf"
                         name="action_see_carbon_line_origin_ids"
                         type="object"
-                        invisible="carbon_line_origin_qty &lt; 1"
+                        attrs="{'invisible': [('carbon_line_origin_qty', '&lt;', 1)]}"
                     >
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_value">
