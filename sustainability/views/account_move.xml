@@ -180,7 +180,7 @@
                     sum="Total CO2 Balance"
                     digits="[13,2]"
                 />
-                <field column_invisible="1" name="carbon_currency_id" />
+                <field invisible="1" name="carbon_currency_id" />
             </field>
         </field>
     </record>
@@ -196,7 +196,7 @@
                     sum="Total CO2 Balance"
                     digits="[13,2]"
                 />
-                <field column_invisible="1" name="carbon_currency_id" />
+                <field invisible="1" name="carbon_currency_id" />
             </field>
         </field>
     </record>
@@ -212,7 +212,7 @@
                     sum="Total CO2 Balance"
                     digits="[13,2]"
                 />
-                <field column_invisible="1" name="carbon_currency_id" />
+                <field invisible="1" name="carbon_currency_id" />
             </field>
         </field>
     </record>
