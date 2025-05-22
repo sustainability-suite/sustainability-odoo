@@ -38,6 +38,7 @@
         "views/sustainability_action.xml",
         "views/sustainability_approach.xml",
         "views/sustainability_nomenclature.xml",
+        "views/res_partner.xml",
         # Reports
         "report/invoice_document.xml",
         "report/carbon_factor_value_report_view.xml",
@@ -73,4 +74,5 @@
     "auto_install": False,
     "license": "LGPL-3",
     "sequence": 1,
+    # "pre_init_hook": "_pre_init_carbon", #TODO: Fix this pre_init_hook (not working only in 16.0)
 }

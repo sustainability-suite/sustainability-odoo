@@ -466,10 +466,10 @@
                                             attrs="{'invisible': [('parent.ghg_view_mode', '=', False)]}"
                                         />
                   </tree>
-                </field>
-              </page>
-            </notebook>
-          </sheet>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
           <div class="oe_chatter">
             <field name="message_follower_ids" />
             <field name="activity_ids" />
@@ -478,44 +478,83 @@
         </form>
       </field>
     </record>
+        <record id="carbon_factor_view_graph" model="ir.ui.view">
+            <field name="name">carbon.factor.graph.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <graph sample="1" string="Emission Factor Analysis">
+                    <field name="name" />
+                    <field name="carbon_value" type="measure" />
+                    <field invisible="1" name="uncertainty_percentage" />
+                </graph>
+            </field>
+        </record>
+        <record id="carbon_factor_view_pivot" model="ir.ui.view">
+            <field name="name">carbon.factor.pivot.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <pivot sample="1" string="Emission Factor Analysis">
+                    <field name="name" type="col" />
+                    <field interval="month" name="carbon_date" type="row" />
+                    <field name="carbon_value" type="measure" />
+                </pivot>
+            </field>
+        </record>
 
-    <record id="carbon_factor_view_graph" model="ir.ui.view">
-      <field name="name">carbon.factor.graph.view</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <graph string="Emission Factor Analysis" sample="1">
-          <field name="name" />
-          <field name="carbon_value" type="measure" />
-          <field name="uncertainty_percentage" invisible="1" />
-        </graph>
-      </field>
-    </record>
+        <record id="carbon_factor_view_kanban" model="ir.ui.view">
+            <field name="name">carbon.factor.kanban.view</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <kanban
+                    create="true"
+                    can_open="1"
+                    highlight_color="color"
+                    default_group_by="carbon_uom_id"
+                    default_order="sequence, id desc"
+                    group_create="false"
+                >
+                    <templates>
+                        <t t-name="menu" t-if="!selection_mode">
+                            <div role="separator" class="dropdown-divider" />
+                            <field name="color" widget="kanban_color_picker" />
+                        </t>
+                        <t t-name="card">
+                            <main>
+                                <field name="name" class="fw-bold fs-5" />
+                                <div class="text-muted d-flex flex-column">
+                                    <field name="parent_id" />
+                                    <span t-if="record.carbon_database_id">
+                                        DB: <field name="carbon_database_id" />
+                                    </span>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
-    <record id="carbon_factor_view_pivot" model="ir.ui.view">
-      <field name="name">carbon.factor.pivot.view</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <pivot string="Emission Factor Analysis" sample="1">
-          <field name="name" type="col" />
-          <field name="carbon_date" interval="month" type="row" />
-          <field name="carbon_value" type="measure" />
-        </pivot>
-      </field>
-    </record>
+        <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
+            <field name="name">Emission Factors Analysis</field>
+            <field name="res_model">carbon.factor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">graph,pivot</field>
+        </record>
+        <record id="carbon_factor_action" model="ir.actions.act_window">
+            <field name="name">Emission Factors</field>
+            <field name="res_model">carbon.factor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,hierarchy,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    This is the emission factors dashboard
+                </p>
+                <p>
+                    You can now create your first emission factor<br />
+                </p>
+            </field>
+        </record>
 
-    <record id="carbon_factor_action_reporting" model="ir.actions.act_window">
-      <field name="name">Emission Factors Analysis</field>
-      <field name="res_model">carbon.factor</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">graph,pivot</field>
-    </record>
-
-    <record id="carbon_factor_action" model="ir.actions.act_window">
-      <field name="name">Emission Factors</field>
-      <field name="res_model">carbon.factor</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">tree,form</field>
-    </record>
     <record id="action_recompute_carbon_carbon_factor" model="ir.actions.server">
         <field name="name">Re-compute CO2</field>
         <field name="model_id" ref="sustainability.model_carbon_factor" />

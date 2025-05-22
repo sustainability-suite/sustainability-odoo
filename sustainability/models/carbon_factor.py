@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import datetime
+from random import randint
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -17,7 +18,14 @@ class CarbonFactor(models.Model):
     _order = "name"
     _parent_store = True
 
+    @api.model
+    def _get_default_color(self):
+        return randint(1, 11)
+
     # Core and utils fields
+    color = fields.Integer(export_string_translation=False, default=_get_default_color)
+    sequence = fields.Integer()
+
     name = fields.Char(required=True, tracking=True)
     carbon_database_id = fields.Many2one(
         comodel_name="carbon.factor.database", tracking=True, string="Database"
@@ -231,7 +239,7 @@ class CarbonFactor(models.Model):
 
     def _compute_carbon_line_origin_qty(self):
         for factor in self:
-            factor.carbon_line_origin_qty = len(self.carbon_line_origin_ids)
+            factor.carbon_line_origin_qty = len(factor.carbon_line_origin_ids)
 
     def _compute_carbon_currency_id(self):
         for factor in self:
@@ -699,7 +707,6 @@ class CarbonFactor(models.Model):
 
     def action_see_carbon_line_origin_ids(self):
         return self._generate_action(
-            title=_("Carbon Footprint for"),
             model="carbon.line.origin",
             ids=self.carbon_line_origin_ids.ids,
         )
