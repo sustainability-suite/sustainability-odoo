@@ -1,7 +1,7 @@
 {
     "name": "Sustainability Inventory",
     "category": "Inventory/Inventory",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jacopobacci"],
     "development_status": "Production/Stable",
