@@ -38,7 +38,6 @@ msgstr ""
 
 #. module: sustainability_purchase
 #: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
-#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
 msgid "CO2 Settings"
 msgstr ""
 
@@ -157,6 +156,11 @@ msgstr ""
 #. module: sustainability_purchase
 #: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_supplier_id
 msgid "Supplier Info"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.view_partner_form
+msgid "Sustainability"
 msgstr ""
 
 #. module: sustainability_purchase
