@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [sustainability_purchase](sustainability_purchase/) | 18.0.1.2.2 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
 [sustainability_spreadsheet_dashboard](sustainability_spreadsheet_dashboard/) | 18.0.1.0.1 | [![nico-darnis](https://github.com/nico-darnis.png?size=30px)](https://github.com/nico-darnis) | Sustainability Spreadsheet Dashboard
 [sustainability_stock](sustainability_stock/) | 18.0.1.0.3 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Inventory
+[sustainability_website_sale](sustainability_website_sale/) | 18.0.1.0.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability eCommerce
 
 
 Unported addons

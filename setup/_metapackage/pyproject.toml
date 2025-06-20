@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-sustainability-suite-sustainability-odoo"
-version = "18.0.20250620.1"
+version = "18.0.20250620.2"
 dependencies = [
     "odoo-addon-sustainability==18.0.*",
     "odoo-addon-sustainability_employee_commuting==18.0.*",
@@ -10,6 +10,7 @@ dependencies = [
     "odoo-addon-sustainability_purchase==18.0.*",
     "odoo-addon-sustainability_spreadsheet_dashboard==18.0.*",
     "odoo-addon-sustainability_stock==18.0.*",
+    "odoo-addon-sustainability_website_sale==18.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
