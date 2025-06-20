@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,6 +16,20 @@ msgstr ""
 #. module: sustainability_point_of_sale
 #. odoo-javascript
 #: code:addons/sustainability_point_of_sale/static/src/xml/order_receipt.xml:0
-#, python-format
 msgid "1 Ͼ = 1 kgCO2e"
+msgstr ""
+
+#. module: sustainability_point_of_sale
+#: model:ir.model,name:sustainability_point_of_sale.model_carbon_factor
+msgid "Carbon Emission Factor"
+msgstr ""
+
+#. module: sustainability_point_of_sale
+#: model:ir.model,name:sustainability_point_of_sale.model_pos_session
+msgid "Point of Sale Session"
+msgstr ""
+
+#. module: sustainability_point_of_sale
+#: model:ir.model,name:sustainability_point_of_sale.model_product_product
+msgid "Product Variant"
 msgstr ""
