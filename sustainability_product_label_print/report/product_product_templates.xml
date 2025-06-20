@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <template
+            id="report_simple_label2x7_inherit"
+            inherit_id="product.report_simple_label2x7"
+        >
+            <xpath expr="//strong[hasclass('o_label_price')]" position="before">
+                <span class="me-2">
+                    <span
+                        style="font-size: 1em;"
+                        t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)"
+                    />
+                    <span style="font-size: 0.8em;">kgCO2e</span>
+                </span>
+            </xpath>
+        </template>
+
+        <template
+            id="report_simple_label4x7_inherit"
+            inherit_id="product.report_simple_label4x7"
+        >
+            <xpath expr="//strong[hasclass('o_label_price_medium')]" position="before">
+                <span>
+                    <span
+                        style="font-size: 0.8em;"
+                        t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)"
+                    />
+                    <span style="font-size: 0.6em;">kgCO2e</span>
+                </span>
+            </xpath>
+        </template>
+
+        <template
+            id="report_simple_label4x12_inherit"
+            inherit_id="product.report_simple_label4x12"
+        >
+            <xpath
+                expr="//div[hasclass('o_label_price_medium')]//strong"
+                position="before"
+            >
+                <span class="me-2">
+                    <span
+                        style="font-size: 0.8em;"
+                        t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)"
+                    />
+                    <span style="font-size: 0.6em;">kgCO2e</span>
+                </span>
+            </xpath>
+        </template>
+
+        <template
+            id="report_simple_label_dymo_inherit"
+            inherit_id="product.report_simple_label_dymo"
+        >
+            <xpath expr="//strong[hasclass('o_label_price_small')]" position="before">
+                <span class="me-2">
+                    <span
+                        style="font-size: 0.6em;"
+                        t-out="'{:.2f}'.format(product.carbon_out_factor_id.carbon_value)"
+                    />
+                    <span style="font-size: 0.4em;">kgCO2e</span>
+                </span>
+            </xpath>
+        </template>
+    </data>
+</odoo>
