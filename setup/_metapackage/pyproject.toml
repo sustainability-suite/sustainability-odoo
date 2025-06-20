@@ -1,11 +1,12 @@
 [project]
 name = "odoo-addons-sustainability-suite-sustainability-odoo"
-version = "18.0.20250620.0"
+version = "18.0.20250620.1"
 dependencies = [
     "odoo-addon-sustainability==18.0.*",
     "odoo-addon-sustainability_employee_commuting==18.0.*",
     "odoo-addon-sustainability_hr_expense_report==18.0.*",
     "odoo-addon-sustainability_point_of_sale==18.0.*",
+    "odoo-addon-sustainability_product_label_print==18.0.*",
     "odoo-addon-sustainability_purchase==18.0.*",
     "odoo-addon-sustainability_spreadsheet_dashboard==18.0.*",
     "odoo-addon-sustainability_stock==18.0.*",
