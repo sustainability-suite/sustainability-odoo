@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="sustainability_point_of_sale.OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//Orderline" position="inside">
+            <div t-if="line.carbon_value" class="text-end" style="font-size: 90%;">
+                Ͼ
+                <span>
+                <t t-out="line.carbon_value" class="ms-1" />
+            </span>
+            </div>
+        </xpath>
+    </t>
+    <t
+        t-name="sustainability_point_of_sale.OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="inside">
+            <t t-if="props.data.total_carbon_value">
+                <div class="text-end" style="font-size: 90%;">
+                    Ͼ
+                    <span t-out="props.data.total_carbon_value" class="ms-1" />
+                </div>
+            </t>
+        </xpath>
+    </t>
+    <t
+        t-name="sustainability_point_of_sale.OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('after-footer')]" position="after">
+            <t t-if="props.data.total_carbon_value">
+                <br />
+                <br />
+                <div class="pos-receipt-order-data mt-0">1 Ͼ = 1 kgCO2e</div>
+            </t>
+        </xpath>
+    </t>
+</templates>
