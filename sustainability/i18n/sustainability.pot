@@ -2331,6 +2331,18 @@ msgid "Quantity"
 msgstr ""
 
 #. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_contributor__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_database__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_carbon_factor_value__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_action_plan__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category__rating_ids
+#: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: sustainability
 #: model:ir.actions.server,name:sustainability.action_recompute_carbon_account_move
 #: model:ir.actions.server,name:sustainability.action_recompute_carbon_account_move_line
 #: model:ir.actions.server,name:sustainability.action_recompute_carbon_carbon_factor
