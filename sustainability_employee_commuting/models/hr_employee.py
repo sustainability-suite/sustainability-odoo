@@ -9,12 +9,9 @@ WEEKS_PER_MONTH = 4
 # is going to be computed later
 
 
-class HrEmployee(models.Model):
-    _inherit = "hr.employee"
+class HrEmployeeBase(models.AbstractModel):
+    _inherit = "hr.employee.base"
 
-    carbon_commuting_ids = fields.One2many(
-        "carbon.hr.commuting", "employee_id", string="Employee commuting records"
-    )
     work_days_home = fields.Integer(
         string="Work Days at Home",
         compute="_compute_work_days_home",
@@ -24,6 +21,32 @@ class HrEmployee(models.Model):
     has_location = fields.Boolean(
         default=False,
         store=True,
+    )
+
+    @api.depends(
+        *DAYS,
+        "exceptional_location_id",
+    )
+    def _compute_work_days_home(self):
+        for employee in self:
+            home_days = 0
+
+            for day in DAYS:
+                location = employee[day] or employee.exceptional_location_id
+
+                if location and location.location_type == "home":
+                    home_days += 1
+                if location and location.location_type:
+                    employee.has_location = True
+
+            employee.work_days_home = home_days
+
+
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
+
+    carbon_commuting_ids = fields.One2many(
+        "carbon.hr.commuting", "employee_id", string="Employee commuting records"
     )
 
     def _get_carbon_commuting_line_vals(self, date) -> dict:
@@ -78,21 +101,3 @@ class HrEmployee(models.Model):
             total_uncertainty_value,
             total_carbon_details,
         )
-
-    @api.depends(
-        *DAYS,
-        "exceptional_location_id",
-    )
-    def _compute_work_days_home(self):
-        for employee in self:
-            home_days = 0
-
-            for day in DAYS:
-                location = employee[day] or employee.exceptional_location_id
-
-                if location and location.location_type == "home":
-                    home_days += 1
-                if location and location.location_type:
-                    employee.has_location = True
-
-            employee.work_days_home = home_days
