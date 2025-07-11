@@ -44,6 +44,11 @@ msgid "Average weekly distance in kilometers"
 msgstr ""
 
 #. module: sustainability_employee_commuting
+#: model:ir.model,name:sustainability_employee_commuting.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: sustainability_employee_commuting
 #: model:ir.model,name:sustainability_employee_commuting.model_carbon_hr_commuting
 msgid "Carbon Employee Commuting"
 msgstr ""
@@ -235,6 +240,8 @@ msgstr ""
 
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee__has_location
+#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee_base__has_location
+#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee_public__has_location
 msgid "Has Location"
 msgstr ""
 
@@ -266,6 +273,8 @@ msgstr ""
 
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,help:sustainability_employee_commuting.field_hr_employee__work_days_home
+#: model:ir.model.fields,help:sustainability_employee_commuting.field_hr_employee_base__work_days_home
+#: model:ir.model.fields,help:sustainability_employee_commuting.field_hr_employee_public__work_days_home
 msgid "Number of days per week the employee works from home."
 msgstr ""
 
@@ -302,5 +311,7 @@ msgstr ""
 
 #. module: sustainability_employee_commuting
 #: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee__work_days_home
+#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee_base__work_days_home
+#: model:ir.model.fields,field_description:sustainability_employee_commuting.field_hr_employee_public__work_days_home
 msgid "Work Days at Home"
 msgstr ""
