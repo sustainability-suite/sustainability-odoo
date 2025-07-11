@@ -33,7 +33,6 @@ def _pre_init_carbon(env):
             "carbon_balance": ("float", 0.0),
             "carbon_debit": ("float", 0.0),
             "carbon_credit": ("float", 0.0),
-            "carbon_is_date_locked": ("boolean", False),
         },
     }
 
