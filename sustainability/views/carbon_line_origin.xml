@@ -129,17 +129,18 @@
       </field>
     </record>
 
-    <record id="carbon_line_origin_view_pivot" model="ir.ui.view">
-      <field name="name">carbon.line.origin.pivot.view</field>
-      <field name="model">carbon.line.origin</field>
-      <field name="arch" type="xml">
-        <pivot string="Carbon Footprint Analysis" sample="1">
-          <field name="move_id" type="col" />
-          <field name="move_date" interval="year" type="row" />
-          <field name="signed_value" type="measure" widget="integer" />
-        </pivot>
-      </field>
-    </record>
+        <record id="carbon_line_origin_view_pivot" model="ir.ui.view">
+            <field name="name">carbon.line.origin.pivot.view</field>
+            <field name="model">carbon.line.origin</field>
+            <field name="arch" type="xml">
+                <pivot string="Carbon Footprint Analysis" sample="1">
+                    <field name="move_id" type="col" />
+                    <field name="move_date" interval="year" type="row" />
+                    <field name="signed_value" type="measure" widget="integer" />
+                    <field name="signed_uncertainty_value" widget="integer" />
+                </pivot>
+            </field>
+        </record>
 
     <record id="carbon_line_origin_filter" model="ir.ui.view">
       <field name="name">carbon.line.origin.select</field>
