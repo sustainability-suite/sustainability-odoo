@@ -9,7 +9,7 @@
     "summary": "Glue module for sustainability & purchase modules",
     "depends": [
         "sustainability",
-        "purchase",
+        "purchase_stock",
     ],
     "data": [
         # Data
