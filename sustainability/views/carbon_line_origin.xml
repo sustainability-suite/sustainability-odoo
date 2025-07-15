@@ -137,8 +137,8 @@
             <field name="model">carbon.line.origin</field>
             <field name="arch" type="xml">
                 <pivot string="Carbon Footprint Analysis" sample="1">
-                    <field name="move_id" type="col" />
-                    <field name="move_date" interval="year" type="row" />
+                    <field name="move_date" interval="year" type="col" />
+                    <field name="factor_category_id" type="row" />
                     <field name="signed_value" type="measure" widget="integer" />
                     <field name="signed_uncertainty_value" widget="integer" />
                 </pivot>
@@ -183,12 +183,6 @@
                         string="Unposted"
                         name="unposted"
                         domain="[('move_state', '!=', 'posted'), ('res_model', '=', 'account.move.line')]"
-                    />
-                    <filter
-                        string="Last Three Years"
-                        name="last_three_years"
-                        domain="[('move_date', '&gt;', (context_today() - relativedelta(years=3)).strftime('%Y-%m-%d')), ('move_date', '&lt;=', (context_today()).strftime('%Y-%m-%d'))]"
-                        invisible="1"
                     />
                     <separator />
                     <filter string="Invoice Date" name="date" date="move_date" />
@@ -289,7 +283,7 @@
             <field name="view_mode">graph,pivot</field>
             <field
                 name="context"
-            >{'search_default_posted': 1, 'search_default_last_three_years': 1, 'search_default_by_move_line_is_invoice_line': 1}</field>
+            >{'search_default_posted': 1, 'search_default_is_invoice_line': 1}</field>
         </record>
 
         <record id="carbon_line_origin_action" model="ir.actions.act_window">
