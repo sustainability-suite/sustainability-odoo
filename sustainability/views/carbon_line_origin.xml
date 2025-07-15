@@ -277,15 +277,15 @@
             </field>
         </record>
 
-    <record id="carbon_line_origin_action_reporting" model="ir.actions.act_window">
-      <field name="name">Carbon Footprint Analysis</field>
-      <field name="res_model">carbon.line.origin</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">graph,pivot</field>
-      <field name="context">
-        {'search_default_posted': 0, 'search_default_last_three_years': 1}
-      </field>
-    </record>
+        <record id="carbon_line_origin_action_reporting" model="ir.actions.act_window">
+            <field name="name">Carbon Footprint Analysis</field>
+            <field name="res_model">carbon.line.origin</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">graph,pivot</field>
+            <field
+                name="context"
+            >{'search_default_posted': 1, 'search_default_last_three_years': 1, 'search_default_by_move_line_is_invoice_line': 1}</field>
+        </record>
 
     <record id="carbon_line_origin_action" model="ir.actions.act_window">
       <field name="name">Carbon Footprint</field>
