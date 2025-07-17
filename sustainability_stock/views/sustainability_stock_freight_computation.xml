@@ -11,7 +11,9 @@
                     <field name="transport_mode" />
                     <field name="co2_display" />
                     <field name="api_response" widget="text" optional="show" />
-                </tree>
+                    <field name="request_payload" widget="text" optional="show" />
+                    <field name="error_message" widget="text" optional="show" />
+                </list>
             </field>
         </record>
         <record id="sustainability_stock_freight_computation_filter" model="ir.ui.view">
