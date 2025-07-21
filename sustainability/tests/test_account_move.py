@@ -30,6 +30,45 @@ class TestAccountMove(CarbonCommon):
 
             self.assertEqual(move.state, "posted")
 
+    def test_setting_carbon_debt_on_creation_locks_field(self):
+        move = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.partner.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "account_id": self.account_expense.id,
+                            "quantity": 1.0,
+                            "price_unit": 100.0,
+                            "name": "Test Line",
+                            "carbon_debt": 555.55,
+                        }
+                    ),
+                ],
+            }
+        )
+
+        line = move.invoice_line_ids[0]
+        self.assertAlmostEqual(line.carbon_debt, 555.55, places=6)
+        self.assertTrue(line.carbon_is_locked)
+
+    def test_manual_edit_of_carbon_debt_locks_and_preserves_value(self):
+        for move in self.account_move:
+            line = move.invoice_line_ids[0]
+            self.assertFalse(line.carbon_is_locked)
+
+            line.carbon_debt = 777.88
+
+            self.assertEqual(line.carbon_debt, 777.88)
+            self.assertTrue(line.carbon_is_locked)
+
+    def test_compute_single_carbon_debt_operation(self):
+        for move in self.account_move:
+            line = move.invoice_line_ids[0]
+            expected_debt = line._compute_single_carbon_debt()
+            self.assertEqual(line.carbon_debt, expected_debt)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
