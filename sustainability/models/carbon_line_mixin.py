@@ -128,6 +128,8 @@ class CarbonLineMixin(models.AbstractModel):
 
     @api.onchange("carbon_debt")
     def _onchange_carbon_debt(self):
+        if not self._origin:
+            return
         self.update(
             {
                 "carbon_uncertainty_value": 0.0,
