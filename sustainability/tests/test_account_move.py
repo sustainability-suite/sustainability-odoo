@@ -39,6 +39,28 @@ class TestAccountMove(CarbonCommon):
             self.assertEqual(line.carbon_debt, 123.45)
             self.assertTrue(line.carbon_is_locked)
 
+    def test_manual_carbon_debt_create_locks_line(self):
+        move = self.account_move[0]
+        line_vals = {
+            "account_id": self.account_expense.id,
+            "quantity": 1.0,
+            "price_unit": 99.0,
+            "name": "Manual Carbon Line",
+            "carbon_debt": 77.77,
+            "carbon_origin_json": {
+                "mode": "manual",
+                "details": {"uid": self.env.uid, "username": self.env.user.name},
+                "model_name": "account.move.line",
+            },
+        }
+        move.write({"invoice_line_ids": [Command.create(line_vals)]})
+        new_line = move.invoice_line_ids.filtered(
+            lambda line: line.name == "Manual Carbon Line"
+        )
+        self.assertTrue(new_line, "Manual Carbon Line not found on move")
+        self.assertEqual(new_line.carbon_debt, 77.77)
+        self.assertTrue(new_line.carbon_is_locked)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

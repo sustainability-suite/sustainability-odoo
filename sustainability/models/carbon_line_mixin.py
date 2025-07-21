@@ -321,6 +321,13 @@ class CarbonLineMixin(models.AbstractModel):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
+        for rec in res:
+            if (
+                rec.carbon_origin_json
+                and rec.carbon_origin_json.get("mode") == "manual"
+                and not rec.carbon_is_locked
+            ):
+                rec.carbon_is_locked = True
         res._create_origin_lines()
         return res
 
