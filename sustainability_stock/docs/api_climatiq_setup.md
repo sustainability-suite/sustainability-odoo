@@ -41,4 +41,5 @@ differ depending on your context but here's an example of configuration
 - [Climatiq freight and shipping website](https://www.climatiq.io/transportation-carbon-emissions)
 - [Interactive demo](https://intermodal.climatiq.io/v2)
 - [API documentation](https://www.climatiq.io/docs/api-reference/intermodal-freight)
+- [API quickstart](https://www.climatiq.io/docs/guides/tutorials/intermodal-freight-quickstart)
 - [Documentation officielle Climatiq](https://docs.climatiq.io/)
