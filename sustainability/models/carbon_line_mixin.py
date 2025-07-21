@@ -132,7 +132,6 @@ class CarbonLineMixin(models.AbstractModel):
             {
                 "carbon_uncertainty_value": 0.0,
                 "carbon_data_uncertainty_percentage": 0.0,
-                "carbon_is_locked": True,
                 "carbon_origin_json": {
                     "mode": "manual",
                     "details": {"uid": self.env.uid, "username": self.env.user.name},
@@ -307,12 +306,26 @@ class CarbonLineMixin(models.AbstractModel):
 
     def write(self, vals):
         res = super().write(vals)
+        for rec in self:
+            if (
+                rec.carbon_origin_json
+                and rec.carbon_origin_json.get("mode") == "manual"
+                and not rec.carbon_is_locked
+            ):
+                rec.carbon_is_locked = True
         self._create_origin_lines()
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
+        for rec in res:
+            if (
+                rec.carbon_origin_json
+                and rec.carbon_origin_json.get("mode") == "manual"
+                and not rec.carbon_is_locked
+            ):
+                rec.carbon_is_locked = True
         res._create_origin_lines()
         return res
 
