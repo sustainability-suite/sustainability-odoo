@@ -30,6 +30,15 @@ class TestAccountMove(CarbonCommon):
 
             self.assertEqual(move.state, "posted")
 
+    def test_manual_carbon_debt_change_locks_line(self):
+        for move in self.account_move:
+            line = move.invoice_line_ids[0]
+            line.carbon_debt = 123.45
+            line._onchange_carbon_debt()
+            move.write({})
+            self.assertEqual(line.carbon_debt, 123.45)
+            self.assertTrue(line.carbon_is_locked)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
