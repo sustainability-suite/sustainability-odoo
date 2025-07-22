@@ -21,16 +21,12 @@
                     <field name="move_line_partner_id" string="Partner" />
                     <field name="move_line_label" string="Label" />
                     <field
-                        name="move_line_quantity"
-                        string="Quantity"
-                        sum="Total Quantity"
-                    />
-                    <field
                         name="move_line_product_id"
                         string="Product"
                         optional="show"
                     />
-                    <field name="move_line_product_uom_id" string="Unit of Measure" />
+                    <field name="quantity" sum="Total Quantity" optional="hide" />
+                    <field name="uom_id" string="Unit of Measure" optional="hide" />
                     <field
                         name="carbon_data_uncertainty_percentage"
                         widget="percentage"
@@ -142,21 +138,22 @@
             </field>
         </record>
 
-    <record id="carbon_line_origin_filter" model="ir.ui.view">
-      <field name="name">carbon.line.origin.select</field>
-      <field name="model">carbon.line.origin</field>
-      <field name="arch" type="xml">
-        <search string="Search Carbon Origin">
-          <field name="move_id" string="Journal Entry" />
-          <field name="move_line_partner_id" string="Partner" />
-          <field name="move_line_label" string="Label" />
-          <field name="factor_id" string="Emission Factor" />
-          <field name="factor_value_type_id" string="Type" />
-          <field name="factor_category_id" string="Category" />
-          <field name="move_line_product_id" string="Product" />
-          <field name="move_line_product_uom_id" string='Unit of Measure' />
-          <field name="move_state" string="Status" />
-          <field name="move_date" />
+        <record id="carbon_line_origin_filter" model="ir.ui.view">
+            <field name="name">carbon.line.origin.select</field>
+            <field name="model">carbon.line.origin</field>
+            <field name="arch" type="xml">
+                <search string="Search Carbon Origin">
+                    <field name="move_id" string="Journal Entry" />
+                    <field name="move_line_partner_id" string="Partner" />
+                    <field name="move_line_label" string="Label" />
+                    <field name="factor_id" string="Emission Factor" />
+                    <field name="factor_value_type_id" string="Type" />
+                    <field name="factor_category_id" string="Category" />
+                    <field name="move_line_product_id" string="Product" />
+                    <field name="uom_id" string="Unit of Measure" />
+                    <field name="move_state" string="Status" />
+                    <field name="move_date" />
+
                     <filter
                         string="Physical"
                         name="physical"
@@ -266,6 +263,11 @@
                             string="Is Invoice Line"
                             name="by_move_line_is_invoice_line"
                             context="{'group_by': 'move_line_is_invoice_line'}"
+                        />
+                        <filter
+                            name="by_uom_id"
+                            string="UoM"
+                            context="{'group_by': 'uom_id'}"
                         />
                     </group>
                 </search>
