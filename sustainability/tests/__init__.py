@@ -6,3 +6,4 @@ from . import test_vendors_bill
 from . import test_action
 from . import test_ef_by_weight
 from . import test_account_move
+from . import test_line_origin
