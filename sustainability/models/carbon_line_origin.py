@@ -122,17 +122,10 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
-    move_line_quantity = fields.Float(
-        related="move_line_id.quantity",
-        string="Quantity",
-        store=False,
+    quantity = fields.Float(
         readonly=True,
-    )
-    move_line_product_uom_id = fields.Many2one(
-        related="move_line_id.product_uom_id",
-        string="Unit of Measure",
+        compute="_compute_quantity",
         store=False,
-        readonly=True,
     )
     move_line_product_id = fields.Many2one(
         related="move_line_id.product_id",
@@ -187,6 +180,18 @@ class CarbonLineOrigin(models.Model):
             origin.signed_uncertainty_value = (
                 origin.uncertainty_value * origin.get_record().get_carbon_sign()
             )
+
+    @api.depends("move_line_id.quantity", "move_line_id.product_uom_id", "uom_id")
+    def _compute_quantity(self):
+        for origin in self:
+            if origin.move_line_id.product_uom_id != origin.uom_id and (
+                origin.move_line_id.product_uom_id and origin.uom_id
+            ):
+                origin.quantity = origin.move_line_id.product_uom_id._compute_quantity(
+                    origin.move_line_id.quantity, origin.uom_id
+                )
+            else:
+                origin.quantity = origin.move_line_id.quantity
 
     def get_record(self):
         """Return the record that generated this origin"""
