@@ -1,0 +1,1 @@
+Module allowing to see the commuting settings in the employee form when the module l10n_ch_hr_payroll_elm_transmission is installed
