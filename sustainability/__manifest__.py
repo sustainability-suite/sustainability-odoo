@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "18.0.1.2.5",
+    "version": "18.0.1.2.6",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -73,6 +73,10 @@
     "sequence": 1,
     "pre_init_hook": "_pre_init_carbon",
     "external_dependencies": {
-        "python": ["openupgradelib"],
+        "python": [
+            "openupgradelib",
+            "packaging",
+            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
+        ],
     },
 }
