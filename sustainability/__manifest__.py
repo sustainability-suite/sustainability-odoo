@@ -73,6 +73,10 @@
     "sequence": 1,
     "pre_init_hook": "_pre_init_carbon",
     "external_dependencies": {
-        "python": ["openupgradelib"],
+        "python": [
+            "openupgradelib",
+            "packaging",
+            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
+        ],
     },
 }
