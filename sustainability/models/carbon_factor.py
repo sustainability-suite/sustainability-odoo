@@ -504,6 +504,77 @@ class CarbonFactor(models.Model):
         """
         return (uncertainty_percentage**2 + data_uncertainty_percentage**2) ** 0.5
 
+    def _get_physical_effective_quantity(
+        self,
+        factor_value,
+        quantity,
+        from_uom_id,
+        product_id,
+        reference: str | list[str] | None = None,
+    ):
+        """
+        Helper to compute the effective quantity (including weight/UoM conversions) used to multiply by carbon_value for a given factor_value.
+        Returns the effective quantity (float) or raises ValidationError if not computable.
+        Optionally takes a reference (list of strings) to append to error messages for traceability.
+        """
+        if not reference:
+            reference = []
+        if isinstance(reference, str):
+            reference = [reference]
+        if isinstance(reference, list):
+            reference = [str(r) for r in reference if r]
+        ref_str = ""
+        if reference:
+            ref_str = "\nReference: " + "\n- ".join(reference)
+
+        if (
+            factor_value.carbon_compute_method == "physical"
+            and quantity
+            and from_uom_id
+        ):
+            weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
+            # Case: carbon factor UoM is weight, product UoM is not weight
+            if (
+                self.carbon_uom_id.category_id == weight_uom_category
+                and product_id
+                and product_id.uom_id.category_id != weight_uom_category
+            ):
+                if not product_id.weight or product_id.weight <= 0:
+                    raise ValidationError(
+                        _(
+                            f"The weight may not be defined or is zero for the associated product (%s). Please ensure the weight is properly set to compute the carbon value.{ref_str}",
+                            product_id.display_name,
+                        )
+                    )
+                default_weight_uom = self.env[
+                    "product.template"
+                ]._get_weight_uom_id_from_ir_config_parameter()
+                converted_weight = default_weight_uom._compute_quantity(
+                    product_id.weight, self.carbon_uom_id, round=False
+                )
+                converted_quantity = from_uom_id._compute_quantity(
+                    quantity, product_id.uom_id
+                )
+                return converted_weight * converted_quantity
+            # Case: same UoM category
+            elif from_uom_id.category_id == factor_value.carbon_uom_id.category_id:
+                return from_uom_id._compute_quantity(
+                    quantity, factor_value.carbon_uom_id
+                )
+            else:
+                raise ValidationError(
+                    _(
+                        f"The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s){ref_str}",
+                        self.name,
+                        from_uom_id.name,
+                        from_uom_id.category_id.name,
+                        factor_value.carbon_uom_id.name,
+                        factor_value.carbon_uom_id.category_id.name,
+                    )
+                )
+        # If not physical or missing data, return None
+        return None
+
     def _get_carbon_value(
         self,
         distribution: float,
@@ -530,7 +601,6 @@ class CarbonFactor(models.Model):
         result_details = dict()
 
         for factor_value in self._get_values_at_date(date):
-            # Infos from factor
             (
                 compute_method,
                 carbon_value,
@@ -538,94 +608,30 @@ class CarbonFactor(models.Model):
                 monetary_currency_id,
             ) = factor_value.get_infos()
 
-            weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
-
             if compute_method == "monetary" and amount is not None and from_currency_id:
                 # We convert the amount to the currency used in the factor value
                 partial_value_result = carbon_value * from_currency_id._convert(
                     amount, monetary_currency_id, self.env.company, date
                 )
-            elif (
-                compute_method == "physical"  # The emission factor is a physical
-                and quantity is not None  # We have a quantity at line level
-                and self.carbon_uom_id.category_id
-                == weight_uom_category  # The carbon factor's unit of measure is in the weight category
-                and product_id.uom_id.category_id
-                != weight_uom_category  # The product's unit of measure is not in the weight category
-            ):
-                if not product_id.weight or product_id.weight <= 0:
-                    reference = ""
-                    if kwargs.get("reference"):
-                        reference = "Record Reference:" + "\n- ".join(
-                            kwargs.get("reference")
-                        )
+            elif compute_method == "physical":
+                effective_quantity = self._get_physical_effective_quantity(
+                    factor_value,
+                    quantity,
+                    from_uom_id,
+                    product_id,
+                    reference=kwargs.get("reference"),
+                )
+                if effective_quantity is None:
                     raise ValidationError(
                         _(
-                            "The weight may not be defined or is zero for the associated product (%s). "
-                            "Please ensure the weight is properly set to compute the carbon value."
-                            "\n\n%s",
-                            product_id.display_name,
-                            reference,
+                            "To compute a carbon cost, you must pass: either a quantity and a unit of measure or a price and a currency (+ an optional date)"
                         )
                     )
-                default_weight_uom = self.env[
-                    "product.template"
-                ]._get_weight_uom_id_from_ir_config_parameter()
-                # Convert the product weight from kilograms to the carbon factor's UoM
-                converted_weight = default_weight_uom._compute_quantity(
-                    product_id.weight, self.carbon_uom_id, round=False
-                )
-                converted_quantity = from_uom_id._compute_quantity(
-                    quantity, product_id.uom_id
-                )
-                partial_value_result = (
-                    carbon_value * converted_weight * converted_quantity
-                )
-            elif compute_method == "physical" and quantity is not None and from_uom_id:
-                # Units of measure can't be converted if they are not in the same category
-                if from_uom_id.category_id != uom_id.category_id:
-                    reference = ""
-                    if kwargs.get("reference"):
-                        reference = "Record Reference:" + "\n- ".join(
-                            kwargs.get("reference")
-                        )
-                    raise ValidationError(
-                        _(
-                            "The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\nPlease check the carbon settings.\n\n%s",
-                            self.name,
-                            from_uom_id.name,
-                            from_uom_id.category_id.name,
-                            uom_id.name,
-                            uom_id.category_id.name,
-                            reference,
-                        )
-                    )
-                partial_value_result = carbon_value * from_uom_id._compute_quantity(
-                    quantity, uom_id
-                )
-
+                partial_value_result = carbon_value * effective_quantity
             else:
                 raise ValidationError(
                     _(
-                        "To compute a carbon cost, you must pass:"
-                        "\n- either a quantity and a unit of measure"
-                        "\n- or a price and a currency (+ an optional date)"
-                        "\n\nPassed value: "
-                        "\n- Record: %s (compute method: %s)"
-                        "\n- Quantity: %s, UOM: %s"
-                        "\n- Amount: %s, Currency: %s"
-                        "%s",
-                        self,
-                        compute_method,
-                        quantity,
-                        from_uom_id,
-                        amount,
-                        from_currency_id,
-                        (
-                            "\n- Reference: " + "\n  - ".join(kwargs.get("reference"))
-                            if kwargs.get("reference")
-                            else ""
-                        ),
+                        "To compute a carbon cost, you must pass: either a quantity and a unit of measure or a price and a currency (+ an optional date)"
                     )
                 )
 
