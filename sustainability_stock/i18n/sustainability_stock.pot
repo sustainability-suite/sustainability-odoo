@@ -218,6 +218,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__error_message
+msgid "Error Message"
+msgstr ""
+
+#. module: sustainability_stock
 #: model:ir.model,name:sustainability_stock.model_sustainability_stock_freight_computation
 msgid "Freight Computation"
 msgstr ""
@@ -329,6 +334,11 @@ msgstr ""
 #. module: sustainability_stock
 #: model:ir.actions.server,name:sustainability_stock.action_recompute_carbon_freight_picking
 msgid "Re-compute CO2"
+msgstr ""
+
+#. module: sustainability_stock
+#: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__request_payload
+msgid "Request Payload"
 msgstr ""
 
 #. module: sustainability_stock
