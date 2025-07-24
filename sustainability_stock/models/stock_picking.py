@@ -201,25 +201,35 @@ class StockPicking(models.Model):
         Computes and sets the carbon debt (CO2 emissions) for stock pickings in 'done' state.
         Creates or updates accounting entries for the carbon emissions.
         """
-        company = self.env.company
-        carbon_freight_max_delivery_count = company.carbon_freight_max_delivery_count
-
-        if len(self) > carbon_freight_max_delivery_count:
-            return self._carbon_display_notification(
-                _(
-                    f"You cannot process more than {carbon_freight_max_delivery_count} deliveries at once. "
-                    "Please edit the setting to increase the limit if needed."
-                )
-            )
-
-        carbon_freight_product_upstream = company.carbon_freight_product_upstream
-        carbon_freight_product_downstream = company.carbon_freight_product_downstream
-        carbon_freight_journal_id = company.carbon_freight_journal_id
-        carbon_freight_account_id = company.carbon_freight_account_id
 
         pickings_to_process = self.filtered(lambda p: p.state == "done")
 
         for picking in pickings_to_process:
+            company = picking.company_id
+            carbon_freight_max_delivery_count = (
+                company.carbon_freight_max_delivery_count
+            )
+            carbon_freight_product_upstream = company.carbon_freight_product_upstream
+            carbon_freight_product_downstream = (
+                company.carbon_freight_product_downstream
+            )
+            carbon_freight_journal_id = company.carbon_freight_journal_id
+            carbon_freight_account_id = company.carbon_freight_account_id
+
+            if (
+                len(
+                    pickings_to_process.filtered(
+                        lambda p, company=company: p.company_id == company
+                    )
+                )
+                > carbon_freight_max_delivery_count
+            ):
+                return self._carbon_display_notification(
+                    _(
+                        f"You cannot process more than {carbon_freight_max_delivery_count} deliveries at once. "
+                        "Please edit the setting to increase the limit if needed."
+                    )
+                )
             if (
                 missing_fields_notification
                 := self._carbon_validate_missing_required_fields(company, picking)
