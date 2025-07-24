@@ -161,31 +161,38 @@ class StockPicking(models.Model):
             "An error occurred while retrieving carbon emissions data. If the issue persists, contact support."
         )
 
-        try:
-            response = requests.post(url, json=data, headers=headers, timeout=30)
-            if response.status_code >= 400:
-                response_data = response.json()
-                logging.error(f"HTTP {response.status_code} {response.text}")
-                detailed_error = response_data.get("message", error_message)
-                return None, self._carbon_display_notification(
-                    detailed_error, sticky=True
-                )
-
-            co2 = response.json().get("co2e", 0)
+        def log_computation(co2_ratio, api_response, error_message):
             self.env["sustainability.stock.freight.computation"].create(
                 {
                     "origin": origin,
                     "destination": destination,
                     "weight_unit": weight_unit,
                     "transport_mode": transport_mode,
-                    "co2_ratio": co2 / weight,
-                    "api_response": response.json(),
+                    "co2_ratio": co2_ratio,
+                    "api_response": api_response,
+                    "request_payload": str(data),
+                    "error_message": error_message,
                 }
             )
+
+        try:
+            response = requests.post(url, json=data, headers=headers, timeout=30)
+            response_data = response.json()
+            if response.status_code >= 400:
+                logging.error(f"HTTP {response.status_code} {response.text}")
+                detailed_error = response_data.get("message", error_message)
+                log_computation(0, response.text, detailed_error)
+                return None, self._carbon_display_notification(
+                    detailed_error, sticky=True
+                )
+
+            co2 = response_data.get("co2e", 0)
+            log_computation(co2 / weight, response_data, "")
             return co2, None
 
         except requests.exceptions.RequestException as err:
             logging.error(f"Request error: {err}")
+            log_computation(0, "", str(err))
             return None, self._carbon_display_notification(error_message)
 
     @api.depends("state")
