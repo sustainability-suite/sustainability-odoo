@@ -969,13 +969,6 @@ msgstr ""
 
 #. module: sustainability
 #. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Chart of Account for"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
 #, python-format
 msgid "Check server logs for more details"
@@ -989,13 +982,6 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__child_qty
 msgid "Child Qty"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Child factors for"
 msgstr ""
 
 #. module: sustainability
@@ -1119,10 +1105,7 @@ msgid "Configuration"
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
 #: model:ir.model,name:sustainability.model_res_partner
-#, python-format
 msgid "Contact"
 msgstr ""
 
@@ -1869,13 +1852,6 @@ msgid "Journal"
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Journal Entries"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model,name:sustainability.model_account_move
 #: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
@@ -1915,11 +1891,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_nomenclature_sub_category____last_update
 #: model:ir.model.fields,field_description:sustainability.field_sustainability_scenario____last_update
 msgid "Last Modified on"
-msgstr ""
-
-#. module: sustainability
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
-msgid "Last Three Years"
 msgstr ""
 
 #. module: sustainability
@@ -2496,22 +2467,8 @@ msgid "Product Category"
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Product Category for"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_carbon_factor__product_qty
 msgid "Product Qty"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Product Supplier Info"
 msgstr ""
 
 #. module: sustainability
@@ -2534,13 +2491,6 @@ msgstr ""
 #: code:addons/sustainability/models/carbon_line_mixin.py:0
 #, python-format
 msgid "Product category"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid "Product for"
 msgstr ""
 
 #. module: sustainability
@@ -2568,8 +2518,7 @@ msgid "Purchases"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_quantity
-#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
+#: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__quantity
 msgid "Quantity"
 msgstr ""
 
@@ -2891,13 +2840,6 @@ msgid ""
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model.fields,help:sustainability.field_carbon_line_origin__move_line_quantity
-msgid ""
-"The optional quantity expressed by this line, eg: number of product sold. "
-"The quantity is not a legal requirement but is very useful for some reports."
-msgstr ""
-
-#. module: sustainability
 #. odoo-python
 #: code:addons/sustainability/models/carbon_mixin.py:0
 #, python-format
@@ -2907,44 +2849,8 @@ msgid ""
 msgstr ""
 
 #. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid ""
-"The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s)\n"
-"Please check the carbon settings.\n"
-"\n"
-"%s"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid ""
-"The weight may not be defined or is zero for the associated product (%s). Please ensure the weight is properly set to compute the carbon value.\n"
-"\n"
-"%s"
-msgstr ""
-
-#. module: sustainability
 #: model_terms:ir.actions.act_window,help:sustainability.carbon_factor_action
 msgid "This is the emission factors dashboard"
-msgstr ""
-
-#. module: sustainability
-#. odoo-python
-#: code:addons/sustainability/models/carbon_factor.py:0
-#, python-format
-msgid ""
-"To compute a carbon cost, you must pass:\n"
-"- either a quantity and a unit of measure\n"
-"- or a price and a currency (+ an optional date)\n"
-"\n"
-"Passed value: \n"
-"- Record: %s (compute method: %s)\n"
-"- Quantity: %s, UOM: %s\n"
-"- Amount: %s, Currency: %s%s"
 msgstr ""
 
 #. module: sustainability
@@ -3089,7 +2995,6 @@ msgid "Undefined"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model.fields,field_description:sustainability.field_carbon_line_origin__move_line_product_uom_id
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_tree
 msgid "Unit of Measure"
@@ -3112,6 +3017,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
 msgid "Unposted"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.carbon_line_origin_filter
+msgid "UoM"
 msgstr ""
 
 #. module: sustainability
