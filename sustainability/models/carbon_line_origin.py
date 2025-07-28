@@ -122,17 +122,10 @@ class CarbonLineOrigin(models.Model):
         store=False,
         readonly=True,
     )
-    move_line_quantity = fields.Float(
-        related="move_line_id.quantity",
-        string="Quantity",
-        store=False,
+    quantity = fields.Float(
         readonly=True,
-    )
-    move_line_product_uom_id = fields.Many2one(
-        related="move_line_id.product_uom_id",
-        string="Unit of Measure",
-        store=False,
-        readonly=True,
+        compute="_compute_quantity",
+        store=True,
     )
     move_line_product_id = fields.Many2one(
         related="move_line_id.product_id",
@@ -187,6 +180,29 @@ class CarbonLineOrigin(models.Model):
             origin.signed_uncertainty_value = (
                 origin.uncertainty_value * origin.get_record().get_carbon_sign()
             )
+
+    @api.depends(
+        "move_line_id.quantity",
+        "move_line_id.product_uom_id",
+        "uom_id",
+        "factor_value_id",
+        "factor_id",
+    )
+    def _compute_quantity(self):
+        for origin in self:
+            factor = origin.factor_id
+            factor_value = origin.factor_value_id
+            move_line = origin.move_line_id
+            if factor and factor_value and move_line and origin.uom_id:
+                origin.quantity = factor._get_physical_effective_quantity(
+                    factor_value=factor_value,
+                    quantity=move_line.quantity,
+                    from_uom_id=move_line.product_uom_id,
+                    product_id=move_line.product_id,
+                    reference=move_line.move_id.name or move_line.move_id.ref or "",
+                )
+            else:
+                origin.quantity = move_line.quantity
 
     def get_record(self):
         """Return the record that generated this origin"""

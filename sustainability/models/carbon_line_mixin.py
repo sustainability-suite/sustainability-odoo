@@ -132,6 +132,7 @@ class CarbonLineMixin(models.AbstractModel):
             {
                 "carbon_uncertainty_value": 0.0,
                 "carbon_data_uncertainty_percentage": 0.0,
+                "carbon_is_locked": True,
                 "carbon_origin_json": {
                     "mode": "manual",
                     "details": {"uid": self.env.uid, "username": self.env.user.name},

@@ -14,6 +14,8 @@ class SustainabilityStockFreightComputation(models.Model):
         string="CO2 ratio", compute="_compute_co2_display", store=False
     )
     api_response = fields.Text()
+    request_payload = fields.Text()
+    error_message = fields.Text()
 
     @api.depends("co2_ratio", "weight_unit")
     def _compute_co2_display(self):
