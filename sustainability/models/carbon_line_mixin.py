@@ -19,6 +19,7 @@ class CarbonLineMixin(models.AbstractModel):
         currency_field="carbon_currency_id",
         help="A positive value means that your system's debt grows, a negative value means it shrinks",
         compute="_compute_carbon_debt",
+        inverse="_inverse_carbon_debt",
         readonly=False,
         store=True,
     )
@@ -126,21 +127,6 @@ class CarbonLineMixin(models.AbstractModel):
 
     # --------------------------------------------
 
-    @api.onchange("carbon_debt")
-    def _onchange_carbon_debt(self):
-        self.update(
-            {
-                "carbon_uncertainty_value": 0.0,
-                "carbon_data_uncertainty_percentage": 0.0,
-                "carbon_is_locked": True,
-                "carbon_origin_json": {
-                    "mode": "manual",
-                    "details": {"uid": self.env.uid, "username": self.env.user.name},
-                    "model_name": self._name,
-                },
-            }
-        )
-
     def _compute_carbon_currency_id(self):
         for move in self:
             move.carbon_currency_id = self.env.ref(
@@ -182,6 +168,34 @@ class CarbonLineMixin(models.AbstractModel):
 
     """ depends need to be overriden to trigger the compute method at the right time """
 
+    def _get_carbon_computation_record_and_kwargs(self):
+        """
+        Helper method to get the record and kwargs for carbon computation
+        Returns tuple: (record, kw_arguments)
+        """
+        self.ensure_one()
+        kw_arguments = self._get_carbon_compute_kwargs()
+
+        for field in self._get_carbon_compute_possible_fields():
+            if getattr(self, f"can_use_{field}_carbon_value", lambda: False)():
+                kw_arguments.update(
+                    getattr(self, f"get_{field}_carbon_compute_values", lambda: {})()
+                )
+                record = self[field]
+                break
+        else:
+            record = self._get_carbon_compute_default_record()
+
+        # Check if we can use the chosen record or its fallback instead
+        carbon_type = kw_arguments["carbon_type"]
+        if not record.has_valid_carbon_value(carbon_type):
+            if record.has_valid_carbon_fallback(carbon_type):
+                record = record[f"carbon_{carbon_type}_fallback_reference"]
+            else:
+                return None, kw_arguments
+
+        return record, kw_arguments
+
     @api.depends("carbon_data_uncertainty_percentage")
     def _compute_carbon_debt(self, force_compute: bool | str | list[str] = None):
         """
@@ -191,35 +205,17 @@ class CarbonLineMixin(models.AbstractModel):
         skipped_lines = self.env[self._name]
 
         for line in lines_to_compute:
-            kw_arguments = line._get_carbon_compute_kwargs()
+            record, kw_arguments = line._get_carbon_computation_record_and_kwargs()
 
-            for field in line._get_carbon_compute_possible_fields():
-                if getattr(line, f"can_use_{field}_carbon_value", lambda: False)():
-                    kw_arguments.update(
-                        getattr(
-                            line, f"get_{field}_carbon_compute_values", lambda: {}
-                        )()
-                    )
-                    record = line[field]
-                    break
-            else:
-                record = line._get_carbon_compute_default_record()
-
-            # Check if we can use the chosen record or its fallback instead
-            carbon_type = kw_arguments["carbon_type"]
-            if not record.has_valid_carbon_value(carbon_type):
-                if record.has_valid_carbon_fallback(carbon_type):
-                    record = record[f"carbon_{carbon_type}_fallback_reference"]
-                else:
-                    # This shouldn't happen if can_use_X_carbon_value is well implemented
-                    _logger.warning(
-                        f"Skip carbon compute for {line._name}({line.id}) - '{line.display_name}' (last incorrect fallback: {record._name}({record.id}) '{record.display_name}') -  this line"
-                    )
-                    skipped_lines |= line
-                    continue
+            if record is None:
+                _logger.warning(
+                    f"Skip carbon compute for {line._name}({line.id}) - '{line.display_name}' - no valid carbon record found"
+                )
+                skipped_lines |= line
+                continue
 
             factors, distribution, model_name = record.get_carbon_distribution(
-                carbon_type
+                kw_arguments["carbon_type"]
             )
             debt, uncertainty_value, details = factors.get_carbon_value(
                 distribution, **kw_arguments
@@ -234,6 +230,54 @@ class CarbonLineMixin(models.AbstractModel):
             }
 
         return skipped_lines
+
+    def _inverse_carbon_debt(self):
+        for record in self:
+            computed_value = record._compute_single_carbon_debt()
+
+            epsilon = 0.0001
+            if abs(record.carbon_debt - computed_value) > epsilon:
+                record.carbon_origin_json = {
+                    "mode": "manual",
+                    "details": {
+                        "uid": self.env.uid,
+                        "username": self.env.user.name,
+                        "original_computed_value": computed_value,
+                        "manual_value": record.carbon_debt,
+                    },
+                    "model_name": self._name,
+                }
+                record.carbon_is_locked = True
+                record.carbon_uncertainty_value = 0.0
+                record.carbon_data_uncertainty_percentage = 0.0
+
+    def _compute_single_carbon_debt(self):
+        """
+        Helper method to compute carbon_debt for a single record
+        Returns the computed value without setting it
+        """
+        if not self:
+            return 0.0
+
+        # skip if manually overridden
+        if (
+            self.carbon_origin_json
+            and isinstance(self.carbon_origin_json, dict)
+            and self.carbon_origin_json.get("mode") == "manual"
+        ):
+            return self.carbon_debt
+
+        record, kw_arguments = self._get_carbon_computation_record_and_kwargs()
+
+        if record is None:
+            return 0.0
+
+        factors, distribution, _ = record.get_carbon_distribution(
+            kw_arguments["carbon_type"]
+        )
+        debt, _, _ = factors.get_carbon_value(distribution, **kw_arguments)
+
+        return debt
 
     def _get_line_origin_vals_list(self) -> list[dict]:
         """Return the vals used to create a carbon.line.origin record"""
