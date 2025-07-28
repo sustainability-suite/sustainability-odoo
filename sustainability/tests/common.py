@@ -50,6 +50,10 @@ class CarbonCommon(TransactionCase):
         cls.uom_hour = cls.env.ref("uom.product_uom_hour")
         cls.uom_day = cls.env.ref("uom.product_uom_day")
         cls.uom_unit = cls.env.ref("uom.product_uom_unit")
+        cls.uom_meter = cls.env.ref("uom.product_uom_meter")
+        cls.uom_cm = cls.env.ref("uom.product_uom_cm")
+        cls.uom_km = cls.env.ref("uom.product_uom_km")
+        cls.uom_kg = cls.env.ref("uom.product_uom_kgm")
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_usd = cls.env.ref("base.USD")
 

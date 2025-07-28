@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "17.0.1.4.12",
+    "version": "17.0.1.4.13",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
@@ -39,6 +39,7 @@
         "views/sustainability_action.xml",
         "views/sustainability_approach.xml",
         "views/sustainability_nomenclature.xml",
+        "views/res_partner.xml",
         # Reports
         "report/invoice_document.xml",
         "report/carbon_factor_value_report_view.xml",
@@ -72,6 +73,10 @@
     "sequence": 1,
     "pre_init_hook": "_pre_init_carbon",
     "external_dependencies": {
-        "python": ["openupgradelib"],
+        "python": [
+            "openupgradelib",
+            "packaging",
+            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
+        ],
     },
 }

@@ -25,7 +25,7 @@ class AccountMoveLine(models.Model):
     )
 
     carbon_is_date_locked = fields.Boolean(
-        compute="_compute_carbon_is_date_locked", store=True
+        compute="_compute_carbon_is_date_locked", store=False
     )
 
     is_carbon_positive = fields.Boolean(
@@ -139,9 +139,13 @@ class AccountMoveLine(models.Model):
 
     def _get_lines_to_compute_domain(self, force_compute: list[str]):
         domain = super()._get_lines_to_compute_domain(force_compute)
-        domain.append(("carbon_is_date_locked", "=", False))
         domain.append(("display_type", "not in", ["line_section", "line_note"]))
         return domain
+
+    def _filter_lines_to_compute(self, force_compute: bool | str | list[str] = None):
+        """Remove date-locked AML because they can't be removed from _get_lines_to_compute_domain()"""
+        lines_to_compute = super()._filter_lines_to_compute(force_compute)
+        return lines_to_compute.filtered(lambda line: not line.carbon_is_date_locked)
 
     # --- Methods to override ---
 
