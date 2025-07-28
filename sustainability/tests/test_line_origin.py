@@ -33,6 +33,7 @@ class TestLineOrigin(CarbonCommon):
                 "list_price": 10.00,
                 "standard_price": 9.00,
                 "uom_id": cls.uom_meter.id,
+                "uom_po_id": cls.uom_meter.id,
                 "weight": 3,
                 "carbon_in_factor_id": cls.carbon_factor_kilogram.id,
                 "carbon_in_is_manual": True,
