@@ -13,7 +13,7 @@
                     <field name="api_response" widget="text" optional="show" />
                     <field name="request_payload" widget="text" optional="show" />
                     <field name="error_message" widget="text" optional="show" />
-                </list>
+                </tree>
             </field>
         </record>
         <record id="sustainability_stock_freight_computation_filter" model="ir.ui.view">
