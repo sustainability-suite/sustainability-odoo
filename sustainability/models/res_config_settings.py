@@ -40,6 +40,7 @@ class ResConfigSettings(models.TransientModel):
     module_sustainability_employee_commuting = fields.Boolean()
     module_sustainability_hr_expense_report = fields.Boolean()
     module_sustainability_stock = fields.Boolean()
+    module_sustainability_purchase_stock = fields.Boolean()
 
     @api.depends("company_id")
     def _compute_available_modules(self):
@@ -62,6 +63,7 @@ class ResConfigSettings(models.TransientModel):
             "account_asset_management",
             "hr_expense",
             "stock",
+            "purchase_stock",
         }
         available_module_names = (
             self.env["ir.module.module"]
