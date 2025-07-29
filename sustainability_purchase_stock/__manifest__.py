@@ -1,7 +1,7 @@
 {
     "name": "Sustainability Purchase Stock",
     "category": "Purchase",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jacopobacci"],
     "development_status": "Production/Stable",
