@@ -1320,6 +1320,11 @@ msgid "Expenses Demo"
 msgstr ""
 
 #. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+msgid "Extend Sustainability Purchase module to manage delivery address"
+msgstr ""
+
+#. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.carbon_factor_form
 msgid "Extra Comments..."
 msgstr ""
@@ -1875,6 +1880,11 @@ msgstr ""
 #. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_res_config_settings__module_sustainability_purchase
 msgid "Module Sustainability Purchase"
+msgstr ""
+
+#. module: sustainability
+#: model:ir.model.fields,field_description:sustainability.field_res_config_settings__module_sustainability_purchase_stock
+msgid "Module Sustainability Purchase Stock"
 msgstr ""
 
 #. module: sustainability
@@ -2512,6 +2522,11 @@ msgstr ""
 #. module: sustainability
 #: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
 msgid "Show assets CO2e (OCA)"
+msgstr ""
+
+#. module: sustainability
+#: model_terms:ir.ui.view,arch_db:sustainability.res_config_settings_view_form
+msgid "Show delivery address in purchases"
 msgstr ""
 
 #. module: sustainability
