@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-sustainability-suite-sustainability-odoo"
-version = "17.0.20250417.0"
+version = "17.0.20250729.0"
 dependencies = [
     "odoo-addon-sustainability>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_account_asset_management>=17.0dev,<17.1dev",
@@ -10,6 +10,7 @@ dependencies = [
     "odoo-addon-sustainability_point_of_sale>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_product_label_print>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_purchase>=17.0dev,<17.1dev",
+    "odoo-addon-sustainability_purchase_stock>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_spreadsheet_dashboard>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_stock>=17.0dev,<17.1dev",
     "odoo-addon-sustainability_website_sale>=17.0dev,<17.1dev",
