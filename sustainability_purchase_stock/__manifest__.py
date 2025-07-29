@@ -1,0 +1,15 @@
+{
+    "name": "Sustainability Purchase Stock",
+    "category": "Purchase",
+    "version": "18.0.1.0.0",
+    "author": "MCO2, Open Net Sàrl",
+    "maintainers": ["jacopobacci"],
+    "development_status": "Production/Stable",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
+    "depends": ["sustainability_purchase", "purchase_stock"],
+    "data": ["views/purchase_order.xml"],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+    "license": "AGPL-3",
+}
