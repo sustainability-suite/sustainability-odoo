@@ -70,6 +70,13 @@
                             <field name="module_sustainability_stock" />
                         </setting>
                         <setting
+                            string="Show delivery address in purchases"
+                            invisible="(not ('purchase_stock' in available_module_names))"
+                            help="Extend Sustainability Purchase module to manage delivery address"
+                        >
+                            <field name="module_sustainability_purchase_stock" />
+                        </setting>
+                        <setting
                             string="Show assets CO2e"
                             invisible="(not ('account_asset' in available_module_names))"
                             help="Compute and display CO2e for your assets"
