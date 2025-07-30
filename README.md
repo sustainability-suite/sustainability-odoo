@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [sustainability_purchase](sustainability_purchase/) | 17.0.1.2.2 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
 [sustainability_purchase_stock](sustainability_purchase_stock/) | 17.0.1.1.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Purchase Stock
 [sustainability_spreadsheet_dashboard](sustainability_spreadsheet_dashboard/) | 17.0.1.0.0 | [![nico-darnis](https://github.com/nico-darnis.png?size=30px)](https://github.com/nico-darnis) | Sustainability Spreadsheet Dashboard
-[sustainability_stock](sustainability_stock/) | 17.0.1.0.1 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Inventory
+[sustainability_stock](sustainability_stock/) | 17.0.1.0.2 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Inventory
 [sustainability_website_sale](sustainability_website_sale/) | 17.0.1.0.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability eCommerce
 
 [//]: # (end addons)
