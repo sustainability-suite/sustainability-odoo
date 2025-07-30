@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [sustainability_mis_builder](sustainability_mis_builder/) | 16.0.0.1.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | Provide CO2 accounting lines data for MIS builder reports
 [sustainability_purchase](sustainability_purchase/) | 16.0.1.5.1 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) [![bonnetadam](https://github.com/bonnetadam.png?size=30px)](https://github.com/bonnetadam) [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Glue module for sustainability & purchase modules
 [sustainability_purchase_stock](sustainability_purchase_stock/) | 16.0.1.1.0 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Purchase Stock
-[sustainability_stock](sustainability_stock/) | 16.0.1.0.1 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Inventory
+[sustainability_stock](sustainability_stock/) | 16.0.1.0.2 | [![jacopobacci](https://github.com/jacopobacci.png?size=30px)](https://github.com/jacopobacci) | Sustainability Inventory
 
 [//]: # (end addons)
 
