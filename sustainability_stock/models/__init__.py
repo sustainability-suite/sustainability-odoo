@@ -6,3 +6,4 @@ from . import carbon_line_origin
 from . import carbon_line_mixin
 from . import sustainability_stock_freight_computation
 from . import res_partner
+from . import carbon_factor
