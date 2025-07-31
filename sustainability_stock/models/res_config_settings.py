@@ -66,3 +66,8 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.carbon_freight_tolerance",
         readonly=False,
     )
+    carbon_freight_carbon_factor_id = fields.Many2one(
+        comodel_name="carbon.factor",
+        related="company_id.carbon_freight_carbon_factor_id",
+        readonly=True,
+    )

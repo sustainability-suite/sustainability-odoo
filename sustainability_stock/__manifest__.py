@@ -19,4 +19,10 @@
     "application": False,
     "auto_install": False,
     "license": "AGPL-3",
+    "external_dependencies": {
+        "python": [
+            "packaging",
+            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
+        ],
+    },
 }

@@ -84,6 +84,15 @@
                             options="{'no_create': True}"
                         />
                     </setting>
+                    <setting
+                        string="Carbon freight emission factor"
+                        help="Emission factor applicable to freight"
+                    >
+                        <field
+                            name="carbon_freight_carbon_factor_id"
+                            options="{'no_create': True}"
+                        />
+                    </setting>
                 </block>
             </xpath>
         </field>
