@@ -259,40 +259,40 @@
           "content": "∆ %"
         },
         "F24": {
-          "content": "=IFERROR((C24-D24)/C24,\"\")"
+          "content": "=IFERROR((D24-C24)/D24,\"\")"
         },
         "F25": {
-          "content": "=IFERROR((C25-D25)/C25,\"\")"
+          "content": "=IFERROR(-(D25-C25)/D25,\"\")"
         },
         "F26": {
-          "content": "=IFERROR((C26-D26)/C26,\"\")"
+          "content": "=IFERROR(-(C26-D26)/-C26,\"\")"
         },
         "F27": {
-          "content": "=IFERROR((C27-D27)/C27,\"\")"
+          "content": "=IFERROR(-(D27-C27)/D27,\"\")"
         },
         "F28": {
-          "content": "=IFERROR((C28-D28)/C28,\"\")"
+          "content": "=IFERROR(-(C28-D28)/-C28,\"\")"
         },
         "F29": {
-          "content": "=IFERROR((C29-D29)/C29,\"\")"
+          "content": "=IFERROR(-(D29-C29)/D29,\"\")"
         },
         "F30": {
-          "content": "=IFERROR((C30-D30)/C30,\"\")"
+          "content": "=IFERROR(-(C30-D30)/-C30,\"\")"
         },
         "F31": {
-          "content": "=IFERROR((C31-D31)/C31,\"\")"
+          "content": "=IFERROR(-(D31-C31)/D31,\"\")"
         },
         "F32": {
-          "content": "=IFERROR((C32-D32)/C32,\"\")"
+          "content": "=IFERROR(-(C32-D32)/-C32,\"\")"
         },
         "F33": {
-          "content": "=IFERROR((C33-D33)/C33,\"\")"
+          "content": "=IFERROR(-(D33-C33)/D33,\"\")"
         },
         "F34": {
-          "content": "=IFERROR((C34-D34)/C34,\"\")"
+          "content": "=IFERROR(-(D34-C34)/D34,\"\")"
         },
         "F35": {
-          "content": "=IFERROR((C35-D35)/C35,\"\")"
+          "content": "=IFERROR(-(D35-C35)/D35,\"\")"
         },
         "H22": {
           "content": "=_T(\"Top-10 Emission Factors\")"
@@ -457,40 +457,40 @@
           "content": "∆ %"
         },
         "L24": {
-          "content": "=IFERROR((I24-J24)/I24,\"\")"
+          "content": "=IFERROR(-(J24-I24)/J24,\"\")"
         },
         "L25": {
-          "content": "=IFERROR((I25-J25)/I25,\"\")"
+          "content": "=IFERROR(-(J25-I25)/J25,\"\")"
         },
         "L26": {
-          "content": "=IFERROR((I26-J26)/I26,\"\")"
+          "content": "=IFERROR(-(J26-I26)/J26,\"\")"
         },
         "L27": {
-          "content": "=IFERROR((I27-J27)/I27,\"\")"
+          "content": "=IFERROR(-(J27-I27)/J27,\"\")"
         },
         "L28": {
-          "content": "=IFERROR((I28-J28)/I28,\"\")"
+          "content": "=IFERROR(-(J28-I28)/J28,\"\")"
         },
         "L29": {
-          "content": "=IFERROR((I29-J29)/I29,\"\")"
+          "content": "=IFERROR(-(J29-I29)/J29,\"\")"
         },
         "L30": {
-          "content": "=IFERROR((I30-J30)/I30,\"\")"
+          "content": "=IFERROR(-(J30-I30)/J30,\"\")"
         },
         "L31": {
-          "content": "=IFERROR((I31-J31)/I31,\"\")"
+          "content": "=IFERROR(-(J31-I31)/J31,\"\")"
         },
         "L32": {
-          "content": "=IFERROR((I32-J32)/I32,\"\")"
+          "content": "=IFERROR(-(J32-I32)/J32,\"\")"
         },
         "L33": {
-          "content": "=IFERROR((I33-J33)/I33,\"\")"
+          "content": "=IFERROR(-(J33-I33)/J33,\"\")"
         },
         "L34": {
-          "content": "=IFERROR((I34-J34)/I34,\"\")"
+          "content": "=IFERROR(-(J34-I34)/J34,\"\")"
         },
         "L35": {
-          "content": "=IFERROR((I35-J35)/I35,\"\")"
+          "content": "=IFERROR(-(J35-I35)/J35,\"\")"
         }
       },
       "styles": {
@@ -779,72 +779,6 @@
       "comments": {}
     },
     {
-      "id": "33b882db-300a-41e1-bce7-13f5dfb2b749",
-      "name": "partners_n-1",
-      "colNumber": 26,
-      "rowNumber": 100,
-      "rows": {},
-      "cols": {
-        "0": {
-          "size": 321
-        },
-        "1": {
-          "size": 59
-        },
-        "2": {
-          "size": 69
-        },
-        "3": {
-          "size": 69
-        },
-        "4": {
-          "size": 69
-        },
-        "5": {
-          "size": 69
-        },
-        "6": {
-          "size": 69
-        }
-      },
-      "merges": [],
-      "cells": {
-        "A1": {
-          "content": "=PIVOT(4)"
-        }
-      },
-      "styles": {},
-      "formats": {},
-      "borders": {},
-      "conditionalFormats": [],
-      "dataValidationRules": [],
-      "figures": [],
-      "tables": [
-        {
-          "range": "A1",
-          "type": "dynamic",
-          "config": {
-            "hasFilters": false,
-            "totalRow": false,
-            "firstColumn": true,
-            "lastColumn": false,
-            "numberOfHeaders": 1,
-            "bandedRows": true,
-            "bandedColumns": false,
-            "styleId": "TableStyleLight4",
-            "automaticAutofill": true
-          }
-        }
-      ],
-      "areGridLinesVisible": true,
-      "isVisible": true,
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "comments": {}
-    },
-    {
       "id": "1c24a421-48aa-40ac-b8b5-169fe5c10bdb",
       "name": "factors_n-1",
       "colNumber": 26,
@@ -886,6 +820,72 @@
       "cells": {
         "A1": {
           "content": "=PIVOT(2)"
+        }
+      },
+      "styles": {},
+      "formats": {},
+      "borders": {},
+      "conditionalFormats": [],
+      "dataValidationRules": [],
+      "figures": [],
+      "tables": [
+        {
+          "range": "A1",
+          "type": "dynamic",
+          "config": {
+            "hasFilters": false,
+            "totalRow": false,
+            "firstColumn": true,
+            "lastColumn": false,
+            "numberOfHeaders": 1,
+            "bandedRows": true,
+            "bandedColumns": false,
+            "styleId": "TableStyleLight4",
+            "automaticAutofill": true
+          }
+        }
+      ],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "comments": {}
+    },
+    {
+      "id": "33b882db-300a-41e1-bce7-13f5dfb2b749",
+      "name": "partners_n-1",
+      "colNumber": 26,
+      "rowNumber": 100,
+      "rows": {},
+      "cols": {
+        "0": {
+          "size": 321
+        },
+        "1": {
+          "size": 59
+        },
+        "2": {
+          "size": 69
+        },
+        "3": {
+          "size": 69
+        },
+        "4": {
+          "size": 69
+        },
+        "5": {
+          "size": 69
+        },
+        "6": {
+          "size": 69
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A1": {
+          "content": "=PIVOT(4)"
         }
       },
       "styles": {},
@@ -1059,7 +1059,7 @@
       }
     }
   },
-  "revisionId": "7f186fea-9cc7-48f5-b0dc-25c3f22f090d",
+  "revisionId": "b67e43e3-6a16-4242-b214-6c3dbdb7a6c1",
   "uniqueFigureIds": true,
   "settings": {
     "locale": {
@@ -1112,6 +1112,11 @@
       ],
       "model": "carbon.line.origin",
       "name": "Emissions by Emission Factor",
+      "sortedColumn": {
+        "groupId": [[], []],
+        "measure": "signed_value",
+        "order": "desc"
+      },
       "formulaId": "1",
       "columns": [],
       "rows": [
@@ -1158,11 +1163,6 @@
       ],
       "model": "carbon.line.origin",
       "name": "Carbon footprint analysis by emission factor",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "signed_value",
-        "order": "desc"
-      },
       "formulaId": "2",
       "columns": [],
       "rows": [
@@ -1272,94 +1272,9 @@
           "fieldName": "move_line_partner_id"
         }
       ]
-    },
-    "5": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date"
-        },
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "5",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis",
-      "sortedColumn": null,
-      "formulaId": "5",
-      "columns": [],
-      "rows": []
-    },
-    "6": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": -1
-        },
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "6",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis",
-      "sortedColumn": null,
-      "formulaId": "6",
-      "columns": [],
-      "rows": []
     }
   },
-  "pivotNextId": 7,
+  "pivotNextId": 5,
   "customTableStyles": {},
   "odooVersion": 12,
   "globalFilters": [
