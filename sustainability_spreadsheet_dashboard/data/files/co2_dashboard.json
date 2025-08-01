@@ -1,1404 +1,1732 @@
 {
-  "version": 22,
-  "sheets": [
-    {
-      "id": "sheet1",
-      "name": "Dashboard",
-      "colNumber": 24,
-      "rowNumber": 98,
-      "rows": {
-        "1": {
-          "size": 71
-        },
-        "21": {
-          "size": 37
-        },
-        "22": {
-          "size": 44
-        },
-        "23": {
-          "size": 26
-        },
-        "24": {
-          "size": 26
-        },
-        "25": {
-          "size": 26
-        },
-        "26": {
-          "size": 26
-        },
-        "27": {
-          "size": 26
-        },
-        "28": {
-          "size": 26
-        },
-        "29": {
-          "size": 26
-        },
-        "30": {
-          "size": 26
-        },
-        "31": {
-          "size": 26
-        },
-        "32": {
-          "size": 26
-        },
-        "33": {
-          "size": 26
-        },
-        "34": {
-          "size": 26
-        },
-        "35": {
-          "size": 26
-        }
-      },
-      "cols": {
-        "0": {
-          "size": 18
-        },
-        "1": {
-          "size": 333
-        },
-        "2": {
-          "size": 77
-        },
-        "3": {
-          "size": 77
-        },
-        "4": {
-          "size": 67
-        },
-        "5": {
-          "size": 67
-        },
-        "7": {
-          "size": 326
-        },
-        "8": {
-          "size": 75
-        },
-        "9": {
-          "size": 75
-        },
-        "10": {
-          "size": 75
-        },
-        "11": {
-          "size": 75
-        }
-      },
-      "merges": ["B2:L2"],
-      "cells": {
-        "B2": {
-          "content": "=_T(\"Carbon footprint dashboard (kgCO2e)\")"
-        },
-        "B22": {
-          "content": "=_T(\"Top-10 Suppliers\")"
-        },
-        "B23": {
-          "content": "=_T(\"Suppliers\")"
-        },
-        "B24": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",1)"
-        },
-        "B25": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",2)"
-        },
-        "B26": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",3)"
-        },
-        "B27": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",4)"
-        },
-        "B28": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",5)"
-        },
-        "B29": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",6)"
-        },
-        "B30": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",7)"
-        },
-        "B31": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",8)"
-        },
-        "B32": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",9)"
-        },
-        "B33": {
-          "content": "=PIVOT.HEADER(3,\"#move_line_partner_id\",10)"
-        },
-        "B34": {
-          "content": "=_T(\"Others\")"
-        },
-        "B35": {
-          "content": "Total"
-        },
-        "C23": {
-          "content": "=_T(\"Current\n (\")&ODOO.FILTER.VALUE(\"YEAR\")&\")"
-        },
-        "C24": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",1)"
-        },
-        "C25": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",2)"
-        },
-        "C26": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",3)"
-        },
-        "C27": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",4)"
-        },
-        "C28": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",5)"
-        },
-        "C29": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",6)"
-        },
-        "C30": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",7)"
-        },
-        "C31": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",8)"
-        },
-        "C32": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",9)"
-        },
-        "C33": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\",\"#move_line_partner_id\",10)"
-        },
-        "C34": {
-          "content": "=C35-SUM(C24:C33)"
-        },
-        "C35": {
-          "content": "=PIVOT.VALUE(3,\"signed_value\")\n"
-        },
-        "D23": {
-          "content": "=_T(\"Previous\")"
-        },
-        "D24": {
-          "content": "=IF(B24<>\"\",XLOOKUP(B24,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D25": {
-          "content": "=IF(B25<>\"\",XLOOKUP(B25,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D26": {
-          "content": "=IF(B26<>\"\",XLOOKUP(B26,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D27": {
-          "content": "=IF(B27<>\"\",XLOOKUP(B27,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D28": {
-          "content": "=IF(B28<>\"\",XLOOKUP(B28,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D29": {
-          "content": "=IF(B29<>\"\",XLOOKUP(B29,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D30": {
-          "content": "=IF(B30<>\"\",XLOOKUP(B30,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D31": {
-          "content": "=IF(B31<>\"\",XLOOKUP(B31,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D32": {
-          "content": "=IF(B32<>\"\",XLOOKUP(B32,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D33": {
-          "content": "=IF(B33<>\"\",XLOOKUP(B33,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\"),\"\")"
-        },
-        "D34": {
-          "content": "=D35-SUM(D24:D33)"
-        },
-        "D35": {
-          "content": "=PIVOT.VALUE(4,\"signed_value\")\n"
-        },
-        "E23": {
-          "content": "∆"
-        },
-        "E24": {
-          "content": "=IFERROR(IF(D24<>\"\",(C24-D24),\"\"),\"\")"
-        },
-        "E25": {
-          "content": "=IFERROR(IF(D25<>\"\",(C25-D25),\"\"),\"\")"
-        },
-        "E26": {
-          "content": "=IFERROR(IF(D26<>\"\",(C26-D26),\"\"),\"\")"
-        },
-        "E27": {
-          "content": "=IFERROR(IF(D27<>\"\",(C27-D27),\"\"),\"\")"
-        },
-        "E28": {
-          "content": "=IFERROR(IF(D28<>\"\",(C28-D28),\"\"),\"\")"
-        },
-        "E29": {
-          "content": "=IFERROR(IF(D29<>\"\",(C29-D29),\"\"),\"\")"
-        },
-        "E30": {
-          "content": "=IFERROR(IF(D30<>\"\",(C30-D30),\"\"),\"\")"
-        },
-        "E31": {
-          "content": "=IFERROR(IF(D31<>\"\",(C31-D31),\"\"),\"\")"
-        },
-        "E32": {
-          "content": "=IFERROR(IF(D32<>\"\",(C32-D32),\"\"),\"\")"
-        },
-        "E33": {
-          "content": "=IFERROR(IF(D33<>\"\",(C33-D33),\"\"),\"\")"
-        },
-        "E34": {
-          "content": "=IFERROR(IF(D34<>\"\",(C34-D34),\"\"),\"\")"
-        },
-        "E35": {
-          "content": "=IFERROR((C35-D35),\"\")"
-        },
-        "F23": {
-          "content": "∆ %"
-        },
-        "F24": {
-          "content": "=IFERROR((C24-D24)/C24,\"\")"
-        },
-        "F25": {
-          "content": "=IFERROR((C25-D25)/C25,\"\")"
-        },
-        "F26": {
-          "content": "=IFERROR((C26-D26)/C26,\"\")"
-        },
-        "F27": {
-          "content": "=IFERROR((C27-D27)/C27,\"\")"
-        },
-        "F28": {
-          "content": "=IFERROR((C28-D28)/C28,\"\")"
-        },
-        "F29": {
-          "content": "=IFERROR((C29-D29)/C29,\"\")"
-        },
-        "F30": {
-          "content": "=IFERROR((C30-D30)/C30,\"\")"
-        },
-        "F31": {
-          "content": "=IFERROR((C31-D31)/C31,\"\")"
-        },
-        "F32": {
-          "content": "=IFERROR((C32-D32)/C32,\"\")"
-        },
-        "F33": {
-          "content": "=IFERROR((C33-D33)/C33,\"\")"
-        },
-        "F34": {
-          "content": "=IFERROR((C34-D34)/C34,\"\")"
-        },
-        "F35": {
-          "content": "=IFERROR((C35-D35)/C35,\"\")"
-        },
-        "H22": {
-          "content": "=_T(\"Top-10 Emission Factors\")"
-        },
-        "H23": {
-          "content": "=_T(\"Emission Factors\")"
-        },
-        "H24": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",1)"
-        },
-        "H25": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",2)"
-        },
-        "H26": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",3)"
-        },
-        "H27": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",4)"
-        },
-        "H28": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",5)"
-        },
-        "H29": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",6)"
-        },
-        "H30": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",7)"
-        },
-        "H31": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",8)"
-        },
-        "H32": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",9)"
-        },
-        "H33": {
-          "content": "=PIVOT.HEADER(1,\"#factor_id\",10)"
-        },
-        "H34": {
-          "content": "=_T(\"Others\")"
-        },
-        "H35": {
-          "content": "Total"
-        },
-        "I23": {
-          "content": "=_T(\"Current\n (\")&ODOO.FILTER.VALUE(\"YEAR\")&\")"
-        },
-        "I24": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",1)"
-        },
-        "I25": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",2)"
-        },
-        "I26": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",3)"
-        },
-        "I27": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",4)"
-        },
-        "I28": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",5)"
-        },
-        "I29": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",6)"
-        },
-        "I30": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",7)"
-        },
-        "I31": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",8)"
-        },
-        "I32": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",9)"
-        },
-        "I33": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\",\"#factor_id\",10)"
-        },
-        "I34": {
-          "content": "=I35-SUM(I24:I33)"
-        },
-        "I35": {
-          "content": "=PIVOT.VALUE(1,\"signed_value\")\n"
-        },
-        "J23": {
-          "content": "=_T(\"Previous\")"
-        },
-        "J24": {
-          "content": "=IF(H24<>\"\",XLOOKUP(H24,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J25": {
-          "content": "=IF(H25<>\"\",XLOOKUP(H25,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J26": {
-          "content": "=IF(H26<>\"\",XLOOKUP(H26,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J27": {
-          "content": "=IF(H27<>\"\",XLOOKUP(H27,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J28": {
-          "content": "=IF(H28<>\"\",XLOOKUP(H28,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J29": {
-          "content": "=IF(H29<>\"\",XLOOKUP(H29,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J30": {
-          "content": "=IF(H30<>\"\",XLOOKUP(H30,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J31": {
-          "content": "=IF(H31<>\"\",XLOOKUP(H31,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J32": {
-          "content": "=IF(H32<>\"\",XLOOKUP(H32,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J33": {
-          "content": "=IF(H33<>\"\",XLOOKUP(H33,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\"),\"\")"
-        },
-        "J34": {
-          "content": "=J35-SUM(J24:J33)"
-        },
-        "J35": {
-          "content": "=PIVOT.VALUE(2,\"signed_value\")\n"
-        },
-        "K23": {
-          "content": "∆"
-        },
-        "K24": {
-          "content": "=IFERROR(IF(J24<>\"\",(I24-J24),\"\"),\"\")"
-        },
-        "K25": {
-          "content": "=IFERROR(IF(J25<>\"\",(I25-J25),\"\"),\"\")"
-        },
-        "K26": {
-          "content": "=IFERROR(IF(J26<>\"\",(I26-J26),\"\"),\"\")"
-        },
-        "K27": {
-          "content": "=IFERROR(IF(J27<>\"\",(I27-J27),\"\"),\"\")"
-        },
-        "K28": {
-          "content": "=IFERROR(IF(J28<>\"\",(I28-J28),\"\"),\"\")"
-        },
-        "K29": {
-          "content": "=IFERROR(IF(J29<>\"\",(I29-J29),\"\"),\"\")"
-        },
-        "K30": {
-          "content": "=IFERROR(IF(J30<>\"\",(I30-J30),\"\"),\"\")"
-        },
-        "K31": {
-          "content": "=IFERROR(IF(J31<>\"\",(I31-J31),\"\"),\"\")"
-        },
-        "K32": {
-          "content": "=IFERROR(IF(J32<>\"\",(I32-J32),\"\"),\"\")"
-        },
-        "K33": {
-          "content": "=IFERROR(IF(J33<>\"\",(I33-J33),\"\"),\"\")"
-        },
-        "K34": {
-          "content": "=IFERROR(IF(J34<>\"\",(I34-J34),\"\"),\"\")"
-        },
-        "K35": {
-          "content": "=IFERROR((I35-J35),\"\")"
-        },
-        "L23": {
-          "content": "∆ %"
-        },
-        "L24": {
-          "content": "=IFERROR((I24-J24)/I24,\"\")"
-        },
-        "L25": {
-          "content": "=IFERROR((I25-J25)/I25,\"\")"
-        },
-        "L26": {
-          "content": "=IFERROR((I26-J26)/I26,\"\")"
-        },
-        "L27": {
-          "content": "=IFERROR((I27-J27)/I27,\"\")"
-        },
-        "L28": {
-          "content": "=IFERROR((I28-J28)/I28,\"\")"
-        },
-        "L29": {
-          "content": "=IFERROR((I29-J29)/I29,\"\")"
-        },
-        "L30": {
-          "content": "=IFERROR((I30-J30)/I30,\"\")"
-        },
-        "L31": {
-          "content": "=IFERROR((I31-J31)/I31,\"\")"
-        },
-        "L32": {
-          "content": "=IFERROR((I32-J32)/I32,\"\")"
-        },
-        "L33": {
-          "content": "=IFERROR((I33-J33)/I33,\"\")"
-        },
-        "L34": {
-          "content": "=IFERROR((I34-J34)/I34,\"\")"
-        },
-        "L35": {
-          "content": "=IFERROR((I35-J35)/I35,\"\")"
-        }
-      },
-      "styles": {
-        "B2:L2": 1,
-        "B22": 2,
-        "H22": 2,
-        "B23": 3,
-        "H23": 3,
-        "B24": 4,
-        "B26": 4,
-        "B28": 4,
-        "B30": 4,
-        "B32": 4,
-        "B34": 4,
-        "H24": 4,
-        "H26": 4,
-        "H28": 4,
-        "H30": 4,
-        "H32": 4,
-        "H34": 4,
-        "B25": 5,
-        "B27": 5,
-        "B29": 5,
-        "B31": 5,
-        "B33": 5,
-        "H25": 5,
-        "H27": 5,
-        "H29": 5,
-        "H31": 5,
-        "H33": 5,
-        "B35:B36": 6,
-        "H35:H36": 6,
-        "C23:E23": 7,
-        "I23:L23": 7,
-        "C24:F24": 8,
-        "C26:F26": 8,
-        "C28:F28": 8,
-        "C30:F30": 8,
-        "C32:F32": 8,
-        "C34:F34": 8,
-        "I24:L24": 8,
-        "I26:L26": 8,
-        "I28:L28": 8,
-        "I30:L30": 8,
-        "I32:L32": 8,
-        "I34:L34": 8,
-        "C25:F25": 9,
-        "C27:F27": 9,
-        "C29:F29": 9,
-        "C31:F31": 9,
-        "C33:F33": 9,
-        "I25:L25": 9,
-        "I27:L27": 9,
-        "I29:L29": 9,
-        "I31:L31": 9,
-        "I33:L33": 9,
-        "C35:C36": 10,
-        "E35:F36": 10,
-        "I35:I36": 10,
-        "K35:L36": 10,
-        "D35:D36": 11,
-        "J35:J36": 11,
-        "F23": 12,
-        "M10": 13,
-        "M35": 14
-      },
-      "formats": {
-        "C24:D36": 1,
-        "E24:E35": 1,
-        "I24:K36": 1,
-        "F24:F36": 2,
-        "L24:L36": 2,
-        "M35": 3
-      },
-      "borders": {
-        "B23:C23": 1,
-        "C34": 1,
-        "F23": 1,
-        "F34": 1,
-        "H23:I23": 1,
-        "I34": 1,
-        "L23": 1,
-        "L34": 1,
-        "B24:C24": 2,
-        "C35": 2,
-        "F24": 2,
-        "F35": 2,
-        "H24:I24": 2,
-        "I35": 2,
-        "L24": 2,
-        "L35": 2,
-        "D23": 3,
-        "D34": 3,
-        "J23": 3,
-        "J34": 3,
-        "D24": 4,
-        "D35": 4,
-        "J24": 4,
-        "J35": 4,
-        "D25:D33": 5,
-        "J25:J33": 5,
-        "E23": 6,
-        "E34": 6,
-        "K23": 6,
-        "K34": 6,
-        "E24": 7,
-        "E35": 7,
-        "K24": 7,
-        "K35": 7,
-        "E25:E33": 8,
-        "K25:K33": 8
-      },
-      "conditionalFormats": [],
-      "dataValidationRules": [],
-      "figures": [
-        {
-          "id": "f3ecd9d1-6df0-4f3b-bbc1-bf54c7ea1a5b",
-          "x": 357,
-          "y": 105,
-          "width": 981,
-          "height": 406,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Monthly evolution by category"
+   "version":14.5,
+   "sheets":[
+      {
+         "id":"sheet1",
+         "name":"Dashboard",
+         "colNumber":24,
+         "rowNumber":98,
+         "rows":{
+            "1":{
+               "size":71
             },
-            "background": "#F8F9FA",
-            "legendPosition": "top",
-            "metaData": {
-              "groupBy": ["move_date:month", "factor_category_id"],
-              "measure": "signed_value",
-              "order": null,
-              "resModel": "carbon.line.origin",
-              "mode": "bar"
+            "21":{
+               "size":37
             },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                "&",
-                "&",
-                ["move_line_is_invoice_line", "=", true],
-                ["move_state", "=", "posted"],
-                ["res_model", "=", "account.move.line"]
-              ],
-              "groupBy": ["move_date:month", "factor_category_id"],
-              "orderBy": []
+            "22":{
+               "size":44
             },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": true,
-            "fieldMatching": {
-              "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-                "chain": "move_line_partner_id",
-                "type": "many2one"
-              },
-              "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-                "chain": "factor_id",
-                "type": "many2one"
-              },
-              "76425964-25b3-4e9f-9363-b33b72f2e728": {
-                "chain": "move_date",
-                "type": "date",
-                "offset": 0
-              },
-              "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-                "chain": "move_line_journal_id",
-                "type": "many2one"
-              }
+            "23":{
+               "size":26
+            },
+            "24":{
+               "size":26
+            },
+            "25":{
+               "size":26
+            },
+            "26":{
+               "size":26
+            },
+            "27":{
+               "size":26
+            },
+            "28":{
+               "size":26
+            },
+            "29":{
+               "size":26
+            },
+            "30":{
+               "size":26
+            },
+            "31":{
+               "size":26
+            },
+            "32":{
+               "size":26
+            },
+            "33":{
+               "size":26
+            },
+            "34":{
+               "size":26
+            },
+            "35":{
+               "size":26
             }
-          }
-        },
-        {
-          "id": "cc2076bf-8608",
-          "x": 18,
-          "y": 105,
-          "width": 325,
-          "height": 406,
-          "tag": "chart",
-          "data": {
-            "baselineColorDown": "#00A04A",
-            "baselineColorUp": "#DC6965",
-            "baselineMode": "percentage",
-            "title": {
-              "text": "Total CO2 Emission"
+         },
+         "cols":{
+            "0":{
+               "size":18
             },
-            "type": "scorecard",
-            "background": "#F8F9FA",
-            "baseline": "D35",
-            "baselineDescr": "",
-            "keyValue": "C35",
-            "humanize": false
-          }
-        },
-        {
-          "id": "a8c50239-7fbe",
-          "x": 18,
-          "y": 966,
-          "width": 602,
-          "height": 360,
-          "tag": "chart",
-          "data": {
-            "type": "pie",
-            "dataSetsHaveTitle": true,
-            "dataSets": [
-              {
-                "dataRange": "C23:C34"
-              },
-              {
-                "dataRange": "D23:D34"
-              }
+            "1":{
+               "size":333
+            },
+            "2":{
+               "size":77
+            },
+            "3":{
+               "size":77
+            },
+            "4":{
+               "size":67
+            },
+            "5":{
+               "size":67
+            },
+            "7":{
+               "size":326
+            },
+            "8":{
+               "size":75
+            },
+            "9":{
+               "size":75
+            },
+            "10":{
+               "size":75
+            },
+            "11":{
+               "size":75
+            }
+         },
+         "merges":[
+            "B2:L2"
+         ],
+         "cells":{
+            "B2":{
+               "style":1,
+               "content":"Carbon footprint dashboard (kgCO2e)"
+            },
+            "B22":{
+               "style":2,
+               "content":"Top-10 Suppliers"
+            },
+            "B23":{
+               "style":3,
+               "content":"Suppliers",
+               "border":1
+            },
+            "B24":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",1)",
+               "border":2
+            },
+            "B25":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",2)"
+            },
+            "B26":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",3)"
+            },
+            "B27":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",4)"
+            },
+            "B28":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",5)"
+            },
+            "B29":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",6)"
+            },
+            "B30":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",7)"
+            },
+            "B31":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",8)"
+            },
+            "B32":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",9)"
+            },
+            "B33":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(3,\"#move_line_partner_id\",10)"
+            },
+            "B34":{
+               "style":4,
+               "content":"Others"
+            },
+            "B35":{
+               "style":6,
+               "content":"Total"
+            },
+            "B36":{
+               "style":6
+            },
+            "C2":{
+               "style":1
+            },
+            "C23":{
+               "style":7,
+               "content":"=\"Current\n (\"&ODOO.FILTER.VALUE(\"YEAR\")&\")",
+               "border":1
+            },
+            "C24":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",1)",
+               "border":2
+            },
+            "C25":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",2)"
+            },
+            "C26":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",3)"
+            },
+            "C27":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",4)"
+            },
+            "C28":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",5)"
+            },
+            "C29":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",6)"
+            },
+            "C30":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",7)"
+            },
+            "C31":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",8)"
+            },
+            "C32":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",9)"
+            },
+            "C33":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\",\"#move_line_partner_id\",10)"
+            },
+            "C34":{
+               "style":8,
+               "format":1,
+               "content":"=C35-SUM(C24:C33)",
+               "border":1
+            },
+            "C35":{
+               "style":10,
+               "format":1,
+               "content":"=ODOO.PIVOT(3,\"signed_value\")\n",
+               "border":2
+            },
+            "C36":{
+               "style":10,
+               "format":1
+            },
+            "D2":{
+               "style":1
+            },
+            "D23":{
+               "style":7,
+               "content":"Previous",
+               "border":1
+            },
+            "D24":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(B24,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":3
+            },
+            "D25":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(B25,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D26":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(B26,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D27":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(B27,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D28":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(B28,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D29":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(B29,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D30":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(B30,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D31":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(B31,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D32":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(B32,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D33":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(B33,'partners_n-1'!A:A,'partners_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "D34":{
+               "style":8,
+               "format":1,
+               "content":"=D35-SUM(D24:D33)",
+               "border":5
+            },
+            "D35":{
+               "style":13,
+               "format":1,
+               "content":"=ODOO.PIVOT(4,\"signed_value\")\n",
+               "border":3
+            },
+            "D36":{
+               "style":13,
+               "format":1
+            },
+            "E2":{
+               "style":1
+            },
+            "E23":{
+               "style":14,
+               "content":"∆",
+               "border":1
+            },
+            "E24":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D24<>\"\",(C24-D24),\"\"),\"\")",
+               "border":6
+            },
+            "E25":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(D25<>\"\",(C25-D25),\"\"),\"\")",
+               "border":7
+            },
+            "E26":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D26<>\"\",(C26-D26),\"\"),\"\")",
+               "border":7
+            },
+            "E27":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(D27<>\"\",(C27-D27),\"\"),\"\")",
+               "border":7
+            },
+            "E28":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D28<>\"\",(C28-D28),\"\"),\"\")",
+               "border":7
+            },
+            "E29":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(D29<>\"\",(C29-D29),\"\"),\"\")",
+               "border":7
+            },
+            "E30":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D30<>\"\",(C30-D30),\"\"),\"\")",
+               "border":7
+            },
+            "E31":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(D31<>\"\",(C31-D31),\"\"),\"\")",
+               "border":7
+            },
+            "E32":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D32<>\"\",(C32-D32),\"\"),\"\")",
+               "border":7
+            },
+            "E33":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(D33<>\"\",(C33-D33),\"\"),\"\")",
+               "border":7
+            },
+            "E34":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(D34<>\"\",(C34-D34),\"\"),\"\")",
+               "border":8
+            },
+            "E35":{
+               "style":10,
+               "format":1,
+               "content":"=IFERROR((C35-D35),\"\")",
+               "border":6
+            },
+            "E36":{
+               "style":10
+            },
+            "F2":{
+               "style":1
+            },
+            "F23":{
+               "style":14,
+               "content":"∆ %",
+               "border":1
+            },
+            "F24":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D24-C24)/D24,\"\")",
+               "border":2
+            },
+            "F25":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(D25-C25)/D25,\"\")"
+            },
+            "F26":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D26-C26)/D26,\"\")"
+            },
+            "F27":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(D27-C27)/D27,\"\")"
+            },
+            "F28":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D28-C28)/D28,\"\")"
+            },
+            "F29":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(D29-C29)/D29,\"\")"
+            },
+            "F30":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D30-C30)/D30,\"\")"
+            },
+            "F31":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(D31-C31)/D31,\"\")"
+            },
+            "F32":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D32-C32)/D32,\"\")"
+            },
+            "F33":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(D33-C33)/D33,\"\")"
+            },
+            "F34":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(D34-C34)/D34,\"\")",
+               "border":1
+            },
+            "F35":{
+               "style":10,
+               "format":2,
+               "content":"=IFERROR(-(D35-C35)/D35,\"\")",
+               "border":2
+            },
+            "F36":{
+               "style":10,
+               "format":2
+            },
+            "G2":{
+               "style":1
+            },
+            "H2":{
+               "style":1
+            },
+            "H22":{
+               "style":2,
+               "content":"Top-10 Emission Factors"
+            },
+            "H23":{
+               "style":3,
+               "content":"Emission Factors",
+               "border":1
+            },
+            "H24":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",1)",
+               "border":2
+            },
+            "H25":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",2)"
+            },
+            "H26":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",3)"
+            },
+            "H27":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",4)"
+            },
+            "H28":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",5)"
+            },
+            "H29":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",6)"
+            },
+            "H30":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",7)"
+            },
+            "H31":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",8)"
+            },
+            "H32":{
+               "style":4,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",9)"
+            },
+            "H33":{
+               "style":5,
+               "content":"=ODOO.PIVOT.HEADER(1,\"#factor_id\",10)"
+            },
+            "H34":{
+               "style":4,
+               "content":"Others"
+            },
+            "H35":{
+               "style":6,
+               "content":"Total"
+            },
+            "H36":{
+               "style":6
+            },
+            "I2":{
+               "style":1
+            },
+            "I23":{
+               "style":7,
+               "content":"=\"Current\n (\"&ODOO.FILTER.VALUE(\"YEAR\")&\")",
+               "border":1
+            },
+            "I24":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",1)",
+               "border":2
+            },
+            "I25":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",2)"
+            },
+            "I26":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",3)"
+            },
+            "I27":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",4)"
+            },
+            "I28":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",5)"
+            },
+            "I29":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",6)"
+            },
+            "I30":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",7)"
+            },
+            "I31":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",8)"
+            },
+            "I32":{
+               "style":8,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",9)"
+            },
+            "I33":{
+               "style":9,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\",\"#factor_id\",10)"
+            },
+            "I34":{
+               "style":8,
+               "format":1,
+               "content":"=I35-SUM(I24:I33)",
+               "border":1
+            },
+            "I35":{
+               "style":10,
+               "format":1,
+               "content":"=ODOO.PIVOT(1,\"signed_value\")\n",
+               "border":2
+            },
+            "I36":{
+               "style":10,
+               "format":1
+            },
+            "J2":{
+               "style":1
+            },
+            "J23":{
+               "style":7,
+               "content":"Previous",
+               "border":1
+            },
+            "J24":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(H24,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":3
+            },
+            "J25":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(H25,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J26":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(H26,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J27":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(H27,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J28":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(H28,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J29":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(H29,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J30":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(H30,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J31":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(H31,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J32":{
+               "style":11,
+               "format":1,
+               "content":"=XLOOKUP(H32,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J33":{
+               "style":12,
+               "format":1,
+               "content":"=XLOOKUP(H33,'factors_n-1'!A:A,'factors_n-1'!B:B,\"\")",
+               "border":4
+            },
+            "J34":{
+               "style":8,
+               "format":1,
+               "content":"=J35-SUM(J24:J33)",
+               "border":5
+            },
+            "J35":{
+               "style":13,
+               "format":1,
+               "content":"=ODOO.PIVOT(2,\"signed_value\")\n",
+               "border":3
+            },
+            "J36":{
+               "style":13,
+               "format":1
+            },
+            "K2":{
+               "style":1
+            },
+            "K23":{
+               "style":7,
+               "content":"∆",
+               "border":1
+            },
+            "K24":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J24<>\"\",(I24-J24),\"\"),\"\")",
+               "border":6
+            },
+            "K25":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(J25<>\"\",(I25-J25),\"\"),\"\")",
+               "border":7
+            },
+            "K26":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J26<>\"\",(I26-J26),\"\"),\"\")",
+               "border":7
+            },
+            "K27":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(J27<>\"\",(I27-J27),\"\"),\"\")",
+               "border":7
+            },
+            "K28":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J28<>\"\",(I28-J28),\"\"),\"\")",
+               "border":7
+            },
+            "K29":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(J29<>\"\",(I29-J29),\"\"),\"\")",
+               "border":7
+            },
+            "K30":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J30<>\"\",(I30-J30),\"\"),\"\")",
+               "border":7
+            },
+            "K31":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(J31<>\"\",(I31-J31),\"\"),\"\")",
+               "border":7
+            },
+            "K32":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J32<>\"\",(I32-J32),\"\"),\"\")",
+               "border":7
+            },
+            "K33":{
+               "style":9,
+               "format":1,
+               "content":"=IFERROR(IF(J33<>\"\",(I33-J33),\"\"),\"\")",
+               "border":7
+            },
+            "K34":{
+               "style":8,
+               "format":1,
+               "content":"=IFERROR(IF(J34<>\"\",(I34-J34),\"\"),\"\")",
+               "border":8
+            },
+            "K35":{
+               "style":10,
+               "format":1,
+               "content":"=IFERROR((I35-J35),\"\")",
+               "border":6
+            },
+            "K36":{
+               "style":10,
+               "format":1
+            },
+            "L2":{
+               "style":1
+            },
+            "L23":{
+               "style":7,
+               "content":"∆ %",
+               "border":1
+            },
+            "L24":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J24-I24)/J24,\"\")",
+               "border":2
+            },
+            "L25":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(J25-I25)/J25,\"\")"
+            },
+            "L26":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J26-I26)/J26,\"\")"
+            },
+            "L27":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(J27-I27)/J27,\"\")"
+            },
+            "L28":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J28-I28)/J28,\"\")"
+            },
+            "L29":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(J29-I29)/J29,\"\")"
+            },
+            "L30":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J30-I30)/J30,\"\")"
+            },
+            "L31":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(J31-I31)/J31,\"\")"
+            },
+            "L32":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J32-I32)/J32,\"\")"
+            },
+            "L33":{
+               "style":9,
+               "format":2,
+               "content":"=IFERROR(-(J33-I33)/J33,\"\")"
+            },
+            "L34":{
+               "style":8,
+               "format":2,
+               "content":"=IFERROR(-(J34-I34)/J34,\"\")",
+               "border":1
+            },
+            "L35":{
+               "style":10,
+               "format":2,
+               "content":"=IFERROR(-(J35-I35)/J35,\"\")",
+               "border":2
+            },
+            "L36":{
+               "style":10,
+               "format":2
+            },
+            "M10":{
+               "style":15
+            },
+            "M35":{
+               "style":16,
+               "format":3
+            }
+         },
+         "conditionalFormats":[
+
+         ],
+         "figures":[
+            {
+               "id":"f3ecd9d1-6df0-4f3b-bbc1-bf54c7ea1a5b",
+               "x":357,
+               "y":105,
+               "width":981,
+               "height":406,
+               "tag":"chart",
+               "data":{
+                  "title":"Monthly evolution by category",
+                  "background":"#F8F9FA",
+                  "legendPosition":"top",
+                  "metaData":{
+                     "groupBy":[
+                        "move_date:month",
+                        "factor_category_id"
+                     ],
+                     "measure":"signed_value",
+                     "order":null,
+                     "resModel":"carbon.line.origin",
+                     "mode":"bar"
+                  },
+                  "searchParams":{
+                     "comparison":null,
+                     "context":{
+
+                     },
+                     "domain":[
+                        "&",
+                        "&",
+                        [
+                           "move_line_is_invoice_line",
+                           "=",
+                           true
+                        ],
+                        [
+                           "move_state",
+                           "=",
+                           "posted"
+                        ],
+                        [
+                           "res_model",
+                           "=",
+                           "account.move.line"
+                        ]
+                     ],
+                     "groupBy":[
+                        "move_date:month",
+                        "factor_category_id"
+                     ],
+                     "orderBy":[
+
+                     ]
+                  },
+                  "type":"odoo_bar",
+                  "verticalAxisPosition":"left",
+                  "stacked":true,
+                  "fieldMatching":{
+                     "951a7ce4-7f08-4135-a4b6-191a1ae651c1":{
+                        "chain":"move_line_partner_id",
+                        "type":"many2one"
+                     },
+                     "7caffb96-3e12-4d97-9386-c63e23ea5a20":{
+                        "chain":"factor_id",
+                        "type":"many2one"
+                     },
+                     "76425964-25b3-4e9f-9363-b33b72f2e728":{
+                        "chain":"move_date",
+                        "type":"date",
+                        "offset":0
+                     },
+                     "e863fe45-79ba-408d-a15f-d68eec3d6090":{
+                        "chain":"move_line_journal_id",
+                        "type":"many2one"
+                     }
+                  }
+               }
+            },
+            {
+               "id":"cc2076bf-8608",
+               "x":18,
+               "y":105,
+               "width":325,
+               "height":406,
+               "tag":"chart",
+               "data":{
+                  "baselineColorDown":"#00A04A",
+                  "baselineColorUp":"#DC6965",
+                  "baselineMode":"percentage",
+                  "title":"Total CO2 Emission",
+                  "type":"scorecard",
+                  "background":"#F8F9FA",
+                  "baseline":"D35",
+                  "baselineDescr":"",
+                  "keyValue":"C35"
+               }
+            },
+            {
+               "id":"a8c50239-7fbe",
+               "x":18,
+               "y":966,
+               "width":602,
+               "height":360,
+               "tag":"chart",
+               "data":{
+                  "type":"pie",
+                  "dataSetsHaveTitle":true,
+                  "dataSets":[
+                     "C23:C34",
+                     "D23:D34"
+                  ],
+                  "legendPosition":"top",
+                  "labelRange":"B24:B34",
+                  "title":"Supplier repartitions",
+                  "aggregated":false
+               }
+            },
+            {
+               "id":"e8364278-99d6",
+               "x":718,
+               "y":966,
+               "width":620,
+               "height":363,
+               "tag":"chart",
+               "data":{
+                  "type":"pie",
+                  "dataSetsHaveTitle":true,
+                  "dataSets":[
+                     "I23:I34",
+                     "J23:J34"
+                  ],
+                  "legendPosition":"top",
+                  "labelRange":"H24:H34",
+                  "title":"Emission factors repartition",
+                  "aggregated":false
+               }
+            }
+         ],
+         "filterTables":[
+
+         ],
+         "areGridLinesVisible":true,
+         "isVisible":true,
+         "headerGroups":{
+            "ROW":[
+
             ],
-            "legendPosition": "top",
-            "labelRange": "B24:B34",
-            "title": {
-              "text": "Supplier repartitions"
+            "COL":[
+
+            ]
+         },
+         "dataValidationRules":[
+
+         ]
+      },
+      {
+         "id":"33b882db-300a-41e1-bce7-13f5dfb2b749",
+         "name":"partners_n-1",
+         "colNumber":26,
+         "rowNumber":100,
+         "rows":{
+
+         },
+         "cols":{
+            "0":{
+               "size":321
             },
-            "aggregated": false
-          }
-        },
-        {
-          "id": "e8364278-99d6",
-          "x": 718,
-          "y": 966,
-          "width": 620,
-          "height": 363,
-          "tag": "chart",
-          "data": {
-            "type": "pie",
-            "dataSetsHaveTitle": true,
-            "dataSets": [
-              {
-                "dataRange": "I23:I34"
-              },
-              {
-                "dataRange": "J23:J34"
-              }
+            "1":{
+               "size":59
+            },
+            "2":{
+               "size":69
+            },
+            "3":{
+               "size":69
+            },
+            "4":{
+               "size":69
+            },
+            "5":{
+               "size":69
+            },
+            "6":{
+               "size":69
+            }
+         },
+         "merges":[
+
+         ],
+         "cells":{
+            "A1":{
+               "style":17,
+               "content":"=ODOO.PIVOT.TABLE(4)",
+               "border":9
+            },
+            "B1":{
+               "style":17,
+               "border":11
+            },
+            "A2":{
+               "border":10
+            },
+            "B2":{
+               "border":12
+            }
+         },
+         "conditionalFormats":[
+
+         ],
+         "figures":[
+
+         ],
+         "filterTables":[
+
+         ],
+         "areGridLinesVisible":true,
+         "isVisible":true,
+         "headerGroups":{
+            "ROW":[
+
             ],
-            "legendPosition": "top",
-            "labelRange": "H24:H34",
-            "title": {
-              "text": "Emission factors repartition"
+            "COL":[
+
+            ]
+         },
+         "dataValidationRules":[
+
+         ]
+      },
+      {
+         "id":"1c24a421-48aa-40ac-b8b5-169fe5c10bdb",
+         "name":"factors_n-1",
+         "colNumber":26,
+         "rowNumber":100,
+         "rows":{
+
+         },
+         "cols":{
+            "0":{
+               "size":375
             },
-            "aggregated": false
-          }
-        }
-      ],
-      "tables": [
-        {
-          "range": "B23:F35",
-          "type": "static",
-          "config": {
-            "hasFilters": true,
-            "totalRow": false,
-            "firstColumn": false,
-            "lastColumn": false,
-            "numberOfHeaders": 1,
-            "bandedRows": false,
-            "bandedColumns": false,
-            "automaticAutofill": true,
-            "styleId": "TableStyleLight6"
-          }
-        },
-        {
-          "range": "H23:L35",
-          "type": "static",
-          "config": {
-            "hasFilters": true,
-            "totalRow": false,
-            "firstColumn": false,
-            "lastColumn": false,
-            "numberOfHeaders": 1,
-            "bandedRows": true,
-            "bandedColumns": false,
-            "automaticAutofill": true,
-            "styleId": "None"
-          }
-        }
-      ],
-      "areGridLinesVisible": true,
-      "isVisible": true,
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "comments": {}
-    },
-    {
-      "id": "33b882db-300a-41e1-bce7-13f5dfb2b749",
-      "name": "partners_n-1",
-      "colNumber": 26,
-      "rowNumber": 100,
-      "rows": {},
-      "cols": {
-        "0": {
-          "size": 321
-        },
-        "1": {
-          "size": 59
-        },
-        "2": {
-          "size": 69
-        },
-        "3": {
-          "size": 69
-        },
-        "4": {
-          "size": 69
-        },
-        "5": {
-          "size": 69
-        },
-        "6": {
-          "size": 69
-        }
-      },
-      "merges": [],
-      "cells": {
-        "A1": {
-          "content": "=PIVOT(4)"
-        }
-      },
-      "styles": {},
-      "formats": {},
-      "borders": {},
-      "conditionalFormats": [],
-      "dataValidationRules": [],
-      "figures": [],
-      "tables": [
-        {
-          "range": "A1",
-          "type": "dynamic",
-          "config": {
-            "hasFilters": false,
-            "totalRow": false,
-            "firstColumn": true,
-            "lastColumn": false,
-            "numberOfHeaders": 1,
-            "bandedRows": true,
-            "bandedColumns": false,
-            "styleId": "TableStyleLight4",
-            "automaticAutofill": true
-          }
-        }
-      ],
-      "areGridLinesVisible": true,
-      "isVisible": true,
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "comments": {}
-    },
-    {
-      "id": "1c24a421-48aa-40ac-b8b5-169fe5c10bdb",
-      "name": "factors_n-1",
-      "colNumber": 26,
-      "rowNumber": 100,
-      "rows": {},
-      "cols": {
-        "0": {
-          "size": 375
-        },
-        "1": {
-          "size": 69
-        },
-        "2": {
-          "size": 69
-        },
-        "3": {
-          "size": 69
-        },
-        "4": {
-          "size": 69
-        },
-        "5": {
-          "size": 69
-        },
-        "6": {
-          "size": 69
-        },
-        "7": {
-          "size": 69
-        },
-        "8": {
-          "size": 69
-        },
-        "9": {
-          "size": 69
-        }
-      },
-      "merges": [],
-      "cells": {
-        "A1": {
-          "content": "=PIVOT(2)"
-        }
-      },
-      "styles": {},
-      "formats": {},
-      "borders": {},
-      "conditionalFormats": [],
-      "dataValidationRules": [],
-      "figures": [],
-      "tables": [
-        {
-          "range": "A1",
-          "type": "dynamic",
-          "config": {
-            "hasFilters": false,
-            "totalRow": false,
-            "firstColumn": true,
-            "lastColumn": false,
-            "numberOfHeaders": 1,
-            "bandedRows": true,
-            "bandedColumns": false,
-            "styleId": "TableStyleLight4",
-            "automaticAutofill": true
-          }
-        }
-      ],
-      "areGridLinesVisible": true,
-      "isVisible": true,
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "comments": {}
-    }
-  ],
-  "styles": {
-    "1": {
-      "align": "center",
-      "verticalAlign": "middle",
-      "fontSize": 24,
-      "bold": true,
-      "fillColor": "#F8F9FA",
-      "textColor": "#000000"
-    },
-    "2": {
-      "textColor": "#01636B",
-      "bold": true,
-      "fontSize": 16
-    },
-    "3": {
-      "bold": true,
-      "textColor": "#000000"
-    },
-    "4": {
-      "verticalAlign": "middle",
-      "textColor": "#77204B"
-    },
-    "5": {
-      "fillColor": "#F8F9FA",
-      "verticalAlign": "middle",
-      "textColor": "#77204B"
-    },
-    "6": {
-      "align": "right",
-      "bold": true,
-      "verticalAlign": "middle"
-    },
-    "7": {
-      "bold": true,
-      "textColor": "#000000",
-      "align": "center"
-    },
-    "8": {
-      "verticalAlign": "middle"
-    },
-    "9": {
-      "fillColor": "#F8F9FA",
-      "verticalAlign": "middle"
-    },
-    "10": {
-      "bold": true,
-      "align": "center",
-      "verticalAlign": "middle"
-    },
-    "11": {
-      "bold": true,
-      "textColor": "#434343",
-      "align": "center",
-      "verticalAlign": "middle"
-    },
-    "12": {
-      "bold": true,
-      "textColor": "#000000",
-      "fontSize": 12,
-      "align": "center"
-    },
-    "13": {
-      "textColor": "#985184"
-    },
-    "14": {
-      "bold": true
-    }
-  },
-  "formats": {
-    "1": "#,##0",
-    "2": "0%",
-    "3": "0.00%"
-  },
-  "borders": {
-    "1": {
-      "bottom": {
-        "style": "thin",
-        "color": "#000000"
+            "1":{
+               "size":69
+            },
+            "2":{
+               "size":69
+            },
+            "3":{
+               "size":69
+            },
+            "4":{
+               "size":69
+            },
+            "5":{
+               "size":69
+            },
+            "6":{
+               "size":69
+            },
+            "7":{
+               "size":69
+            },
+            "8":{
+               "size":69
+            },
+            "9":{
+               "size":69
+            }
+         },
+         "merges":[
+
+         ],
+         "cells":{
+            "A1":{
+               "style":17,
+               "content":"=ODOO.PIVOT.TABLE(2)",
+               "border":9
+            },
+            "B1":{
+               "style":17,
+               "border":11
+            },
+            "A2":{
+               "border":10
+            },
+            "B2":{
+               "border":12
+            }
+         },
+         "conditionalFormats":[
+
+         ],
+         "figures":[
+
+         ],
+         "filterTables":[
+
+         ],
+         "areGridLinesVisible":true,
+         "isVisible":true,
+         "headerGroups":{
+            "ROW":[
+
+            ],
+            "COL":[
+
+            ]
+         },
+         "dataValidationRules":[
+
+         ]
       }
-    },
-    "2": {
-      "top": {
-        "style": "thin",
-        "color": "#000000"
+   ],
+   "entities":{
+
+   },
+   "styles":{
+      "1":{
+         "align":"center",
+         "verticalAlign":"middle",
+         "fontSize":24,
+         "bold":true,
+         "fillColor":"#F8F9FA",
+         "textColor":"#000000"
+      },
+      "2":{
+         "textColor":"#01636B",
+         "bold":true,
+         "fontSize":16
+      },
+      "3":{
+         "bold":true,
+         "textColor":"#000000"
+      },
+      "4":{
+         "verticalAlign":"middle",
+         "textColor":"#77204B"
+      },
+      "5":{
+         "fillColor":"#F8F9FA",
+         "verticalAlign":"middle",
+         "textColor":"#77204B"
+      },
+      "6":{
+         "align":"right",
+         "bold":true,
+         "verticalAlign":"middle"
+      },
+      "7":{
+         "bold":true,
+         "textColor":"#000000",
+         "align":"center"
+      },
+      "8":{
+         "verticalAlign":"middle"
+      },
+      "9":{
+         "fillColor":"#F8F9FA",
+         "verticalAlign":"middle"
+      },
+      "10":{
+         "bold":true,
+         "align":"center",
+         "verticalAlign":"middle"
+      },
+      "11":{
+         "textColor":"#434343",
+         "verticalAlign":"middle"
+      },
+      "12":{
+         "fillColor":"#F8F9FA",
+         "textColor":"#434343",
+         "verticalAlign":"middle"
+      },
+      "13":{
+         "bold":true,
+         "textColor":"#434343",
+         "align":"center",
+         "verticalAlign":"middle"
+      },
+      "14":{
+         "bold":true,
+         "textColor":"#000000",
+         "fontSize":12,
+         "align":"center"
+      },
+      "15":{
+         "textColor":"#985184"
+      },
+      "16":{
+         "bold":true
+      },
+      "17":{
+         "bold":true,
+         "fillColor":"#E6F2F3"
       }
-    },
-    "3": {
-      "bottom": {
-        "style": "thin",
-        "color": "#000000"
+   },
+   "formats":{
+      "1":"#,##0",
+      "2":"0%",
+      "3":"0.00%"
+   },
+   "borders":{
+      "1":{
+         "bottom":{
+            "style":"thin",
+            "color":"#000000"
+         }
       },
-      "right": {
-        "style": "dashed",
-        "color": "#000000"
+      "2":{
+         "top":{
+            "style":"thin",
+            "color":"#000000"
+         }
+      },
+      "3":{
+         "top":{
+            "style":"thin",
+            "color":"#000000"
+         },
+         "right":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "4":{
+         "right":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "5":{
+         "bottom":{
+            "style":"thin",
+            "color":"#000000"
+         },
+         "right":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "6":{
+         "top":{
+            "style":"thin",
+            "color":"#000000"
+         },
+         "left":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "7":{
+         "left":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "8":{
+         "bottom":{
+            "style":"thin",
+            "color":"#000000"
+         },
+         "left":{
+            "style":"dashed",
+            "color":"#000000"
+         }
+      },
+      "9":{
+         "top":{
+            "style":"thin",
+            "color":"#2D7E84"
+         },
+         "bottom":{
+            "style":"thin",
+            "color":"#2D7E84"
+         },
+         "left":{
+            "style":"thin",
+            "color":"#2D7E84"
+         }
+      },
+      "10":{
+         "top":{
+            "style":"thin",
+            "color":"#2D7E84"
+         },
+         "left":{
+            "style":"thin",
+            "color":"#2D7E84"
+         }
+      },
+      "11":{
+         "top":{
+            "style":"thin",
+            "color":"#2D7E84"
+         },
+         "bottom":{
+            "style":"thin",
+            "color":"#2D7E84"
+         }
+      },
+      "12":{
+         "top":{
+            "style":"thin",
+            "color":"#2D7E84"
+         }
       }
-    },
-    "4": {
-      "top": {
-        "style": "thin",
-        "color": "#000000"
-      },
-      "right": {
-        "style": "dashed",
-        "color": "#000000"
+   },
+   "revisionId":"6d7c71ea-eb7a-433b-b7fe-65946474b0d6",
+   "uniqueFigureIds":true,
+   "settings":{
+      "locale":{
+         "name":"French / Français",
+         "code":"fr_FR",
+         "thousandsSeparator":" ",
+         "decimalSeparator":",",
+         "dateFormat":"dd/mm/yyyy",
+         "timeFormat":"hh:mm:ss",
+         "formulaArgSeparator":";"
       }
-    },
-    "5": {
-      "right": {
-        "style": "dashed",
-        "color": "#000000"
+   },
+   "odooVersion":6,
+   "globalFilters":[
+      {
+         "id":"76425964-25b3-4e9f-9363-b33b72f2e728",
+         "type":"date",
+         "label":"YEAR",
+         "defaultValue":"this_year",
+         "rangeType":"fixedPeriod",
+         "disabledPeriods":[
+
+         ]
+      },
+      {
+         "id":"951a7ce4-7f08-4135-a4b6-191a1ae651c1",
+         "type":"relation",
+         "label":"Contact",
+         "defaultValue":[
+
+         ],
+         "defaultValueDisplayNames":[
+
+         ],
+         "modelName":"res.partner"
+      },
+      {
+         "id":"7caffb96-3e12-4d97-9386-c63e23ea5a20",
+         "type":"relation",
+         "label":"Carbon Emission Factor",
+         "defaultValue":[
+
+         ],
+         "defaultValueDisplayNames":[
+
+         ],
+         "modelName":"carbon.factor"
+      },
+      {
+         "id":"e863fe45-79ba-408d-a15f-d68eec3d6090",
+         "type":"relation",
+         "label":"Journal",
+         "defaultValue":[
+
+         ],
+         "defaultValueDisplayNames":[
+
+         ],
+         "modelName":"account.journal"
       }
-    },
-    "6": {
-      "bottom": {
-        "style": "thin",
-        "color": "#000000"
+   ],
+   "pivots":{
+      "1":{
+         "colGroupBys":[
+
+         ],
+         "context":{
+
+         },
+         "domain":[
+            "&",
+            [
+               "move_line_is_invoice_line",
+               "=",
+               true
+            ],
+            "&",
+            [
+               "move_state",
+               "=",
+               "posted"
+            ],
+            [
+               "res_model",
+               "=",
+               "account.move.line"
+            ]
+         ],
+         "id":"1",
+         "measures":[
+            {
+               "field":"signed_value"
+            }
+         ],
+         "model":"carbon.line.origin",
+         "rowGroupBys":[
+            "factor_id"
+         ],
+         "name":"Emissions by Emission Factor",
+         "sortedColumn":{
+            "groupId":[
+               [
+
+               ],
+               [
+
+               ]
+            ],
+            "measure":"signed_value",
+            "order":"desc"
+         },
+         "fieldMatching":{
+            "951a7ce4-7f08-4135-a4b6-191a1ae651c1":{
+               "chain":"move_line_partner_id",
+               "type":"many2one"
+            },
+            "7caffb96-3e12-4d97-9386-c63e23ea5a20":{
+               "chain":"factor_id",
+               "type":"many2one"
+            },
+            "76425964-25b3-4e9f-9363-b33b72f2e728":{
+               "chain":"move_date",
+               "type":"date",
+               "offset":0
+            },
+            "e863fe45-79ba-408d-a15f-d68eec3d6090":{
+               "chain":"move_line_journal_id",
+               "type":"many2one"
+            }
+         }
       },
-      "left": {
-        "style": "dashed",
-        "color": "#000000"
+      "2":{
+         "colGroupBys":[
+
+         ],
+         "context":{
+
+         },
+         "domain":[
+            "&",
+            [
+               "move_line_is_invoice_line",
+               "=",
+               true
+            ],
+            "&",
+            [
+               "move_state",
+               "=",
+               "posted"
+            ],
+            [
+               "res_model",
+               "=",
+               "account.move.line"
+            ]
+         ],
+         "id":"2",
+         "measures":[
+            {
+               "field":"signed_value"
+            }
+         ],
+         "model":"carbon.line.origin",
+         "rowGroupBys":[
+            "factor_id"
+         ],
+         "name":"Carbon footprint analysis by emission factor",
+         "sortedColumn":{
+            "groupId":[
+               [
+
+               ],
+               [
+
+               ]
+            ],
+            "measure":"signed_value",
+            "order":"desc"
+         },
+         "fieldMatching":{
+            "951a7ce4-7f08-4135-a4b6-191a1ae651c1":{
+               "chain":"move_line_partner_id",
+               "type":"many2one"
+            },
+            "7caffb96-3e12-4d97-9386-c63e23ea5a20":{
+               "chain":"factor_id",
+               "type":"many2one"
+            },
+            "76425964-25b3-4e9f-9363-b33b72f2e728":{
+               "chain":"move_date",
+               "type":"date",
+               "offset":-1
+            },
+            "e863fe45-79ba-408d-a15f-d68eec3d6090":{
+               "chain":"move_line_journal_id",
+               "type":"many2one"
+            }
+         }
+      },
+      "3":{
+         "colGroupBys":[
+
+         ],
+         "context":{
+
+         },
+         "domain":[
+            "&",
+            [
+               "move_line_is_invoice_line",
+               "=",
+               true
+            ],
+            "&",
+            [
+               "move_state",
+               "=",
+               "posted"
+            ],
+            [
+               "res_model",
+               "=",
+               "account.move.line"
+            ]
+         ],
+         "id":"3",
+         "measures":[
+            {
+               "field":"signed_value"
+            }
+         ],
+         "model":"carbon.line.origin",
+         "rowGroupBys":[
+            "move_line_partner_id"
+         ],
+         "name":"Emission by Partner",
+         "sortedColumn":{
+            "groupId":[
+               [
+
+               ],
+               [
+
+               ]
+            ],
+            "measure":"signed_value",
+            "order":"desc"
+         },
+         "fieldMatching":{
+            "951a7ce4-7f08-4135-a4b6-191a1ae651c1":{
+               "chain":"move_line_partner_id",
+               "type":"many2one"
+            },
+            "7caffb96-3e12-4d97-9386-c63e23ea5a20":{
+               "chain":"factor_id",
+               "type":"many2one"
+            },
+            "76425964-25b3-4e9f-9363-b33b72f2e728":{
+               "chain":"move_date",
+               "type":"date",
+               "offset":0
+            },
+            "e863fe45-79ba-408d-a15f-d68eec3d6090":{
+               "chain":"move_line_journal_id",
+               "type":"many2one"
+            }
+         }
+      },
+      "4":{
+         "colGroupBys":[
+
+         ],
+         "context":{
+
+         },
+         "domain":[
+            "&",
+            [
+               "move_line_is_invoice_line",
+               "=",
+               true
+            ],
+            "&",
+            [
+               "move_state",
+               "=",
+               "posted"
+            ],
+            [
+               "res_model",
+               "=",
+               "account.move.line"
+            ]
+         ],
+         "id":"4",
+         "measures":[
+            {
+               "field":"signed_value"
+            }
+         ],
+         "model":"carbon.line.origin",
+         "rowGroupBys":[
+            "move_line_partner_id"
+         ],
+         "name":"Carbon footprint analysis by partner",
+         "sortedColumn":{
+            "groupId":[
+               [
+
+               ],
+               [
+
+               ]
+            ],
+            "measure":"signed_value",
+            "order":"desc"
+         },
+         "fieldMatching":{
+            "951a7ce4-7f08-4135-a4b6-191a1ae651c1":{
+               "chain":"move_line_partner_id",
+               "type":"many2one"
+            },
+            "7caffb96-3e12-4d97-9386-c63e23ea5a20":{
+               "chain":"factor_id",
+               "type":"many2one"
+            },
+            "76425964-25b3-4e9f-9363-b33b72f2e728":{
+               "chain":"move_date",
+               "type":"date",
+               "offset":-1
+            },
+            "e863fe45-79ba-408d-a15f-d68eec3d6090":{
+               "chain":"move_line_journal_id",
+               "type":"many2one"
+            }
+         }
       }
-    },
-    "7": {
-      "top": {
-        "style": "thin",
-        "color": "#000000"
-      },
-      "left": {
-        "style": "dashed",
-        "color": "#000000"
-      }
-    },
-    "8": {
-      "left": {
-        "style": "dashed",
-        "color": "#000000"
-      }
-    }
-  },
-  "revisionId": "7f186fea-9cc7-48f5-b0dc-25c3f22f090d",
-  "uniqueFigureIds": true,
-  "settings": {
-    "locale": {
-      "name": "French / Français",
-      "code": "fr_FR",
-      "thousandsSeparator": " ",
-      "decimalSeparator": ",",
-      "dateFormat": "dd/mm/yyyy",
-      "timeFormat": "hh:mm:ss",
-      "formulaArgSeparator": ";",
-      "weekStart": 1
-    }
-  },
-  "pivots": {
-    "1": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": 0
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "1",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Emissions by Emission Factor",
-      "formulaId": "1",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "factor_id"
-        }
-      ]
-    },
-    "2": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": -1
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "2",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis by emission factor",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "signed_value",
-        "order": "desc"
-      },
-      "formulaId": "2",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "factor_id"
-        }
-      ]
-    },
-    "3": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": 0
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "3",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Emission by Partner",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "signed_value",
-        "order": "desc"
-      },
-      "formulaId": "3",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "move_line_partner_id"
-        }
-      ]
-    },
-    "4": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": -1
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "4",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis by partner",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "signed_value",
-        "order": "desc"
-      },
-      "formulaId": "4",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "move_line_partner_id"
-        }
-      ]
-    },
-    "5": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date"
-        },
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "5",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis",
-      "sortedColumn": null,
-      "formulaId": "5",
-      "columns": [],
-      "rows": []
-    },
-    "6": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "76425964-25b3-4e9f-9363-b33b72f2e728": {
-          "chain": "move_date",
-          "type": "date",
-          "offset": -1
-        },
-        "951a7ce4-7f08-4135-a4b6-191a1ae651c1": {
-          "chain": "move_line_partner_id",
-          "type": "many2one"
-        },
-        "7caffb96-3e12-4d97-9386-c63e23ea5a20": {
-          "chain": "factor_id",
-          "type": "many2one"
-        },
-        "e863fe45-79ba-408d-a15f-d68eec3d6090": {
-          "chain": "move_line_journal_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [
-        "&",
-        ["move_line_is_invoice_line", "=", true],
-        "&",
-        ["move_state", "=", "posted"],
-        ["res_model", "=", "account.move.line"]
-      ],
-      "id": "6",
-      "measures": [
-        {
-          "id": "signed_value",
-          "fieldName": "signed_value"
-        }
-      ],
-      "model": "carbon.line.origin",
-      "name": "Carbon footprint analysis",
-      "sortedColumn": null,
-      "formulaId": "6",
-      "columns": [],
-      "rows": []
-    }
-  },
-  "pivotNextId": 7,
-  "customTableStyles": {},
-  "odooVersion": 12,
-  "globalFilters": [
-    {
-      "id": "76425964-25b3-4e9f-9363-b33b72f2e728",
-      "type": "date",
-      "label": "YEAR",
-      "defaultValue": "this_year",
-      "rangeType": "fixedPeriod",
-      "disabledPeriods": []
-    },
-    {
-      "id": "951a7ce4-7f08-4135-a4b6-191a1ae651c1",
-      "type": "relation",
-      "label": "Contact",
-      "defaultValue": [],
-      "defaultValueDisplayNames": [],
-      "modelName": "res.partner"
-    },
-    {
-      "id": "7caffb96-3e12-4d97-9386-c63e23ea5a20",
-      "type": "relation",
-      "label": "Carbon Emission Factor",
-      "defaultValue": [],
-      "defaultValueDisplayNames": [],
-      "modelName": "carbon.factor"
-    },
-    {
-      "id": "e863fe45-79ba-408d-a15f-d68eec3d6090",
-      "type": "relation",
-      "label": "Journal",
-      "defaultValue": [],
-      "defaultValueDisplayNames": [],
-      "modelName": "account.journal"
-    }
-  ],
-  "lists": {},
-  "listNextId": 3,
-  "chartOdooMenusReferences": {
-    "f3ecd9d1-6df0-4f3b-bbc1-bf54c7ea1a5b": "sustainability.carbon_line_origin_graph_menu"
-  }
+   },
+   "pivotNextId":5,
+   "lists":{
+
+   },
+   "listNextId":3,
+   "chartOdooMenusReferences":{
+      "f3ecd9d1-6df0-4f3b-bbc1-bf54c7ea1a5b":"sustainability.carbon_line_origin_graph_menu"
+   }
 }
