@@ -1,8 +1,11 @@
+import logging
 from datetime import datetime
 from typing import Any
 
 from odoo import Command, _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
+
+_logger = logging.getLogger(__name__)
 
 
 class SustainabilityStockFreightComputation(models.Model):
@@ -20,6 +23,10 @@ class SustainabilityStockFreightComputation(models.Model):
     api_response = fields.Text()
     request_payload = fields.Text()
     error_message = fields.Text()
+    route_ratio = fields.Json(
+        compute="_compute_route_ratio",
+        store=True,
+    )
 
     @api.depends("co2_ratio", "weight_unit")
     def _compute_co2_display(self):
@@ -135,3 +142,42 @@ class SustainabilityStockFreightComputation(models.Model):
             )
 
         return carbon_factors_values
+
+    @api.depends("api_response")
+    def _compute_route_ratio(self):
+        for record in self:
+            route_ratio_dict = {}
+
+            api_response = safe_eval(record.api_response)
+            routes = api_response.get("route", [])
+
+            total_co2 = sum(route.get("co2e") for route in routes)
+            for route in routes:
+                route_ratio = route.get("co2e") / total_co2
+                source_trails = route.get("source_trail", [])
+
+                factor_ids = self.env["carbon.factor"]
+
+                for source_trail in source_trails:
+                    if self._validate_source_trail(source_trail):
+                        factor_id = self.env["carbon.factor"].search(
+                            [
+                                ("name", "=", source_trail.get("name")),
+                                ("is_climatiq", "=", True),
+                            ],
+                            limit=1,
+                        )
+                        if factor_id:
+                            factor_ids |= factor_id
+                        else:
+                            _logger.critical(
+                                f"Factor not found: {source_trail.get('name')}"
+                            )
+
+                for factor_id in factor_ids:
+                    factor_ratio = route_ratio / len(source_trails)
+                    if not route_ratio_dict.get(factor_id):
+                        route_ratio_dict[factor_id.id] = 0
+
+                    route_ratio_dict[factor_id.id] += factor_ratio
+            record.route_ratio = route_ratio_dict

@@ -140,7 +140,7 @@ class StockPicking(models.Model):
         api_response: dict | None,
         payload: str,
         error_message: str,
-    ) -> None:
+    ) -> Any:
         """Log computation results for caching and debugging."""
         cache_record = self.env["sustainability.stock.freight.computation"].create(
             {
@@ -155,6 +155,8 @@ class StockPicking(models.Model):
             }
         )
         cache_record.action_create_carbon_factor()
+
+        return cache_record
 
     @api.model
     def _build_climatiq_route(
@@ -324,40 +326,87 @@ class StockPicking(models.Model):
         )
 
     @api.model
-    def _get_carbon_origin_json(self) -> dict[str, Any]:
+    def _get_carbon_origin_json(self, **details) -> dict[str, Any]:
         """Get carbon origin JSON structure."""
         return {
             "mode": "manual",
             "details": {
                 "uid": self.env.uid,
                 "username": self.env.user.name,
+                **details,
             },
             "model_name": self._name,
         }
 
     def _update_existing_carbon_move(
-        self, existing_move, carbon_freight_uncertainty_ratio: float
+        self, existing_move, product_id, carbon_freight_uncertainty_ratio: float
     ) -> None:
         """Update existing carbon accounting move."""
         self.ensure_one()
         existing_move.button_draft()
 
-        for line in existing_move.line_ids:
-            if line.product_id:
-                line.sudo().write(
-                    {
-                        "carbon_debt": self.carbon_debt,
-                        "quantity": self.shipping_weight,
-                        "carbon_data_uncertainty_percentage": carbon_freight_uncertainty_ratio,
-                        "carbon_uncertainty_value": carbon_freight_uncertainty_ratio
-                        * self.carbon_debt,
-                        "carbon_origin_json": self._get_carbon_origin_json(),
-                    }
+        existing_move.with_context(dynamic_unlink=True).line_ids.unlink()
+
+        existing_move.sudo().write(
+            {
+                "line_ids": self._get_carbon_move_line_vals(
+                    existing_move.company_id,
+                    product_id,
+                    carbon_freight_uncertainty_ratio,
                 )
+            }
+        )
 
         existing_move.action_post()
 
-    def _get_carbon_move_line_vals(self): ...
+    def _get_carbon_move_line_vals(
+        self, company, product_id, carbon_freight_uncertainty_ratio: float
+    ) -> list:
+        self.ensure_one()
+
+        weight_unit = self._get_weight_unit()
+        origin = self._get_formatted_address(
+            self.picking_type_id.warehouse_id.partner_id
+        )
+        destination = self._get_formatted_address(self.partner_id)
+        transport_mode = self._get_transport_mode(company)
+
+        existing_computation = self._get_cached_computation(
+            origin, destination, weight_unit, transport_mode
+        )
+
+        default_vals = {
+            "carbon_debt": self.carbon_debt,
+            "carbon_uncertainty_value": carbon_freight_uncertainty_ratio
+            * self.carbon_debt,
+            "carbon_data_uncertainty_percentage": carbon_freight_uncertainty_ratio,
+            "account_id": company.carbon_freight_account_id.id,
+            "product_id": product_id.id,
+            "debit": 0,
+            "credit": 0,
+            "carbon_is_locked": True,
+            "quantity": self.shipping_weight,
+            "carbon_origin_json": self._get_carbon_origin_json(),
+        }
+        if not existing_computation:
+            return [Command.create(default_vals)]
+
+        existing_computation._compute_route_ratio()
+
+        return [
+            Command.create(
+                {
+                    **default_vals,
+                    # "carbon_factor_id": factor_id,
+                    "carbon_is_locked": True,
+                    "carbon_debt": self.carbon_debt * factor_ratio,
+                    "carbon_origin_json": self._get_carbon_origin_json(
+                        factor_id=factor_id
+                    ),
+                }
+            )
+            for factor_id, factor_ratio in existing_computation.route_ratio.items()
+        ]
 
     def _create_new_carbon_move(
         self, company, product_id, carbon_freight_uncertainty_ratio: float
@@ -381,23 +430,9 @@ class StockPicking(models.Model):
                     "company_id": company.id,
                     "move_type": "in_invoice",
                     "carbon_freight_picking_id": self.id,
-                    "line_ids": [
-                        Command.create(
-                            {
-                                "carbon_debt": self.carbon_debt,
-                                "carbon_uncertainty_value": carbon_freight_uncertainty_ratio
-                                * self.carbon_debt,
-                                "carbon_data_uncertainty_percentage": carbon_freight_uncertainty_ratio,
-                                "account_id": company.carbon_freight_account_id.id,
-                                "product_id": product_id.id,
-                                "debit": 0,
-                                "credit": 0,
-                                "carbon_is_locked": True,
-                                "quantity": self.shipping_weight,
-                                "carbon_origin_json": self._get_carbon_origin_json(),
-                            }
-                        ),
-                    ],
+                    "line_ids": self._get_carbon_move_line_vals(
+                        company, product_id, carbon_freight_uncertainty_ratio
+                    ),
                 }
             )
         )
@@ -415,7 +450,7 @@ class StockPicking(models.Model):
 
         if existing_move:
             self._update_existing_carbon_move(
-                existing_move, carbon_freight_uncertainty_ratio
+                existing_move, product_id, carbon_freight_uncertainty_ratio
             )
         else:
             self._create_new_carbon_move(
