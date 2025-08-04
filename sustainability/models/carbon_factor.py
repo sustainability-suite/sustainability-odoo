@@ -96,9 +96,11 @@ class CarbonFactor(models.Model):
     carbon_value = fields.Float(
         compute="_compute_carbon_value", store=True, string="Value"
     )
-    carbon_uom_id = fields.Many2one(related="recent_value_id.carbon_uom_id", store=True)
+    carbon_uom_id = fields.Many2one(
+        comodel_name="uom.uom", string="Unit of measure", tracking=True
+    )
     carbon_monetary_currency_id = fields.Many2one(
-        related="recent_value_id.carbon_monetary_currency_id"
+        comodel_name="res.currency", string="Currency", tracking=True
     )
     unit_label = fields.Char(related="recent_value_id.unit_label")
 

@@ -91,6 +91,7 @@
                     <field name="carbon_contributor_id" />
                     <field name="factor_value_type_id" string="Type" />
                     <field name="carbon_uom_id" />
+                    <field name="carbon_monetary_currency_id" />
                     <field name="country_id" />
                     <field name="country_group_id" />
                     <filter
@@ -125,6 +126,11 @@
                         domain="[('active', '=', False)]"
                         name="archived"
                         string="Archived"
+                    />
+                    <filter
+                        domain="[('carbon_uom_id', '=', False), ('carbon_monetary_currency_id', '=', False)]"
+                        name="no_unit_or_currency"
+                        string="No unit or currency"
                     />
                     <group expand="0" string="Group By">
                         <filter
@@ -182,6 +188,11 @@
                             string="Unit of measure"
                             name="by_carbon_uom_id"
                             context="{'group_by':'carbon_uom_id'}"
+                        />
+                        <filter
+                            string="Currency"
+                            name="by_carbon_monetary_currency_id"
+                            context="{'group_by':'carbon_monetary_currency_id'}"
                         />
                         <separator />
                         <filter
@@ -401,6 +412,16 @@
                                     name="required_type_ids"
                                     widget="many2many_tags"
                                 />
+                                <field
+                                    name="carbon_uom_id"
+                                    invisible="carbon_compute_method != 'physical'"
+                                    required="carbon_compute_method == 'physical'"
+                                />
+                                <field
+                                    name="carbon_monetary_currency_id"
+                                    invisible="carbon_compute_method != 'monetary'"
+                                    required="carbon_compute_method == 'monetary'"
+                                />
                             </group>
                             <group>
                                 <field name="country_group_id" />
@@ -509,16 +530,6 @@
                                             force_save="1"
                                             name="other_ghg_value"
                                             readonly="not is_carbon_value_computed and carbon_value"
-                                        />
-                                        <field
-                                            column_invisible="parent.carbon_compute_method != 'physical'"
-                                            name="carbon_uom_id"
-                                            required="parent.carbon_compute_method == 'physical'"
-                                        />
-                                        <field
-                                            column_invisible="parent.carbon_compute_method != 'monetary'"
-                                            name="carbon_monetary_currency_id"
-                                            required="parent.carbon_compute_method == 'monetary'"
                                         />
                                         <field name="comment" />
                                         <button
