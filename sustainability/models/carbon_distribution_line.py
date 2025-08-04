@@ -55,6 +55,7 @@ class CarbonDistributionLine(models.Model):
         [
             ("in", "In"),
             ("out", "Out"),
+            ("template", "Template"),
         ],
         required=True,
     )
@@ -80,6 +81,8 @@ class CarbonDistributionLine(models.Model):
             elif distribution.carbon_type == "out":
                 distribution.res_out_id = distribution.res_id
                 distribution.res_in_id = False
+            elif distribution.carbon_type == "template":
+                distribution.res_in_id = distribution.res_out_id = False
 
     def _inverse_res_in_out_id(self):
         for distribution in self:
