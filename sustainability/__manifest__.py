@@ -25,6 +25,7 @@
         "views/account_move.xml",
         "views/account_move_line.xml",
         "views/carbon_line_origin.xml",
+        "views/carbon_distribution_template.xml",
         "views/carbon_factor.xml",
         "views/carbon_factor_database.xml",
         "views/carbon_factor_contributor.xml",
