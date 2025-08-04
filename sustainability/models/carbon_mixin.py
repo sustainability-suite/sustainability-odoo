@@ -60,20 +60,32 @@ class CarbonMixin(models.AbstractModel):
             "res.country",
         ]
 
-    @api.constrains("carbon_in_use_distribution", "carbon_in_distribution_line_ids")
+    @api.constrains(
+        "carbon_in_use_distribution",
+        "carbon_in_distribution_template_id",
+        "carbon_in_distribution_line_ids",
+    )
     def _check_carbon_in_distribution(self):
         for record in self.filtered("carbon_in_use_distribution"):
-            if not record.has_valid_carbon_distribution("in"):
+            if template := record.carbon_in_distribution_template_id:
+                template._check_carbon_distribution()
+            elif not record.has_valid_carbon_distribution("in"):
                 raise ValidationError(
                     _(
                         "The total percentage of distribution lines must be equal to 100% (for carbon `in`)"
                     )
                 )
 
-    @api.constrains("carbon_out_use_distribution", "carbon_out_distribution_line_ids")
+    @api.constrains(
+        "carbon_out_use_distribution",
+        "carbon_out_distribution_template_id",
+        "carbon_out_distribution_line_ids",
+    )
     def _check_carbon_out_distribution(self):
         for record in self.filtered("carbon_out_use_distribution"):
-            if not record.has_valid_carbon_distribution("out"):
+            if template := record.carbon_in_distribution_template_id:
+                template._check_carbon_distribution()
+            elif not record.has_valid_carbon_distribution("out"):
                 raise ValidationError(
                     _(
                         "The total percentage of distribution lines must be equal to 100% (for carbon `out`)"
@@ -160,6 +172,11 @@ class CarbonMixin(models.AbstractModel):
     carbon_in_use_distribution = fields.Boolean(
         default=False, string="Use Distribution", help="Todo: add help"
     )
+    carbon_in_distribution_template_id = fields.Many2one(
+        "carbon.distribution.template",
+        string="Distribution Template",
+        ondelete="set null",
+    )
     carbon_in_distribution_line_ids = fields.One2many(
         "carbon.distribution.line",
         "res_in_id",
@@ -197,6 +214,11 @@ class CarbonMixin(models.AbstractModel):
 
     carbon_out_use_distribution = fields.Boolean(
         default=False, string="Use Distribution "
+    )
+    carbon_out_distribution_template_id = fields.Many2one(
+        "carbon.distribution.template",
+        string="Distribution Template",
+        ondelete="set null",
     )
     carbon_out_distribution_line_ids = fields.One2many(
         "carbon.distribution.line",
@@ -353,7 +375,14 @@ class CarbonMixin(models.AbstractModel):
     @api.model
     def generate_origin_string(self, path: list[Any], carbon_type: str) -> str:
         str_path = " > ".join([rec._get_record_description() for rec in path])
-        str_path += " > " + path[-1][f"carbon_{carbon_type}_factor_id"].name
+        last_record = path[-1]
+        if last_record[f"carbon_{carbon_type}_use_distribution"]:
+            if template := last_record[f"carbon_{carbon_type}_distribution_template"]:
+                str_path += " > " + template.name + " " + _("(Distribution)")
+            else:
+                str_path += " > " + _("Distribution")
+        else:
+            str_path += " > " + last_record[f"carbon_{carbon_type}_factor_id"].name
         return str_path
 
     # --------------------------------------------
@@ -378,30 +407,54 @@ class CarbonMixin(models.AbstractModel):
         self = self.with_context(auto_carbon_distribution=True)
         for record in self:
             for carbon_type in carbon_types:
-                if (
-                    record[f"carbon_{carbon_type}_is_manual"]
-                    and not record[f"carbon_{carbon_type}_use_distribution"]
-                ):
-                    if factor := record[f"carbon_{carbon_type}_factor_id"]:
-                        record._get_distribution_lines(carbon_type).unlink()
-                        lines_vals_list.append(
-                            {
-                                "factor_id": factor.id,
-                                "carbon_type": carbon_type,
-                                "percentage": 1,
-                                "res_model": record._name,
-                                "res_id": record.id,
-                            }
-                        )
-
-                    else:
-                        raise UserError(
-                            _(
-                                "Missing carbon factor for %s (carbon type: %s)",
-                                record._get_record_description(),
-                                carbon_type,
+                if record[f"carbon_{carbon_type}_is_manual"]:
+                    if not record[f"carbon_{carbon_type}_use_distribution"]:
+                        if factor := record[f"carbon_{carbon_type}_factor_id"]:
+                            record._get_distribution_lines(carbon_type).unlink()
+                            lines_vals_list.append(
+                                {
+                                    "factor_id": factor.id,
+                                    "carbon_type": carbon_type,
+                                    "percentage": 1,
+                                    "res_model": record._name,
+                                    "res_id": record.id,
+                                    f"res_{carbon_type}_id": record.id,
+                                }
                             )
-                        )
+                        else:
+                            if not self.env.context.get("auto_carbon_distribution"):
+                                raise UserError(
+                                    _(
+                                        "Missing carbon factor for %s (carbon type: %s)",
+                                        record._get_record_description(),
+                                        carbon_type,
+                                    )
+                                )
+                    else:
+                        if template := record[
+                            f"carbon_{carbon_type}_distribution_template_id"
+                        ]:
+                            record._get_distribution_lines(carbon_type).unlink()
+                            for template_line in template.carbon_distribution_line_ids:
+                                lines_vals_list.append(
+                                    {
+                                        "factor_id": template_line.factor_id.id,
+                                        "carbon_type": carbon_type,
+                                        "percentage": template_line.percentage,
+                                        "res_model": record._name,
+                                        "res_id": record.id,
+                                        f"res_{carbon_type}_id": record.id,
+                                    }
+                                )
+                        elif not record._get_distribution_lines(carbon_type):
+                            if not self.env.context.get("auto_carbon_distribution"):
+                                raise UserError(
+                                    _(
+                                        "Missing carbon distribution for %s (carbon type: %s)",
+                                        record._get_record_description(),
+                                        carbon_type,
+                                    )
+                                )
         self.env["carbon.distribution.line"].create(lines_vals_list)
 
     # --------------------------------------------
@@ -411,16 +464,22 @@ class CarbonMixin(models.AbstractModel):
     def write(self, vals):
         res = super().write(vals)
         # We only recompute values for carbon types that have been modified
+        fields = (
+            "carbon_{}_factor_id",
+            "carbon_{}_use_distribution",
+            "carbon_{}_distribution_template_id",
+        )
         carbon_types = [
             carbon_type
             for carbon_type in self._carbon_types
-            if f"carbon_{carbon_type}_factor_id" in vals
+            if any(f.format(carbon_type) in vals for f in fields)
         ]
         self.auto_carbon_distribution(carbon_types=carbon_types)
         return res
 
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         res.auto_carbon_distribution()
         return res
 
