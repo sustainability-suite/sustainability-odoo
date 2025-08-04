@@ -66,10 +66,34 @@
                                 />
                                 <field
                                     invisible="not carbon_in_is_manual"
+                                    name="carbon_in_use_distribution"
+                                />
+                                <field
+                                    invisible="not carbon_in_is_manual or carbon_in_use_distribution"
                                     name="carbon_in_factor_id"
                                     string="Emission Factor"
-                                    required="carbon_in_is_manual"
+                                    required="carbon_in_is_manual and not carbon_in_use_distribution"
                                 />
+                                <field
+                                    colspan="2"
+                                    context="{'default_carbon_type': 'in', 'default_res_model': model_name, 'default_res_id': id}"
+                                    force_save="1"
+                                    invisible="not carbon_in_is_manual or not carbon_in_use_distribution"
+                                    name="carbon_in_distribution_line_ids"
+                                    nolabel="1"
+                                    required="carbon_in_use_distribution"
+                                >
+                                    <list editable="bottom">
+                                        <field name="factor_id" />
+                                        <field name="percentage" widget="percentage" />
+                                        <field column_invisible="1" name="carbon_type" />
+                                        <field
+                                            force_save="1"
+                                            column_invisible="1"
+                                            name="res_model"
+                                        />
+                                    </list>
+                                </field>
                             </group>
                             <group string="Sales">
                                 <label for="carbon_out_is_manual" string="Mode" />
@@ -107,10 +131,34 @@
                                 />
                                 <field
                                     invisible="not carbon_out_is_manual"
+                                    name="carbon_out_use_distribution"
+                                />
+                                <field
+                                    invisible="not carbon_out_is_manual or carbon_out_use_distribution"
                                     name="carbon_out_factor_id"
                                     string="Emission Factor"
-                                    required="carbon_out_is_manual"
+                                    required="carbon_out_is_manual and not carbon_out_use_distribution"
                                 />
+                                <field
+                                    colspan="2"
+                                    context="{'default_carbon_type': 'out', 'default_res_model': model_name, 'default_res_id': id}"
+                                    force_save="1"
+                                    invisible="not carbon_out_is_manual or not carbon_out_use_distribution"
+                                    name="carbon_out_distribution_line_ids"
+                                    nolabel="1"
+                                    required="carbon_out_use_distribution"
+                                >
+                                    <list editable="bottom">
+                                        <field name="factor_id" />
+                                        <field name="percentage" widget="percentage" />
+                                        <field column_invisible="1" name="carbon_type" />
+                                        <field
+                                            force_save="1"
+                                            column_invisible="1"
+                                            name="res_model"
+                                        />
+                                    </list>
+                                </field>
                             </group>
                         </group>
                     </page>
