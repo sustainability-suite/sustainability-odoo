@@ -94,9 +94,9 @@ class CarbonFactorValue(models.Model):
         store=True,
     )
 
-    carbon_uom_id = fields.Many2one("uom.uom", string="Unit of measure", tracking=True)
+    carbon_uom_id = fields.Many2one(related="factor_id.carbon_uom_id", store=True)
     carbon_monetary_currency_id = fields.Many2one(
-        "res.currency", string="Currency", tracking=True
+        related="factor_id.carbon_monetary_currency_id", store=True
     )
     unit_label = fields.Char(compute="_compute_unit_label", string=" ")
 
