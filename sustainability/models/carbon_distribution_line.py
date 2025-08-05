@@ -34,6 +34,20 @@ class CarbonDistributionLine(models.Model):
         readonly=True,
     )
     res_id = fields.Many2oneReference(index=True, model_field="res_model")
+    res_in_id = fields.Many2oneReference(
+        index=True,
+        model_field="res_model",
+        compute="_compute_res_in_out_id",
+        inverse="_inverse_res_in_out_id",
+        store=True,
+    )
+    res_out_id = fields.Many2oneReference(
+        index=True,
+        model_field="res_model",
+        compute="_compute_res_in_out_id",
+        inverse="_inverse_res_in_out_id",
+        store=True,
+    )
 
     factor_id = fields.Many2one("carbon.factor", string="Carbon Factor", required=True)
     percentage = fields.Float(required=True)
@@ -56,3 +70,22 @@ class CarbonDistributionLine(models.Model):
     def get_record(self):
         self.ensure_one()
         return self.env[self.res_model].browse(self.res_id).exists()
+
+    @api.depends("res_id", "carbon_type")
+    def _compute_res_in_out_id(self):
+        for distribution in self:
+            if distribution.carbon_type == "in":
+                distribution.res_in_id = distribution.res_id
+                distribution.res_out_id = False
+            elif distribution.carbon_type == "out":
+                distribution.res_out_id = distribution.res_id
+                distribution.res_in_id = False
+
+    def _inverse_res_in_out_id(self):
+        for distribution in self:
+            if distribution.carbon_type == "in":
+                distribution.res_id = distribution.res_in_id
+                distribution.res_out_id = False
+            elif distribution.carbon_type == "out":
+                distribution.res_id = distribution.res_out_id
+                distribution.res_in_id = False
