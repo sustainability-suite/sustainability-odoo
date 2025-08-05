@@ -78,6 +78,16 @@ class CarbonMixin(models.AbstractModel):
                     )
                 )
 
+    @api.constrains("carbon_out_use_distribution", "carbon_out_distribution_line_ids")
+    def _check_carbon_out_distribution(self):
+        for record in self.filtered("carbon_out_use_distribution"):
+            if not record.has_valid_carbon_distribution("out"):
+                raise ValidationError(
+                    _(
+                        "The total percentage of distribution lines must be equal to 100% (for carbon `out`)"
+                    )
+                )
+
     @api.model
     def _get_available_carbon_compute_methods(self) -> list[tuple[str, str]]:
         return [
@@ -154,7 +164,7 @@ class CarbonMixin(models.AbstractModel):
     )
     carbon_in_distribution_line_ids = fields.One2many(
         "carbon.distribution.line",
-        "res_id",
+        "res_in_id",
         "Distribution lines IN",
         auto_join=True,
         domain="[('carbon_type', '=', 'in')]",
@@ -192,7 +202,7 @@ class CarbonMixin(models.AbstractModel):
     )
     carbon_out_distribution_line_ids = fields.One2many(
         "carbon.distribution.line",
-        "res_id",
+        "res_out_id",
         "Distribution lines OUT",
         auto_join=True,
         domain="[('carbon_type', '=', 'out')]",
@@ -419,6 +429,9 @@ class CarbonMixin(models.AbstractModel):
     # Note by GCA: I don't know why we have to filter distribution lines, but there is a bug:
     # If we don't filter lines, they all get returned (in & out), whatever the carbon type
     # It seems that the domain in the one2many field is not working as expected...
+    # Answer by YBU: Because both one2many fields have the same inverse_name and the domain
+    # is only used on the edit interface, but if the data are already here, they will be got.
+    # I think this was working on previous versions of Odoo, but I dind't test.
     def _get_distribution_lines(self, carbon_type: str):
         return self[f"carbon_{carbon_type}_distribution_line_ids"].filtered(
             lambda x: x.carbon_type == carbon_type
@@ -464,7 +477,7 @@ class CarbonMixin(models.AbstractModel):
         if not self:
             return ()
         self.ensure_one()
-        lines = self[f"carbon_{carbon_type}_distribution_line_ids"]
+        lines = self._get_distribution_lines(carbon_type)
         return (
             lines.factor_id,
             {line.factor_id: line.percentage for line in lines},
