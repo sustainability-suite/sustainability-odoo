@@ -12,23 +12,10 @@ class AccountAccount(models.Model):
             ("monetary", "Monetary"),
         ]
 
-    carbon_in_factor_id = fields.Many2one(
-        string="Emission Factor Purchases", tracking=True
-    )
+    carbon_in_factor_id = fields.Many2one(tracking=True)
 
     carbon_line_origin_ids = fields.One2many(
         comodel_name="carbon.line.origin",
         inverse_name="move_line_account_id",
         string="Origins",
     )
-    carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
-
-    def action_see_carbon_line_origin_ids(self):
-        return self._generate_action(
-            model="carbon.line.origin",
-            ids=self.carbon_line_origin_ids.ids,
-        )
-
-    def _compute_carbon_line_origin_qty(self):
-        for factor in self:
-            factor.carbon_line_origin_qty = len(factor.carbon_line_origin_ids)
