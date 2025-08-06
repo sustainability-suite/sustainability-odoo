@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _name = "res.partner"
-    _inherit = ["res.partner", "carbon.mixin", "carbon.common.mixin"]
+    _inherit = ["res.partner", "carbon.mixin"]
     _carbon_enable_page = False
 
     @api.model
