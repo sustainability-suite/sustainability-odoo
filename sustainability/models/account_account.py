@@ -5,6 +5,7 @@ class AccountAccount(models.Model):
     _name = "account.account"
     _inherit = ["account.account", "carbon.mixin"]
     _carbon_types = ["in"]
+    _carbon_enable_distribution = True
 
     @api.model
     def _get_available_carbon_compute_methods(self) -> list[tuple[str, str]]:
