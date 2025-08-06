@@ -122,26 +122,6 @@
                     <field force_save="1" invisible="1" name="carbon_origin_json" />
                     <field invisible="1" name="carbon_currency_id" />
                 </xpath>
-                <xpath expr="//div[@name='button_box']" position="inside">
-                    <button
-                        class="oe_stat_button"
-                        icon="fa-leaf"
-                        name="action_see_clo_child_ids"
-                        type="object"
-                        attrs="{'invisible': [('carbon_origin_child_qty', '&lt;', 1)]}"
-                    >
-                        <div class="o_field_widget o_stat_info">
-                            <span class="o_stat_value">
-                                <field
-                                    name="carbon_origin_child_qty"
-                                    nolabel="1"
-                                    widget="statinfo"
-                                />
-                            </span>
-                            <span class="o_stat_text">Carbon Footprint</span>
-                        </div>
-                    </button>
-                </xpath>
             </field>
         </record>
         <record id="view_move_tree" model="ir.ui.view">
