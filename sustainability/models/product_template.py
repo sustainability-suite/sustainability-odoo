@@ -4,6 +4,8 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _name = "product.template"
     _inherit = ["product.template", "carbon.mixin"]
+    _carbon_enable_distribution = True
+    _carbon_enable_distribution_template = True
     _fallback_records = ["categ_id"]
 
     """
