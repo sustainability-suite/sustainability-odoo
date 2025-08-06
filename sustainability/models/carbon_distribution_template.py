@@ -1,5 +1,6 @@
 import logging
 from collections import defaultdict
+from typing import Any
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -108,3 +109,20 @@ class CarbonDistributionTemplate(models.Model):
                 total_count[template_id] += 1
 
         return total_count
+
+    @api.model
+    def _carbon_get_button_list(cls) -> list[dict[str, Any]]:
+        return super()._carbon_get_button_list() + [
+            # Product Templates button
+            dict(
+                field="product_template_qty",
+                icon="fa-th-list",
+                string=_("Product Templates"),
+            ),
+            # Product Variants button
+            dict(
+                field="product_product_qty",
+                icon="fa-th-list",
+                string=_("Product Variants"),
+            ),
+        ]
