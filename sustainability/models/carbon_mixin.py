@@ -91,7 +91,7 @@ class CarbonMixin(models.AbstractModel):
     )
     def _check_carbon_out_distribution(self):
         for record in self.filtered("carbon_out_use_distribution"):
-            if template := record.carbon_in_distribution_template_id:
+            if template := record.carbon_out_distribution_template_id:
                 template._check_carbon_distribution()
             elif not record.has_valid_carbon_distribution("out"):
                 raise ValidationError(
