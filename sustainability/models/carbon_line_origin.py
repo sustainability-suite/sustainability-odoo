@@ -133,6 +133,18 @@ class CarbonLineOrigin(models.Model):
         store=True,
         readonly=True,
     )
+    move_line_product_tmpl_id = fields.Many2one(
+        related="move_line_product_id.product_tmpl_id",
+        string="Product Template",
+        store=True,
+        readonly=True,
+    )
+    move_line_product_category_id = fields.Many2one(
+        related="move_line_id.product_category_id",
+        string="Product Category",
+        store=False,
+        readonly=True,
+    )
     move_line_is_invoice_line = fields.Boolean(
         related="move_line_id.is_invoice_line",
         store=True,
