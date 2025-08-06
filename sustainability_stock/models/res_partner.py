@@ -23,7 +23,7 @@ class ResPartner(models.Model):
                 name="carbon_freight_transport_mode",
                 string=_("Transport Mode"),
                 group_name="group_carbon_freight_settings",
-                group_string=_("CLimatiq API"),
+                group_string=_("Climatiq API"),
             ),
         )
         return res
