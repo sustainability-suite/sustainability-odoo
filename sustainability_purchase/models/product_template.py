@@ -13,6 +13,6 @@ class ProductTemplate(models.Model):
         supplierinfo_partners = [s.partner_id for s in self.seller_ids]
         return supplierinfo_partners + res
 
-    @api.depends("seller_ids.partner_id.carbon_in_factor_id")
+    @api.depends("seller_ids.partner_id.carbon_in_is_manual")
     def _compute_carbon_in_mode(self):
         return super()._compute_carbon_in_mode()
