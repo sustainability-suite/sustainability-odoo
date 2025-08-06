@@ -33,6 +33,28 @@ class CarbonCommonMixin(models.AbstractModel):
             },
         }
 
+    # Carbon Line Origin Smart Button
+    # In order to use this feature, you need to create this field in the model with an correct inverse_name.
+    # carbon_line_origin_ids = fields.One2many(
+    #     comodel_name="carbon.line.origin",
+    #     inverse_name="<inverse_name in carbon.line.origin>",
+    #     string="Origins",
+    # )
+    carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
+
+    def action_see_carbon_line_origin_ids(self):
+        return self._generate_action(
+            model="carbon.line.origin",
+            ids=self._get_carbon_line_origin_ids(),
+        )
+
+    def _compute_carbon_line_origin_qty(self):
+        for record in self:
+            record.carbon_line_origin_qty = len(record._get_carbon_line_origin_ids())
+
+    def _get_carbon_line_origin_ids(self):
+        return self.carbon_line_origin_ids.ids or []
+
     # Carbon Origin Child Smart Button
     carbon_origin_child_ids = fields.One2many(
         comodel_name="carbon.line.origin", compute="_compute_carbon_origin_child_ids"
