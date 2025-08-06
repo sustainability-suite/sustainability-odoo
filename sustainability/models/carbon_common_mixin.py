@@ -179,7 +179,7 @@ class CarbonCommonMixin(models.AbstractModel):
             if field in field_name_to_button:
                 raise UserError(_("Field %s is used by multiple buttons", field))
 
-            button = etree.Element("button", name=f"sustainability_button_{field}")
+            button = etree.Element("button")
             button.set("icon", button_dict.pop("icon", "fa-leaf"))
             button.set("type", "object")
             button.set("invisible", f"{field} < 1")
