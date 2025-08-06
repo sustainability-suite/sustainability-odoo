@@ -54,6 +54,9 @@ class CarbonMixin(models.AbstractModel):
     _fallback_records = []
     _carbon_enable_page = True
     _carbon_enable_distribution = False
+    _carbon_enable_distribution_template = (
+        False  # Need _carbon_enable_distribution to be enabled
+    )
 
     # TODO: Thinks about compute this from env['carbon.line.mixin']._get_computation_levels_mapping()
     @api.model
@@ -616,6 +619,7 @@ class CarbonMixin(models.AbstractModel):
         EMISSION_FACTOR_VAR_NAME = _("Emission Factor")
         OTHER_VAR_NAME = _("Other")
         SUSTAINABILITY_VAR_NAME = _("Sustainability")
+        DISTRIBUTION_TEMPLATE_VAR_NAME = _("Distribution Template")
 
         # Parent element
         # Here without_page is used to generate the page or the group, depending on the context (per example if the view has no notebook then we generate a group)
@@ -743,18 +747,33 @@ class CarbonMixin(models.AbstractModel):
             )
             # Distribution field (if enabled)
             if cls._carbon_enable_distribution:
+                if cls._carbon_enable_distribution_template:
+                    etree.SubElement(
+                        carbon_type_group,
+                        "field",
+                        **{
+                            "name": f"carbon_{carbon_type}_distribution_template_id",
+                            "string": DISTRIBUTION_TEMPLATE_VAR_NAME,
+                            "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
+                        },
+                    )
+
                 distribution_field = etree.SubElement(
                     carbon_type_group,
                     "field",
                     **{
                         "colspan": "2",
                         "context": f"{{'default_carbon_type': '{carbon_type}', 'default_res_model': model_name, 'default_res_id': id}}",
-                        "force_save": "1",
                         "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
                         "name": f"carbon_{carbon_type}_distribution_line_ids",
                         "nolabel": "1",
-                        "required": f"carbon_{carbon_type}_use_distribution",
+                        "required": f"carbon_{carbon_type}_use_distribution {f'and not carbon_{carbon_type}_distribution_template_id' if cls._carbon_enable_distribution_template else ''}",
                     },
+                    **{
+                        "readonly": f"carbon_{carbon_type}_distribution_template_id",
+                    }
+                    if cls._carbon_enable_distribution_template
+                    else {},
                 )
                 list_element = etree.SubElement(
                     distribution_field, "list", editable="bottom"
@@ -771,7 +790,6 @@ class CarbonMixin(models.AbstractModel):
                 etree.SubElement(
                     list_element,
                     "field",
-                    force_save="1",
                     column_invisible="1",
                     name="res_model",
                 )
