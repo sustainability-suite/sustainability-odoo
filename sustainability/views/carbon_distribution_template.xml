@@ -1,30 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-
         <record id="carbon_distribution_template_form" model="ir.ui.view">
             <field name="name">carbon.distribution.template.form</field>
             <field name="model">carbon.distribution.template</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-th-list"
+                                name="action_see_product_template_ids"
+                                type="object"
+                                invisible="product_template_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_template_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Product Templates</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-th-list"
+                                name="action_see_product_product_ids"
+                                type="object"
+                                invisible="product_product_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_product_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Product Variants</span>
+                                </div>
+                            </button>
+                        </div>
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="name" />
                             </group>
                         </group>
                         <notebook>
-                            <page string="Distribution lines" name="carbon_distribution_lines">
+                            <page
+                                string="Distribution lines"
+                                name="carbon_distribution_lines"
+                            >
                                 <field
                                     context="{'default_carbon_type': 'template', 'default_res_model': 'carbon.distribution.template', 'default_res_id': id}"
                                     force_save="1"
                                     name="carbon_distribution_line_ids"
                                 >
                                     <list editable="bottom">
-                                        <field name="factor_id"/>
-                                        <field name="percentage" widget="percentage"/>
-                                        <field column_invisible="1" name="carbon_type"/>
-                                        <field force_save="1" column_invisible="1" name="res_model"/>
+                                        <field name="factor_id" />
+                                        <field name="percentage" widget="percentage" />
+                                        <field
+                                            column_invisible="1"
+                                            name="carbon_type"
+                                        />
+                                        <field
+                                            force_save="1"
+                                            column_invisible="1"
+                                            name="res_model"
+                                        />
                                     </list>
                                 </field>
                             </page>
@@ -40,6 +87,5 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">list,form</field>
         </record>
-
     </data>
 </odoo>
