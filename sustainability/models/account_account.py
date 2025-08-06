@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class AccountAccount(models.Model):
     _name = "account.account"
-    _inherit = ["account.account", "carbon.mixin", "carbon.common.mixin"]
+    _inherit = ["account.account", "carbon.mixin"]
     _carbon_types = ["in"]
 
     @api.model
