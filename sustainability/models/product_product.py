@@ -1,4 +1,4 @@
-from odoo import api, models
+from odoo import api, fields, models
 
 # from odoo.addons.sustainability.models.carbon_mixin import auto_depends
 
@@ -15,6 +15,12 @@ class ProductProduct(models.Model):
         - Product category
 
     """
+
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin",
+        inverse_name="move_line_product_id",
+        string="Origins",
+    )
 
     def _get_carbon_in_fallback_records(self) -> list:
         res = super()._get_carbon_in_fallback_records()

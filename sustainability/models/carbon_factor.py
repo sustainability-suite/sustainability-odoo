@@ -1,6 +1,7 @@
 from collections import defaultdict
 from datetime import datetime
 from random import randint
+from typing import Any
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -652,6 +653,51 @@ class CarbonFactor(models.Model):
             }
 
         return result_value, result_value * uncertainty_percentage, result_details
+
+    @api.model
+    def _carbon_get_button_list(cls) -> list[dict[str, Any]]:
+        res = super()._carbon_get_button_list()
+        button_list = [
+            # Account Move button
+            dict(
+                field="account_move_qty",
+                icon="fa-bars",
+                string=_("Account Move"),
+            ),
+            # Child button
+            dict(
+                field="child_qty",
+                icon="fa-sitemap",
+                string=_("Children Factors"),
+            ),
+            # Chart of Account button
+            dict(
+                field="chart_of_account_qty",
+                icon="fa-book",
+                string=_("Chart of Account"),
+            ),
+            # Product button
+            dict(
+                field="product_qty",
+                icon="fa-th-list",
+                string=_("Products"),
+            ),
+            # Product Category button
+            dict(
+                field="product_categ_qty",
+                icon="fa-sort",
+                string=_("Product Categories"),
+            ),
+            # Product Supplier Info button
+            dict(
+                field="product_supplierinfo_qty",
+                icon="fa-list",
+                string=_("Product Supplier Infos"),
+                action="action_see_product_supplier_ids",
+            ),
+        ]
+
+        return res + button_list
 
     # --------------------------------------------
     #                   ACTIONS

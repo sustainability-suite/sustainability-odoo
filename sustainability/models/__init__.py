@@ -17,8 +17,8 @@ from . import carbon_distribution_line
 from . import carbon_factor
 from . import carbon_factor_value
 from . import product_category
-from . import product_product
 from . import product_template
+from . import product_product
 from . import product_supplierinfo
 from . import res_country
 from . import carbon_factor_database

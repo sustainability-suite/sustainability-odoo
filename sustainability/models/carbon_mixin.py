@@ -1,9 +1,14 @@
+import logging
 from typing import Any
+
+from lxml import etree
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 from .carbon_factor import CarbonFactor
+
+_logger = logging.getLogger(__name__)
 
 # DO NOT DELETE
 # def auto_depends(cls):
@@ -42,9 +47,12 @@ from .carbon_factor import CarbonFactor
 
 class CarbonMixin(models.AbstractModel):
     _name = "carbon.mixin"
+    _inherit = ["carbon.common.mixin"]
     _description = "A mixin used to add carbon values on any model"
     _carbon_types = ["in", "out"]
     _fallback_records = []
+    _carbon_enable_page = True
+    _carbon_enable_distribution = False
 
     # TODO: Thinks about compute this from env['carbon.line.mixin']._get_computation_levels_mapping()
     @api.model
@@ -473,11 +481,251 @@ class CarbonMixin(models.AbstractModel):
             self.model_name,
         )
 
-    def carbon_widget_update_field(self, field_name: str, value: Any):
-        field = getattr(self, field_name)
-        if isinstance(field, models.BaseModel) and isinstance(value, list):
-            value = value[0]
-        self.write({field_name: value})
+    @api.model
+    def _get_view(cls, view_id=None, view_type="form", **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if view_type == "form":
+            if cls._carbon_enable_page:
+                has_sustainability = False
+                for notebook in arch.xpath("//notebook"):
+                    notebook.append(cls._carbon_generate_page_xml())
+                    has_sustainability = True
+
+                if not has_sustainability:
+                    for sheet in arch.xpath("//sheet"):
+                        sheet.append(cls._carbon_generate_page_xml(without_page=True))
+
+        return arch, view
+
+    @api.model
+    def _carbon_get_other_fields(cls):
+        """
+        Return a list of fields that you want to display in the sustainability page, in the 'Other' group.
+        - name: the name of the field.
+        - group_name: the name of the group to display the field in. If not provided, the field will be displayed in the default group.
+        - group_string: the string to display in the group. Will be ignored if group already exists.
+        - kwargs: additional kwargs to pass to the field element. (e.g. invisible, required, string, etc.)
+
+        Group name is always required. Group string is required for the first element of the group.
+        """
+        return []
+
+    @api.model
+    def _carbon_generate_page_xml(
+        cls, model_name: str | None = None, without_page: bool = False
+    ):
+        model_name = model_name or cls._name
+        if model_name not in cls.env:
+            raise UserError(_("Model %s not found", model_name))
+        model = cls.env[model_name]
+        carbon_types = model._carbon_types
+        if not carbon_types:
+            return None
+
+        CARBON_TYPE_NAME_MAPPING = {
+            "in": _("Purchases"),
+            "out": _("Sales"),
+        }
+        SET_VAR_NAME = _("Set")
+        UNDEFINED_VAR_NAME = _("Undefined")
+        MODE_VAR_NAME = _("Mode")
+        EMISSION_FACTOR_VAR_NAME = _("Emission Factor")
+        OTHER_VAR_NAME = _("Other")
+        SUSTAINABILITY_VAR_NAME = _("Sustainability")
+
+        # Parent element
+        # Here without_page is used to generate the page or the group, depending on the context (per example if the view has no notebook then we generate a group)
+        if without_page:
+            parent_element = group = etree.Element(
+                "group",
+                name="sustainability_main_group",
+                string=SUSTAINABILITY_VAR_NAME,
+            )
+        else:
+            parent_element = etree.Element(
+                "page", name="sustainability_page", string=SUSTAINABILITY_VAR_NAME
+            )
+            group = etree.SubElement(parent_element, "group")
+
+        # Hidden fields
+        invisible_fields = [
+            "carbon_allowed_factor_ids",
+            "model_name",
+        ]
+        invisible_carbon_type_fields = ["carbon_{carbon_type}_mode"]
+        invisible_fields.extend(
+            [
+                field.format(carbon_type=carbon_type)
+                for field in invisible_carbon_type_fields
+                for carbon_type in carbon_types
+            ]
+        )
+
+        for field_name in invisible_fields:
+            etree.SubElement(group, "field", invisible="1", name=field_name)
+
+        other_group_name_mapping = {}
+
+        for carbon_type in carbon_types:
+            carbon_type_group = etree.SubElement(
+                group, "group", string=CARBON_TYPE_NAME_MAPPING[carbon_type]
+            )
+
+            etree.SubElement(
+                carbon_type_group,
+                "label",
+                **{"for": f"carbon_{carbon_type}_is_manual", "string": MODE_VAR_NAME},
+            )
+
+            div = etree.SubElement(
+                carbon_type_group, "div", **{"class": "gap-1 d-inline-flex ml-3"}
+            )
+
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "class": "opacity-50 mr-2",
+                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                },
+            ).text = UNDEFINED_VAR_NAME
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "style": "font-weight: bold;",
+                },
+            ).text = UNDEFINED_VAR_NAME
+
+            etree.SubElement(
+                div,
+                "field",
+                **{
+                    "class": "",
+                    "name": f"carbon_{carbon_type}_is_manual",
+                    "nolabel": "1",
+                    "style": "margin-left: 8px;",
+                    "widget": "boolean_toggle",
+                    "options": "{'autosave': False}",
+                },
+            )
+
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "class": "opacity-50",
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                },
+            ).text = SET_VAR_NAME
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "style": "font-weight: bold;",
+                },
+            ).text = SET_VAR_NAME
+
+            etree.SubElement(
+                carbon_type_group,
+                "field",
+                **{
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "name": f"carbon_{carbon_type}_fallback_reference",
+                    "widget": "reference",
+                },
+            )
+
+            if cls._carbon_enable_distribution:
+                etree.SubElement(
+                    carbon_type_group,
+                    "field",
+                    **{
+                        "name": f"carbon_{carbon_type}_use_distribution",
+                        "invisible": f"not carbon_{carbon_type}_is_manual",
+                    },
+                )
+
+            etree.SubElement(
+                carbon_type_group,
+                "field",
+                **{
+                    "invisible": f"not carbon_{carbon_type}_is_manual {f'or carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
+                    "name": f"carbon_{carbon_type}_factor_id",
+                    "string": EMISSION_FACTOR_VAR_NAME,
+                    "required": f"carbon_{carbon_type}_is_manual {f'and not carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
+                },
+            )
+            # Distribution field (if enabled)
+            if cls._carbon_enable_distribution:
+                distribution_field = etree.SubElement(
+                    carbon_type_group,
+                    "field",
+                    **{
+                        "colspan": "2",
+                        "context": f"{{'default_carbon_type': '{carbon_type}', 'default_res_model': model_name, 'default_res_id': id}}",
+                        "force_save": "1",
+                        "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
+                        "name": f"carbon_{carbon_type}_distribution_line_ids",
+                        "nolabel": "1",
+                        "required": f"carbon_{carbon_type}_use_distribution",
+                    },
+                )
+                list_element = etree.SubElement(
+                    distribution_field, "list", editable="bottom"
+                )
+                etree.SubElement(list_element, "field", name="factor_id")
+                etree.SubElement(
+                    list_element, "field", name="percentage", widget="percentage"
+                )
+
+                # Hidden fields
+                etree.SubElement(
+                    list_element, "field", column_invisible="1", name="carbon_type"
+                )
+                etree.SubElement(
+                    list_element,
+                    "field",
+                    force_save="1",
+                    column_invisible="1",
+                    name="res_model",
+                )
+
+        other_group = etree.SubElement(
+            parent_element,
+            "group",
+            **{
+                "name": "sustainability_other_group",
+                "string": OTHER_VAR_NAME,
+                "invisible": "1",  # Hide when no data are inside
+            },
+        )
+        for field_dict in model._carbon_get_other_fields():
+            if field_dict.get("name") not in model._fields:
+                continue
+
+            other_group.set("invisible", "False")
+
+            group_name = field_dict.pop("group_name")
+
+            parent_group = other_group
+            if group_name in other_group_name_mapping:
+                parent_group = other_group_name_mapping[group_name]
+            else:
+                parent_group = other_group_name_mapping[group_name] = etree.SubElement(
+                    other_group,
+                    "group",
+                    **{
+                        "name": group_name,
+                        "string": field_dict.pop("group_string"),
+                    },
+                )
+
+            etree.SubElement(parent_group, "field", **field_dict)
+
+        return parent_element
 
     # --------------------------------------------
     #                   ACTIONS
