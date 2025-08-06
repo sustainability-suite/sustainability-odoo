@@ -682,11 +682,17 @@ class CarbonFactor(models.Model):
                 icon="fa-book",
                 string=_("Chart of Account"),
             ),
-            # Product button
+            # Product Variants button
             dict(
-                field="product_qty",
+                field="product_product_qty",
                 icon="fa-th-list",
-                string=_("Products"),
+                string=_("Product Variants"),
+            ),
+            # Product Templates button
+            dict(
+                field="product_template_qty",
+                icon="fa-th-list",
+                string=_("Product Templates"),
             ),
             # Product Category button
             dict(
