@@ -39,11 +39,6 @@ msgid "Api Response"
 msgstr ""
 
 #. module: sustainability_stock
-#: model_terms:ir.ui.view,arch_db:sustainability_stock.view_partner_form_freight
-msgid "CLimatiq API"
-msgstr ""
-
-#. module: sustainability_stock
 #: model:ir.model.fields,field_description:sustainability_stock.field_stock_picking__carbon_debt
 msgid "CO2"
 msgstr ""
@@ -138,6 +133,8 @@ msgid "Carbon freight journal"
 msgstr ""
 
 #. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/res_partner.py:0
 #: model:ir.ui.menu,name:sustainability_stock.menu_climatiq_api
 msgid "Climatiq API"
 msgstr ""
@@ -414,6 +411,8 @@ msgid "Transfer"
 msgstr ""
 
 #. module: sustainability_stock
+#. odoo-python
+#: code:addons/sustainability_stock/models/res_partner.py:0
 #: model:ir.model.fields,field_description:sustainability_stock.field_sustainability_stock_freight_computation__transport_mode
 msgid "Transport Mode"
 msgstr ""
@@ -421,7 +420,6 @@ msgstr ""
 #. module: sustainability_stock
 #. odoo-python
 #: code:addons/sustainability_stock/models/stock_picking.py:0
-#: model_terms:ir.ui.view,arch_db:sustainability_stock.view_partner_form_freight
 msgid "Transport mode"
 msgstr ""
 
