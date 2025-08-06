@@ -49,7 +49,12 @@ class CarbonDistributionLine(models.Model):
         store=True,
     )
 
-    factor_id = fields.Many2one("carbon.factor", string="Carbon Factor", required=True)
+    factor_id = fields.Many2one(
+        comodel_name="carbon.factor",
+        string="Carbon Factor",
+        required=True,
+        domain="[('recent_value_id', '!=', False)]",
+    )
     percentage = fields.Float(required=True)
     carbon_type = fields.Selection(
         [
