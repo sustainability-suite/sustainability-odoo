@@ -95,10 +95,7 @@
                                             column_invisible="1"
                                             name="carbon_type"
                                         />
-                                        <field
-                                            column_invisible="1"
-                                            name="res_model"
-                                        />
+                                        <field column_invisible="1" name="res_model" />
                                     </list>
                                 </field>
                             </group>
@@ -167,10 +164,7 @@
                                             column_invisible="1"
                                             name="carbon_type"
                                         />
-                                        <field
-                                            column_invisible="1"
-                                            name="res_model"
-                                        />
+                                        <field column_invisible="1" name="res_model" />
                                     </list>
                                 </field>
                             </group>
