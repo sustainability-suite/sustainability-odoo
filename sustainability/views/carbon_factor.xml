@@ -284,19 +284,37 @@
                             <button
                                 class="oe_stat_button"
                                 icon="fa-th-list"
-                                name="action_see_product_ids"
+                                name="action_see_product_template_ids"
                                 type="object"
-                                invisible="product_qty &lt; 1"
+                                invisible="product_template_qty &lt; 1"
                             >
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value">
                                         <field
-                                            name="product_qty"
+                                            name="product_template_qty"
                                             nolabel="1"
                                             widget="statinfo"
                                         />
                                     </span>
-                                    <span class="o_stat_text">Products</span>
+                                    <span class="o_stat_text">Product Templates</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-th-list"
+                                name="action_see_product_product_ids"
+                                type="object"
+                                invisible="product_product_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="product_product_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Product Variants</span>
                                 </div>
                             </button>
                             <button
