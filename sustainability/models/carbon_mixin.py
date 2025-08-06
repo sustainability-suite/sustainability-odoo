@@ -52,6 +52,7 @@ class CarbonMixin(models.AbstractModel):
     _carbon_types = ["in", "out"]
     _fallback_records = []
     _carbon_enable_page = True
+    _carbon_enable_distribution = False
 
     # TODO: Thinks about compute this from env['carbon.line.mixin']._get_computation_levels_mapping()
     @api.model
@@ -547,9 +548,21 @@ class CarbonMixin(models.AbstractModel):
             )
 
         # Hidden fields
-        etree.SubElement(
-            group, "field", invisible="1", name="carbon_allowed_factor_ids"
+        invisible_fields = [
+            "carbon_allowed_factor_ids",
+            "model_name",
+        ]
+        invisible_carbon_type_fields = ["carbon_{carbon_type}_mode"]
+        invisible_fields.extend(
+            [
+                field.format(carbon_type=carbon_type)
+                for field in invisible_carbon_type_fields
+                for carbon_type in carbon_types
+            ]
         )
+
+        for field_name in invisible_fields:
+            etree.SubElement(group, "field", invisible="1", name=field_name)
 
         for carbon_type in carbon_types:
             carbon_type_group = etree.SubElement(
@@ -597,10 +610,6 @@ class CarbonMixin(models.AbstractModel):
             )
 
             etree.SubElement(
-                div, "field", invisible="1", name=f"carbon_{carbon_type}_mode"
-            )
-
-            etree.SubElement(
                 div,
                 "div",
                 **{
@@ -627,16 +636,60 @@ class CarbonMixin(models.AbstractModel):
                 },
             )
 
+            if cls._carbon_enable_distribution:
+                etree.SubElement(
+                    carbon_type_group,
+                    "field",
+                    **{
+                        "name": f"carbon_{carbon_type}_use_distribution",
+                        "invisible": f"not carbon_{carbon_type}_is_manual",
+                    },
+                )
+
             etree.SubElement(
                 carbon_type_group,
                 "field",
                 **{
-                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "invisible": f"not carbon_{carbon_type}_is_manual {f'or carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
                     "name": f"carbon_{carbon_type}_factor_id",
                     "string": EMISSION_FACTOR_VAR_NAME,
-                    "required": f"carbon_{carbon_type}_is_manual",
+                    "required": f"carbon_{carbon_type}_is_manual {f'and not carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
                 },
             )
+            # Distribution field (if enabled)
+            if cls._carbon_enable_distribution:
+                distribution_field = etree.SubElement(
+                    carbon_type_group,
+                    "field",
+                    **{
+                        "colspan": "2",
+                        "context": f"{{'default_carbon_type': '{carbon_type}', 'default_res_model': model_name, 'default_res_id': id}}",
+                        "force_save": "1",
+                        "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
+                        "name": f"carbon_{carbon_type}_distribution_line_ids",
+                        "nolabel": "1",
+                        "required": f"carbon_{carbon_type}_use_distribution",
+                    },
+                )
+                list_element = etree.SubElement(
+                    distribution_field, "list", editable="bottom"
+                )
+                etree.SubElement(list_element, "field", name="factor_id")
+                etree.SubElement(
+                    list_element, "field", name="percentage", widget="percentage"
+                )
+
+                # Hidden fields
+                etree.SubElement(
+                    list_element, "field", column_invisible="1", name="carbon_type"
+                )
+                etree.SubElement(
+                    list_element,
+                    "field",
+                    force_save="1",
+                    column_invisible="1",
+                    name="res_model",
+                )
 
         other_group = etree.SubElement(
             page,
@@ -644,7 +697,7 @@ class CarbonMixin(models.AbstractModel):
             **{
                 "name": "sustainability_other_group",
                 "string": OTHER_VAR_NAME,
-                "invisible": "1",  # Hide when no data is inside
+                "invisible": "1",  # Hide when no data are inside
             },
         )
         for field_dict in model._carbon_get_other_fields():
