@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 class ProductCategory(models.Model):
     _name = "product.category"
-    _inherit = ["product.category", "carbon.mixin", "carbon.common.mixin"]
+    _inherit = ["product.category", "carbon.mixin"]
 
     carbon_line_origin_ids = fields.One2many(
         comodel_name="carbon.line.origin",

@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class ProductTemplate(models.Model):
     _name = "product.template"
-    _inherit = ["product.template", "carbon.mixin", "carbon.common.mixin"]
+    _inherit = ["product.template", "carbon.mixin"]
 
     """
     Add fallback values if product value missing with the following priority order:

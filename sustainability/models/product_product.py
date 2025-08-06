@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 class ProductProduct(models.Model):
     _name = "product.product"
-    _inherit = ["product.product", "carbon.mixin", "carbon.common.mixin"]
+    _inherit = ["product.product", "carbon.mixin"]
     _fallback_records = ["product_tmpl_id"]
 
     """
