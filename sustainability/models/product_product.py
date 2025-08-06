@@ -7,6 +7,8 @@ class ProductProduct(models.Model):
     _name = "product.product"
     _inherit = ["product.product", "carbon.mixin"]
     _fallback_records = ["product_tmpl_id"]
+    _carbon_enable_distribution = True
+    _carbon_enable_distribution_template = True
 
     """
     Add fallback values with the following priority order:
