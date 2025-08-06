@@ -535,17 +535,17 @@ class CarbonMixin(models.AbstractModel):
 
         # Parent element
         # Here without_page is used to generate the page or the group, depending on the context (per example if the view has no notebook then we generate a group)
-        if not without_page:
-            page = etree.Element(
-                "page", name="sustainability_page", string=SUSTAINABILITY_VAR_NAME
-            )
-            group = etree.SubElement(page, "group")
-        else:
-            page = group = etree.Element(
+        if without_page:
+            parent_element = group = etree.Element(
                 "group",
                 name="sustainability_main_group",
                 string=SUSTAINABILITY_VAR_NAME,
             )
+        else:
+            parent_element = etree.Element(
+                "page", name="sustainability_page", string=SUSTAINABILITY_VAR_NAME
+            )
+            group = etree.SubElement(parent_element, "group")
 
         # Hidden fields
         invisible_fields = [
@@ -692,7 +692,7 @@ class CarbonMixin(models.AbstractModel):
                 )
 
         other_group = etree.SubElement(
-            page,
+            parent_element,
             "group",
             **{
                 "name": "sustainability_other_group",
@@ -719,7 +719,7 @@ class CarbonMixin(models.AbstractModel):
 
             etree.SubElement(parent_group, "field", **field_dict)
 
-        return page
+        return parent_element
 
     # --------------------------------------------
     #                   ACTIONS
