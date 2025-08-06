@@ -56,31 +56,93 @@ class TestDistributionLine(CarbonCommon):
             ]
         )
 
-        cls.account_move = cls.env["account.move"].create(
+        cls.carbon_distribution_template = cls.env[
+            "carbon.distribution.template"
+        ].create(
             dict(
-                move_type="in_invoice",
-                partner_id=cls.partner.id,
-                invoice_date=today,
-                invoice_line_ids=[
+                name="Distribution Test",
+                carbon_distribution_line_ids=[
                     Command.create(
                         dict(
-                            name="Super test product",
-                            account_id=cls.expense_account.id,
-                            quantity=1.0,
-                            price_unit=100.0,
-                            tax_ids=False,
+                            res_model="carbon.distribution.template",
+                            carbon_type="template",
+                            factor_id=cls.carbon_factor_b.id,
+                            percentage=0.3,
                         )
-                    )
+                    ),
+                    Command.create(
+                        dict(
+                            res_model="carbon.distribution.template",
+                            carbon_type="template",
+                            factor_id=cls.carbon_factor_c.id,
+                            percentage=0.7,
+                        )
+                    ),
                 ],
             )
         )
 
-    def test_account_with_distribution_lines(self):
+        cls.product_product = cls.env.ref("product.product_product_3")
+        cls.account_move, cls.account_move_product = cls.env["account.move"].create(
+            [
+                dict(
+                    move_type="in_invoice",
+                    partner_id=cls.partner.id,
+                    invoice_date=today,
+                    invoice_line_ids=[
+                        Command.create(
+                            dict(
+                                name="Super test product",
+                                account_id=cls.expense_account.id,
+                                quantity=1.0,
+                                price_unit=100.0,
+                                tax_ids=False,
+                            )
+                        )
+                    ],
+                ),
+                dict(
+                    move_type="out_invoice",
+                    partner_id=cls.partner.id,
+                    invoice_date=today,
+                    invoice_line_ids=[
+                        Command.create(
+                            dict(
+                                product_id=cls.product_product.id,
+                                account_id=cls.expense_account.id,
+                                quantity=1.0,
+                                price_unit=100.0,
+                                tax_ids=False,
+                            )
+                        )
+                    ],
+                ),
+            ]
+        )
+
+    def test_account_without_distribution(self):
         self.expense_account.write(
             {
                 "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_a.id,
-                "carbon_in_use_distribution": False,  # no effect yet
+            }
+        )
+        self.check_sign(self.account_move)
+
+        invoice_line = self.account_move.invoice_line_ids
+        invoice_line.action_recompute_carbon()
+        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
+        carbon_origins = invoice_line.carbon_origin_ids
+
+        self.assertEqual(len(carbon_origins), 1)
+        self.assertEqual(carbon_origins.signed_value, 400.0)  # 4 * 100
+        self.assertEqual(carbon_origins.distribution, 1.0)
+
+    def test_account_with_distribution_line(self):
+        self.expense_account.write(
+            {
+                "carbon_in_is_manual": True,
+                "carbon_in_use_distribution": True,
                 "carbon_in_distribution_line_ids": [
                     Command.create(
                         dict(
@@ -101,21 +163,9 @@ class TestDistributionLine(CarbonCommon):
                 ],
             }
         )
-
         self.check_sign(self.account_move)
 
         invoice_line = self.account_move.invoice_line_ids
-        invoice_line.action_recompute_carbon()
-        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
-        carbon_origins = invoice_line.carbon_origin_ids
-
-        self.assertEqual(len(carbon_origins), 1)
-        self.assertEqual(carbon_origins.signed_value, 400.0)  # 4 * 100
-        self.assertEqual(carbon_origins.distribution, 1.0)
-
-        # Then activate distributions
-        self.expense_account.carbon_in_use_distribution = True
-
         invoice_line.action_recompute_carbon()
         invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
         carbon_origins = invoice_line.carbon_origin_ids.sorted("signed_value")
@@ -125,3 +175,101 @@ class TestDistributionLine(CarbonCommon):
         self.assertEqual(carbon_origins[0].distribution, 0.5)
         self.assertEqual(carbon_origins[1].signed_value, 500.0)  # 10 * 100 * 0.5
         self.assertEqual(carbon_origins[1].distribution, 0.5)
+
+    def test_account_with_distribution_template(self):
+        self.expense_account.write(
+            {
+                "carbon_in_is_manual": True,
+                "carbon_in_use_distribution": True,
+                "carbon_in_distribution_template_id": self.carbon_distribution_template.id,
+            }
+        )
+        self.check_sign(self.account_move)
+
+        invoice_line = self.account_move.invoice_line_ids
+        invoice_line.action_recompute_carbon()
+        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
+        carbon_origins = invoice_line.carbon_origin_ids.sorted("signed_value")
+
+        self.assertEqual(len(carbon_origins), 2)
+        self.assertEqual(carbon_origins[0].signed_value, 180.0)  # 6 * 100 * 0.3
+        self.assertEqual(carbon_origins[0].distribution, 0.3)
+        self.assertEqual(carbon_origins[1].signed_value, 700.0)  # 10 * 100 * 0.7
+        self.assertEqual(carbon_origins[1].distribution, 0.7)
+
+    def test_product_without_out_distribution(self):
+        self.product_product.write(
+            {
+                "carbon_out_is_manual": True,
+                "carbon_out_factor_id": self.carbon_factor_a.id,
+            }
+        )
+        self.check_sign(self.account_move_product)
+
+        invoice_line = self.account_move_product.invoice_line_ids
+        invoice_line.action_recompute_carbon()
+        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
+        carbon_origins = invoice_line.carbon_origin_ids
+
+        self.assertEqual(len(carbon_origins), 1)
+        self.assertEqual(carbon_origins.signed_value, -400.0)  # 4 * 100
+        self.assertEqual(carbon_origins.distribution, 1.0)
+
+    def test_product_with_out_distribution_line(self):
+        self.product_product.write(
+            {
+                "carbon_out_is_manual": True,
+                "carbon_out_use_distribution": True,
+                "carbon_out_distribution_line_ids": [
+                    Command.create(
+                        dict(
+                            res_model="product.product",
+                            carbon_type="out",
+                            factor_id=self.carbon_factor_b.id,
+                            percentage=0.5,
+                        )
+                    ),
+                    Command.create(
+                        dict(
+                            res_model="product.product",
+                            carbon_type="out",
+                            factor_id=self.carbon_factor_c.id,
+                            percentage=0.5,
+                        )
+                    ),
+                ],
+            }
+        )
+        self.check_sign(self.account_move_product)
+
+        invoice_line = self.account_move_product.invoice_line_ids
+        invoice_line.action_recompute_carbon()
+        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
+        carbon_origins = invoice_line.carbon_origin_ids.sorted("signed_value", True)
+
+        self.assertEqual(len(carbon_origins), 2)
+        self.assertEqual(carbon_origins[0].signed_value, -300.0)  # 6 * 100 * 0.5
+        self.assertEqual(carbon_origins[0].distribution, 0.5)
+        self.assertEqual(carbon_origins[1].signed_value, -500.0)  # 10 * 100 * 0.5
+        self.assertEqual(carbon_origins[1].distribution, 0.5)
+
+    def test_product_with_out_distribution_template(self):
+        self.product_product.write(
+            {
+                "carbon_out_is_manual": True,
+                "carbon_out_use_distribution": True,
+                "carbon_out_distribution_template_id": self.carbon_distribution_template.id,
+            }
+        )
+        self.check_sign(self.account_move_product)
+
+        invoice_line = self.account_move_product.invoice_line_ids
+        invoice_line.action_recompute_carbon()
+        invoice_line.carbon_origin_ids._clean_orphan_lines()  # TODO: ABO check that pls!
+        carbon_origins = invoice_line.carbon_origin_ids.sorted("signed_value", True)
+
+        self.assertEqual(len(carbon_origins), 2)
+        self.assertEqual(carbon_origins[0].signed_value, -180.0)  # 6 * 100 * 0.3
+        self.assertEqual(carbon_origins[0].distribution, 0.3)
+        self.assertEqual(carbon_origins[1].signed_value, -700.0)  # 10 * 100 * 0.7
+        self.assertEqual(carbon_origins[1].distribution, 0.7)
