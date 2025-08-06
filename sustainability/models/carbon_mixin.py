@@ -526,6 +526,19 @@ class CarbonMixin(models.AbstractModel):
         return button_list
 
     @api.model
+    def _carbon_get_other_fields(cls):
+        """
+        Return a list of fields that you want to display in the sustainability page.
+        - name: the name of the field
+        - string: the string to display on the field
+        - group_name: the name of the group to display the field in
+        - group_string: the string to display in the group
+
+        If one of the group_name or group_string is not provided, the field will be displayed in the default group.
+        """
+        return []
+
+    @api.model
     def _carbon_generate_button_xml(cls, model_name: str | None = None):
         model_name = model_name or cls._name
         if model_name not in cls.env:
@@ -709,8 +722,7 @@ class CarbonMixin(models.AbstractModel):
                 },
             )
 
-        # TODO: Add a api.model method to get the fields we want to display in this group (like _carbon_get_button_list)
-        etree.SubElement(
+        other_group = etree.SubElement(
             page,
             "group",
             **{
@@ -719,6 +731,24 @@ class CarbonMixin(models.AbstractModel):
                 "invisible": "1",  # Hide when no data is inside
             },
         )
+        for field_dict in model._carbon_get_other_fields():
+            if field_dict.get("name") not in model._fields:
+                continue
+
+            other_group.set("invisible", "False")
+
+            parent_group = other_group
+            if field_dict.get("group_name") and field_dict.get("group_string"):
+                parent_group = etree.SubElement(
+                    other_group,
+                    "group",
+                    **{
+                        "name": field_dict.pop("group_name"),
+                        "string": field_dict.pop("group_string"),
+                    },
+                )
+
+            etree.SubElement(parent_group, "field", **field_dict)
 
         return page
 
