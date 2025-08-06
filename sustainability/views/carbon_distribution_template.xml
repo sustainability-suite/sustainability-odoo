@@ -8,42 +8,7 @@
                 <form>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-th-list"
-                                name="action_see_product_template_ids"
-                                type="object"
-                                invisible="product_template_qty &lt; 1"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="product_template_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Product Templates</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-th-list"
-                                name="action_see_product_product_ids"
-                                type="object"
-                                invisible="product_product_qty &lt; 1"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="product_product_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Product Variants</span>
-                                </div>
-                            </button>
+                            <!-- This is getting auto populated by the _carbon_get_button_list method -->
                         </div>
                         <group>
                             <group>
