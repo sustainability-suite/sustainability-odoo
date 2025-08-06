@@ -500,13 +500,13 @@ class CarbonMixin(models.AbstractModel):
     @api.model
     def _carbon_get_other_fields(cls):
         """
-        Return a list of fields that you want to display in the sustainability page.
-        - name: the name of the field
-        - string: the string to display on the field
-        - group_name: the name of the group to display the field in
-        - group_string: the string to display in the group
+        Return a list of fields that you want to display in the sustainability page, in the 'Other' group.
+        - name: the name of the field.
+        - group_name: the name of the group to display the field in. If not provided, the field will be displayed in the default group.
+        - group_string: the string to display in the group. Will be ignored if group already exists.
+        - kwargs: additional kwargs to pass to the field element. (e.g. invisible, required, string, etc.)
 
-        If one of the group_name or group_string is not provided, the field will be displayed in the default group.
+        Group name is always required. Group string is required for the first element of the group.
         """
         return []
 
@@ -563,6 +563,8 @@ class CarbonMixin(models.AbstractModel):
 
         for field_name in invisible_fields:
             etree.SubElement(group, "field", invisible="1", name=field_name)
+
+        other_group_name_mapping = {}
 
         for carbon_type in carbon_types:
             carbon_type_group = etree.SubElement(
@@ -706,13 +708,17 @@ class CarbonMixin(models.AbstractModel):
 
             other_group.set("invisible", "False")
 
+            group_name = field_dict.pop("group_name")
+
             parent_group = other_group
-            if field_dict.get("group_name") and field_dict.get("group_string"):
-                parent_group = etree.SubElement(
+            if group_name in other_group_name_mapping:
+                parent_group = other_group_name_mapping[group_name]
+            else:
+                parent_group = other_group_name_mapping[group_name] = etree.SubElement(
                     other_group,
                     "group",
                     **{
-                        "name": field_dict.pop("group_name"),
+                        "name": group_name,
                         "string": field_dict.pop("group_string"),
                     },
                 )
