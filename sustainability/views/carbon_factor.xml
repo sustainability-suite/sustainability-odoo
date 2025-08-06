@@ -159,7 +159,7 @@
                     <field invisible="1" name="active" />
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <!-- This getting auto populated by the _carbon_get_button_list method -->
+                            <!-- This is getting auto populated by the _carbon_get_button_list method -->
                         </div>
                         <widget
                             name="web_ribbon"
