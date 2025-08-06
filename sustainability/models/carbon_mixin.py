@@ -1,9 +1,14 @@
+import logging
 from typing import Any
+
+from lxml import etree
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 from .carbon_factor import CarbonFactor
+
+_logger = logging.getLogger(__name__)
 
 # DO NOT DELETE
 # def auto_depends(cls):
@@ -45,6 +50,8 @@ class CarbonMixin(models.AbstractModel):
     _description = "A mixin used to add carbon values on any model"
     _carbon_types = ["in", "out"]
     _fallback_records = []
+    _carbon_enable_page = True
+    _carbon_enable_button = True
 
     # TODO: Thinks about compute this from env['carbon.line.mixin']._get_computation_levels_mapping()
     @api.model
@@ -473,11 +480,247 @@ class CarbonMixin(models.AbstractModel):
             self.model_name,
         )
 
-    def carbon_widget_update_field(self, field_name: str, value: Any):
-        field = getattr(self, field_name)
-        if isinstance(field, models.BaseModel) and isinstance(value, list):
-            value = value[0]
-        self.write({field_name: value})
+    @api.model
+    def _get_view(cls, view_id=None, view_type="form", **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if view_type == "form":
+            if cls._carbon_enable_page:
+                has_sustainability = False
+                for notebook in arch.xpath("//notebook"):
+                    notebook.append(cls._carbon_generate_page_xml())
+                    has_sustainability = True
+
+                if not has_sustainability:
+                    for sheet in arch.xpath("//sheet"):
+                        sheet.append(cls._carbon_generate_page_xml(without_page=True))
+
+            if cls._carbon_enable_button:
+                for button_box in arch.xpath("//div[@name='button_box']"):
+                    button_box.extend(cls._carbon_generate_button_xml())
+
+        return arch, view
+
+    @api.model
+    def _carbon_get_button_list(cls) -> list[dict[str, Any]]:
+        """
+        Return a list of buttons to add to the view. The buttons are dict that contains:
+        - field: the field to display the value of the button. This shall contain the field name related to the qty field.
+        - icon: the icon to display on the button. Not required, default is "fa-leaf"
+        - action: the action to execute when the button is clicked. If not provided, this will be computed using the field name with .replace("_qty", "_ids") and prefixing it with "action_see_"
+        - string: the string to display on the button
+        You can also add as much key value pairs as you want, they will be added to the button as attributes.
+
+        We will check if the field exists on the model, and if it doesn't, we will not add the button to the list.
+        """
+        button_list = [
+            # Carbon origin button
+            dict(
+                field="carbon_line_origin_qty",
+                icon="fa-leaf",
+                # action="action_see_carbon_line_origin_ids",
+                string=_("Carbon Footprint"),
+                # invisible=False, # Always show the button
+            ),
+        ]
+
+        return button_list
+
+    @api.model
+    def _carbon_generate_button_xml(cls, model_name: str | None = None):
+        model_name = model_name or cls._name
+        if model_name not in cls.env:
+            raise UserError(_("Model %s not found", model_name))
+        model = cls.env[model_name]
+
+        button_list = model._carbon_get_button_list()
+        field_name_to_button = {}
+
+        button_required_fields = ["field", "string"]
+        for button_dict in button_list:
+            if any(field not in button_dict for field in button_required_fields):
+                raise UserError(_("Button %s is missing required fields", button_dict))
+
+            field = button_dict.pop("field")
+            if field not in model._fields:
+                continue
+            if field in field_name_to_button:
+                raise UserError(_("Field %s is used by multiple buttons", field))
+
+            button = etree.Element("button", name=f"sustainability_button_{field}")
+            button.set("icon", button_dict.pop("icon", "fa-leaf"))
+            button.set("type", "object")
+            button.set("invisible", f"{field} < 1")
+            button.set("class", f"oe_stat_button {button_dict.pop('class', '')}")
+
+            for key, value in button_dict.items():
+                button.set(key, str(value))
+
+            field_name_to_button[field] = button
+
+            action_method_name = f"action_see_{field.replace('_qty', '_ids')}"
+            if button_dict.get("action"):
+                button.set("name", button_dict.pop("action"))
+            elif hasattr(model, action_method_name):
+                button.set("name", action_method_name)
+            else:
+                _logger.warning(
+                    f"Action {action_method_name} not found on model {model_name}"
+                )
+                continue
+
+            div = etree.SubElement(
+                button, "div", **{"class": "o_field_widget o_stat_info"}
+            )
+            span = etree.SubElement(div, "span", **{"class": "o_stat_value"})
+            etree.SubElement(
+                span, "field", **{"name": field, "nolabel": "1", "widget": "statinfo"}
+            )
+            span = etree.SubElement(div, "span", **{"class": "o_stat_text"})
+            span.text = button_dict.pop("string")
+
+        return list(field_name_to_button.values())
+
+    @api.model
+    def _carbon_generate_page_xml(
+        cls, model_name: str | None = None, without_page: bool = False
+    ):
+        model_name = model_name or cls._name
+        if model_name not in cls.env:
+            raise UserError(_("Model %s not found", model_name))
+        model = cls.env[model_name]
+        carbon_types = model._carbon_types
+        if not carbon_types:
+            return None
+
+        CARBON_TYPE_NAME_MAPPING = {
+            "in": _("Purchases"),
+            "out": _("Sales"),
+        }
+        SET_VAR_NAME = _("Set")
+        UNDEFINED_VAR_NAME = _("Undefined")
+        MODE_VAR_NAME = _("Mode")
+        EMISSION_FACTOR_VAR_NAME = _("Emission Factor")
+        OTHER_VAR_NAME = _("Other")
+        SUSTAINABILITY_VAR_NAME = _("Sustainability")
+
+        # Parent element
+        # Here without_page is used to generate the page or the group, depending on the context (per example if the view has no notebook then we generate a group)
+        if not without_page:
+            page = etree.Element(
+                "page", name="sustainability_page", string=SUSTAINABILITY_VAR_NAME
+            )
+            group = etree.SubElement(page, "group")
+        else:
+            page = group = etree.Element(
+                "group",
+                name="sustainability_main_group",
+                string=SUSTAINABILITY_VAR_NAME,
+            )
+
+        # Hidden fields
+        etree.SubElement(
+            group, "field", invisible="1", name="carbon_allowed_factor_ids"
+        )
+
+        for carbon_type in carbon_types:
+            carbon_type_group = etree.SubElement(
+                group, "group", string=CARBON_TYPE_NAME_MAPPING[carbon_type]
+            )
+
+            etree.SubElement(
+                carbon_type_group,
+                "label",
+                **{"for": f"carbon_{carbon_type}_is_manual", "string": MODE_VAR_NAME},
+            )
+
+            div = etree.SubElement(
+                carbon_type_group, "div", **{"class": "gap-1 d-inline-flex ml-3"}
+            )
+
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "class": "opacity-50 mr-2",
+                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                },
+            ).text = UNDEFINED_VAR_NAME
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "style": "font-weight: bold;",
+                },
+            ).text = UNDEFINED_VAR_NAME
+
+            etree.SubElement(
+                div,
+                "field",
+                **{
+                    "class": "",
+                    "name": f"carbon_{carbon_type}_is_manual",
+                    "nolabel": "1",
+                    "style": "margin-left: 8px;",
+                    "widget": "boolean_toggle",
+                    "options": "{'autosave': False}",
+                },
+            )
+
+            etree.SubElement(
+                div, "field", invisible="1", name=f"carbon_{carbon_type}_mode"
+            )
+
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "class": "opacity-50",
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                },
+            ).text = SET_VAR_NAME
+            etree.SubElement(
+                div,
+                "div",
+                **{
+                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "style": "font-weight: bold;",
+                },
+            ).text = SET_VAR_NAME
+
+            etree.SubElement(
+                carbon_type_group,
+                "field",
+                **{
+                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "name": f"carbon_{carbon_type}_fallback_reference",
+                    "widget": "reference",
+                },
+            )
+
+            etree.SubElement(
+                carbon_type_group,
+                "field",
+                **{
+                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "name": f"carbon_{carbon_type}_factor_id",
+                    "string": EMISSION_FACTOR_VAR_NAME,
+                    "required": f"carbon_{carbon_type}_is_manual",
+                },
+            )
+
+        # TODO: Add a api.model method to get the fields we want to display in this group (like _carbon_get_button_list)
+        etree.SubElement(
+            page,
+            "group",
+            **{
+                "name": "sustainability_other_group",
+                "string": OTHER_VAR_NAME,
+                "invisible": "1",  # Hide when no data is inside
+            },
+        )
+
+        return page
 
     # --------------------------------------------
     #                   ACTIONS
