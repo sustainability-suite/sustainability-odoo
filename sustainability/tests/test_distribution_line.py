@@ -120,6 +120,94 @@ class TestDistributionLine(CarbonCommon):
             ]
         )
 
+    def test_product_auto_carbon_distribution_in_from_factor(self):
+        self.product_product.write(
+            {
+                "carbon_in_is_manual": True,
+                "carbon_in_factor_id": self.carbon_factor_a.id,
+            }
+        )
+        distribution = self.product_product.carbon_in_distribution_line_ids
+        self.assertEqual(len(distribution), 1)
+        self.assertEqual(distribution.factor_id, self.carbon_factor_a)
+        self.assertEqual(distribution.percentage, 1.0)
+        self.assertEqual(distribution.carbon_type, "in")
+        self.assertEqual(distribution.res_model, "product.product")
+        self.assertEqual(distribution.res_id, self.product_product.id)
+        self.assertEqual(distribution.res_in_id, self.product_product.id)
+        self.assertEqual(distribution.res_out_id, False)
+
+    def test_product_auto_carbon_distribution_in_from_distribution_template(self):
+        self.product_product.write(
+            {
+                "carbon_in_is_manual": True,
+                "carbon_in_use_distribution": True,
+                "carbon_in_distribution_template_id": self.carbon_distribution_template.id,
+            }
+        )
+        distributions = self.product_product.carbon_in_distribution_line_ids.sorted(
+            "percentage"
+        )
+        self.assertEqual(len(distributions), 2)
+        self.assertEqual(distributions[0].factor_id, self.carbon_factor_b)
+        self.assertEqual(distributions[0].percentage, 0.3)
+        self.assertEqual(distributions[0].carbon_type, "in")
+        self.assertEqual(distributions[0].res_model, "product.product")
+        self.assertEqual(distributions[0].res_id, self.product_product.id)
+        self.assertEqual(distributions[0].res_in_id, self.product_product.id)
+        self.assertEqual(distributions[0].res_out_id, False)
+        self.assertEqual(distributions[1].factor_id, self.carbon_factor_c)
+        self.assertEqual(distributions[1].percentage, 0.7)
+        self.assertEqual(distributions[1].carbon_type, "in")
+        self.assertEqual(distributions[1].res_model, "product.product")
+        self.assertEqual(distributions[1].res_id, self.product_product.id)
+        self.assertEqual(distributions[1].res_in_id, self.product_product.id)
+        self.assertEqual(distributions[1].res_out_id, False)
+
+    def test_product_auto_carbon_distribution_out_from_factor(self):
+        self.product_product.write(
+            {
+                "carbon_out_is_manual": True,
+                "carbon_out_factor_id": self.carbon_factor_a.id,
+            }
+        )
+        distribution = self.product_product.carbon_out_distribution_line_ids
+        self.assertEqual(len(distribution), 1)
+        self.assertEqual(distribution.factor_id, self.carbon_factor_a)
+        self.assertEqual(distribution.percentage, 1.0)
+        self.assertEqual(distribution.carbon_type, "out")
+        self.assertEqual(distribution.res_model, "product.product")
+        self.assertEqual(distribution.res_id, self.product_product.id)
+        self.assertEqual(distribution.res_in_id, False)
+        self.assertEqual(distribution.res_out_id, self.product_product.id)
+
+    def test_product_auto_carbon_distribution_out_from_distribution_template(self):
+        self.product_product.write(
+            {
+                "carbon_out_is_manual": True,
+                "carbon_out_use_distribution": True,
+                "carbon_out_distribution_template_id": self.carbon_distribution_template.id,
+            }
+        )
+        distributions = self.product_product.carbon_out_distribution_line_ids.sorted(
+            "percentage"
+        )
+        self.assertEqual(len(distributions), 2)
+        self.assertEqual(distributions[0].factor_id, self.carbon_factor_b)
+        self.assertEqual(distributions[0].percentage, 0.3)
+        self.assertEqual(distributions[0].carbon_type, "out")
+        self.assertEqual(distributions[0].res_model, "product.product")
+        self.assertEqual(distributions[0].res_id, self.product_product.id)
+        self.assertEqual(distributions[0].res_in_id, False)
+        self.assertEqual(distributions[0].res_out_id, self.product_product.id)
+        self.assertEqual(distributions[1].factor_id, self.carbon_factor_c)
+        self.assertEqual(distributions[1].percentage, 0.7)
+        self.assertEqual(distributions[1].carbon_type, "out")
+        self.assertEqual(distributions[1].res_model, "product.product")
+        self.assertEqual(distributions[1].res_id, self.product_product.id)
+        self.assertEqual(distributions[1].res_in_id, False)
+        self.assertEqual(distributions[1].res_out_id, self.product_product.id)
+
     def test_account_without_distribution(self):
         self.expense_account.write(
             {
