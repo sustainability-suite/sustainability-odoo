@@ -443,12 +443,13 @@ class CarbonFactor(models.Model):
         """
         distribution_lines = self.env["carbon.distribution.line"].read_group(
             [("res_model", "=", model), ("factor_id", "in", self.ids)],
-            ["factor_id"],
-            ["factor_id"],
+            fields=[],
+            groupby=["factor_id", "res_id"],
+            lazy=False,
         )
         total_count = defaultdict(int)
         for line in distribution_lines:
-            total_count[line["factor_id"][0]] += line["factor_id_count"]
+            total_count[line["factor_id"][0]] += 1
 
         return total_count
 
