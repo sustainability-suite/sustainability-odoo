@@ -62,6 +62,8 @@ class CarbonCommonMixin(models.AbstractModel):
             record.carbon_line_origin_qty = len(record._get_carbon_line_origin_ids())
 
     def _get_carbon_line_origin_ids(self):
+        if not hasattr(self, "carbon_line_origin_ids"):
+            return []
         return self.carbon_line_origin_ids.ids or []
 
     # Carbon Origin Child Smart Button
@@ -125,14 +127,22 @@ class CarbonCommonMixin(models.AbstractModel):
 
         We will check if the field exists on the model, and if it doesn't, we will not add the button to the list.
         """
+        CARBON_FOOTPRINT_STRING = _("Carbon Footprint")
         button_list = [
             # Carbon origin button
             dict(
                 field="carbon_line_origin_qty",
                 icon="fa-leaf",
                 # action="action_see_carbon_line_origin_ids",
-                string=_("Carbon Footprint"),
+                string=CARBON_FOOTPRINT_STRING,
                 # invisible=False, # Always show the button
+            ),
+            # Carbon origin child button
+            dict(
+                field="carbon_origin_child_qty",
+                action="action_see_clo_child_ids",
+                icon="fa-leaf",
+                string=CARBON_FOOTPRINT_STRING,
             ),
         ]
 
