@@ -400,7 +400,9 @@ class CarbonMixin(models.AbstractModel):
         str_path = " > ".join([rec._get_record_description() for rec in path])
         last_record = path[-1]
         if last_record[f"carbon_{carbon_type}_use_distribution"]:
-            if template := last_record[f"carbon_{carbon_type}_distribution_template"]:
+            if template := last_record[
+                f"carbon_{carbon_type}_distribution_template_id"
+            ]:
                 str_path += " > " + template.name + " " + _("(Distribution)")
             else:
                 str_path += " > " + _("Distribution")
