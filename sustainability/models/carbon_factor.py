@@ -693,6 +693,7 @@ class CarbonFactor(models.Model):
                 field="product_supplierinfo_qty",
                 icon="fa-list",
                 string=_("Product Supplier Infos"),
+                action="action_see_product_supplier_ids",
             ),
         ]
 
