@@ -9,7 +9,6 @@
         <!--                <widget name="carbon_settings_panel" types="in,out" options="{'in': {'title': 'Sales'}, 'out': {'title': 'Purchases'}} "/>-->
 
         <group string="CO2 Settings" name="group_carbon_settings">
-          <field name="carbon_allowed_factor_ids" invisible="1" />
 
           <group string="Purchases">
             <label for="carbon_in_is_manual" string="Mode" />
