@@ -14,9 +14,6 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.carbon_out_factor_id",
         readonly=False,
     )
-    carbon_allowed_factor_ids = fields.Many2many(
-        related="company_id.carbon_allowed_factor_ids"
-    )
 
     invoice_report_footer = fields.Html(
         related="company_id.invoice_report_footer",

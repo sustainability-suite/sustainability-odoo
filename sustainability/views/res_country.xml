@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='main_group']" position="after">
                     <group name="group_carbon_settings" string="CO2 Settings">
-                        <field invisible="1" name="carbon_allowed_factor_ids" />
                         <group string="Purchases">
                             <label for="carbon_in_is_manual" string="Mode" />
                             <div class="gap-1 d-inline-flex ml-3">
