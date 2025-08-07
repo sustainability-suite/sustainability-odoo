@@ -22,6 +22,38 @@ class ResCompany(models.Model):
         help="",
     )
 
+    carbon_allowed_monetary_factors_ids = fields.Many2many(
+        comodel_name="carbon.factor",
+        relation="res_company_carbon_monetary_factors_rel",
+        column1="company_id",
+        column2="factor_id",
+        compute="_compute_carbon_allowed_monetary_factors_ids",
+        store=True,
+    )
+
+    carbon_allowed_physical_factors_ids = fields.Many2many(
+        comodel_name="carbon.factor",
+        relation="res_company_carbon_physical_factors_rel",
+        column1="company_id",
+        column2="factor_id",
+        compute="_compute_carbon_allowed_physical_factors_ids",
+        store=True,
+    )
+
+    # TODO: Trigger when carbon_factor are changed/created/deleted
+    def _compute_carbon_allowed_monetary_factors_ids(self):
+        for company in self:
+            company.carbon_allowed_monetary_factors_ids = self.env[
+                "carbon.factor"
+            ].search(self._get_allowed_factors_domain("monetary"))
+
+    # TODO: Trigger when carbon_factor are changed/created/deleted
+    def _compute_carbon_allowed_physical_factors_ids(self):
+        for company in self:
+            company.carbon_allowed_physical_factors_ids = self.env[
+                "carbon.factor"
+            ].search(self._get_allowed_factors_domain("physical"))
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

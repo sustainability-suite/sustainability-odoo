@@ -93,17 +93,38 @@ class CarbonMixin(models.AbstractModel):
             if x in self.env
         ]
 
-    def get_allowed_factors(self):
+    def get_allowed_factors(self, compute_method: list[str] | str | None = None):
+        if compute_method:
+            if isinstance(compute_method, str):
+                compute_method = [compute_method]
+            allowed_factors = self.env["carbon.factor"]
+
+            for method in compute_method:
+                if self._name == "res.company":
+                    allowed_factors |= getattr(
+                        self, f"carbon_allowed_{method}_factors_ids"
+                    )
+                else:
+                    allowed_factors |= getattr(
+                        self.company_id, f"carbon_allowed_{method}_factors_ids"
+                    )
+            return allowed_factors
         return self.env["carbon.factor"].search(self._get_allowed_factors_domain())
 
-    def _get_allowed_factors_domain(self):
-        """Used for distribution lines mainly, to override on specific models"""
+    def _get_allowed_factors_domain(
+        self, compute_method: list[str] | str | None = None
+    ):
+        """Used for distribution lines mainly, to override on specific models. Compute method can be a single type or a list of types, if none are present then it will return all available methods for the model.."""
+        if not compute_method:
+            compute_method = [
+                method[0] for method in self._get_available_carbon_compute_methods()
+            ]
+
+        if isinstance(compute_method, str):
+            compute_method = [compute_method]
+
         return [
-            (
-                "carbon_compute_method",
-                "in",
-                [method[0] for method in self._get_available_carbon_compute_methods()],
-            ),
+            ("carbon_compute_method", "in", compute_method),
             ("recent_value_id", "!=", False),
         ]
 
@@ -213,7 +234,8 @@ class CarbonMixin(models.AbstractModel):
 
     def _compute_carbon_allowed_factor_ids(self):
         """We use a non stored compute field on purpose so it is dynamically computed on each model thanks to _get_available_carbon_compute_methods()"""
-        self.carbon_allowed_factor_ids = self.get_allowed_factors()
+        for compute_method in self._get_available_carbon_compute_methods():
+            self.carbon_allowed_factor_ids = self.get_allowed_factors(compute_method[0])
 
     def _compute_model_name(self):
         for record in self:
