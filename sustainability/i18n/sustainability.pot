@@ -431,21 +431,6 @@ msgid "Carbon"
 msgstr ""
 
 #. module: sustainability
-#: model:ir.model.fields,field_description:sustainability.field_account_account__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_carbon_mixin__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_product_category__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_product_product__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_product_supplierinfo__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_product_template__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_res_company__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_res_config_settings__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_res_country__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_res_partner__carbon_allowed_factor_ids
-#: model:ir.model.fields,field_description:sustainability.field_res_users__carbon_allowed_factor_ids
-msgid "Carbon Allowed Factor"
-msgstr ""
-
-#. module: sustainability
 #: model:ir.model.fields,field_description:sustainability.field_account_analytic_line__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_account_bank_statement_line__carbon_currency_id
 #: model:ir.model.fields,field_description:sustainability.field_account_move__carbon_currency_id
