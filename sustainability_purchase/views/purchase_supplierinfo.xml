@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='vendor']" position="after">
                     <group string="CO2 Settings" name="group_carbon_settings">
-                        <field name="carbon_allowed_factor_ids" invisible="1" />
                         <group string="Purchases">
                             <label for="carbon_in_is_manual" string="Mode" />
                             <div class="gap-1 d-inline-flex ml-3">
@@ -62,7 +61,6 @@
             <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
             <field name="arch" type="xml">
                 <xpath expr="//list" position="inside">
-                    <field column_invisible="1" name="carbon_allowed_factor_ids" />
                     <field
                         name="carbon_in_factor_id"
                         string="Emission Factor"
