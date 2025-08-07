@@ -4,6 +4,7 @@ from odoo import api, models
 class ProductSupplierInfo(models.Model):
     _name = "product.supplierinfo"
     _inherit = ["product.supplierinfo", "carbon.mixin"]
+    _carbon_types = ["in"]
 
     def _update_carbon_in_fields(self, vals):
         """
