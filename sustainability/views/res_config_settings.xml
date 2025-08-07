@@ -7,7 +7,6 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <field name="carbon_allowed_factor_ids" invisible="1" />
                 <field name="available_module_names" invisible="1" />
                 <field name="extra_module_names" invisible="1" />
                 <app string="Sustainability" name="sustainability">
