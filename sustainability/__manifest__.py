@@ -29,7 +29,6 @@
         "views/carbon_factor_database.xml",
         "views/carbon_factor_contributor.xml",
         "views/carbon_factor_type.xml",
-        "views/res_country.xml",
         "views/res_config_settings.xml",
         "views/sustainability_scenario.xml",
         "views/sustainability_action_plan.xml",
