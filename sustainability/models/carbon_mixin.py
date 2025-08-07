@@ -93,9 +93,6 @@ class CarbonMixin(models.AbstractModel):
             if x in self.env
         ]
 
-    def get_allowed_factors(self):
-        return self.env["carbon.factor"].search(self._get_allowed_factors_domain())
-
     def _get_allowed_factors_domain(self):
         """Used for distribution lines mainly, to override on specific models"""
         return [
@@ -124,9 +121,6 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
     #               SHARED INFOS
     # --------------------------------------------
-    carbon_allowed_factor_ids = fields.Many2many(
-        "carbon.factor", compute="_compute_carbon_allowed_factor_ids"
-    )
     model_name = fields.Char(
         compute="_compute_model_name"
     )  # Used in view, passed in context for distribution lines
@@ -148,7 +142,7 @@ class CarbonMixin(models.AbstractModel):
         "carbon.factor",
         string="Emission Factor Purchases",
         ondelete="set null",
-        domain="[('id', 'in', carbon_allowed_factor_ids)]",
+        domain=lambda self: str(self._get_allowed_factors_domain()),
     )
     carbon_in_fallback_reference = fields.Reference(
         selection="_selection_fallback_model", readonly=True, string="Fallback record"
@@ -186,7 +180,7 @@ class CarbonMixin(models.AbstractModel):
         "carbon.factor",
         string="Emission Factor Sales",
         ondelete="set null",
-        domain="[('id', 'in', carbon_allowed_factor_ids)]",
+        domain=lambda self: str(self._get_allowed_factors_domain()),
     )
     carbon_out_fallback_reference = fields.Reference(
         selection="_selection_fallback_model", readonly=True, string="Fallback record "
@@ -210,10 +204,6 @@ class CarbonMixin(models.AbstractModel):
     # --------------------------------------------
     #            COMPUTE (+related methods)
     # --------------------------------------------
-
-    def _compute_carbon_allowed_factor_ids(self):
-        """We use a non stored compute field on purpose so it is dynamically computed on each model thanks to _get_available_carbon_compute_methods()"""
-        self.carbon_allowed_factor_ids = self.get_allowed_factors()
 
     def _compute_model_name(self):
         for record in self:
@@ -549,7 +539,6 @@ class CarbonMixin(models.AbstractModel):
 
         # Hidden fields
         invisible_fields = [
-            "carbon_allowed_factor_ids",
             "model_name",
         ]
         invisible_carbon_type_fields = ["carbon_{carbon_type}_mode"]
