@@ -116,8 +116,10 @@ class AccountMoveLine(models.Model):
     @api.depends("company_id.carbon_lock_date", "move_id.date")
     def _compute_carbon_is_date_locked(self):
         for line in self:
-            line.carbon_is_date_locked = line.company_id.carbon_lock_date and (
-                line.move_id.date < line.company_id.carbon_lock_date
+            line.carbon_is_date_locked = (
+                line.move_id.date
+                and line.company_id.carbon_lock_date
+                and (line.move_id.date < line.company_id.carbon_lock_date)
             )
 
     # --------------------------------------------
