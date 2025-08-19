@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_hr_expense_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-14 11:10+0000\n"
+"PO-Revision-Date: 2024-22-14 11:10+0000\n"
+"Last-Translator: Jarl Schmidt\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,help:sustainability_hr_expense_report.field_hr_expense__carbon_debt
+msgid ""
+"A positive value means that your system's debt grows, a negative value means"
+" it shrinks"
+msgstr "Ein positiver Wert bedeutet, dass die CO2-Schuld Ihres Systems wächst, ein negativer Wert bedeutet, dass sie sinkt"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_debt
+msgid "CO2"
+msgstr "CO2"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_uncertainty_value
+msgid "CO2 Uncertainty"
+msgstr "CO2-Unschärfe"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_data_uncertainty_percentage
+msgid "CO2 Uncertainty %"
+msgstr "CO2-Unschärfe %"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_currency_id
+msgid "Carbon Currency"
+msgstr "CO2-Währung"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_is_locked
+msgid "Carbon Is Locked"
+msgstr "CO2 ist gesperrt"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_origin_json
+msgid "Carbon Origin Json"
+msgstr "CO2-Ursprung JSON"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model.fields,field_description:sustainability_hr_expense_report.field_hr_expense__carbon_origin_ids
+msgid "Carbon value origin details"
+msgstr "Details zur Herkunft des CO2-Werts"
+
+#. module: sustainability_hr_expense_report
+#: model:ir.model,name:sustainability_hr_expense_report.model_hr_expense
+msgid "Expense"
+msgstr "Ausgabe"
+
+#. module: sustainability_hr_expense_report
+#: model_terms:ir.ui.view,arch_db:sustainability_hr_expense_report.hr_expense_sheet_form
+#: model_terms:ir.ui.view,arch_db:sustainability_hr_expense_report.hr_expense_view_form
+msgid "Lock co2"
+msgstr "CO2 sperren"
+
+#. module: sustainability_hr_expense_report
+#: model_terms:ir.ui.view,arch_db:sustainability_hr_expense_report.hr_expense_sheet_form
+#: model_terms:ir.ui.view,arch_db:sustainability_hr_expense_report.hr_expense_view_form
+msgid "Unlock co2"
+msgstr "CO2 entsperren"
