@@ -1,0 +1,34 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_product_label_print
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-14 11:10+0000\n"
+"PO-Revision-Date: 2024-22-14 11:10+0000\n"
+"Last-Translator: Jarl Schmidt\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: sustainability_product_label_print
+#: model_terms:ir.ui.view,arch_db:sustainability_product_label_print.report_simple_label_dymo_inherit
+msgid "<span style=\"font-size: 0.4em;\">kgCO2e</span>"
+msgstr "<span style=\"font-size: 0.4em;\">kgCO2e</span>"
+
+#. module: sustainability_product_label_print
+#: model_terms:ir.ui.view,arch_db:sustainability_product_label_print.report_simple_label4x12_inherit
+#: model_terms:ir.ui.view,arch_db:sustainability_product_label_print.report_simple_label4x7_inherit
+msgid "<span style=\"font-size: 0.6em;\">kgCO2e</span>"
+msgstr "<span style=\"font-size: 0.6em;\">kgCO2e</span>"
+
+#. module: sustainability_product_label_print
+#: model_terms:ir.ui.view,arch_db:sustainability_product_label_print.report_simple_label2x7_inherit
+msgid "<span style=\"font-size: 0.8em;\">kgCO2e</span>"
+msgstr "<span style=\"font-size: 0.8em;\">kgCO2e</span>"
