@@ -34,5 +34,5 @@ class ProductSupplierInfo(models.Model):
     def _get_allowed_factors_domain(self):
         return (
             super()._get_allowed_factors_domain()
-            + self._get_uom_filtered_factors_domain(self.product_uom.id)
+            + self._get_uom_filtered_factors_domain("product_uom")
         )
