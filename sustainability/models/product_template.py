@@ -4,6 +4,7 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _name = "product.template"
     _inherit = ["product.template", "carbon.mixin"]
+    _fallback_records = ["categ_id"]
 
     """
     Add fallback values if product value missing with the following priority order:
@@ -36,5 +37,5 @@ class ProductTemplate(models.Model):
     def _get_allowed_factors_domain(self):
         return (
             super()._get_allowed_factors_domain()
-            + self._get_uom_filtered_factors_domain(self.uom_id.id)
+            + self._get_uom_filtered_factors_domain()
         )
