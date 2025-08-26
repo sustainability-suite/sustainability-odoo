@@ -13,7 +13,29 @@ class TestStockFreightPickingTypes(CarbonCommon):
 
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"co2e": 10}
+        mock_response.json.return_value = {
+            "co2e": 10,
+            "co2e_unit": "kg",
+            "route": [
+                {
+                    "type": "leg",
+                    "co2e": 10,
+                    "co2e_unit": "kg",
+                    "source_trail": [
+                        {
+                            "data_category": "emission_factor",
+                            "name": "Articulated truck <34t - Average/mixed load - Diesel",
+                            "source": "GLEC",
+                            "source_dataset": "Default fuel efficiency and GHG emission intensity values v3.0",
+                            "year": "2023",
+                            "region": "EU_S_AMERICA",
+                            "region_name": "Europe and South America",
+                        }
+                    ],
+                    "transport_mode": "road",
+                }
+            ],
+        }
 
         cls._patch_post = patch("requests.post", return_value=mock_response)
         cls._patch_post.start()

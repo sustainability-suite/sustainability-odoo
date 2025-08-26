@@ -6,6 +6,8 @@ import requests
 
 from odoo import Command, _, api, fields, models
 
+_logger = logging.getLogger(__name__)
+
 
 class StockPicking(models.Model):
     _name = "stock.picking"
@@ -231,7 +233,7 @@ class StockPicking(models.Model):
             response_data = response.json()
 
             if response.status_code >= 400:
-                logging.error(f"HTTP {response.status_code} {response.text}")
+                _logger.error(f"HTTP {response.status_code} {response.text}")
                 detailed_error = response_data.get("message", error_message)
                 return (
                     None,
@@ -243,7 +245,7 @@ class StockPicking(models.Model):
             return co2, None, response_data
 
         except requests.exceptions.RequestException as err:
-            logging.error(f"Request error: {err}")
+            _logger.error(f"Request error: {err}")
             return None, self._carbon_display_notification(error_message), None
 
     def _get_carbon_emissions(self, company) -> tuple[float | None, dict | None]:
