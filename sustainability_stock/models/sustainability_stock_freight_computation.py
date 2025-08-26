@@ -112,12 +112,17 @@ class SustainabilityStockFreightComputation(models.Model):
                     source_trail_list.append(item)
 
         carbon_factors_values = []
-        already_existing_factors = cls.env["carbon.factor"].search(
-            [("is_climatiq", "=", True)]
-        )
+        already_existing_factors = cls.env["carbon.factor"].search([])
         for source_trail in source_trail_list:
-            if already_existing_factors.filtered(
-                lambda f: f.name == source_trail.get("name")  # noqa: B023
+            matching_name = source_trail.get("name")
+            if record := already_existing_factors.filtered(
+                lambda f: f.name == matching_name  # noqa: B023
+            ):
+                if not record.is_climatiq:
+                    record.is_climatiq.write({"is_climatiq": True})
+                continue
+            if any(
+                value.get("name") == matching_name for value in carbon_factors_values
             ):
                 continue
             carbon_factors_values.append(
@@ -125,7 +130,7 @@ class SustainabilityStockFreightComputation(models.Model):
                     "carbon_compute_method": "physical",
                     "is_climatiq": True,
                     "parent_id": cls._get_parent_carbon_factor().id,
-                    "name": source_trail.get("name"),
+                    "name": matching_name,
                     "value_ids": [
                         Command.create(
                             {
