@@ -77,7 +77,7 @@ class TestsFactorDomain(CarbonCommon):
 
         factors = self.env["carbon.factor"].search(
             self.office_chair_product._get_uom_filtered_factors_domain(
-                self.office_chair_product.uom_id.id
+                uom_id=self.office_chair_product.uom_id.id
             )
         )
 
@@ -87,7 +87,7 @@ class TestsFactorDomain(CarbonCommon):
         """Test if the domain results in factors that include both physical and monetary EFs"""
         factors = self.env["carbon.factor"].search(
             self.office_chair_product._get_uom_filtered_factors_domain(
-                self.office_chair_product.uom_id.id
+                uom_id=self.office_chair_product.uom_id.id
             )
         )
 
@@ -98,6 +98,8 @@ class TestsFactorDomain(CarbonCommon):
         """Test that no factors are returned for an invalid UOM."""
         self.carbon_factor_monetary.unlink()
         factors = self.env["carbon.factor"].search(
-            self.office_chair_product._get_uom_filtered_factors_domain(self.uom_day.id)
+            self.office_chair_product._get_uom_filtered_factors_domain(
+                uom_id=self.uom_day.id
+            )
         )
         self.assertFalse(factors)
