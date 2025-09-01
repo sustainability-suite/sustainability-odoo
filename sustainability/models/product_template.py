@@ -6,6 +6,7 @@ class ProductTemplate(models.Model):
     _inherit = ["product.template", "carbon.mixin"]
     _carbon_enable_distribution = True
     _carbon_enable_distribution_template = True
+    _fallback_records = ["categ_id"]
 
     """
     Add fallback values if product value missing with the following priority order:
@@ -38,5 +39,5 @@ class ProductTemplate(models.Model):
     def _get_allowed_factors_domain(self):
         return (
             super()._get_allowed_factors_domain()
-            + self._get_uom_filtered_factors_domain(self.uom_id.id)
+            + self._get_uom_filtered_factors_domain()
         )

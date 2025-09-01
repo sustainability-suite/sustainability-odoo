@@ -5,6 +5,7 @@ from lxml import etree
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.misc import unquote
 
 from .carbon_factor import CarbonFactor
 
@@ -129,8 +130,39 @@ class CarbonMixin(models.AbstractModel):
             ("recent_value_id", "!=", False),
         ]
 
-    def _get_uom_filtered_factors_domain(self, uom_id):
-        """Filter physical EF on product uom & weight + include monetary ones."""
+    def _get_uom_filtered_factors_domain(self, uom_field=None, uom_id=None):
+        """Filter physical EF on product uom & weight + include monetary ones. Argument uom_field should be str value. If uom_id is provided, it will be used instead of uom_field."""
+        if not uom_id:
+            uom_id = False
+            if uom_field and (
+                isinstance(uom_field, str) and not isinstance(uom_field, unquote)
+            ):
+                uom_id = unquote(uom_field)
+
+            if not uom_id:
+                if "uom_id" in self._fields:
+                    uom_id = unquote("uom_id")
+
+            if not isinstance(uom_id, unquote):
+                raise ValidationError(
+                    _(
+                        "uom_id for _get_uom_filtered_factors_domain should be a string or unquoted value"
+                    )
+                )
+
+            if not uom_id:
+                raise ValidationError(
+                    _("A uom_id must be provided for _get_uom_filtered_factors_domain")
+                )
+
+            if str(uom_id) not in self._fields:
+                raise ValidationError(
+                    _(
+                        "Field %s not exists in model %s",
+                        uom_id,
+                        self._name,
+                    )
+                )
 
         weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
         return [
