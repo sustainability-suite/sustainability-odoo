@@ -7,6 +7,8 @@ class ProductProduct(models.Model):
     _name = "product.product"
     _inherit = ["product.product", "carbon.mixin"]
     _fallback_records = ["product_tmpl_id"]
+    _carbon_enable_distribution = True
+    _carbon_enable_distribution_template = True
 
     """
     Add fallback values with the following priority order:
@@ -30,12 +32,12 @@ class ProductProduct(models.Model):
         res = super()._get_carbon_out_fallback_records()
         return res + [self.product_tmpl_id, self.categ_id]
 
-    @api.depends("product_tmpl_id.carbon_in_factor_id", "categ_id.carbon_in_factor_id")
+    @api.depends("product_tmpl_id.carbon_in_is_manual", "categ_id.carbon_in_is_manual")
     def _compute_carbon_in_mode(self):
         return super()._compute_carbon_in_mode()
 
     @api.depends(
-        "product_tmpl_id.carbon_out_factor_id", "categ_id.carbon_out_factor_id"
+        "product_tmpl_id.carbon_out_is_manual", "categ_id.carbon_out_is_manual"
     )
     def _compute_carbon_out_mode(self):
         return super()._compute_carbon_out_mode()

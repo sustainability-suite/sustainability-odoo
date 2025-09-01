@@ -55,6 +55,15 @@
                     groups="base.group_user"
                     action="sustainability.carbon_factor_type_action"
                 />
+                <menuitem id="menu_distributions" name="Distributions" sequence="100">
+                    <menuitem
+                        id="carbon_distribution_template_menu"
+                        name="Distribution Templates"
+                        sequence="10"
+                        groups="base.group_user"
+                        action="sustainability.carbon_distribution_template_action"
+                    />
+                </menuitem>
             </menuitem>
             <menuitem
                 id="menu_decarbonisation"

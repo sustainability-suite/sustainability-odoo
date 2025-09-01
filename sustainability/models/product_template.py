@@ -4,6 +4,8 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _name = "product.template"
     _inherit = ["product.template", "carbon.mixin"]
+    _carbon_enable_distribution = True
+    _carbon_enable_distribution_template = True
     _fallback_records = ["categ_id"]
 
     """
@@ -25,11 +27,11 @@ class ProductTemplate(models.Model):
         res = super()._get_carbon_out_fallback_records()
         return res + [self.categ_id]
 
-    @api.depends("categ_id.carbon_in_factor_id")
+    @api.depends("categ_id.carbon_in_is_manual")
     def _compute_carbon_in_mode(self):
         return super()._compute_carbon_in_mode()
 
-    @api.depends("categ_id.carbon_out_factor_id")
+    @api.depends("categ_id.carbon_out_is_manual")
     def _compute_carbon_out_mode(self):
         return super()._compute_carbon_out_mode()
 

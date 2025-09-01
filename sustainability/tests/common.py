@@ -120,12 +120,20 @@ class CarbonCommon(TransactionCase):
             }
         )
 
-        # Account
+        # Accounts
         cls.revenue_account = cls.env["account.account"].create(
             {
                 "name": "Test Revenue Account",
                 "code": "REV1234",
                 "account_type": "income",
+                "company_ids": [(6, 0, [cls.env.company.id])],
+            }
+        )
+        cls.expense_account = cls.env["account.account"].create(
+            {
+                "name": "Test Expense Account",
+                "code": "REV5678",
+                "account_type": "expense",
                 "company_ids": [(6, 0, [cls.env.company.id])],
             }
         )
