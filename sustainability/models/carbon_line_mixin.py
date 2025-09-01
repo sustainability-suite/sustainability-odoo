@@ -214,7 +214,9 @@ class CarbonLineMixin(models.AbstractModel):
             for line in self:
                 company_carbon_lock_date = line.company_id.carbon_lock_date
                 violated_lock_dates = (
-                    company_carbon_lock_date and line.date < company_carbon_lock_date
+                    company_carbon_lock_date
+                    and ("date" in line._fields and line.date)
+                    and line.date < company_carbon_lock_date
                 )
                 if violated_lock_dates:
                     raise UserError(
