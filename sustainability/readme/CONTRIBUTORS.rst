@@ -4,3 +4,4 @@
 * Julien Guenat <https://github.com/jguenat>
 * Adam Bonnet <https://github.com/bonnetadam>
 * Dehlya Herbelin <https://github.com/dehlya>
+* Yannis Burkhalter <https://github.com/burkhaltery>
