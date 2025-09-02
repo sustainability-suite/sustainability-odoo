@@ -118,8 +118,8 @@ class SustainabilityStockFreightComputation(models.Model):
             if record := already_existing_factors.filtered(
                 lambda f: f.name == matching_name  # noqa: B023
             ):
-                if not record.is_climatiq:
-                    record.is_climatiq.write({"is_climatiq": True})
+                if record_no_climatiq := record.filtered(lambda f: not f.is_climatiq):
+                    record_no_climatiq.write({"is_climatiq": True})
                 continue
             if any(
                 value.get("name") == matching_name for value in carbon_factors_values
