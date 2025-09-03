@@ -33,4 +33,6 @@ class ProductSupplierInfo(models.Model):
         return (
             super()._get_allowed_factors_domain()
             + self._get_uom_filtered_factors_domain("product_uom")
+            if self.env.user.has_group("uom.group_uom")
+            else []
         )
