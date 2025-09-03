@@ -134,7 +134,7 @@ class CarbonCommon(TransactionCase):
                 "name": "Test Expense Account",
                 "code": "REV5678",
                 "account_type": "expense",
-                "company_ids": [(6, 0, [cls.env.company.id])],
+                "company_id": cls.env.company.id,
             }
         )
 
