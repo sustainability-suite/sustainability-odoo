@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
-        <field name="name">sustainability.product.supplierinfo.tree.view</field>
-        <field name="model">product.supplierinfo</field>
-        <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
-        <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
-                <field
+    <data>
+        <record id="sustainability_product_supplierinfo_tree_view" model="ir.ui.view">
+            <field name="name">sustainability.product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field
                         name="carbon_in_factor_id"
                         string="Emission Factor"
                         optional="hide"
                         widget="many2one"
                     />
-            </xpath>
-        </field>
-    </record>
-
-</data>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
