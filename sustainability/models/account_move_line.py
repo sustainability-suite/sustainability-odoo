@@ -40,6 +40,10 @@ class AccountMoveLine(models.Model):
 
     is_invoice_line = fields.Boolean(default=False, compute="_compute_is_invoice_line")
 
+    # Field added in 18.0
+    # https://github.com/odoo/odoo/blob/18.0/addons/account/models/account_move_line.py#L300
+    product_category_id = fields.Many2one(related="product_id.product_tmpl_id.categ_id")
+
     def _compute_is_invoice_line(self):
         for line in self:
             line.is_invoice_line = line.id in line.move_id.invoice_line_ids.ids
