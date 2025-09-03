@@ -674,7 +674,7 @@ class CarbonMixin(models.AbstractModel):
                     },
                 )
                 list_element = etree.SubElement(
-                    distribution_field, "list", editable="bottom"
+                    distribution_field, "tree", editable="bottom"
                 )
                 etree.SubElement(list_element, "field", name="factor_id")
                 etree.SubElement(
