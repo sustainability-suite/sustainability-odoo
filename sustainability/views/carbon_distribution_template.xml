@@ -25,7 +25,7 @@
                                     force_save="1"
                                     name="carbon_distribution_line_ids"
                                 >
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="factor_id" />
                                         <field name="percentage" widget="percentage" />
                                         <field
@@ -37,7 +37,7 @@
                                             column_invisible="1"
                                             name="res_model"
                                         />
-                                    </list>
+                                    </tree>
                                 </field>
                             </page>
                         </notebook>
