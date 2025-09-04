@@ -124,6 +124,9 @@ class CarbonFactor(models.Model):
     )
     supplierinfo_qty = fields.Integer(compute="_compute_supplierinfo_qty")
     carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
+    distribution_template_qty = fields.Integer(
+        compute="_compute_distribution_template_qty"
+    )
 
     # --------------------------------------------
 
@@ -247,6 +250,15 @@ class CarbonFactor(models.Model):
     def _compute_carbon_line_origin_qty(self):
         for factor in self:
             factor.carbon_line_origin_qty = len(factor.carbon_line_origin_ids)
+
+    def _compute_distribution_template_qty(self):
+        for factor in self:
+            template_ids = (
+                self.env["carbon.distribution.template"]
+                .search([("carbon_distribution_line_ids.factor_id", "=", factor.id)])
+                .ids
+            )
+            factor.distribution_template_qty = len(template_ids)
 
     def _compute_carbon_currency_id(self):
         for factor in self:
@@ -708,6 +720,13 @@ class CarbonFactor(models.Model):
                 string=_("Product Supplier Infos"),
                 action="action_see_product_supplier_ids",
             ),
+            # Distribution Template button
+            dict(
+                field="distribution_template_qty",
+                icon="fa-object-group",
+                string=_("Distribution Templates"),
+                action="action_see_distribution_template_ids",
+            ),
         ]
 
         return res + button_list
@@ -791,3 +810,15 @@ class CarbonFactor(models.Model):
         for model, ids in model_to_ids.items():
             records = self.env[model].browse(ids)
             records.action_recompute_carbon()
+
+    def action_see_distribution_template_ids(self):
+        template_ids = (
+            self.env["carbon.distribution.template"]
+            .search([("carbon_distribution_line_ids.factor_id", "in", self.ids)])
+            .ids
+        )
+        return self._generate_action(
+            title=_("Distribution Templates for"),
+            model="carbon.distribution.template",
+            ids=template_ids,
+        )
