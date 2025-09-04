@@ -481,7 +481,7 @@
             <field name="name">Emission Factors</field>
             <field name="res_model">carbon.factor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,kaban,hierarchy,form</field>
+            <field name="view_mode">tree,kanban,hierarchy,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_neutral_face">
                     This is the emission factors dashboard
