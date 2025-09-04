@@ -170,36 +170,4 @@
             </field>
         </field>
     </record>
-    <record id="view_out_invoice_tree_inherit" model="ir.ui.view">
-        <field name="name">account.move.list.inherit.sustainability</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_out_invoice_tree" />
-        <field name="arch" type="xml">
-            <field name="amount_total_in_currency_signed" position="after">
-                <field
-                    name="carbon_balance"
-                    optional="show"
-                    sum="Total CO2 Balance"
-                    digits="[13,2]"
-                />
-                <field column_invisible="1" name="carbon_currency_id" />
-            </field>
-        </field>
-    </record>
-    <record id="view_in_invoice_bill_tree_inherit" model="ir.ui.view">
-        <field name="name">account.move.list.inherit.vendors.sustainability</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_in_invoice_bill_tree" />
-        <field name="arch" type="xml">
-            <field name="amount_total_in_currency_signed" position="after">
-                <field
-                    name="carbon_balance"
-                    optional="show"
-                    sum="Total CO2 Balance"
-                    digits="[13,2]"
-                />
-                <field column_invisible="1" name="carbon_currency_id" />
-            </field>
-        </field>
-    </record>
 </odoo>
