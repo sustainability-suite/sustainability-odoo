@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sustainability_purchase_stock
+#: model:ir.model.fields,field_description:sustainability_purchase_stock.field_purchase_order__carbon_line_origin_qty
+msgid "Carbon Line Origin Qty"
+msgstr ""
+
+#. module: sustainability_purchase_stock
 #: model:ir.model.fields,field_description:sustainability_purchase_stock.field_purchase_order__carbon_origin_child_ids
 msgid "Carbon Origin Child"
 msgstr ""
