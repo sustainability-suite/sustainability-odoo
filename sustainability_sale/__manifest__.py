@@ -1,0 +1,20 @@
+{
+    "name": "Sustainability Sale",
+    "version": "18.0.1.0.0",
+    "author": "MCO2, Open Net Sàrl",
+    "maintainers": ["jacopobacci"],
+    "development_status": "Production/Stable",
+    "category": "Sales/Sales",
+    "website": "https://github.com/sustainability-suite/sustainability-odoo",
+    "summary": "Glue module for sustainability & sale modules",
+    "depends": [
+        "sustainability",
+        "sale",
+    ],
+    "data": ["views/sale_order.xml", "views/carbon_line_origin.xml"],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+    "license": "AGPL-3",
+    "pre_init_hook": "add_carbon_mode_columns",
+}
