@@ -52,6 +52,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Jacopo Bacci <https://github.com/jacopobacci>
+* Adam Bonnet <https://github.com/bonnetadam>
 
 Maintainers
 ~~~~~~~~~~~
@@ -59,10 +60,13 @@ Maintainers
 .. |maintainer-jacopobacci| image:: https://github.com/jacopobacci.png?size=40px
     :target: https://github.com/jacopobacci
     :alt: jacopobacci
+.. |maintainer-bonnetadam| image:: https://github.com/bonnetadam.png?size=40px
+    :target: https://github.com/bonnetadam
+    :alt: bonnetadam
 
-Current maintainer:
+Current maintainers:
 
-|maintainer-jacopobacci| 
+|maintainer-jacopobacci| |maintainer-bonnetadam| 
 
 This module is part of the `sustainability-suite/sustainability-odoo <https://github.com/sustainability-suite/sustainability-odoo/tree/18.0/sustainability_stock>`_ project on GitHub.
 

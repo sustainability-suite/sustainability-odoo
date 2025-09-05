@@ -39,5 +39,22 @@
                 <p class="o_view_nocontent_smiling_face">No computations yet !</p>
             </field>
         </record>
+
+        <record
+            id="action_create_carbon_factors_from_computations"
+            model="ir.actions.server"
+        >
+            <field name="name">Create Carbon Factors from Computations</field>
+            <field
+                name="model_id"
+                ref="sustainability_stock.model_sustainability_stock_freight_computation"
+            />
+            <field
+                name="binding_model_id"
+                ref="sustainability_stock.model_sustainability_stock_freight_computation"
+            />
+            <field name="state">code</field>
+            <field name="code">action = records.action_create_carbon_factor()</field>
+        </record>
     </data>
 </odoo>

@@ -3,7 +3,7 @@
     "category": "Inventory/Inventory",
     "version": "18.0.1.1.1",
     "author": "MCO2, Open Net Sàrl",
-    "maintainers": ["jacopobacci"],
+    "maintainers": ["jacopobacci", "bonnetadam"],
     "development_status": "Production/Stable",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["sustainability", "stock", "stock_delivery"],
@@ -19,4 +19,10 @@
     "application": False,
     "auto_install": False,
     "license": "AGPL-3",
+    "external_dependencies": {
+        "python": [
+            "packaging",
+            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
+        ],
+    },
 }

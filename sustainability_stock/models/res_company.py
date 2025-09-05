@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResCompany(models.Model):
@@ -45,3 +45,19 @@ class ResCompany(models.Model):
         default=0.0, string="Uncertainty"
     )
     carbon_freight_tolerance = fields.Integer(default=10, string="Tolerance")
+
+    carbon_freight_carbon_factor_id = fields.Many2one(
+        comodel_name="carbon.factor",
+        compute="_compute_carbon_freight_carbon_factor_id",
+        readonly=True,
+    )
+
+    @api.depends("carbon_freight_carbon_factor_id")
+    def _compute_carbon_freight_carbon_factor_id(self):
+        for record in self:
+            record.carbon_freight_carbon_factor_id = (
+                self.env["carbon.factor"].search(
+                    [("is_climatiq", "=", True), ("parent_id", "=", False)], limit=1
+                )
+                or False
+            )
