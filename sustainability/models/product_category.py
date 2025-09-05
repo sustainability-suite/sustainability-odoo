@@ -1,11 +1,17 @@
 from typing import Any
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class ProductCategory(models.Model):
     _name = "product.category"
     _inherit = ["product.category", "carbon.mixin"]
+
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin",
+        inverse_name="move_line_product_category_id",
+        string="Origins",
+    )
 
     def _get_carbon_in_fallback_records(self) -> list[Any]:
         res = super()._get_carbon_in_fallback_records()
@@ -15,10 +21,10 @@ class ProductCategory(models.Model):
         res = super()._get_carbon_out_fallback_records()
         return res + [self.parent_id]
 
-    @api.depends("parent_id.carbon_in_factor_id")
+    @api.depends("parent_id.carbon_in_is_manual")
     def _compute_carbon_in_mode(self):
         return super()._compute_carbon_in_mode()
 
-    @api.depends("parent_id.carbon_out_factor_id")
+    @api.depends("parent_id.carbon_out_is_manual")
     def _compute_carbon_out_mode(self):
         return super()._compute_carbon_out_mode()
