@@ -76,6 +76,13 @@
                             <field name="module_sustainability_purchase_stock" />
                         </setting>
                         <setting
+                            string="Show CO2e in Sales"
+                            invisible="(not ('sale' in available_module_names))"
+                            help="Compute and display CO2e values directly in sales orders"
+                        >
+                            <field name="module_sustainability_sale" />
+                        </setting>
+                        <setting
                             string="Show assets CO2e"
                             invisible="(not ('account_asset' in available_module_names))"
                             help="Compute and display CO2e for your assets"
