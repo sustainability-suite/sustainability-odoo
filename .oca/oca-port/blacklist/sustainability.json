@@ -18,6 +18,8 @@
     "sustainability-suite/sustainability-odoo#312": "(auto) Nothing to port from PR #312",
     "sustainability-suite/sustainability-odoo#415": "No test tour in 16.0",
     "sustainability-suite/sustainability-odoo#419": "(auto) Nothing to port from PR #419",
-    "sustainability-suite/sustainability-odoo#406": "Already backported"
+    "sustainability-suite/sustainability-odoo#406": "Already backported",
+    "sustainability-suite/sustainability-odoo#457": "Already backported",
+    "sustainability-suite/sustainability-odoo#469": "(auto) Nothing to port from PR #469"
   }
 }
