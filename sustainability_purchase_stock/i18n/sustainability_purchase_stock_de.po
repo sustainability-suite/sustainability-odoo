@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_purchase_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-14 11:10+0000\n"
+"PO-Revision-Date: 2025-09-09 11:10+0000\n"
+"Last-Translator: Jarl Mueller\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_purchase_stock
+#: model:ir.model.fields,field_description:sustainability_purchase_stock.field_purchase_order__carbon_origin_child_ids
+msgid "Carbon Origin Child"
+msgstr "Kohlenstoffursprung Unterkategorie"
+
+#. module: sustainability_purchase_stock
+#: model:ir.model.fields,field_description:sustainability_purchase_stock.field_purchase_order__carbon_origin_child_qty
+msgid "Carbon Origin Child Qty"
+msgstr "Menge der Kohlenstoffursprung Unterkategorie"
+
+#. module: sustainability_purchase_stock
+#: model:ir.model.fields,field_description:sustainability_purchase_stock.field_purchase_order__sustainability_partner_shipping_id
+msgid "Delivery Address"
+msgstr "Lieferadresse"
+
+#. module: sustainability_purchase_stock
+#: model:ir.model,name:sustainability_purchase_stock.model_purchase_order
+msgid "Purchase Order"
+msgstr "Bestellungen"
