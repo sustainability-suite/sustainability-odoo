@@ -4,7 +4,7 @@
 {
     "name": "CO2 : Expense Reports ",
     "summary": "Provide CO2 accounting data for expense reports",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.1.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["bonnetadam"],
     "development_status": "Alpha",
