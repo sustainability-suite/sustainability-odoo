@@ -15,8 +15,6 @@
                 >
           <h2>Accounting</h2>
           <div class="row mt16 o_settings_container">
-            <field name="carbon_allowed_factor_ids" invisible="1" />
-
             <div
                             class="col-12 col-lg-6 o_setting_box o_carbon_in_value"
                             title="Default CO2e value"
