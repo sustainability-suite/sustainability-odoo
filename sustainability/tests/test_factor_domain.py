@@ -51,6 +51,7 @@ class TestsFactorDomain(CarbonCommon):
             {
                 "name": "Test",
                 "uom_id": cls.uom_hour.id,
+                "uom_po_id": cls.uom_hour.id,
                 "carbon_in_is_manual": True,
                 "carbon_in_factor_id": cls.carbon_factor_physical.id,
             }
