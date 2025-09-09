@@ -38,11 +38,6 @@ CarbonSettingsPanel.extractProps = ({attrs}) => {
     };
 };
 CarbonSettingsPanel.fieldDependencies = {
-    carbon_allowed_factor_ids: {
-        type: "many2many",
-        string: _lt("Carbon allowed factor ids"),
-    },
-
     carbon_in_is_manual: {type: "boolean", string: _lt("Carbon in is manual")},
     carbon_in_mode: {type: "selection", string: _lt("Carbon in mode")},
     carbon_in_factor_id: {type: "many2one", string: _lt("Carbon in Emission Factor")},

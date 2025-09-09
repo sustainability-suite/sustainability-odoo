@@ -13,7 +13,6 @@
         "views/stock_picking.xml",
         "views/carbon_line_origin.xml",
         "views/sustainability_stock_freight_computation.xml",
-        "views/res_partner.xml",
         "data/menu_items.xml",
     ],
     "installable": True,

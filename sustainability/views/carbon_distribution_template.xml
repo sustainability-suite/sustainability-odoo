@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="carbon_distribution_template_form" model="ir.ui.view">
+            <field name="name">carbon.distribution.template.form</field>
+            <field name="model">carbon.distribution.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!-- This is getting auto populated by the _carbon_get_button_list method -->
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page
+                                string="Distribution lines"
+                                name="carbon_distribution_lines"
+                            >
+                                <field
+                                    context="{'default_carbon_type': 'template', 'default_res_model': 'carbon.distribution.template', 'default_res_id': id}"
+                                    force_save="1"
+                                    name="carbon_distribution_line_ids"
+                                >
+                                    <tree editable="bottom">
+                                        <field name="factor_id" />
+                                        <field name="percentage" widget="percentage" />
+                                        <field
+                                            column_invisible="1"
+                                            name="carbon_type"
+                                        />
+                                        <field
+                                            force_save="1"
+                                            column_invisible="1"
+                                            name="res_model"
+                                        />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="carbon_distribution_template_action" model="ir.actions.act_window">
+            <field name="name">Distribution Templates</field>
+            <field name="res_model">carbon.distribution.template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

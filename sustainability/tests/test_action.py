@@ -48,7 +48,9 @@ class TestCarbonPurchaseAction(CarbonCommon):
 
     def test_product_action(self):
         # Product Action
-        product_action = self.carbon_factor_default_fallback.action_see_product_ids()
+        product_action = (
+            self.carbon_factor_default_fallback.action_see_product_template_ids()
+        )
         self.assertEqual(product_action["res_model"], "product.template")
         ids = self.carbon_factor_default_fallback._get_distribution_lines_res_ids(
             "product.template"

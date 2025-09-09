@@ -2,6 +2,8 @@ import logging
 from typing import Any
 
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+from odoo.tools.misc import format_date
 
 _logger = logging.getLogger(__name__)
 
@@ -197,12 +199,32 @@ class CarbonLineMixin(models.AbstractModel):
         return record, kw_arguments
 
     @api.depends("carbon_data_uncertainty_percentage")
-    def _compute_carbon_debt(self, force_compute=None):
+    def _compute_carbon_debt(
+        self,
+        force_compute: bool | str | list[str] = None,
+        raise_on_locked_period: bool = True,
+    ):
         """
         Choose the right factor(s) to compute carbon value, store it with the details of the computation
         """
         lines_to_compute = self._filter_lines_to_compute(force_compute=force_compute)
         skipped_lines = self.env[self._name]
+
+        if self != lines_to_compute and raise_on_locked_period:
+            for line in self:
+                company_carbon_lock_date = line.company_id.carbon_lock_date
+                violated_lock_dates = (
+                    company_carbon_lock_date
+                    and ("date" in line._fields and line.date)
+                    and line.date < company_carbon_lock_date
+                )
+                if violated_lock_dates:
+                    raise UserError(
+                        _(
+                            "You cannot recompute carbon for this line as it would impact a locked period. Please change the following lock dates to proceed: CO2e Computation Lock Date (%(lock_date)s).",
+                            lock_date=format_date(line.env, company_carbon_lock_date),
+                        )
+                    )
 
         for line in lines_to_compute:
             record, kw_arguments = line._get_carbon_computation_record_and_kwargs()

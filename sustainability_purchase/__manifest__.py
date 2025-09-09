@@ -15,11 +15,9 @@
         # Data
         "data/ir_cron.xml",
         # Views
-        "views/carbon_factor.xml",
         "views/carbon_line_origin.xml",
         "views/purchase_order.xml",
-        "views/res_partner.xml",
-        "views/product_supplierinfo.xml",
+        "views/purchase_supplierinfo.xml",
     ],
     "demo": [
         "data/demo.xml",

@@ -40,6 +40,10 @@ class AccountMoveLine(models.Model):
 
     is_invoice_line = fields.Boolean(default=False, compute="_compute_is_invoice_line")
 
+    # Field added in 18.0
+    # https://github.com/odoo/odoo/blob/18.0/addons/account/models/account_move_line.py#L300
+    product_category_id = fields.Many2one(related="product_id.product_tmpl_id.categ_id")
+
     def _compute_is_invoice_line(self):
         for line in self:
             line.is_invoice_line = line.id in line.move_id.invoice_line_ids.ids
@@ -116,8 +120,10 @@ class AccountMoveLine(models.Model):
     @api.depends("company_id.carbon_lock_date", "move_id.date")
     def _compute_carbon_is_date_locked(self):
         for line in self:
-            line.carbon_is_date_locked = line.company_id.carbon_lock_date and (
-                line.move_id.date < line.company_id.carbon_lock_date
+            line.carbon_is_date_locked = (
+                line.move_id.date
+                and line.company_id.carbon_lock_date
+                and (line.move_id.date < line.company_id.carbon_lock_date)
             )
 
     # --------------------------------------------

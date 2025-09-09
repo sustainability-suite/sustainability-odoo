@@ -4,6 +4,7 @@ from odoo import api, models
 class ProductSupplierInfo(models.Model):
     _name = "product.supplierinfo"
     _inherit = ["product.supplierinfo", "carbon.mixin"]
+    _carbon_types = ["in"]
 
     def _update_carbon_in_fields(self, vals):
         """
@@ -26,3 +27,12 @@ class ProductSupplierInfo(models.Model):
         if "carbon_in_factor_id" in vals:
             vals = self._update_carbon_in_fields(vals)
         return super().write(vals)
+
+    @api.depends("product_uom")
+    def _get_allowed_factors_domain(self):
+        return (
+            super()._get_allowed_factors_domain()
+            + self._get_uom_filtered_factors_domain("product_uom")
+            if self.env.user.has_group("uom.group_uom")
+            else []
+        )

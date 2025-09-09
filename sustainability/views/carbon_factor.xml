@@ -144,151 +144,22 @@
                             name="by_country_group_id"
                             context="{'group_by':'country_group_id'}"
                         />
-          </group>
-        </search>
-      </field>
-    </record>
-
-    <record id="carbon_factor_form" model="ir.ui.view">
-      <field name="name">carbon.factor.form</field>
-      <field name="model">carbon.factor</field>
-      <field name="arch" type="xml">
-        <form>
-          <field name="carbon_currency_id" invisible="1" />
-          <field name="recent_value_id" invisible="1" />
-          <field name="has_invalid_value" invisible="1" />
-          <field name="active" invisible="1" />
-
-          <sheet>
-            <div class="oe_button_box" name="button_box">
-              <button
-                                type="object"
-                                name="action_see_account_move_ids"
-                                class="oe_stat_button"
-                                icon="fa-leaf"
-                                attrs="{'invisible': [('carbon_line_origin_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="carbon_line_origin_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Carbon Footprint</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-bars"
-                                name="action_see_account_move_ids"
-                                type="object"
-                                attrs="{'invisible': [('account_move_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="account_move_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Account Move</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-sitemap"
-                                name="action_see_child_ids"
-                                type="object"
-                                attrs="{'invisible': [('child_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="child_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Children Factors</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-book"
-                                name="action_see_chart_of_account_ids"
-                                type="object"
-                                attrs="{'invisible': [('chart_of_account_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="chart_of_account_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Accounts</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-th-list"
-                                name="action_see_product_ids"
-                                type="object"
-                                attrs="{'invisible': [('product_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="product_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Products</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-sort"
-                                name="action_see_product_categ_ids"
-                                type="object"
-                                attrs="{'invisible': [('product_categ_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="product_categ_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span class="o_stat_text">Products Categories</span>
-                                </div>
-                            </button>
-                            <button
-                                class="oe_stat_button"
-                                icon="fa-list"
-                                name="action_see_product_supplier_ids"
-                                type="object"
-                                attrs="{'invisible': [('product_supplierinfo_qty', '&lt;', 1)]}"
-                            >
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_value">
-                                        <field
-                                            name="product_supplierinfo_qty"
-                                            nolabel="1"
-                                            widget="statinfo"
-                                        />
-                                    </span>
-                                    <span
-                                        class="o_stat_text"
-                                    >Product Suppliers Infos</span>
-                                </div>
-                            </button>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="carbon_factor_form" model="ir.ui.view">
+            <field name="name">carbon.factor.form</field>
+            <field name="model">carbon.factor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="carbon_currency_id" />
+                    <field invisible="1" name="recent_value_id" />
+                    <field invisible="1" name="has_invalid_value" />
+                    <field invisible="1" name="active" />
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!-- This is getting auto populated by the _carbon_get_button_list method -->
                         </div>
                         <widget
                             name="web_ribbon"

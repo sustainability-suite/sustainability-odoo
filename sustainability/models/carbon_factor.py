@@ -1,6 +1,7 @@
 from collections import defaultdict
 from datetime import datetime
 from random import randint
+from typing import Any
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -110,7 +111,8 @@ class CarbonFactor(models.Model):
     # Quantity fields for smart button
 
     chart_of_account_qty = fields.Integer(compute="_compute_chart_of_account_qty")
-    product_qty = fields.Integer(compute="_compute_product_qty")
+    product_template_qty = fields.Integer(compute="_compute_product_template_qty")
+    product_product_qty = fields.Integer(compute="_compute_product_product_qty")
     product_categ_qty = fields.Integer(compute="_compute_product_categ_qty")
     account_move_qty = fields.Integer(compute="_compute_account_move_qty")
     contact_qty = fields.Integer(compute="_compute_contact_qty")
@@ -199,10 +201,15 @@ class CarbonFactor(models.Model):
         for factor in self:
             factor.account_move_qty = factor_to_move_qty.get(factor.id, 0)
 
-    def _compute_product_qty(self):
+    def _compute_product_template_qty(self):
         count_data = self._get_count_by_model(model="product.template")
         for factor in self:
-            factor.product_qty = count_data.get(factor.id, 0)
+            factor.product_template_qty = count_data.get(factor.id, 0)
+
+    def _compute_product_product_qty(self):
+        count_data = self._get_count_by_model(model="product.product")
+        for factor in self:
+            factor.product_product_qty = count_data.get(factor.id, 0)
 
     def _compute_product_categ_qty(self):
         count_data = self._get_count_by_model(model="product.category")
@@ -436,12 +443,13 @@ class CarbonFactor(models.Model):
         """
         distribution_lines = self.env["carbon.distribution.line"].read_group(
             [("res_model", "=", model), ("factor_id", "in", self.ids)],
-            ["factor_id"],
-            ["factor_id"],
+            fields=[],
+            groupby=["factor_id", "res_id"],
+            lazy=False,
         )
         total_count = defaultdict(int)
         for line in distribution_lines:
-            total_count[line["factor_id"][0]] += line["factor_id_count"]
+            total_count[line["factor_id"][0]] += 1
 
         return total_count
 
@@ -653,6 +661,57 @@ class CarbonFactor(models.Model):
 
         return result_value, result_value * uncertainty_percentage, result_details
 
+    @api.model
+    def _carbon_get_button_list(cls) -> list[dict[str, Any]]:
+        res = super()._carbon_get_button_list()
+        button_list = [
+            # Account Move button
+            dict(
+                field="account_move_qty",
+                icon="fa-bars",
+                string=_("Account Move"),
+            ),
+            # Child button
+            dict(
+                field="child_qty",
+                icon="fa-sitemap",
+                string=_("Children Factors"),
+            ),
+            # Chart of Account button
+            dict(
+                field="chart_of_account_qty",
+                icon="fa-book",
+                string=_("Chart of Account"),
+            ),
+            # Product Variants button
+            dict(
+                field="product_product_qty",
+                icon="fa-th-list",
+                string=_("Product Variants"),
+            ),
+            # Product Templates button
+            dict(
+                field="product_template_qty",
+                icon="fa-th-list",
+                string=_("Product Templates"),
+            ),
+            # Product Category button
+            dict(
+                field="product_categ_qty",
+                icon="fa-sort",
+                string=_("Product Categories"),
+            ),
+            # Product Supplier Info button
+            dict(
+                field="product_supplierinfo_qty",
+                icon="fa-list",
+                string=_("Product Supplier Infos"),
+                action="action_see_product_supplier_ids",
+            ),
+        ]
+
+        return res + button_list
+
     # --------------------------------------------
     #                   ACTIONS
     # --------------------------------------------
@@ -677,16 +736,23 @@ class CarbonFactor(models.Model):
             ids=self._get_distribution_lines_res_ids("account.account"),
         )
 
-    def action_see_product_ids(self):
+    def action_see_product_template_ids(self):
         return self._generate_action(
-            title=_("Product for"),
+            title=_("Product Templates for"),
             model="product.template",
             ids=self._get_distribution_lines_res_ids("product.template"),
         )
 
+    def action_see_product_product_ids(self):
+        return self._generate_action(
+            title=_("Product Variants for"),
+            model="product.product",
+            ids=self._get_distribution_lines_res_ids("product.product"),
+        )
+
     def action_see_product_categ_ids(self):
         return self._generate_action(
-            title=_("Product Category for"),
+            title=_("Product Categories for"),
             model="product.category",
             ids=self._get_distribution_lines_res_ids("product.category"),
         )
