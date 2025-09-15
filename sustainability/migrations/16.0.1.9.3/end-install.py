@@ -1,12 +1,12 @@
 import logging
 
-from odoo.upgrade import util
+from odoo import SUPERUSER_ID, api
 
 _logger = logging.getLogger(__name__)
 
 
 def migrate(cr, version):
-    env = util.env(cr)
+    env = api.Environment(cr, SUPERUSER_ID, {})
 
     carbon_line_origins = env["carbon.line.origin"].search([])
     for carbon_line_origin in carbon_line_origins:
