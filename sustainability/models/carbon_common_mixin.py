@@ -182,7 +182,7 @@ class CarbonCommonMixin(models.AbstractModel):
             button = etree.Element("button")
             button.set("icon", button_dict.pop("icon", "fa-leaf"))
             button.set("type", "object")
-            button.set("invisible", f"{field} < 1")
+            button.set("invisible", str([(field, "<", 1)]))
             button.set("class", f"oe_stat_button {button_dict.pop('class', '')}")
 
             for key, value in button_dict.items():

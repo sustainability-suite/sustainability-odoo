@@ -685,14 +685,14 @@ class CarbonMixin(models.AbstractModel):
                 "div",
                 **{
                     "class": "opacity-50 mr-2",
-                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '=', False)]}}",
                 },
             ).text = UNDEFINED_VAR_NAME
             etree.SubElement(
                 div,
                 "div",
                 **{
-                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '!=', False)]}}",
                     "style": "font-weight: bold;",
                 },
             ).text = UNDEFINED_VAR_NAME
@@ -715,14 +715,14 @@ class CarbonMixin(models.AbstractModel):
                 "div",
                 **{
                     "class": "opacity-50",
-                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '!=', False)]}}",
                 },
             ).text = SET_VAR_NAME
             etree.SubElement(
                 div,
                 "div",
                 **{
-                    "invisible": f"not carbon_{carbon_type}_is_manual",
+                    "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '=', False)]}}",
                     "style": "font-weight: bold;",
                 },
             ).text = SET_VAR_NAME
@@ -731,7 +731,7 @@ class CarbonMixin(models.AbstractModel):
                 carbon_type_group,
                 "field",
                 **{
-                    "invisible": f"carbon_{carbon_type}_is_manual",
+                    "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '!=', False)]}}",
                     "name": f"carbon_{carbon_type}_fallback_reference",
                     "widget": "reference",
                 },
@@ -743,7 +743,7 @@ class CarbonMixin(models.AbstractModel):
                     "field",
                     **{
                         "name": f"carbon_{carbon_type}_use_distribution",
-                        "invisible": f"not carbon_{carbon_type}_is_manual",
+                        "attrs": f"{{'invisible': [('carbon_{carbon_type}_is_manual', '=', False)]}}",
                     },
                 )
 
@@ -751,10 +751,16 @@ class CarbonMixin(models.AbstractModel):
                 carbon_type_group,
                 "field",
                 **{
-                    "invisible": f"not carbon_{carbon_type}_is_manual {f'or carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
+                    "attrs": (
+                        f"{{'required': ['&', ('carbon_{carbon_type}_is_manual','=', True),"
+                        f" ('carbon_{carbon_type}_use_distribution','=', False)],"
+                        f" 'invisible': ['|', ('carbon_{carbon_type}_is_manual','=', False),"
+                        f" ('carbon_{carbon_type}_use_distribution','=', True)]}}"
+                        if cls._carbon_enable_distribution
+                        else f"{{'required': [('carbon_{carbon_type}_is_manual','!=', False)], 'invisible': [('carbon_{carbon_type}_is_manual','=', False)]}}"
+                    ),
                     "name": f"carbon_{carbon_type}_factor_id",
                     "string": EMISSION_FACTOR_VAR_NAME,
-                    "required": f"carbon_{carbon_type}_is_manual {f'and not carbon_{carbon_type}_use_distribution' if cls._carbon_enable_distribution else ''}",
                 },
             )
             # Distribution field (if enabled)
@@ -766,7 +772,7 @@ class CarbonMixin(models.AbstractModel):
                         **{
                             "name": f"carbon_{carbon_type}_distribution_template_id",
                             "string": DISTRIBUTION_TEMPLATE_VAR_NAME,
-                            "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
+                            "attrs": f"{{'invisible': ['|', ('carbon_{carbon_type}_is_manual', '=', False), ('carbon_{carbon_type}_use_distribution', '=', False)]}}",
                         },
                     )
 
@@ -776,16 +782,18 @@ class CarbonMixin(models.AbstractModel):
                     **{
                         "colspan": "2",
                         "context": f"{{'default_carbon_type': '{carbon_type}', 'default_res_model': model_name, 'default_res_id': id}}",
-                        "invisible": f"not carbon_{carbon_type}_is_manual or not carbon_{carbon_type}_use_distribution",
+                        "attrs": (
+                            f"{{'invisible': ['|', ('carbon_{carbon_type}_is_manual', '=', False),"
+                            f" ('carbon_{carbon_type}_use_distribution', '=', False)],"
+                            f" 'required': ['&', ('carbon_{carbon_type}_use_distribution','=', True),"
+                            f" ('carbon_{carbon_type}_distribution_template_id','=', False)],"
+                            f" 'readonly': [('carbon_{carbon_type}_distribution_template_id','!=', False)]}}"
+                            if cls._carbon_enable_distribution_template
+                            else f"{{'invisible': ['|', ('carbon_{carbon_type}_is_manual', '=', False), ('carbon_{carbon_type}_use_distribution', '=', False)], 'required': [('carbon_{carbon_type}_use_distribution','=', True)]}}"
+                        ),
                         "name": f"carbon_{carbon_type}_distribution_line_ids",
                         "nolabel": "1",
-                        "required": f"carbon_{carbon_type}_use_distribution {f'and not carbon_{carbon_type}_distribution_template_id' if cls._carbon_enable_distribution_template else ''}",
                     },
-                    **{
-                        "readonly": f"carbon_{carbon_type}_distribution_template_id",
-                    }
-                    if cls._carbon_enable_distribution_template
-                    else {},
                 )
                 list_element = etree.SubElement(
                     distribution_field, "tree", editable="bottom"
@@ -812,14 +820,14 @@ class CarbonMixin(models.AbstractModel):
             **{
                 "name": "sustainability_other_group",
                 "string": OTHER_VAR_NAME,
-                "invisible": "1",  # Hide when no data are inside
+                "attrs": "{'invisible': True}",  # Hide when no data are inside
             },
         )
         for field_dict in model._carbon_get_other_fields():
             if field_dict.get("name") not in model._fields:
                 continue
 
-            other_group.set("invisible", "False")
+            other_group.set("attrs", "{'invisible': False}")  # Make group visible
 
             group_name = field_dict.pop("group_name")
 
