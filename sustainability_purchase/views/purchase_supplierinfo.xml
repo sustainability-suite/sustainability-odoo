@@ -48,6 +48,7 @@
                                 name="carbon_in_factor_id"
                                 string="Emission Factor"
                                 attrs="{'invisible': [('carbon_in_is_manual', '!=', True)], 'required': [('carbon_in_is_manual', '=', True)]}"
+                                groups="uom.group_uom"
                             />
                         </group>
                     </group>
@@ -66,6 +67,7 @@
                         string="Emission Factor"
                         optional="show"
                         widget="many2one"
+                        groups="uom.group_uom"
                     />
                 </xpath>
             </field>
