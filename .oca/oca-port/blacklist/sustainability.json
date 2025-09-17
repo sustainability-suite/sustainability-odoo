@@ -1,6 +1,8 @@
 {
   "pull_requests": {
     "sustainability-suite/sustainability-odoo#406": "Already backported",
-    "sustainability-suite/sustainability-odoo#415": "Shoulnd't be backported"
+    "sustainability-suite/sustainability-odoo#415": "Shoulnd't be backported",
+    "sustainability-suite/sustainability-odoo#419": "(auto) Nothing to port from PR #419",
+    "sustainability-suite/sustainability-odoo#503": "(auto) Nothing to port from PR #503"
   }
 }
