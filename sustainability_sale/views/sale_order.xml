@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_sustainability" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.sustainability</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//field[@name='order_line']//list//field[@name='price_subtotal']"
+                    position="after"
+                >
+                    <field
+                        name="carbon_debt"
+                        digits="[13,2]"
+                        optional="hide"
+                        readonly="carbon_is_locked"
+                    />
+                    <field
+                        name="carbon_data_uncertainty_percentage"
+                        force_save="1"
+                        optional="hide"
+                        readonly="carbon_is_locked"
+                    />
+                    <field
+                        name="carbon_uncertainty_value"
+                        digits="[13,2]"
+                        optional="hide"
+                        readonly="carbon_is_locked"
+                    />
+                    <field name="carbon_currency_id" column_invisible="1" />
+                    <field name="carbon_is_locked" column_invisible="1" />
+                    <button
+                        class="opacity-25"
+                        icon="fa-unlock"
+                        invisible="carbon_is_locked"
+                        name="action_switch_locked"
+                        title="Lock co2"
+                        type="object"
+                    />
+                    <button
+                        icon="fa-lock"
+                        invisible="not carbon_is_locked"
+                        name="action_switch_locked"
+                        title="Unlock co2"
+                        type="object"
+                    />
+                    <field
+                        name="carbon_origin_json"
+                        column_invisible="1"
+                        force_save="1"
+                    />
+                    <button
+                        type="object"
+                        name="action_see_carbon_origin"
+                        icon="fa-question-circle"
+                        title="See carbon origin"
+                    />
+                </xpath>
+                <xpath expr="//group[@name='sale_total']" position="inside">
+                    <div class="d-flex align-items-baseline justify-content-end">
+                        <span class="form-label me-2 text-nowrap">CO2 Equivalent:</span>
+                        <field name="carbon_debt" digits="[13,2]" />
+                        <field name="carbon_currency_id" invisible="1" />
+                    </div>
+                    <div class="d-flex align-items-baseline justify-content-end">
+                        <span
+                            class="form-label me-2 text-nowrap"
+                        >CO2 Uncertainty:</span>
+                        <field name="carbon_uncertainty_value" digits="[13,2]" />
+                        <field name="carbon_currency_id" invisible="1" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_recompute_carbon_sale_order" model="ir.actions.server">
+            <field name="name">Re-compute CO2</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="state">code</field>
+            <field name="code">action = records.action_recompute_carbon()</field>
+        </record>
+    </data>
+</odoo>
