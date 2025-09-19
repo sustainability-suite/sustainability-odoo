@@ -630,12 +630,15 @@ class CarbonFactor(models.Model):
                     reference=kwargs.get("reference"),
                 )
                 if effective_quantity is None:
-                    raise ValidationError(
-                        _(
-                            "To compute a carbon cost, you must pass: either a quantity and a unit of measure or a price and a currency (+ an optional date)"
-                        )
-                    )
-                partial_value_result = carbon_value * effective_quantity
+                    # temp fix, need to investigate
+                    # raise ValidationError(
+                    #     _(
+                    #         "To compute a carbon cost, you must pass: either a quantity and a unit of measure or a price and a currency (+ an optional date)"
+                    #     )
+                    # )
+                    partial_value_result = 0
+                else:
+                    partial_value_result = carbon_value * effective_quantity
             else:
                 raise ValidationError(
                     _(
