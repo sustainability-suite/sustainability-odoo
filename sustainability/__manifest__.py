@@ -20,6 +20,7 @@
     "data": [
         # Security
         "security/ir.model.access.csv",
+        "security/ir_rule.xml",
         # Views
         "views/account_analytic_line.xml",
         "views/account_move.xml",
