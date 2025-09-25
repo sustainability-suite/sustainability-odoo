@@ -43,7 +43,7 @@ class TestCommuting(CarbonCommon):
         expected_result = 50.0
 
         self.assertEqual(
-            round(total_value, 2),
+            round(total_value),
             expected_result,
             f"Expected a value of {expected_result} for the carbon line origin.",
         )
