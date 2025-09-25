@@ -76,6 +76,10 @@ class CarbonLineOrigin(models.Model):
     )
     computation_level = fields.Char()
 
+    company_id = fields.Many2one(
+        comodel_name="res.company", compute="_compute_company_id", store=True
+    )
+
     # --------------------------------------------
     #          account.move.line fields
     # --------------------------------------------
@@ -166,6 +170,15 @@ class CarbonLineOrigin(models.Model):
 
     These are useful to create related fields!
     """
+
+    def _compute_company_id(self):
+        for origin in self:
+            origin.company_id = False
+
+            model_to_field_name = self._get_model_to_field_name()
+            if origin.res_model in model_to_field_name:
+                field_name = model_to_field_name[origin.res_model]
+                origin.company_id = origin[field_name].company_id
 
     @api.depends("res_model", "res_id")
     def _compute_many2one_lines(self):
