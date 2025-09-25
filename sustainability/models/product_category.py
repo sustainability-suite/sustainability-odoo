@@ -6,6 +6,8 @@ from odoo import api, fields, models
 class ProductCategory(models.Model):
     _name = "product.category"
     _inherit = ["product.category", "carbon.mixin"]
+    _carbon_enable_distribution = True
+    _carbon_enable_distribution_template = True
 
     carbon_line_origin_ids = fields.One2many(
         comodel_name="carbon.line.origin",
