@@ -37,6 +37,7 @@
                         name="action_switch_locked"
                         title="Lock co2"
                         type="object"
+                        width="5%"
                     />
                     <button
                         icon="fa-lock"
@@ -44,6 +45,7 @@
                         name="action_switch_locked"
                         title="Unlock co2"
                         type="object"
+                        width="5%"
                     />
                     <field
                         name="carbon_origin_json"
@@ -55,6 +57,7 @@
                         name="action_see_carbon_origin"
                         icon="fa-question-circle"
                         title="See carbon origin"
+                        width="5%"
                     />
                 </xpath>
                 <xpath expr="//group[@name='sale_total']" position="inside">

@@ -37,6 +37,7 @@
                         name="action_switch_locked"
                         title="Lock co2"
                         type="object"
+                        width="5%"
                     />
                     <button
                         icon="fa-lock"
@@ -44,6 +45,7 @@
                         name="action_switch_locked"
                         title="Unlock co2"
                         type="object"
+                        width="5%"
                     />
                     <field
                         force_save="1"
@@ -64,6 +66,7 @@
                         name="action_see_carbon_origin"
                         title="See CO2 value origin"
                         type="object"
+                        width="5%"
                     />
                 </xpath>
                 <xpath expr="//field[@name='amount_residual']" position="after">
@@ -104,6 +107,7 @@
                         name="action_see_carbon_origin"
                         title="See CO2 value origin"
                         type="object"
+                        width="5%"
                     />
                     <field
                         force_save="1"
