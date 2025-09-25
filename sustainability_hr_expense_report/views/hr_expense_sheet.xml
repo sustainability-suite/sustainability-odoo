@@ -8,7 +8,7 @@
             <xpath expr="//field[@name='total_amount']" position="before">
                 <field name="carbon_currency_id" invisible="1" />
                 <field name="carbon_is_locked" invisible="1" />
-                <field name="carbon_debt" readonly="carbon_is_locked" digits="[13,2]" />
+                <field name="carbon_debt" readonly="carbon_is_locked" />
                 <button
                     title="Unlock co2"
                     type="object"

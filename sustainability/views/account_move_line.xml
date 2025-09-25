@@ -11,7 +11,6 @@
                     sum="Total CO2 Balance"
                     optional="hide"
                     readonly="1"
-                    digits="[13,2]"
                 />
                 <field name="carbon_data_uncertainty_percentage" optional="hide" />
                 <field
@@ -24,21 +23,18 @@
                     sum="Total CO2 Debit"
                     optional="hide"
                     readonly="1"
-                    digits="[13,2]"
                 />
                 <field
                     name="carbon_credit"
                     sum="Total CO2 Credit"
                     optional="hide"
                     readonly="1"
-                    digits="[13,2]"
                 />
                 <field
                     name="carbon_debt"
                     sum="Total CO2"
                     optional="hide"
                     readonly="1"
-                    digits="[13,2]"
                 />
                 <button
                     type="object"

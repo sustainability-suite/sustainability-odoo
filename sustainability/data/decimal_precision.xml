@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record forcecreate="True" id="decimal_carbon" model="decimal.precision">
             <field name="name">Carbon value</field>
-            <field name="digits">4</field>
+            <field name="digits" eval="2" />
         </record>
 
         <record
@@ -12,7 +12,7 @@
             model="decimal.precision"
         >
             <field name="name">Carbon Factor value</field>
-            <field name="digits">6</field>
+            <field name="digits" eval="6" />
         </record>
     </data>
 </odoo>

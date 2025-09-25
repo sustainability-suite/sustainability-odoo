@@ -4,7 +4,7 @@
         <field name="name">KGC</field>
         <field name="symbol">kgCO2e</field>
         <field name="full_name">CO2 kilogram</field>
-        <field name="rounding">0.0001</field>
+        <field name="rounding">0.01</field>
         <field name="active" eval="True" />
         <field name="currency_unit_label">kgCO2e</field>
     </record>

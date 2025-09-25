@@ -20,7 +20,6 @@
 
                     <field
                         name="carbon_debt"
-                        digits="[13,2]"
                         readonly="carbon_is_locked"
                         optional="hide"
                     />
@@ -51,7 +50,6 @@
                     />
                     <field
                         name="carbon_uncertainty_value"
-                        digits="[13,2]"
                         readonly="carbon_is_locked"
                         force_save="1"
                         optional="hide"
@@ -65,7 +63,7 @@
                     />
                 </xpath>
                 <xpath expr="//field[@name='tax_totals']" position="after">
-                    <field name="carbon_debt" digits="[13,2]" force_save="1" />
+                    <field name="carbon_debt" force_save="1" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
             </field>
