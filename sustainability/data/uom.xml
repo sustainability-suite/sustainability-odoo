@@ -14,46 +14,46 @@
         <field name="name">t.km</field>
         <field name="category_id" ref="uom_categ_weight_per_km" />
         <field name="uom_type">reference</field>
-        <field name="factor">1.0</field>
+        <field name="factor" eval="1" />
         <field name="rounding">0.01</field>
     </record>
     <record id="uom_pax_km" model="uom.uom">
         <field name="name">pax.km</field>
         <field name="category_id" ref="uom_categ_passenger_per_km" />
         <field name="uom_type">reference</field>
-        <field name="factor">1.0</field>
-        <field name="rounding">0.01</field>
-    </record>
-
-    <record id="uom_joule" model="uom.uom">
-        <field name="name">Joule</field>
-        <field name="category_id" ref="uom_categ_energy" />
-        <field name="uom_type">reference</field>
-        <field name="factor">1.0</field>
-        <field name="rounding">0.01</field>
-    </record>
-
-    <record id="uom_kj" model="uom.uom">
-        <field name="name">kJ</field>
-        <field name="category_id" ref="uom_categ_energy" />
-        <field name="uom_type">bigger</field>
-        <field name="factor_inv">1000.0</field>
-        <field name="rounding">0.01</field>
-    </record>
-
-    <record id="uom_btu" model="uom.uom">
-        <field name="name">BTU</field>
-        <field name="category_id" ref="uom_categ_energy" />
-        <field name="uom_type">bigger</field>
-        <field name="factor_inv">1055.05585</field>
+        <field name="factor" eval="1" />
         <field name="rounding">0.01</field>
     </record>
 
     <record id="uom_mj" model="uom.uom">
         <field name="name">MJ</field>
         <field name="category_id" ref="uom_categ_energy" />
-        <field name="uom_type">bigger</field>
-        <field name="factor_inv">1000000.0</field>
+        <field name="uom_type">reference</field>
+        <field name="factor" eval="1" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_joule" model="uom.uom">
+        <field name="name">Joule</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="1000000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kj" model="uom.uom">
+        <field name="name">kJ</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="1000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_btu" model="uom.uom">
+        <field name="name">BTU</field>
+        <field name="category_id" ref="uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="947.817" />
         <field name="rounding">0.01</field>
     </record>
 
@@ -61,7 +61,7 @@
         <field name="name">kWh</field>
         <field name="category_id" ref="uom_categ_energy" />
         <field name="uom_type">bigger</field>
-        <field name="factor_inv">3600000.0</field>
+        <field name="factor_inv" eval="3.6" />
         <field name="rounding">0.01</field>
     </record>
 
@@ -69,7 +69,7 @@
         <field name="name">m³ of natural gas</field>
         <field name="category_id" ref="uom_categ_energy" />
         <field name="uom_type">bigger</field>
-        <field name="factor_inv">34883333.33333</field>
+        <field name="factor_inv" eval="34883.33333" />
         <field name="rounding">0.01</field>
     </record>
 
@@ -77,7 +77,7 @@
         <field name="name">GJ</field>
         <field name="category_id" ref="uom_categ_energy" />
         <field name="uom_type">bigger</field>
-        <field name="factor_inv">1000000000.0</field>
+        <field name="factor_inv" eval="1000" />
         <field name="rounding">0.01</field>
     </record>
 
@@ -85,7 +85,7 @@
         <field name="name">tec</field>
         <field name="category_id" ref="uom_categ_energy" />
         <field name="uom_type">bigger</field>
-        <field name="factor_inv">29288000000.0</field>
+        <field name="factor_inv" eval="29288000" />
         <field name="rounding">0.01</field>
     </record>
 
@@ -93,7 +93,7 @@
         <field name="name">tep</field>
         <field name="category_id" ref="uom_categ_energy" />
         <field name="uom_type">bigger</field>
-        <field name="factor_inv">41860000000.0</field>
+        <field name="factor_inv" eval="41860000" />
         <field name="rounding">0.01</field>
     </record>
 </odoo>
