@@ -3,7 +3,7 @@
 
 {
     "name": "Sustainability",
-    "version": "17.0.2.1.0",
+    "version": "17.0.2.1.1",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["jguenat", "bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
