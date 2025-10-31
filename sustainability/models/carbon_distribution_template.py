@@ -18,7 +18,7 @@ class CarbonDistributionTemplate(models.Model):
         "carbon.distribution.line",
         "res_id",
         "Distribution lines",
-        auto_join=True,
+        bypass_search_access=True,
         domain="[('carbon_type', '=', 'template')]",
         required=True,
     )

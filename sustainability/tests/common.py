@@ -144,6 +144,6 @@ class CarbonCommon(TransactionCase):
                 "name": "Test User",
                 "login": "test_user",
                 "email": "test.user@example.com",
-                "groups_id": [(6, 0, [cls.env.ref("base.group_user").id])],
+                "group_ids": [(6, 0, [cls.env.ref("base.group_user").id])],
             }
         )
