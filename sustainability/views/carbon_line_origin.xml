@@ -210,7 +210,7 @@
                         name="is_not_invoice_line"
                         domain="[('move_line_is_invoice_line', '=', False)]"
                     />
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter
                             string="Emission Factor"
                             name="by_factor_id"

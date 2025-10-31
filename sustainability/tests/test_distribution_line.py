@@ -82,7 +82,12 @@ class TestDistributionLine(CarbonCommon):
             )
         )
 
-        cls.product_product = cls.env.ref("product.product_product_3")
+        cls.product_product = cls.env["product.product"].create(
+            {
+                "name": "Test product",
+            }
+        )
+
         cls.account_move, cls.account_move_product = cls.env["account.move"].create(
             [
                 dict(
