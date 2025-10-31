@@ -41,7 +41,7 @@
                         name="archived"
                         string="Archived"
                     />
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter
                             string="Name"
                             name="by_factor_id"

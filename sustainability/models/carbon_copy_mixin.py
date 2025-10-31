@@ -1,4 +1,4 @@
-from odoo import _, api, models
+from odoo import models
 
 
 class CopyMixin(models.AbstractModel):
@@ -12,9 +12,8 @@ class CopyMixin(models.AbstractModel):
             new_name = self[fname]
         else:
             new_name = f"{self._name},{self.id}"
-        return _("%s (copy)", new_name)
+        return self.env._("%s (copy)", new_name)
 
-    @api.returns("self", lambda value: value.id)
     def copy(self, default=None):
         default = dict(default or {})
         name = self._rec_name

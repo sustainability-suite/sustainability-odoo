@@ -1,14 +1,14 @@
 import logging
 from datetime import datetime
 
-from odoo.tests import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 _logger = logging.getLogger(__name__)
 
 ALLOWED_MODELS_CHECK_SIGN = ["account.move", "account.move.line"]
 
 
-class CarbonCommon(TransactionCase):
+class CarbonCommon(BaseCommon):
     @classmethod
     def _get_sign(cls, value: float) -> int:
         """Return the sign of a value"""

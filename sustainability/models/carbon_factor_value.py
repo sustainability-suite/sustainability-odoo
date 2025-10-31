@@ -2,8 +2,8 @@ import logging
 
 from odoo import api, fields, models
 
-from odoo.addons.base.models.res_currency import Currency
-from odoo.addons.uom.models.uom_uom import UoM
+from odoo.addons.base.models.res_currency import ResCurrency
+from odoo.addons.uom.models.uom_uom import UomUom
 
 _logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class CarbonFactorValue(models.Model):
     _order = "date desc"
 
     _not_unique_date_type_id = models.Constraint(
-        'UNIQUE(factor_id, date, type_id)',
+        "UNIQUE(factor_id, date, type_id)",
         "Date and Carbon Factor Type should be a unique pair",
     )
 
@@ -121,7 +121,7 @@ class CarbonFactorValue(models.Model):
                 + f" ({value.date})"
             )
 
-    def get_infos(self) -> tuple[str, float, UoM, Currency]:
+    def get_infos(self) -> tuple[str, float, UomUom, ResCurrency]:
         self.ensure_one()
         return (
             self.carbon_compute_method,
