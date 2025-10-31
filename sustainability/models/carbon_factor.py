@@ -24,7 +24,9 @@ class CarbonFactor(models.Model):
         return randint(1, 11)
 
     # Core and utils fields
-    color = fields.Integer(export_string_translation=False, default=_get_default_color)
+    color = fields.Integer(
+        export_string_translation=False, default=lambda self: self._get_default_color()
+    )
     sequence = fields.Integer()
 
     name = fields.Char(required=True, tracking=True)

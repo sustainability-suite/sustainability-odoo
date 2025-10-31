@@ -10,11 +10,11 @@ class CarbonDistributionLine(models.Model):
     _description = "Carbon Distribution Line"
 
     _positive_percentage = models.Constraint(
-        'CHECK(percentage > 0)',
+        "CHECK(percentage > 0)",
         "Percentage must be higher than zero",
     )
     _max_limit_percentage = models.Constraint(
-        'CHECK(percentage <= 1)',
+        "CHECK(percentage <= 1)",
         "Percentage cannot be higher than 100%",
     )
 
