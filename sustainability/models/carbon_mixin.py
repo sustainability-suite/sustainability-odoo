@@ -218,7 +218,7 @@ class CarbonMixin(models.AbstractModel):
         "carbon.distribution.line",
         "res_in_id",
         "Distribution lines IN",
-        auto_join=True,
+        bypass_search_access=True,
         domain="[('carbon_type', '=', 'in')]",
     )
     carbon_in_has_valid_distribution = fields.Boolean(
@@ -261,7 +261,7 @@ class CarbonMixin(models.AbstractModel):
         "carbon.distribution.line",
         "res_out_id",
         "Distribution lines OUT",
-        auto_join=True,
+        bypass_search_access=True,
         domain="[('carbon_type', '=', 'out')]",
     )
     carbon_out_has_valid_distribution = fields.Boolean(

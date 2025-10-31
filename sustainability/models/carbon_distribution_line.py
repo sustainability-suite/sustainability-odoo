@@ -9,18 +9,14 @@ class CarbonDistributionLine(models.Model):
     _name = "carbon.distribution.line"
     _description = "Carbon Distribution Line"
 
-    _sql_constraints = [
-        (
-            "positive_percentage",
-            "CHECK(percentage > 0)",
-            "Percentage must be higher than zero",
-        ),
-        (
-            "max_limit_percentage",
-            "CHECK(percentage <= 1)",
-            "Percentage cannot be higher than 100%",
-        ),
-    ]
+    _positive_percentage = models.Constraint(
+        'CHECK(percentage > 0)',
+        "Percentage must be higher than zero",
+    )
+    _max_limit_percentage = models.Constraint(
+        'CHECK(percentage <= 1)',
+        "Percentage cannot be higher than 100%",
+    )
 
     # Fake Many2one that is used in the One2many field in `carbon.mixin`
     res_model_id = fields.Many2one(

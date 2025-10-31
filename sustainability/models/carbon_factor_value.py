@@ -14,13 +14,10 @@ class CarbonFactorValue(models.Model):
     _description = "Carbon Factor Value"
     _order = "date desc"
 
-    _sql_constraints = [
-        (
-            "not_unique_date_type_id",
-            "UNIQUE(factor_id, date, type_id)",
-            "Date and Carbon Factor Type should be a unique pair",
-        ),
-    ]
+    _not_unique_date_type_id = models.Constraint(
+        'UNIQUE(factor_id, date, type_id)',
+        "Date and Carbon Factor Type should be a unique pair",
+    )
 
     co2_value = fields.Float(
         tracking=True,

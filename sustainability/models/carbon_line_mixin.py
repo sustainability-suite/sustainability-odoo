@@ -46,7 +46,7 @@ class CarbonLineMixin(models.AbstractModel):
         "carbon.line.origin",
         "res_id",
         "Carbon value origin details",
-        auto_join=True,
+        bypass_search_access=True,
     )
 
     # --------------------------------------------
