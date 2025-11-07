@@ -30,9 +30,9 @@ class ProductSupplierInfo(models.Model):
             vals = self._update_carbon_in_fields(vals)
         return super().write(vals)
 
-    @api.depends("product_uom")
+    @api.depends("product_uom_id")
     def _get_allowed_factors_domain(self):
         return (
             super()._get_allowed_factors_domain()
-            + self._get_uom_filtered_factors_domain("product_uom")
+            + self._get_uom_filtered_factors_domain("product_uom_id")
         )

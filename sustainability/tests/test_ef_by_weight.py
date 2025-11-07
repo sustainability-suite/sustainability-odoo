@@ -68,9 +68,7 @@ class TestEFByWeight(CarbonCommon):
         the unit of measure changed to kilometers (km) correctly applies the weight calculation.
         """
 
-        self.ef_by_weight_product_product_1.write(
-            {"uom_id": self.uom_meter.id, "categ_id": self.uom_meter.category_id.id}
-        )
+        self.ef_by_weight_product_product_1.write({"uom_id": self.uom_meter.id})
 
         self.ef_by_weight_invoice.write(
             {

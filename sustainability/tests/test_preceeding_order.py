@@ -13,7 +13,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "list_price": 50.00,
                 "standard_price": 40.00,
                 "uom_id": cls.uom_hour.id,
-                "uom_po_id": cls.uom_hour.id,  # Ensures UoM categories match
                 "carbon_in_factor_id": cls.carbon_factor_physical.id,
                 "carbon_in_is_manual": True,
             }
@@ -129,7 +128,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "list_price": 50.00,
                 "standard_price": 40.00,
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
                 "categ_id": product_category.id,
             }
         )
@@ -190,7 +188,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "carbon_in_is_manual": True,
                 "carbon_in_factor_id": self.carbon_factor_physical.id,
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
                 "attribute_line_ids": [
                     Command.create(
                         {
@@ -213,7 +210,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "list_price": 50.00,
                 "standard_price": 40.00,
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
                 "product_tmpl_id": product_template.id,
             }
         )
@@ -274,7 +270,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "list_price": 50.00,
                 "standard_price": 40.00,
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
             }
         )
 
@@ -323,7 +318,6 @@ class TestPreceedingOrder(CarbonCommon):
                 "list_price": 50.00,
                 "standard_price": 40.00,
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
             }
         )
 
