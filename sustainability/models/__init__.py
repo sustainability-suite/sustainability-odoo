@@ -30,3 +30,4 @@ from . import sustainability_action_plan
 from . import sustainability_action
 from . import sustainability_approach
 from . import sustainability_nomenclature
+from . import uom_uom

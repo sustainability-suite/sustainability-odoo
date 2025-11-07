@@ -554,12 +554,11 @@ class CarbonFactor(models.Model):
             and quantity
             and from_uom_id
         ):
-            weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
             # Case: carbon factor UoM is weight, product UoM is not weight
             if (
-                self.carbon_uom_id.category_id == weight_uom_category
+                self.carbon_uom_id.sustainability_is_physical
                 and product_id
-                and product_id.uom_id.category_id != weight_uom_category
+                and not product_id.uom_id.sustainability_is_physical
             ):
                 if not product_id.weight or product_id.weight <= 0:
                     raise ValidationError(
@@ -578,23 +577,7 @@ class CarbonFactor(models.Model):
                     quantity, product_id.uom_id
                 )
                 return converted_weight * converted_quantity
-            # Case: same UoM category
-            elif from_uom_id.category_id == factor_value.carbon_uom_id.category_id:
-                return from_uom_id._compute_quantity(
-                    quantity, factor_value.carbon_uom_id
-                )
-            else:
-                raise ValidationError(
-                    _(
-                        f"The unit of measure set for %s (%s - %s) is not in the same category as its carbon unit of measure (%s - %s){ref_str}",
-                        self.name,
-                        from_uom_id.name,
-                        from_uom_id.category_id.name,
-                        factor_value.carbon_uom_id.name,
-                        factor_value.carbon_uom_id.category_id.name,
-                    )
-                )
-        # If not physical or missing data, return None
+            return from_uom_id._compute_quantity(quantity, factor_value.carbon_uom_id)
         return None
 
     def _get_carbon_value(

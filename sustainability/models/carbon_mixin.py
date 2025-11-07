@@ -164,7 +164,7 @@ class CarbonMixin(models.AbstractModel):
                     )
                 )
 
-        weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
+        # weight_uom_category = self.env.ref("uom.product_uom_categ_kgm")
         return [
             "|",
             ("carbon_compute_method", "=", "monetary"),
@@ -172,7 +172,7 @@ class CarbonMixin(models.AbstractModel):
             ("carbon_compute_method", "=", "physical"),
             "|",
             ("carbon_uom_id", "=", uom_id),
-            ("carbon_uom_id.category_id", "=", weight_uom_category.id),
+            ("carbon_uom_id.sustainability_is_physical", "=", True),
         ]
 
     # --------------------------------------------

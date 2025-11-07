@@ -59,7 +59,6 @@ class TestCarbonUom(CarbonCommon):
                 "name": "Consulting uom test",
                 "type": "service",
                 "uom_id": self.uom_hour.id,
-                "uom_po_id": self.uom_hour.id,
                 "lst_price": 100.0,
                 "standard_price": 50.0,
                 "carbon_out_is_manual": True,
