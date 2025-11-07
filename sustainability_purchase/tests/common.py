@@ -144,7 +144,6 @@ class CarbonPurchaseCommon(CarbonCommon):
                 categ_id=cls.purchase_product_category_1.id,
                 name="Wooden Chair",
                 uom_id=cls.kg_uom_id.id,
-                uom_po_id=cls.kg_uom_id.id,
                 list_price=100,
                 carbon_in_factor_id=cls.purchase_carbon_factor_monetary_product_1.id,
                 carbon_in_is_manual=True,  # TODO: Should not be there... Fix in carbon_mixin.py
@@ -237,7 +236,7 @@ class CarbonPurchaseCommon(CarbonCommon):
                         dict(
                             product_id=cls.purchase_product_product_1.id,
                             product_qty=1.0,
-                            product_uom=cls.kg_uom_id.id,
+                            product_uom_id=cls.kg_uom_id.id,
                             price_unit=100.0,
                         )
                     ),
