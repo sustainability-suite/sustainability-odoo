@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class ResCompany(models.Model):
@@ -60,9 +60,23 @@ class ResCompany(models.Model):
             vals["carbon_in_factor_id"] = carbon_factor.id
             vals["carbon_out_factor_id"] = carbon_factor.id
             vals["carbon_in_is_manual"] = True
+            vals["carbon_in_mode"] = "manual"
+            vals["carbon_in_fallback_reference"] = False
+            vals["carbon_in_value_origin"] = _("Manual")
             vals["carbon_out_is_manual"] = True
+            vals["carbon_out_mode"] = "manual"
+            vals["carbon_out_fallback_reference"] = False
+            vals["carbon_out_value_origin"] = _("Manual")
 
         return super().create(vals_list)
+
+    @api.depends("carbon_in_is_manual")
+    def _compute_carbon_in_mode(self):
+        return True
+
+    @api.depends("carbon_out_is_manual")
+    def _compute_carbon_out_mode(self):
+        return True
 
     @api.depends("currency_id")
     def _compute_carbon_currencies(self):
