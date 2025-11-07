@@ -31,6 +31,7 @@ class TestCarbonPurchase(CarbonPurchaseCommon):
         """
         Check with a different partner
         """
+        self.purchase_purchase_order_1.action_recompute_carbon()
         self.purchase_purchase_order_1.partner_id = self.purchase_partner_2.id
         self.purchase_purchase_order_1.action_recompute_carbon()
         self.assertEqual(round(self.purchase_purchase_order_1.carbon_debt, 2), 1000)

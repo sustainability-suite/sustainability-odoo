@@ -56,7 +56,7 @@ class PurchaseOrderLine(models.Model):
         "partner_id",
         "product_id",
         "product_qty",
-        "product_uom",
+        "product_uom_id",
         "price_subtotal",
         "order_id.date_approve",
         "order_id.currency_id",
@@ -113,7 +113,7 @@ class PurchaseOrderLine(models.Model):
         self.ensure_one()
         return {
             "quantity": self.product_qty,
-            "from_uom_id": self.product_uom,
+            "from_uom_id": self.product_uom_id,
             "product_id": self.product_id,
         }
 
