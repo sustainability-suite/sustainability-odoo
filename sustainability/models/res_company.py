@@ -30,6 +30,7 @@ class ResCompany(models.Model):
                 factor_name = f"Global Emission Factor Fallback {currency.name}"
             else:
                 factor_name = "Global Emission Factor Fallback"
+                currency = self.env["res.currency"]
 
             carbon_factor = self.env["carbon.factor"].search(
                 [("name", "=", factor_name)], limit=1
@@ -47,7 +48,9 @@ class ResCompany(models.Model):
                                 0,
                                 {
                                     "carbon_value": 10.0,
-                                    "carbon_monetary_currency_id": currency.id,
+                                    "carbon_monetary_currency_id": currency.id
+                                    if currency
+                                    else False,
                                     "date": "2000-01-01",
                                 },
                             ),
