@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="carbon_line_origin_multi_company_rule" model="ir.rule">
+        <field name="name">Global carbon line origin multi-company</field>
+        <field name="model_id" ref="sustainability.model_carbon_line_origin" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    </record>
+</odoo>
