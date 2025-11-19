@@ -2,7 +2,7 @@
 
 {
     "name": "Sustainability Employee Commuting",
-    "version": "18.0.1.2.0",
+    "version": "19.0.1.0.0",
     "author": "MCO2, Open Net Sàrl",
     "maintainers": ["bonnetadam", "jacopobacci"],
     "development_status": "Production/Stable",
