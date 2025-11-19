@@ -171,6 +171,7 @@ class CarbonLineOrigin(models.Model):
     These are useful to create related fields!
     """
 
+    @api.depends("res_model", "res_id")
     def _compute_company_id(self):
         for origin in self:
             origin.company_id = False
