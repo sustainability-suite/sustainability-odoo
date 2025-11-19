@@ -268,7 +268,7 @@ class ResCompany(models.Model):
                 )
                 aml_vals_list.append((0, 0, aml_vals))
 
-            ref = f'Employee_Commuting_Carbon_{account_move_date.strftime("%Y%m")}'
+            ref = f"Employee_Commuting_Carbon_{account_move_date.strftime('%Y%m')}"
             journal_id = self.employee_commuting_journal_id.id
             account_move = self.create_account_move(
                 ref,
@@ -347,7 +347,7 @@ class ResCompany(models.Model):
                 )
                 aml_vals_list.append((0, 0, aml_vals))
 
-            ref = f'Employee_Remote_Work_Carbon_{account_move_date.strftime("%Y%m")}'
+            ref = f"Employee_Remote_Work_Carbon_{account_move_date.strftime('%Y%m')}"
             journal_id = self.employee_remote_work_journal_id.id
             account_move = self.create_account_move(
                 ref,
