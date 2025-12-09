@@ -20,6 +20,10 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         translate=True,
     )
+    invoice_display_co2 = fields.Boolean(
+        related="company_id.invoice_display_co2",
+        readonly=False,
+    )
     carbon_lock_date = fields.Date(
         related="company_id.carbon_lock_date", readonly=False
     )

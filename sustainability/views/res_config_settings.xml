@@ -49,6 +49,12 @@
                         </setting>
                     </block>
                     <block title="Documents">
+                        <setting
+                            string="Display CO2 in invoices"
+                            help="Display CO2 equivalent values in invoice documents"
+                        >
+                            <field name="invoice_display_co2" />
+                        </setting>
                         <setting string="Invoice document footer">
                             <field name="invoice_report_footer" />
                         </setting>
