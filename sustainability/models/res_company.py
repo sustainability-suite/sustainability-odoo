@@ -16,6 +16,11 @@ class ResCompany(models.Model):
     carbon_default_data_uncertainty_percentage = fields.Float(default=0.0)
 
     invoice_report_footer = fields.Html(translate=True)
+    invoice_display_co2 = fields.Boolean(
+        string="Display CO2 in Invoices",
+        default=True,
+        help="Display CO2 equivalent values in invoice documents",
+    )
     carbon_lock_date = fields.Date(
         string="CO2e Computation Lock Date",
         tracking=True,
