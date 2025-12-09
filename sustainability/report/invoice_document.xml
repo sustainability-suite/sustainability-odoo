@@ -6,7 +6,7 @@
             inherit_id="account.report_invoice_document"
         >
             <xpath expr="//div[@id='payment_term']" position="after">
-                <t t-if="o.carbon_balance">
+                <t t-if="o.company_id.invoice_display_co2 and o.carbon_balance">
                     <div
                         style="page-break-inside: avoid; color: #303030; vertical-align:top; padding-top: 10px; font-size:10pt;"
                     >
