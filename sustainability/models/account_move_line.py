@@ -260,6 +260,16 @@ class AccountMoveLine(models.Model):
                 self.move_id.move_type in ["in_refund"]
                 and self.product_id.can_compute_carbon_value("in")
             )
+            or (  # Journal Entry debit
+                self.move_id.move_type in ["entry"]
+                and self.debit > 0
+                and self.product_id.can_compute_carbon_value("in")
+            )
+            or (  # Journal Entry credit
+                self.move_id.move_type in ["entry"]
+                and self.credit > 0
+                and self.product_id.can_compute_carbon_value("out")
+            )
         )
 
     def get_product_id_carbon_compute_values(self) -> dict:
