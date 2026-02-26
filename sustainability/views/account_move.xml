@@ -72,7 +72,7 @@
                     <field invisible="1" name="carbon_currency_id" />
                 </xpath>
                 <xpath
-                    expr="//field[@name='journal_line_ids']//list//field[@name='credit']"
+                    expr="//field[@name='line_ids']//list//field[@name='credit']"
                     position="after"
                 >
                     <field
