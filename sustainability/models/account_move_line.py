@@ -279,16 +279,16 @@ class AccountMoveLine(models.Model):
     def action_recompute_carbon(self) -> dict:
         res = super().action_recompute_carbon()
 
-        self.action_recompute_analytic_line()
+        # self.action_recompute_analytic_line()
 
         return res
 
-    def action_recompute_analytic_line(self):
-        """
-        This method is used in the account move server action in order to recompute Co2.
-        Here we delete the analytic line and then recreate them.
-        I didn't find something that already does that.
-        This method is multi.
-        """
-        self.analytic_line_ids.unlink()
-        self._create_analytic_lines()
+    # def action_recompute_analytic_line(self):
+    #     """
+    #     This method is used in the account move server action in order to recompute Co2.
+    #     Here we delete the analytic line and then recreate them.
+    #     I didn't find something that already does that.
+    #     This method is multi.
+    #     """
+    #     self.analytic_line_ids.unlink()
+    #     self._create_analytic_lines()
