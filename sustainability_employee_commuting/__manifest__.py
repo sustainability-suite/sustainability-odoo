@@ -9,7 +9,7 @@
     "category": "Accounting/Sustainability",
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "summary": "Module for employee commuting co2",
-    "depends": ["sustainability", "hr_contract", "hr_homeworking"],
+    "depends": ["sustainability", "hr_homeworking"],
     "data": [
         # Data
         "data/ir_cron.xml",

@@ -9,8 +9,12 @@ WEEKS_PER_MONTH = 4
 # is going to be computed later
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
+
+    carbon_commuting_ids = fields.One2many(
+        "carbon.hr.commuting", "employee_id", string="Employee commuting records"
+    )
 
     work_days_home = fields.Integer(
         string="Work Days at Home",
@@ -40,14 +44,6 @@ class HrEmployeeBase(models.AbstractModel):
                     employee.has_location = True
 
             employee.work_days_home = home_days
-
-
-class HrEmployee(models.Model):
-    _inherit = "hr.employee"
-
-    carbon_commuting_ids = fields.One2many(
-        "carbon.hr.commuting", "employee_id", string="Employee commuting records"
-    )
 
     def _get_carbon_commuting_line_vals(self, date) -> dict:
         self.ensure_one()
