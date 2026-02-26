@@ -128,25 +128,24 @@ class ResCompany(models.Model):
         )
         account_moves.unlink()
 
-    def get_employees_with_contracts(self, account_move_date, employees_domain=None):
+    def get_employees_with_versions(self, account_move_date, employees_domain=None):
         """
-        Retrieves employees with active contracts in the company.
+        Retrieves employees with active versions in the company.
         """
         employees_domain = employees_domain or []
         employees = self.env["hr.employee"].search(
             [("company_id", "=", self.id), *employees_domain]
         )
-        contracts = self.env["hr.contract"].search(
+        versions = self.env["hr.version"].search(
             [
                 ("employee_id", "in", employees.ids),
-                ("state", "in", ["open", "close"]),
-                ("date_start", "<=", account_move_date),
+                ("contract_date_start", "<=", account_move_date),
                 "|",
-                ("date_end", "=", False),
-                ("date_end", ">=", account_move_date),
+                ("contract_date_end", "=", False),
+                ("contract_date_end", ">=", account_move_date),
             ]
         )
-        return contracts.mapped("employee_id")
+        return versions.mapped("employee_id")
 
     def calculate_average(self, metric_sum, count):
         """
@@ -207,8 +206,8 @@ class ResCompany(models.Model):
     def carbon_commuting_create_account_move(self, account_move_date, to_post=False):
         self.ensure_one()
         try:
-            # Fetch employees with contracts
-            employees = self.get_employees_with_contracts(account_move_date)
+            # Fetch employees with versions
+            employees = self.get_employees_with_versions(account_move_date)
             if not employees:
                 return False
 
@@ -296,7 +295,7 @@ class ResCompany(models.Model):
         self.ensure_one()
 
         try:
-            employees = self.get_employees_with_contracts(
+            employees = self.get_employees_with_versions(
                 account_move_date, [("has_location", "=", True)]
             )
             if not employees:
@@ -329,7 +328,7 @@ class ResCompany(models.Model):
                 aml_vals_list.append((0, 0, aml_vals))
 
             # Handle average
-            for employee in self.get_employees_with_contracts(
+            for employee in self.get_employees_with_versions(
                 account_move_date,
                 [
                     ("work_days_home", "=", 0),

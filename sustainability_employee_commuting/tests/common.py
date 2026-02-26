@@ -141,15 +141,17 @@ class CarbonCommon(TransactionCase):
                 },
             ]
         )
-        cls.env["hr.contract"].create(
+        cls.env["hr.version"].create(
             [
                 {
                     "name": "Test Contract",
                     "employee_id": emp.id,
-                    "date_start": datetime(datetime.today().year - 1, 1, 1).strftime(
+                    "contract_date_start": datetime(
+                        datetime.today().year - 1, 1, 1
+                    ).strftime("%Y-%m-%d"),  # First day of last year
+                    "date_version": datetime(datetime.today().year - 1, 1, 1).strftime(
                         "%Y-%m-%d"
-                    ),  # First day of last year
-                    "state": "open",
+                    ),
                     "wage": 3000,
                     "company_id": cls.env.company.id,
                 }
@@ -160,14 +162,16 @@ class CarbonCommon(TransactionCase):
                 )
             ]
         )
-        cls.env["hr.contract"].create(
+        cls.env["hr.version"].create(
             {
                 "name": "Test Contract 3 months ago",
                 "employee_id": cls.employee_new_contract.id,
-                "date_start": (datetime.today() - relativedelta(months=3)).strftime(
+                "contract_date_start": (
+                    datetime.today() - relativedelta(months=3)
+                ).strftime("%Y-%m-%d"),
+                "date_version": (datetime.today() - relativedelta(months=3)).strftime(
                     "%Y-%m-%d"
                 ),
-                "state": "open",
                 "wage": 3000,
                 "company_id": cls.env.company.id,
             }

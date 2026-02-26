@@ -10,7 +10,7 @@ WEEKS_PER_MONTH = 4
 
 
 class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+    _inherit = "hr.employee"
 
     work_days_home = fields.Integer(
         string="Work Days at Home",
