@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="uom_t_km" model="uom.uom">
+        <field name="name">t.km</field>
+        <field name="factor" eval="1" />
+        <field name="rounding">0.01</field>
+    </record>
+    <record id="uom_pax_km" model="uom.uom">
+        <field name="name">pax.km</field>
+        <field name="factor" eval="1" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_joule" model="uom.uom">
+        <field name="name">Joule</field>
+        <field name="relative_factor" eval="1" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kj" model="uom.uom">
+        <field name="name">kJ</field>
+        <field name="relative_factor" eval="1000" />
+        <field name="relative_uom_id" ref="sustainability.uom_joule" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_mj" model="uom.uom">
+        <field name="name">MJ</field>
+        <field name="relative_factor" eval="1000" />
+        <field name="relative_uom_id" ref="sustainability.uom_kj" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_gj" model="uom.uom">
+        <field name="name">GJ</field>
+        <field name="relative_factor" eval="1000" />
+        <field name="relative_uom_id" ref="sustainability.uom_mj" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kwh" model="uom.uom">
+        <field name="name">kWh</field>
+        <field name="relative_factor" eval="3.6" />
+        <field name="relative_uom_id" ref="sustainability.uom_mj" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_btu" model="uom.uom">
+        <field name="name">BTU</field>
+        <field name="relative_factor" eval="1055.06" />
+        <field name="relative_uom_id" ref="sustainability.uom_joule" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_cubic_meter_of_natural_gas" model="uom.uom">
+        <field name="name">m³ of natural gas</field>
+        <field name="relative_factor" eval="38" />
+        <field name="relative_uom_id" ref="sustainability.uom_mj" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tec" model="uom.uom">
+        <field name="name">tce</field>
+        <field name="relative_factor" eval="29.3" />
+        <field name="relative_uom_id" ref="sustainability.uom_gj" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tep" model="uom.uom">
+        <field name="name">toe</field>
+        <field name="relative_factor" eval="41.9" />
+        <field name="relative_uom_id" ref="sustainability.uom_gj" />
+        <field name="rounding">0.01</field>
+    </record>
+</odoo>

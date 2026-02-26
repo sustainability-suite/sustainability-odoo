@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="carbon_factor_type_tree" model="ir.ui.view">
+            <field name="name">carbon.factor.type.list</field>
+            <field name="model">carbon.factor.type</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="code" />
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+
+        <record id="carbon_factor_type_action" model="ir.actions.act_window">
+            <field name="name">Carbon Type</field>
+            <field name="res_model">carbon.factor.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">list</field>
+        </record>
+    </data>
+</odoo>

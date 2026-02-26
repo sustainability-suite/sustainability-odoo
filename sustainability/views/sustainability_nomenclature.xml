@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_nomenclature_list" model="ir.ui.view">
+            <field name="name">sustainability.nomenclature.list</field>
+            <field name="model">sustainability.nomenclature</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="name" />
+                    <field name="url" />
+                    <field name="is_default" />
+                </list>
+            </field>
+        </record>
+
+        <record id="view_nomenclature_category_list" model="ir.ui.view">
+            <field name="name">sustainability.nomenclature.category.list</field>
+            <field name="model">sustainability.nomenclature.category</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="reporting_section" />
+                    <field name="nomenclature_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="view_nomenclature_sub_category_list" model="ir.ui.view">
+            <field name="name">sustainability.nomenclature.sub_category.list</field>
+            <field name="model">sustainability.nomenclature.sub_category</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="reporting_section" />
+                    <field name="category_id" />
+                    <field name="emission_sources" />
+                    <field name="activity_data" />
+                    <field name="other_information" />
+                    <field name="examples" />
+                </list>
+            </field>
+        </record>
+
+        <record id="view_nomenclature_sub_category_form" model="ir.ui.view">
+            <field name="name">sustainability.nomenclature.sub_category.form</field>
+            <field name="model">sustainability.nomenclature.sub_category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field
+                                    name="name"
+                                    placeholder="e.g. Direct emissions from fixed combustion sources"
+                                />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description" />
+                            <field name="reporting_section" />
+                            <field name="category_id" />
+                            <field name="emission_sources" />
+                            <field name="activity_data" />
+                            <field name="other_information" />
+                            <field name="examples" />
+                        </group>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nomenclature_reporting_list" model="ir.ui.view">
+            <field name="name">sustainability.nomenclature.reporting.list</field>
+            <field name="model">sustainability.nomenclature.reporting</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="nomenclature_sub_category_id" />
+                    <field name="emission_factor_type_id" />
+                    <field name="approach_characterization_id" />
+                    <field name="emission_factor_category_id" />
+                    <field name="rule_order" />
+                </list>
+            </field>
+        </record>
+
+        <record id="nomenclature_window_action" model="ir.actions.act_window">
+            <field name="name">Nomenclatures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sustainability.nomenclature</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <record id="nomenclature_category_window_action" model="ir.actions.act_window">
+            <field name="name">Nomenclature Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sustainability.nomenclature.category</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <record
+            id="nomenclature_sub_category_window_action"
+            model="ir.actions.act_window"
+        >
+            <field name="name">Nomenclature Sub Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sustainability.nomenclature.sub_category</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="nomenclature_reporting_window_action" model="ir.actions.act_window">
+            <field name="name">Nomenclature Reporting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sustainability.nomenclature.reporting</field>
+            <field name="view_mode">list</field>
+        </record>
+    </data>
+</odoo>

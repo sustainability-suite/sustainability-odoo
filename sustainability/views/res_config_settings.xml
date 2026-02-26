@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.co2</field>
+        <field name="model">res.config.settings</field>
+        <field eval="40" name="priority" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="available_module_names" invisible="1" />
+                <field name="extra_module_names" invisible="1" />
+                <app string="Sustainability" name="sustainability">
+                    <block title="Accounting">
+                        <setting
+                            string="Default CO2e inbound factor"
+                            help="Used as a fallback value"
+                        >
+                            <field
+                                name="carbon_in_factor_id"
+                                string="Emission Factor"
+                                options="{'no_create': True}"
+                            />
+                        </setting>
+                        <setting
+                            string="Default CO2e outbound factor"
+                            help="Used as a fallback value for sales"
+                        >
+                            <field
+                                name="carbon_out_factor_id"
+                                string="Emission Factor"
+                                options="{'no_create': True}"
+                            />
+                        </setting>
+                        <setting
+                            string="Lock date"
+                            help="Prevent CO2e computation for journal entries"
+                        >
+                            <field
+                                name="carbon_lock_date"
+                                options="{'warn_future': true}"
+                                placeholder="Pick a date to lock"
+                            />
+                        </setting>
+                        <setting string="Default data uncertainty value">
+                            <field
+                                name="carbon_default_data_uncertainty_percentage"
+                                widget="percentage"
+                            />
+                        </setting>
+                    </block>
+                    <block title="Documents">
+                        <setting
+                            string="Display CO2 in invoices"
+                            help="Display CO2 equivalent values in invoice documents"
+                        >
+                            <field name="invoice_display_co2" />
+                        </setting>
+                        <setting string="Invoice document footer">
+                            <field name="invoice_report_footer" />
+                        </setting>
+                    </block>
+                    <block title="Extra features">
+                        <setting
+                            string="Show CO2e in Purchase"
+                            invisible="(not ('purchase' in available_module_names))"
+                            help="Compute and display CO2e values directly in purchase orders"
+                        >
+                            <field name="module_sustainability_purchase" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in Inventory"
+                            invisible="(not ('stock' in available_module_names))"
+                            help="Compute and display CO2e in inventory"
+                        >
+                            <field name="module_sustainability_stock" />
+                        </setting>
+                        <setting
+                            string="Show delivery address in purchases"
+                            invisible="(not ('purchase_stock' in available_module_names))"
+                            help="Extend Sustainability Purchase module to manage delivery address"
+                        >
+                            <field name="module_sustainability_purchase_stock" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in Sales"
+                            invisible="(not ('sale' in available_module_names))"
+                            help="Compute and display CO2e values directly in sales orders"
+                        >
+                            <field name="module_sustainability_sale" />
+                        </setting>
+                        <setting
+                            string="Show assets CO2e"
+                            invisible="(not ('account_asset' in available_module_names))"
+                            help="Compute and display CO2e for your assets"
+                        >
+                            <field name="module_sustainability_account_asset" />
+                        </setting>
+                        <setting
+                            string="Use in MIS reports (OCA)"
+                            invisible="(not ('mis_builder' in available_module_names))"
+                            help="Allow users to display CO2e in MIS reports"
+                        >
+                            <field name="module_sustainability_mis_builder" />
+                        </setting>
+                        <setting
+                            string="Show assets CO2e (OCA)"
+                            invisible="(not ('account_asset_management' in available_module_names))"
+                            help="Compute and display CO2e for your assets (OCA)"
+                        >
+                            <field
+                                name="module_sustainability_account_asset_management"
+                            />
+                        </setting>
+                        <setting
+                            string="Manage CO2e for your employee commuting"
+                            invisible="(not ('hr' in available_module_names))"
+                            help="Compute CO2e of your employee depending on their commuting transport habit"
+                        >
+                            <field name="module_sustainability_employee_commuting" />
+                        </setting>
+                        <setting
+                            string="Display CO2e in expense reports"
+                            invisible="(not ('hr_expense' in available_module_names))"
+                            help="Compute and display CO2e for your expense reports"
+                        >
+                            <field name="module_sustainability_hr_expense_report" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in eCommerce"
+                            invisible="(not ('website_sale' in available_module_names))"
+                            help="Display CO2e values in eCommerce products"
+                        >
+                            <field name="module_sustainability_website_sale" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in Point of Sale"
+                            invisible="(not ('point_of_sale' in available_module_names))"
+                            help="Display CO2e values in Point of Sale receipts"
+                        >
+                            <field name="module_sustainability_point_of_sale" />
+                        </setting>
+                        <setting
+                            string="Show CO2e in products printed labels"
+                            help="Display CO2e values in products printed labels"
+                        >
+                            <field name="module_sustainability_product_label_print" />
+                        </setting>
+                    </block>
+                    <div
+                        class="col-6 p-4 center-content center co2_extra_modules"
+                        invisible="extra_module_names == False"
+                        style="margin-left: 3rem"
+                    >
+                        <h4>Use Sutainability module with more applications !</h4>
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <th>Module</th>
+                                <th>Author</th>
+                                <th />
+                            </thead>
+                            <tbody>
+                                <tr
+                                    invisible="'account_asset' in available_module_names"
+                                >
+                                    <td> Assets Management <i
+                                        class="fa fa-building-o small ml-2"
+                                        title="Enterprise"
+                                    />
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://odoo.com/"
+                                            target="_blank"
+                                        >Odoo S.A</a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.odoo.com/fr_FR/pricing-plan"
+                                            target="_blank"
+                                        >
+                                            <i class="oi oi-odoo" title="Odoo" />
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr invisible="'mis_builder' in available_module_names">
+                                    <td>MIS Builder</td>
+                                    <td>
+                                        <a
+                                            href="https://odoo-community.org/"
+                                            target="_blank"
+                                        >Odoo Community Association</a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://apps.odoo.com/apps/modules/16.0/mis_builder"
+                                            target="_blank"
+                                        >
+                                            <i class="oi oi-odoo" title="Odoo" />
+                                        </a>
+                                        <a
+                                            href="https://github.com/OCA/mis-builder"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-github" title="Github" />
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr
+                                    invisible="'account_asset_management' in available_module_names"
+                                >
+                                    <td>Assets Management</td>
+                                    <td>
+                                        <a
+                                            href="https://odoo-community.org/"
+                                            target="_blank"
+                                        >Odoo Community Association</a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://odoo-community.org/shop/assets-management-82"
+                                            target="_blank"
+                                        >
+                                            <i class="oi oi-odoo" title="Odoo" />
+                                        </a>
+                                        <a
+                                            href="https://github.com/OCA/account-financial-tools"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-github" title="Github" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

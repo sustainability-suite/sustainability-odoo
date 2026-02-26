@@ -1,0 +1,22 @@
+from odoo import api, fields, models
+
+
+class AccountAccount(models.Model):
+    _name = "account.account"
+    _inherit = ["account.account", "carbon.mixin"]
+    _carbon_types = ["in"]
+    _carbon_enable_distribution = True
+
+    @api.model
+    def _get_available_carbon_compute_methods(self) -> list[tuple[str, str]]:
+        return [
+            ("monetary", "Monetary"),
+        ]
+
+    carbon_in_factor_id = fields.Many2one(tracking=True)
+
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin",
+        inverse_name="move_line_account_id",
+        string="Origins",
+    )

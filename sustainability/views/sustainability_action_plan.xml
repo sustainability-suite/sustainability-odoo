@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="sustainability_action_plan_tree" model="ir.ui.view">
+            <field name="name">sustainability.action.plan.list</field>
+            <field name="model">sustainability.action.plan</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="scenario_id" />
+                </list>
+            </field>
+        </record>
+        <record id="sustainability_action_plan_filter" model="ir.ui.view">
+            <field name="name">sustainability.action.plan.select</field>
+            <field name="model">sustainability.action.plan</field>
+            <field name="arch" type="xml">
+                <search string="Search Action Plans">
+                    <separator />
+                    <filter
+                        domain="[('active', '=', False)]"
+                        name="archived"
+                        string="Archived"
+                    />
+                </search>
+            </field>
+        </record>
+        <record id="sustainability_action_plan_form" model="ir.ui.view">
+            <field name="name">sustainability.action.plan.form</field>
+            <field name="model">sustainability.action.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="active" />
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-leaf"
+                                name="action_see_actions"
+                                type="object"
+                                invisible="action_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="action_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Actions</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget
+                            bg_color="bg-danger"
+                            invisible="active"
+                            name="web_ribbon"
+                            title="Archived"
+                        />
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description" />
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="scenario_id" />
+                        </group>
+                        <notebook>
+                            <page name="page_actions" string="Actions">
+                                <field colspan="2" name="action_ids" nolabel="1">
+                                    <list editable="bottom" />
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+        <record
+            id="sustainability_action_plan_window_action"
+            model="ir.actions.act_window"
+        >
+            <field name="name">Action Plans</field>
+            <field name="res_model">sustainability.action.plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No action plans yet !</p>
+            </field>
+        </record>
+    </data>
+</odoo>

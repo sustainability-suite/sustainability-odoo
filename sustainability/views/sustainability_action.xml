@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="sustainability_action_tree" model="ir.ui.view">
+            <field name="name">sustainability.action.list</field>
+            <field name="model">sustainability.action</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="complexity" />
+                    <field name="budget" />
+                    <field name="reduction_potential" />
+                    <field
+                        name="image"
+                        options="{'size': [128, 128]}"
+                        string="Image"
+                        widget="image"
+                    />
+                </list>
+            </field>
+        </record>
+        <record id="sustainability_action_filter" model="ir.ui.view">
+            <field name="name">sustainability.action.select</field>
+            <field name="model">sustainability.action</field>
+            <field name="arch" type="xml">
+                <search string="Search Actions">
+                    <separator />
+                    <filter
+                        domain="[('active', '=', False)]"
+                        name="archived"
+                        string="Archived"
+                    />
+                </search>
+            </field>
+        </record>
+        <record id="sustainability_action_form" model="ir.ui.view">
+            <field name="name">sustainability.action.form</field>
+            <field name="model">sustainability.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="active" />
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-pie-chart"
+                                name="action_see_scenarios"
+                                type="object"
+                                invisible="scenario_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="scenario_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Scenarios</span>
+                                </div>
+                            </button>
+                            <button
+                                class="oe_stat_button"
+                                icon="fa-tasks"
+                                name="action_see_action_plans"
+                                type="object"
+                                invisible="action_plan_qty &lt; 1"
+                            >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field
+                                            name="action_plan_qty"
+                                            nolabel="1"
+                                            widget="statinfo"
+                                        />
+                                    </span>
+                                    <span class="o_stat_text">Action Plans</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget
+                            bg_color="bg-danger"
+                            invisible="active == True"
+                            name="web_ribbon"
+                            title="Archived"
+                        />
+                        <div class="oe_title">
+                            <label for="name" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description" />
+                            <field name="complexity" widget="selection_badge" />
+                            <field name="budget" widget="selection_badge" />
+                            <field
+                                name="reduction_potential"
+                                widget="selection_badge"
+                            />
+                            <field name="action_plan_ids" widget="many2many_tags" />
+                        </group>
+                        <field
+                            name="image"
+                            options="{'size': [256, 256]}"
+                            widget="image"
+                        />
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+        <record id="sustainability_action_window_action" model="ir.actions.act_window">
+            <field name="name">Actions</field>
+            <field name="res_model">sustainability.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">No actions yet !</p>
+            </field>
+        </record>
+    </data>
+</odoo>
