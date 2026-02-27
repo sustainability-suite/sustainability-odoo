@@ -1,0 +1,164 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sustainability_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,help:sustainability_purchase.field_purchase_order_line__carbon_debt
+msgid ""
+"A positive value means that your system's debt grows, a negative value means"
+" it shrinks"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_debt
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_debt
+msgid "CO2"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+msgid "CO2 Settings"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_uncertainty_value
+msgid "CO2 Uncertainty"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_data_uncertainty_percentage
+msgid "CO2 Uncertainty %"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_currency_id
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_currency_id
+msgid "Carbon Currency"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_is_locked
+msgid "Carbon Is Locked"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_carbon_line_origin
+msgid "Carbon Line Origin"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_line_origin_qty
+msgid "Carbon Line Origin Qty"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_origin_child_ids
+msgid "Carbon Origin Child"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order__carbon_origin_child_qty
+msgid "Carbon Origin Child Qty"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_json
+msgid "Carbon Origin Json"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_origin_ids
+msgid "Carbon value origin details"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.sustainability_product_supplierinfo_tree_view
+msgid "Emission Factor"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.actions.server,name:sustainability_purchase.cron_initial_carbon_compute_res_partner_ir_actions_server
+msgid "Initial carbon compute for res.partner"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "Lock co2"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+msgid "Mode"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_carbon_line_origin__purchase_line_id
+msgid "Purchase Line"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model,name:sustainability_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+msgid "Purchases"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.actions.server,name:sustainability_purchase.action_recompute_carbon_purchase_order
+msgid "Re-compute CO2"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "See CO2 value origin"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+msgid "Set"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model:ir.model.fields,field_description:sustainability_purchase.field_purchase_order_line__carbon_supplier_id
+msgid "Supplier Info"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.product_supplierinfo_form_view
+msgid "Undefined"
+msgstr ""
+
+#. module: sustainability_purchase
+#: model_terms:ir.ui.view,arch_db:sustainability_purchase.purchase_order_form
+msgid "Unlock co2"
+msgstr ""
