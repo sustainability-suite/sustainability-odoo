@@ -243,6 +243,11 @@ class AccountMoveLine(models.Model):
     # --- PRODUCT ---
     def can_use_product_id_carbon_value(self) -> bool:
         self.ensure_one()
+        if (
+            self.move_id.journal_id.type == "general"
+            and self.account_id.account_type == "liability_current"
+        ):
+            return False
         return bool(self.product_id) and (
             (  # Customer Invoice
                 self.move_id.move_type in ["in_invoice", "in_receipt"]
