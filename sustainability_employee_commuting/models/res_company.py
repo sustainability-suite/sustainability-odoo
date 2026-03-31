@@ -188,19 +188,25 @@ class ResCompany(models.Model):
         if mode not in valid_modes:
             raise ValueError(f"Invalid mode: {mode}. Expected one of {valid_modes}.")
 
-        account_move = self.env["account.move"].create(
-            {
-                "ref": ref,
-                "journal_id": journal_id,
-                "invoice_date": account_move_date.strftime("%Y-%m-%d"),
-                "date": account_move_date.strftime("%Y-%m-%d"),
-                "partner_id": self.partner_id.id,
-                "company_id": self.id,
-                "line_ids": aml_vals_list,
-                "move_type": "in_invoice",
-                f"is_employee_{mode}_carbon": True,
-                f"employee_{mode}_carbon_date": account_move_date.strftime("%Y-%m-%d"),
-            }
+        account_move = (
+            self.env["account.move"]
+            .with_context(commuting_auto_compute=True)
+            .create(
+                {
+                    "ref": ref,
+                    "journal_id": journal_id,
+                    "invoice_date": account_move_date.strftime("%Y-%m-%d"),
+                    "date": account_move_date.strftime("%Y-%m-%d"),
+                    "partner_id": self.partner_id.id,
+                    "company_id": self.id,
+                    "line_ids": aml_vals_list,
+                    "move_type": "in_invoice",
+                    f"is_employee_{mode}_carbon": True,
+                    f"employee_{mode}_carbon_date": account_move_date.strftime(
+                        "%Y-%m-%d"
+                    ),
+                }
+            )
         )
         return account_move
 

@@ -255,6 +255,12 @@ class CarbonLineMixin(models.AbstractModel):
 
     def _inverse_carbon_debt(self):
         for record in self:
+            if not record.carbon_debt:
+                continue
+
+            if self.env.context.get("commuting_auto_compute", False):
+                continue
+
             computed_value = record._compute_single_carbon_debt()
 
             epsilon = 0.0001
