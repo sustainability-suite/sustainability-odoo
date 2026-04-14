@@ -100,6 +100,21 @@
                         sum="Total CO2 Balance"
                     />
                     <button
+                        class="opacity-25"
+                        icon="fa-unlock"
+                        invisible="carbon_is_locked"
+                        name="action_switch_locked"
+                        title="Lock co2"
+                        type="object"
+                    />
+                    <button
+                        icon="fa-lock"
+                        invisible="not carbon_is_locked"
+                        name="action_switch_locked"
+                        title="Unlock co2"
+                        type="object"
+                    />
+                    <button
                         icon="fa-question-circle"
                         name="action_see_carbon_origin"
                         title="See CO2 value origin"
