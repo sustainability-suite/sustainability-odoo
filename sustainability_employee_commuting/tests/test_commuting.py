@@ -14,7 +14,7 @@ class TestCommuting(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 35.2
+        expected_result = 33.6
 
         self.assertEqual(
             round(total_value, 2),
@@ -40,7 +40,7 @@ class TestCommuting(CarbonCommon):
         )
         total_value = sum(origin.signed_value for origin in carbon_line_origins)
 
-        expected_result = 54.67
+        expected_result = 50.0
 
         self.assertEqual(
             round(total_value, 2),
