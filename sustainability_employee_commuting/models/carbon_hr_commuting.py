@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 from .hr_employee import WEEKS_PER_MONTH
 
@@ -6,6 +7,7 @@ from .hr_employee import WEEKS_PER_MONTH
 class CarbonCommuting(models.Model):
     _name = "carbon.hr.commuting"
     _description = "Carbon Employee Commuting"
+    _order = "end_date desc"
 
     carbon_factor_id = fields.Many2one(
         "carbon.factor",
@@ -22,6 +24,14 @@ class CarbonCommuting(models.Model):
     )
     distance_km = fields.Integer(string="Average weekly distance in kilometers")
     employee_id = fields.Many2one("hr.employee", string="Employee")
+
+    start_date = fields.Date(string="From", required=True, default=fields.Date.today)
+    end_date = fields.Date(string="To")
+
+    @api.constrains('start_date', 'end_date')
+    def _check_dates(self):
+        if self.filtered(lambda r: r.end_date and r.end_date < r.start_date):
+           raise ValidationError("End date must be later than or equal to start date.")
 
     def get_commuting_carbon_value_at_date(self, date):
         self.ensure_one()

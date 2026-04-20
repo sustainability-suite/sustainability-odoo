@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 
@@ -85,7 +86,14 @@ class HrEmployee(models.Model):
         total_uncertainty_value = 0
         # Calculate carbon emissions based on employee's commuting records
         for commuting in self.carbon_commuting_ids:
-            # I removed the if statement, you can add it back if it's necessary
+            # If commuting starts/ends in the month, it is still considered as a full month
+            if (commuting.start_date > date.date() or
+                (commuting.end_date and commuting.end_date < (date - relativedelta(months=1)).date()) ):
+                _logger.info(
+                    f"Commuting record {commuting.carbon_factor_id.name} for {self.name} is not valid for {date.date()}: Skipped"
+                )
+                continue
+
             (
                 commuting_value,
                 uncertainty_value,
