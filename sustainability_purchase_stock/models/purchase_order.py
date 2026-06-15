@@ -24,9 +24,10 @@ class PurchaseOrder(models.Model):
     @api.onchange("partner_id")
     def _onchange_partner_id_set_sustainability_shipping(self):
         for order in self:
-            if order.partner_id:
-                addresses = order.partner_id.address_get(["delivery"])
-                delivery_id = addresses.get("delivery")
-                order.sustainability_partner_shipping_id = (
-                    delivery_id or order.partner_id.id
-                )
+            if not order.partner_id:
+                continue
+            addresses = order.partner_id.address_get(["delivery"])
+            delivery_partner_id = addresses.get("delivery")
+            order.sustainability_partner_shipping_id = (
+                delivery_partner_id or order.partner_id.id
+            )
