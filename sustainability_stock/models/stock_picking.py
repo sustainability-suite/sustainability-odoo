@@ -236,6 +236,10 @@ class StockPicking(models.Model):
             ):
                 return missing_fields_notification
 
+            # FIXME: _get_carbon_emissions does api calls.
+            # It should not be called in a compute method.
+            # -> Use a button/action, cron job or server action.
+            #   Or rely on OCA's queue_job module
             emissions, error = self._get_carbon_emissions(company, picking)
             if error:
                 return error
