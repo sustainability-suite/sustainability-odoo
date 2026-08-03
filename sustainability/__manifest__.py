@@ -73,7 +73,6 @@
         "python": [
             "openupgradelib",
             "packaging",
-            "odoo_upgrade",
         ],
     },
 }
