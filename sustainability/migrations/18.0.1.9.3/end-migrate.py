@@ -1,9 +1,10 @@
-from odoo import Command
-from odoo.upgrade import util
+from openupgradelib import openupgrade
+
+from odoo import SUPERUSER_ID, Command, api
 
 
 def migrate(cr, version):
-    env = util.env(cr)
+    env = api.Environment(cr, SUPERUSER_ID, {})
 
     energy_categ = env.ref("sustainability.uom_categ_energy", raise_if_not_found=False)
     new_reference_uom = env.ref("sustainability.uom_mj", raise_if_not_found=False)
@@ -26,12 +27,11 @@ def migrate(cr, version):
         }
     )
 
-    uom_ids = energy_categ.uom_ids
-
-    external_ids = uom_ids.get_external_id()
-
-    for uom in uom_ids:
-        external_id = external_ids[uom.id]
-        if not external_id:
-            continue
-        util.update_record_from_xml(cr, xmlid=external_id)
+    # Re-apply the XML definitions so every energy unit is expressed against the
+    # new reference. "init_no_create" only touches records already in database.
+    openupgrade.load_data(
+        env,
+        "sustainability",
+        "migrations/18.0.1.9.3/energy_uom.xml",
+        mode="init_no_create",
+    )

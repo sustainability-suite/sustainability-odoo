@@ -12,6 +12,7 @@
     "website": "https://github.com/sustainability-suite/sustainability-odoo",
     "depends": ["hr_expense", "sustainability"],
     "data": ["views/hr_expense.xml", "views/hr_expense_sheet.xml"],
+    "pre_init_hook": "pre_init_hook",
     "installable": True,
     "application": False,
     "auto_install": False,

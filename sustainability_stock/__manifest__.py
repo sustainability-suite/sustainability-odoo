@@ -15,6 +15,7 @@
         "views/sustainability_stock_freight_computation.xml",
         "data/menu_items.xml",
     ],
+    "pre_init_hook": "add_carbon_mode_columns",
     "installable": True,
     "application": False,
     "auto_install": False,

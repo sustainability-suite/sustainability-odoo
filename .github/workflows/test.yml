@@ -8,15 +8,15 @@ on:
 jobs:
   unreleased-deps:
     runs-on: ubuntu-latest
-    name: Detect unreleased dependencies (except for odoo_upgrade)
+    name: Detect unreleased dependencies
     steps:
       - uses: actions/checkout@v4
       - run: |
           for reqfile in requirements.txt test-requirements.txt ; do
               if [ -f ${reqfile} ] ; then
                   result=0
-                  # reject non-comment lines that contain a / (i.e. URLs, relative paths), except for odoo_upgrade
-                  grep "^[^#].*/" ${reqfile} | grep -v "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master" || result=$?
+                  # reject non-comment lines that contain a / (i.e. URLs, relative paths)
+                  grep "^[^#].*/" ${reqfile} || result=$?
                   if [ $result -eq 0 ] ; then
                       echo "Unreleased dependencies found in ${reqfile}."
                       exit 1

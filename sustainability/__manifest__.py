@@ -68,12 +68,11 @@
     "auto_install": False,
     "license": "LGPL-3",
     "sequence": 1,
-    "pre_init_hook": "_pre_init_carbon",
+    "pre_init_hook": "pre_init_hook",
     "external_dependencies": {
         "python": [
             "openupgradelib",
             "packaging",
-            "odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master",
         ],
     },
 }

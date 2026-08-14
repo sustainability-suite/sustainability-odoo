@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copy of the "Energy" records of sustainability/data/uom.xml.
+     Reloaded by end-migrate.py once uom_mj became the reference unit, so the
+     factors below are applied against the new reference. -->
+<odoo noupdate="1">
+    <record id="uom_mj" model="uom.uom">
+        <field name="name">MJ</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">reference</field>
+        <field name="factor" eval="1" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_joule" model="uom.uom">
+        <field name="name">Joule</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="1000000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kj" model="uom.uom">
+        <field name="name">kJ</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="1000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_btu" model="uom.uom">
+        <field name="name">BTU</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">smaller</field>
+        <field name="factor" eval="947.817" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_kwh" model="uom.uom">
+        <field name="name">kWh</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv" eval="3.6" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_cubic_meter_of_natural_gas" model="uom.uom">
+        <field name="name">m³ of natural gas</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv" eval="34883.33333" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_gj" model="uom.uom">
+        <field name="name">GJ</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv" eval="1000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tec" model="uom.uom">
+        <field name="name">tec</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv" eval="29288000" />
+        <field name="rounding">0.01</field>
+    </record>
+
+    <record id="uom_tep" model="uom.uom">
+        <field name="name">tep</field>
+        <field name="category_id" ref="sustainability.uom_categ_energy" />
+        <field name="uom_type">bigger</field>
+        <field name="factor_inv" eval="41860000" />
+        <field name="rounding">0.01</field>
+    </record>
+</odoo>

@@ -1,4 +1,3 @@
 # generated from manifests external_dependencies
-odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master
 openupgradelib
 packaging
