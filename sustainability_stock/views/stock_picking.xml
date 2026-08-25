@@ -10,23 +10,6 @@
                     <field name="carbon_debt" readonly="1" digits="[13,2]" />
                     <field name="carbon_currency_id" invisible="1" />
                 </xpath>
-                <xpath expr="//sheet//div[hasclass('oe_button_box')]" position="inside">
-                    <button
-                        class="oe_stat_button"
-                        icon="fa-leaf"
-                        name="action_see_carbon_origins"
-                        type="object"
-                        invisible="carbon_line_origin_qty &lt; 1"
-                    >
-                        <div class="o_field_widget o_stat_info">
-                            <span class="o_stat_text">
-                                <field
-                                name="carbon_line_origin_qty"
-                                nolabel="1"
-                            /> Carbon Footprint </span>
-                        </div>
-                    </button>
-                </xpath>
             </field>
         </record>
         <record id="vpicktree_inherit" model="ir.ui.view">
