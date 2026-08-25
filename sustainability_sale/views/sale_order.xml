@@ -12,7 +12,6 @@
                 >
                     <field
                         name="carbon_debt"
-                        digits="[13,2]"
                         optional="hide"
                         readonly="carbon_is_locked"
                     />
@@ -24,7 +23,6 @@
                     />
                     <field
                         name="carbon_uncertainty_value"
-                        digits="[13,2]"
                         optional="hide"
                         readonly="carbon_is_locked"
                     />
@@ -37,6 +35,7 @@
                         name="action_switch_locked"
                         title="Lock co2"
                         type="object"
+                        width="5%"
                     />
                     <button
                         icon="fa-lock"
@@ -44,6 +43,7 @@
                         name="action_switch_locked"
                         title="Unlock co2"
                         type="object"
+                        width="5%"
                     />
                     <field
                         name="carbon_origin_json"
@@ -55,19 +55,20 @@
                         name="action_see_carbon_origin"
                         icon="fa-question-circle"
                         title="See carbon origin"
+                        width="5%"
                     />
                 </xpath>
                 <xpath expr="//group[@name='sale_total']" position="inside">
                     <div class="d-flex align-items-baseline justify-content-end">
                         <span class="form-label me-2 text-nowrap">CO2 Equivalent:</span>
-                        <field name="carbon_debt" digits="[13,2]" />
+                        <field name="carbon_debt" />
                         <field name="carbon_currency_id" invisible="1" />
                     </div>
                     <div class="d-flex align-items-baseline justify-content-end">
                         <span
                             class="form-label me-2 text-nowrap"
                         >CO2 Uncertainty:</span>
-                        <field name="carbon_uncertainty_value" digits="[13,2]" />
+                        <field name="carbon_uncertainty_value" />
                         <field name="carbon_currency_id" invisible="1" />
                     </div>
                 </xpath>

@@ -44,7 +44,6 @@
                         name="signed_uncertainty_value"
                         string="Uncertainty (kgCO2e)"
                         sum="Uncertainty (kgCO2e)"
-                        digits="[13,2]"
                     />
                     <field
                         name="factor_id"
