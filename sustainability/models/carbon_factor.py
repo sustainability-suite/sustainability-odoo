@@ -232,7 +232,9 @@ class CarbonFactor(models.Model):
     def _compute_product_supplierinfo_ids(self):
         for factor in self:
             suppliers_ids = self._get_distribution_lines_res_ids("product.supplierinfo")
-            supplierinfo_ids = self.env["product.supplierinfo"].browse(suppliers_ids)
+            supplierinfo_ids = (
+                self.env["product.supplierinfo"].browse(suppliers_ids).exists()
+            )
             factor.product_supplierinfo_ids = self.env["product.product"].search(
                 [
                     (
