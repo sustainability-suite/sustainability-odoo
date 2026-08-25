@@ -24,6 +24,11 @@ class StockPicking(models.Model):
         string="Carbon Currency",
         default=lambda self: self.env.ref("sustainability.carbon_kilo").id,
     )
+    carbon_line_origin_ids = fields.One2many(
+        comodel_name="carbon.line.origin",
+        inverse_name="move_carbon_freight_picking_id",
+        string="Origins",
+    )
     carbon_line_origin_qty = fields.Integer(compute="_compute_carbon_line_origin_qty")
 
     def _carbon_display_notification(self, message, sticky=False) -> dict:
@@ -69,15 +74,6 @@ class StockPicking(models.Model):
                 )
             )
         return None
-
-    def _compute_carbon_line_origin_qty(self):
-        for picking in self:
-            origins = self.env["carbon.line.origin"].search(
-                [
-                    ("move_carbon_freight_picking_id", "=", picking.id),
-                ],
-            )
-            picking.carbon_line_origin_qty = len(origins)
 
     def _get_address_inline(self, address):
         splitted_address = address.split("\n")
@@ -351,10 +347,3 @@ class StockPicking(models.Model):
         for picking in self:
             picking._compute_carbon_debt()
         return {}
-
-    def action_see_carbon_origins(self) -> dict:
-        self.ensure_one()
-        return self._generate_action(
-            model="carbon.line.origin",
-            domain=[("move_carbon_freight_picking_id", "=", self.id)],
-        )
