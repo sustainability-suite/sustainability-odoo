@@ -1,4 +1,5 @@
 import logging
+from collections import defaultdict
 
 from odoo import api, fields, models
 
@@ -229,6 +230,15 @@ class CarbonLineOrigin(models.Model):
                 )
             else:
                 origin.quantity = move_line.quantity
+
+    def action_recompute_carbon(self):
+        model_to_ids = defaultdict(list)
+        for origin in self:
+            model_to_ids[origin.res_model].append(origin.res_id)
+
+        for model, ids in model_to_ids.items():
+            records = self.env[model].browse(ids)
+            records.action_recompute_carbon()
 
     def get_record(self):
         """Return the record that generated this origin"""
